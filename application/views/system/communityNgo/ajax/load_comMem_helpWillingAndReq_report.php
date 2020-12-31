@@ -1,5 +1,5 @@
 <?php
-if (!empty($willingToHelp)) { ?>
+if (!empty($bothHelpMem)) { ?>
     <div class="row" style="margin-top: 5px">
         <div class="col-md-12">
             <?php
@@ -13,69 +13,54 @@ if (!empty($willingToHelp)) { ?>
             <div class="reportHeaderColor" style="text-align: center">
                 <strong><?php echo current_companyName(); ?></strong></div>
             <div class="reportHeader reportHeaderColor" style="text-align: center">
-                <strong>Community Member Willing To Help Report</strong></div>
+                <strong>Community Member Requirements & Willing To Help Report</strong></div>
             <div style="">
-                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" style="width: 100%">
+                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" border="1" style="width: 100%;border-collapse: collapse;border: 1px solid white;">
                     <thead class="report-header">
-                    <tr>
-                        <th>#</th>
-                        <th>MEMBER</th>
-                        <th>NIC NO</th>
-                        <th>GENDER</th>
-                        <th>MOBILE</th>
-                        <th>WILLING TO HELP</th>
-                        <th>HELP IN DETAIL</th>
-                    </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>CODE</th>
+                            <th>NAME</th>
+                            <th>NIC NO</th>
+                            <th>GENDER</th>
+                            <th>MOBILE</th>
+                            <th>ADDRESS</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    if ($willingToHelp) {
-                        $r = 1;
-                        $totalQual = 1;
-                        foreach ($willingToHelp as $val) {
+                        <?php
+                        if ($bothHelpMem) {
+                            $r = 1;
+                            $totalQual = 1;
+                            foreach ($bothHelpMem as $val) {
 
-                            if (isset($val["helpCategoryDes"]) && !empty($val["helpCategoryDes"])) {
-                                $helpCategoryDes =$val["helpCategoryDes"];
-                            }
-                            else{
-                                $helpCategoryDes ='';
-                            }
+                        ?>
+                                <tr>
 
-                            if (isset($val["helpComments"]) && !empty($val["helpComments"])) {
-                                $helpComments =$val["helpComments"];
-                            }
-                            else{
-                                $helpComments ='';
+                                    <td><?php echo $r ?></td>
+                                    <td><?php echo $val["MemberCode"] ?></td>
+                                    <td width="180px"><?php echo $val["CName_with_initials"] ?></td>
+                                    <td><?php echo $val["CNIC_No"] ?></td>
+                                    <td><?php echo $val["Gender"] ?></td>
+                                    <td><?php echo $val["PrimaryNumber"] ?></td>
+                                    <td><?php echo $val["C_Address"] ?></td>
+                                </tr>
+                            <?php
+                                $r++;
+                                $totQual = $totalQual++;
                             }
 
                             ?>
-                            <tr>
 
-                                <td><?php echo $r ?></td>
-                                <td width="180px"><?php echo $val["CName_with_initials"] ?></td>
-                                <td><?php echo $val["CNIC_No"] ?></td>
-                                <td><?php echo $val["name"] ?></td>
-                                <td><?php echo $val["PrimaryNumber"] ?></td>
-                                <td><?php echo $helpCategoryDes ?></td>
-                                <td><?php echo $helpComments ?></td>
-
-                            </tr>
-                            <?php
-                            $r++;
-                            $totQual = $totalQual++;
-                        }
-
+                        <?php }
                         ?>
-
-                    <?php }
-                    ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 <?php } else {
-    ?>
+?>
     <br>
     <div class="row">
         <div class="col-md-12 xxcol-md-offset-2">
@@ -83,18 +68,17 @@ if (!empty($willingToHelp)) { ?>
         </div>
     </div>
 
-    <?php
+<?php
 } ?>
-    <script>
-        $('#tbl_rpt_salesorder').tableHeadFixer({
-            head: true,
-            foot: true,
-            left: 0,
-            right: 0,
-            'z-index': 10
-        });
-
-    </script>
+<script>
+    $('#tbl_rpt_salesorder').tableHeadFixer({
+        head: true,
+        foot: true,
+        left: 0,
+        right: 0,
+        'z-index': 10
+    });
+</script>
 
 <?php
 /**
