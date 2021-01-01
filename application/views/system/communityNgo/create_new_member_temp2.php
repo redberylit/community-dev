@@ -37,7 +37,6 @@ $countryid = $Countrys['countryCode'];
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('plugins/crm/css/crm_style.css'); ?>">
 
 <style>
-
     .title {
         float: left;
         width: 170px;
@@ -46,29 +45,72 @@ $countryid = $Countrys['countryCode'];
         color: #7b7676;
         padding: 4px 10px 0 0;
     }
-
 </style>
-    <div class="m-b-md" id="wizardControl">
-        <a class="btn btn-primary" href="#step1" data-toggle="tab">
-            <?php echo $this->lang->line('CommunityNgo_step_one'); ?><!--Step 1 -->-
-            <?php echo $this->lang->line('communityngo_com_member_header'); ?><!-- Header--></a>
-        <a class="btn btn-default btn-wizard" href="#step2" onclick="load_memberOtherDetails();" data-toggle="tab">
-            <?php echo $this->lang->line('CommunityNgo_step_two'); ?><!--Step 2--> -
-            <?php echo $this->lang->line('communityngo_com_member_header_Other'); ?><!--Other--></a>
-        <a class="btn btn-default btn-wizard" href="#step3" data-toggle="tab" onclick="load_memParentDetails();">
-            <?php echo $this->lang->line('CommunityNgo_step_three'); ?><!--Step 3--> -
-            <?php echo $this->lang->line('communityngo_com_mem_header_parent'); ?><!--Other--></a>
-        <a class="btn btn-default btn-wizard" href="#step4" data-toggle="tab" onclick="load_grandParentDetails();">
-            <?php echo $this->lang->line('CommunityNgo_step_four'); ?><!--Step 4--> -
-            <?php echo $this->lang->line('communityngo_com_mem_header_grandparent'); ?><!--Other--></a>
-        <a class="btn btn-default btn-wizard" href="#step5" data-toggle="tab" onclick="load_grt_grandParentDetails();">
-            <?php echo $this->lang->line('CommunityNgo_step_five'); ?><!--Step 5--> -
-            <?php echo $this->lang->line('communityngo_com_mem_header_great-grandparent'); ?><!--Other--></a>
-        <a class="btn btn-default btn-wizard" href="#step6"
-           onclick="load_memberStatusDetails();load_memberStatus_attachments();" data-toggle="tab">
-            <?php echo $this->lang->line('CommunityNgo_step_six'); ?><!--Step 6--> -
-            <?php echo $this->lang->line('communityngo_com_member_header_Status'); ?><!--Status--></a>
+<div class="m-b-md" id="wizardControl">
+    <a class="btn btn-primary" href="#step1" data-toggle="tab">
+        <?php echo $this->lang->line('CommunityNgo_step_one'); ?>
+        <!--Step 1 -->-
+        <?php echo $this->lang->line('communityngo_com_member_header'); ?>
+        <!-- Header--></a>
+    <a class="btn btn-default btn-wizard" href="#step2" onclick="load_memberOtherDetails();" data-toggle="tab">
+        <?php echo $this->lang->line('CommunityNgo_step_two'); ?>
+        <!--Step 2--> -
+        <?php echo $this->lang->line('communityngo_com_member_header_Other'); ?>
+        <!--Other--></a>
+    <a class="btn btn-default btn-wizard" href="#step3" data-toggle="tab" onclick="load_memParentDetails();">
+        <?php echo $this->lang->line('CommunityNgo_step_three'); ?>
+        <!--Step 3--> -
+        <?php echo $this->lang->line('communityngo_com_mem_header_parent'); ?>
+        <!--Other--></a>
+    <a class="btn btn-default btn-wizard" href="#step4" data-toggle="tab" onclick="load_grandParentDetails();">
+        <?php echo $this->lang->line('CommunityNgo_step_four'); ?>
+        <!--Step 4--> -
+        <?php echo $this->lang->line('communityngo_com_mem_header_grandparent'); ?>
+        <!--Other--></a>
+    <a class="btn btn-default btn-wizard" href="#step5" data-toggle="tab" onclick="load_grt_grandParentDetails();">
+        <?php echo $this->lang->line('CommunityNgo_step_five'); ?>
+        <!--Step 5--> -
+        <?php echo $this->lang->line('communityngo_com_mem_header_great-grandparent'); ?>
+        <!--Other--></a>
+    <a class="btn btn-default btn-wizard" href="#step6" onclick="load_memberStatusDetails();load_memberStatus_attachments();" data-toggle="tab">
+        <?php echo $this->lang->line('CommunityNgo_step_six'); ?>
+        <!--Step 6--> -
+        <?php echo $this->lang->line('communityngo_com_member_header_Status'); ?>
+        <!--Status--></a>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="com_memAreaAdd_modal" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="areaModalLabel">
+                    <?php echo $this->lang->line('communityngo_addPlaceOfVBirth'); ?></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">
+                            <?php echo $this->lang->line('communityngo_region_temp2'); ?>
+                            <!--Language--></label>
+                        <div class="col-sm-7">
+                            <input type="text" name="memberNewArea" value="" id="memberNewArea" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_region_temp2'); ?>">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <?php echo $this->lang->line('common_Close'); ?>
+                    <!--Close--></button>
+                <button type="button" class="btn btn-primary" onclick="fetch_newMem_Area()">
+                    <?php echo $this->lang->line('common_add'); ?>
+                    <!--Add--></button>
+            </div>
+        </div>
     </div>
+</div>
 
 <hr>
 <div class="tab-content">
@@ -79,33 +121,37 @@ $countryid = $Countrys['countryCode'];
             <div class="col-md-12 animated zoomIn">
                 <header class="head-title">
                     <h2>
-                        <?php echo $this->lang->line('communityngo_com_member_header_Profile'); ?><!--MEMBER DETAIL HEADER--></h2>
+                        <?php echo $this->lang->line('communityngo_com_member_header_Profile'); ?>
+                        <!--MEMBER DETAIL HEADER-->
+                    </h2>
                 </header>
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_title'); ?><!--Title--></label>
+                            <?php echo $this->lang->line('communityngo_title'); ?>
+                            <!--Title--></label>
                     </div>
 
                     <div class="form-group col-sm-4">
-                            <span class="input-req" title="Required Field">
-                                                <?php echo form_dropdown('TitleID', $getAll_title, '',
-                                                    'class="form-control select2" id="TitleID" '); ?>
-                                <span class="input-req-inner"></span></span>
+                        <span class="input-req" title="Required Field">
+                            <?php echo form_dropdown(
+                                'TitleID',
+                                $getAll_title,
+                                '',
+                                'class="form-control select2" id="TitleID" '
+                            ); ?>
+                            <span class="input-req-inner"></span></span>
                     </div>
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_name'); ?><!--Name--></label>
+                            <?php echo $this->lang->line('communityngo_name'); ?>
+                            <!--Name--></label>
                     </div>
 
                     <div class="form-group col-sm-4">
-                                    <span class="input-req" title="Required Field"><input type="text" name="CFullName"
-                                                                                          id="CFullName"
-                                                                                          class="form-control"
-                                                                                          placeholder="<?php echo $this->lang->line('communityngo_name'); ?>"
-                                                                                          required><span
-                                            class="input-req-inner"></span></span><!--Name-->
+                        <span class="input-req" title="Required Field"><input type="text" name="CFullName" id="CFullName" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_name'); ?>" required><span class="input-req-inner"></span></span>
+                        <!--Name-->
                         <input type="hidden" name="Com_MasterID" id="Com_MasterID_edit">
                     </div>
                 </div>
@@ -114,27 +160,22 @@ $countryid = $Countrys['countryCode'];
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_name_with_initial'); ?><!--Name_with_initial--></label>
+                            <?php echo $this->lang->line('communityngo_name_with_initial'); ?>
+                            <!--Name_with_initial--></label>
 
                     </div>
                     <div class="form-group col-sm-4">
-                                        <span class="input-req" title="Required Field"><input type="text"
-                                                                                              name="CName_with_initials"
-                                                                                              id="CName_with_initials"
-                                                                                              class="form-control"
-                                                                                              placeholder="<?php echo $this->lang->line('communityngo_name_with_initial'); ?>"
-                                                                                              required><span
-                                                class="input-req-inner"></span></span><!--Name_with_initial-->
+                        <span class="input-req" title="Required Field"><input type="text" name="CName_with_initials" id="CName_with_initials" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_name_with_initial'); ?>" required><span class="input-req-inner"></span></span>
+                        <!--Name_with_initial-->
                     </div>
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_memberOtherName'); ?><!--Other Name--></label>
+                            <?php echo $this->lang->line('communityngo_memberOtherName'); ?>
+                            <!--Other Name--></label>
 
                     </div>
-                    <div class="form-group col-sm-4"><input type="text" name="OtherName" id="OtherName"
-                                                            class="form-control"
-                                                            placeholder="<?php echo $this->lang->line('communityngo_memberOtherName'); ?>">
+                    <div class="form-group col-sm-4"><input type="text" name="OtherName" id="OtherName" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_memberOtherName'); ?>">
                     </div>
 
                 </div>
@@ -142,110 +183,118 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_gender'); ?><!--Gender--></label>
+                            <?php echo $this->lang->line('communityngo_gender'); ?>
+                            <!--Gender--></label>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <span class="input-req" title="Required Field">
+                            <?php echo form_dropdown(
+                                'GenderID',
+                                $gender_drop,
+                                '',
+                                'class="form-control select2" id="GenderID" '
+                            ); ?>
+                            <span class="input-req-inner"></span></span>
                     </div>
                     <div class="form-group col-sm-2">
-                            <span class="input-req" title="Required Field">
-                                <?php echo form_dropdown('GenderID', $gender_drop, '',
-                                    'class="form-control select2" id="GenderID" '); ?>
-                                <span class="input-req-inner"></span></span>
-                    </div>
-                    <div class="form-group col-sm-1">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_bloodGroup'); ?><!--Blood Group--></label>
+                            <?php echo $this->lang->line('communityngo_bloodGroup'); ?>
+                            <!--Blood Group--></label>
                     </div>
-                    <div class="form-group col-sm-1">
-                        <select id="BloodGroupID" class="form-control select2"
-                                data-placeholder="<?php echo $this->lang->line('communityngo_bloodGroup'); ?>"
-                                name="BloodGroupID">
+                    <div class="form-group col-sm-4">
+                        <select id="BloodGroupID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_bloodGroup'); ?>" name="BloodGroupID">
                             <option value=""></option>
                             <?php
 
                             $bg_drop = load_bloodGroup();
                             if (!empty($bg_drop)) {
                                 foreach ($bg_drop as $val) {
-                                    ?>
-                                    <option
-                                            value="<?php echo $val['BloodTypeID'] ?>"><?php echo $val['BloodDescription'] ?></option>
-                                    <?php
+                            ?>
+                                    <option value="<?php echo $val['BloodTypeID'] ?>"><?php echo $val['BloodDescription'] ?></option>
+                            <?php
 
                                 }
                             }
                             ?>
                         </select>
                     </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_wasakamaName'); ?><!--Wasakama Name--><label>
+                            <?php echo $this->lang->line('communityngo_wasakamaName'); ?>
+                            <!--Wasakama Name--><label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input type="text" name="CmWasakamaName"
-                               placeholder="<?php echo $this->lang->line('communityngo_wasakamaName'); ?> ( If any, please mention )"
-                               value="" id="CmWasakamaName" class="form-control">
+                        <input type="text" name="CmWasakamaName" placeholder="<?php echo $this->lang->line('communityngo_wasakamaName'); ?> ( If any, please mention )" value="" id="CmWasakamaName" class="form-control">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label class="title">
+                            <?php echo $this->lang->line('communityngo_dob'); ?>
+                            <!--Date of Birth--></label>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <span class="input-req" title="Required Field">
+                            <div class="input-group datepic">
+                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                <input type="text" name="CDOB" onblur="calculateAge();" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="" id="CDOB" class="form-control" required>
+                            </div>
+                            <span class="input-req-inner" style="z-index: 100"></span>
+                        </span>
+                    </div>
+                    <div class="form-group col-sm-1" style="padding-left: 0px;">
+                        <input type="text" name="Age" value="" id="Age" class="form-control" disabled>
+                        <input type="text" name="Age_hidden" value="" id="Age_hidden" class="form-control" style="display: none">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10px;">
-
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_dob'); ?><!--Date of Birth--></label>
+                            <?php echo $this->lang->line('communityngo_country_origin'); ?>
+                            <!--Country--></label>
                     </div>
-                    <div class="form-group col-sm-2">
-                            <span class="input-req" title="Required Field">
-                                <div class="input-group datepic">
-                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <input type="text" name="CDOB" onblur="calculateAge();"
-                                               data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                               value="" id="CDOB" class="form-control" required>
-                                </div>
-                            <span class="input-req-inner" style="z-index: 100"></span></span>
-                    </div>
-                    <div class="form-group col-sm-1" style="padding-left: 0px;">
-                        <input type="text" name="Age"
-                               value="" id="Age" class="form-control" disabled>
-                        <input type="text" name="Age_hidden"
-                               value="" id="Age_hidden" class="form-control" style="display: none">
+                    <div class="form-group col-sm-4">
+
+                        <?php echo form_dropdown('CountryOfOrigin', $countries_arr, '', 'class="form-control select2 valueHelp disableHelp" id="CountryOfOrigin" onchange="get_memBornArea();"'); ?>
+
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_country_origin'); ?><!--Country--></label>
+                            <?php echo $this->lang->line('communityngo_placeOfBirth'); ?>
+                            <!--POB--></label>
                     </div>
-                    <div class="form-group col-sm-2">
-
-                            <?php echo form_dropdown('CountryOfOrigin', $countries_arr, '', 'class="form-control select2 valueHelp disableHelp" id="CountryOfOrigin" onchange="get_memBornArea();"'); ?>
-
-                    </div>
-                    <div class="form-group col-sm-1">
-                        <label class="title">
-                            <?php echo $this->lang->line('communityngo_placeOfBirth'); ?><!--POB--></label>
-                    </div>
-                    <div class="form-group col-sm-2">
+                    <div class="form-group col-sm-3">
                         <select name="CPlaceOfBirth" class="form-control select2" id="CPlaceOfBirth">
                             <option value="" selected="selected">Select An Area</option>
                         </select>
                     </div>
+                    <div class="form-group col-sm-1">
+
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" title="Clear" rel="tooltip" onclick="clear_memArea_data()" style="height: 29px; padding: 2px 10px;"><i class="fa fa-repeat"></i></button>
+                            <button class="btn btn-default" type="button" title="Add Member Area" rel="tooltip" onclick="get_newAreaAdd_modal()" style="height: 29px; padding: 2px 10px;"><i class="fa fa-plus"></i></button>
+                        </span>
+                    </div>
                 </div>
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityNgo_bc_no'); ?><!--BC No--></label>
+                            <?php echo $this->lang->line('communityNgo_bc_no'); ?>
+                            <!--BC No--></label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input type="text" name="CBC_No"
-                               placeholder="<?php echo $this->lang->line('communityNgo_bc_no'); ?>"
-                               value="" id="CBC_No" class="form-control">
+                        <input type="text" name="CBC_No" placeholder="<?php echo $this->lang->line('communityNgo_bc_no'); ?>" value="" id="CBC_No" class="form-control">
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityNgo_regDate'); ?><!--Registered Date--></label>
+                            <?php echo $this->lang->line('communityNgo_regDate'); ?>
+                            <!--Registered Date--></label>
                     </div>
                     <div class="form-group col-sm-4">
 
                         <div class="input-group datepic">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" name="CBC_Date"
-                                   data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                   value="" id="CBC_Date" class="form-control">
+                            <input type="text" name="CBC_Date" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="" id="CBC_Date" class="form-control">
                         </div>
 
                     </div>
@@ -253,20 +302,18 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_status'); ?><!--Marital Status :--></label>
+                            <?php echo $this->lang->line('communityngo_status'); ?>
+                            <!--Marital Status :--></label>
                     </div>
                     <div class="form-group col-sm-2">
-                        <select id="CurrentStatus" class="form-control select2"
-                                name="CurrentStatus"
-                                data-placeholder="<?php echo $this->lang->line('communityngo_status'); ?>" onchange="get_mrgCertificateDel();">
+                        <select id="CurrentStatus" class="form-control select2" name="CurrentStatus" data-placeholder="<?php echo $this->lang->line('communityngo_status'); ?>" onchange="get_mrgCertificateDel();">
                             <option value=""></option>
                             <?php
                             if (!empty($marital_status)) {
                                 foreach ($marital_status as $val) {
-                                    ?>
-                                    <option
-                                        value="<?php echo $val['maritalstatusID'] ?>"><?php echo $val['maritalstatus'] ?></option>
-                                    <?php
+                            ?>
+                                    <option value="<?php echo $val['maritalstatusID'] ?>"><?php echo $val['maritalstatus'] ?></option>
+                            <?php
 
                                 }
                             }
@@ -274,22 +321,19 @@ $countryid = $Countrys['countryCode'];
                         </select>
                     </div>
                     <div class="form-group col-sm-2">
-                        <input type="text" name="MrgCertificateNo"
-                               placeholder="<?php echo $this->lang->line('communityngo_mrgCertificateNo'); ?>"
-                               value="" id="MrgCertificateNo" class="form-control">
+                        <input type="text" name="MrgCertificateNo" placeholder="<?php echo $this->lang->line('communityngo_mrgCertificateNo'); ?>" value="" id="MrgCertificateNo" class="form-control">
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_registered_date'); ?><!--Registered Date--></label>
+                            <?php echo $this->lang->line('communityngo_registered_date'); ?>
+                            <!--Registered Date--></label>
                     </div>
                     <div class="form-group col-sm-4">
 
-                                <div class="input-group datepic">
-                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <input type="text" name="MrgRegisteredDate"
-                                               data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                               value="" id="MrgRegisteredDate" class="form-control">
-                                </div>
+                        <div class="input-group datepic">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            <input type="text" name="MrgRegisteredDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="" id="MrgRegisteredDate" class="form-control">
+                        </div>
 
                     </div>
 
@@ -297,74 +341,66 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_height'); ?><!--Height (cm) :--></label>
+                            <?php echo $this->lang->line('communityngo_height'); ?>
+                            <!--Height (cm) :--></label>
                     </div>
 
                     <div class="form-group col-sm-1">
-                        <input type="text" name="CmHeight"
-                               placeholder="<?php echo $this->lang->line('communityngo_height'); ?>"
-                               value="" id="CmHeight" class="form-control">
+                        <input type="text" name="CmHeight" placeholder="<?php echo $this->lang->line('communityngo_height'); ?>" value="" id="CmHeight" class="form-control">
                     </div>
 
                     <div class="form-group col-sm-1">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_weight'); ?><!--Weight (kg)--><label>
+                            <?php echo $this->lang->line('communityngo_weight'); ?>
+                            <!--Weight (kg)--><label>
                     </div>
                     <div class="form-group col-sm-2">
-                        <input type="text" name="CmWeight"
-                               placeholder="<?php echo $this->lang->line('communityngo_weight'); ?>"
-                               value="" id="CmWeight" class="form-control">
+                        <input type="text" name="CmWeight" placeholder="<?php echo $this->lang->line('communityngo_weight'); ?>" value="" id="CmWeight" class="form-control">
                     </div>
-                    
+
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_email'); ?><!--EMAIL--><label>
+                            <?php echo $this->lang->line('communityngo_email'); ?>
+                            <!--EMAIL--><label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input type="email" name="EmailID"
-                               placeholder="<?php echo $this->lang->line('communityngo_email'); ?>"
-                               value="" id="EmailID" class="form-control">
+                        <input type="email" name="EmailID" placeholder="<?php echo $this->lang->line('communityngo_email'); ?>" value="" id="EmailID" class="form-control">
                     </div>
 
                 </div>
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_nic'); ?><!--NIC NO--><label>
+                            <?php echo $this->lang->line('communityngo_nic'); ?>
+                            <!--NIC NO--><label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input type="text" name="CNIC_No" onblur="get_DOB(this);check_isNIC_available(this);"
-                               maxlength="12"
-                               placeholder="<?php echo $this->lang->line('communityngo_nic'); ?>"
-                               value="" id="CNIC_No" class="form-control">
+                        <input type="text" name="CNIC_No" onblur="get_DOB(this);check_isNIC_available(this);" maxlength="12" placeholder="<?php echo $this->lang->line('communityngo_nic'); ?>" value="" id="CNIC_No" class="form-control">
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_TP_MobileNo'); ?><!--MOBILE NO--><label>
+                            <?php echo $this->lang->line('communityngo_TP_MobileNo'); ?>
+                            <!--MOBILE NO--><label>
                     </div>
 
                     <div class="form-group col-sm-2">
-                                     <span class="input-req" title="Required Field">
-                                <?php echo form_dropdown('CountryCodePrimary', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodePrimary"'); ?>
-                                         <span class="input-req-inner"></span></span>
+                        <span class="input-req" title="Required Field">
+                            <?php echo form_dropdown('CountryCodePrimary', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodePrimary"'); ?>
+                            <span class="input-req-inner"></span></span>
                     </div>
 
                     <div class="form-group col-sm-2" style=" padding-left: 0px;">
-                            <span class="input-req" title="Required Field">
-                        <input type="text" name="TP_Mobile"
-                               data-inputmask="'alias': '99-999 9999'"
-                               id="TP_Mobile" class="form-control" required><span
-                                        class="input-req-inner"></span></span>
+                        <span class="input-req" title="Required Field">
+                            <input type="text" name="TP_Mobile" data-inputmask="'alias': '99-999 9999'" id="TP_Mobile" class="form-control" required><span class="input-req-inner"></span></span>
 
-                        <input type="hidden" name="AreaCodePrimary" id="AreaCodePrimary"
-                               class="form-control"
-                               placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
+                        <input type="hidden" name="AreaCodePrimary" id="AreaCodePrimary" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_TP_Home'); ?><!--HOME TP NO--><label>
+                            <?php echo $this->lang->line('communityngo_TP_Home'); ?>
+                            <!--HOME TP NO--><label>
                     </div>
 
                     <div class="form-group col-sm-2">
@@ -372,16 +408,13 @@ $countryid = $Countrys['countryCode'];
                     </div>
 
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
-                        <input type="text" name="TP_home"
-                               placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>"
-                               id="TP_home" data-inputmask="'alias': '999-999 9999'" class="form-control">
-                        <input type="hidden" name="AreaCodeSecondary" id="AreaCodeSecondary"
-                               class="form-control"
-                               placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
+                        <input type="text" name="TP_home" placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>" id="TP_home" data-inputmask="'alias': '999-999 9999'" class="form-control">
+                        <input type="hidden" name="AreaCodeSecondary" id="AreaCodeSecondary" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_TP_MobileNo2'); ?><!--Mobile NO 2--><label>
+                            <?php echo $this->lang->line('communityngo_TP_MobileNo2'); ?>
+                            <!--Mobile NO 2--><label>
                     </div>
 
                     <div class="form-group col-sm-2">
@@ -389,50 +422,43 @@ $countryid = $Countrys['countryCode'];
                     </div>
 
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
-                        <input type="text" name="TP_mobileNo2"
-                               placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>"
-                               id="TP_mobileNo2" data-inputmask="'alias': '999-999 9999'" class="form-control">
-                        <input type="hidden" name="AreaCodeMobile2" id="AreaCodeMobile2"
-                               class="form-control"
-                               placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
+                        <input type="text" name="TP_mobileNo2" placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>" id="TP_mobileNo2" data-inputmask="'alias': '999-999 9999'" class="form-control">
+                        <input type="hidden" name="AreaCodeMobile2" id="AreaCodeMobile2" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
                     </div>
                 </div>
 
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('common_passport_number_no'); ?><!--Passport No :--></label>
+                            <?php echo $this->lang->line('common_passport_number_no'); ?>
+                            <!--Passport No :--></label>
                     </div>
                     <div class="form-group col-sm-2">
-                        <input type="text" name="CmPassportNo"
-                               placeholder="<?php echo $this->lang->line('common_passport_number_no'); ?>"
-                               value="" id="CmPassportNo" class="form-control">
+                        <input type="text" name="CmPassportNo" placeholder="<?php echo $this->lang->line('common_passport_number_no'); ?>" value="" id="CmPassportNo" class="form-control">
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('common_issue_date'); ?><!--issue Date--></label>
+                            <?php echo $this->lang->line('common_issue_date'); ?>
+                            <!--issue Date--></label>
                     </div>
                     <div class="form-group col-sm-2">
 
                         <div class="input-group datepic">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" name="CmPassportIssueDate"
-                                   data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                   value="" id="CmPassportIssueDate" class="form-control">
+                            <input type="text" name="CmPassportIssueDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="" id="CmPassportIssueDate" class="form-control">
                         </div>
 
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('common_expire_date'); ?><!--expiry Date--></label>
+                            <?php echo $this->lang->line('common_expire_date'); ?>
+                            <!--expiry Date--></label>
                     </div>
                     <div class="form-group col-sm-2">
 
                         <div class="input-group datepic">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" name="CmPassportExpiryDate"
-                                   data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                   value="" id="CmPassportExpiryDate" class="form-control">
+                            <input type="text" name="CmPassportExpiryDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="" id="CmPassportExpiryDate" class="form-control">
                         </div>
 
                     </div>
@@ -441,38 +467,35 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_drivingLicense'); ?><!--Driving License :--></label>
+                            <?php echo $this->lang->line('communityngo_drivingLicense'); ?>
+                            <!--Driving License :--></label>
                     </div>
                     <div class="form-group col-sm-2">
-                        <input type="text" name="CmDrivingLicenseNo"
-                               placeholder="<?php echo $this->lang->line('communityngo_drivingLicense'); ?>"
-                               value="" id="CmDrivingLicenseNo" class="form-control">
+                        <input type="text" name="CmDrivingLicenseNo" placeholder="<?php echo $this->lang->line('communityngo_drivingLicense'); ?>" value="" id="CmDrivingLicenseNo" class="form-control">
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('common_issue_date'); ?><!--issue Date--></label>
+                            <?php echo $this->lang->line('common_issue_date'); ?>
+                            <!--issue Date--></label>
                     </div>
                     <div class="form-group col-sm-2">
 
                         <div class="input-group datepic">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" name="CmDrvLicIssueDate"
-                                   data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                   value="" id="CmDrvLicIssueDate" class="form-control">
+                            <input type="text" name="CmDrvLicIssueDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="" id="CmDrvLicIssueDate" class="form-control">
                         </div>
 
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('common_expire_date'); ?><!--expiry Date--></label>
+                            <?php echo $this->lang->line('common_expire_date'); ?>
+                            <!--expiry Date--></label>
                     </div>
                     <div class="form-group col-sm-2">
 
                         <div class="input-group datepic">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" name="CmDrvLicExpiryDate"
-                                   data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                   value="" id="CmDrvLicExpiryDate" class="form-control">
+                            <input type="text" name="CmDrvLicExpiryDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="" id="CmDrvLicExpiryDate" class="form-control">
                         </div>
 
                     </div>
@@ -487,27 +510,30 @@ $countryid = $Countrys['countryCode'];
             <div class="col-md-12 animated zoomIn">
                 <header class="head-title">
                     <h2>
-                        <?php echo $this->lang->line('communityngo_com_member_header_Address'); ?><!--CONTACT DETAIL HEADER--></h2>
+                        <?php echo $this->lang->line('communityngo_com_member_header_Address'); ?>
+                        <!--CONTACT DETAIL HEADER-->
+                    </h2>
                 </header>
 
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_country'); ?><!--Country--></label>
+                            <?php echo $this->lang->line('communityngo_country'); ?>
+                            <!--Country--></label>
                     </div>
                     <div class="form-group col-sm-4">
-                            <span class="input-req" title="Required Field">
+                        <span class="input-req" title="Required Field">
                             <?php echo form_dropdown('countyID', $countries_arr, '', 'class="form-control select2 valueHelp disableHelp" onchange="loadcountry_Province(this.value)" id="countyID"'); ?>
-                                <span class="input-req-inner"></span></span>
+                            <span class="input-req-inner"></span></span>
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_Province'); ?><!--Province--></label>
+                            <?php echo $this->lang->line('communityngo_Province'); ?>
+                            <!--Province--></label>
                     </div>
                     <div class="form-group col-sm-4">
                         <div id="div_load_province">
-                            <select name="provinceID" class="form-control select2" id="provinceID"
-                                    onchange="loadcountry_District(this.value)">
+                            <select name="provinceID" class="form-control select2" id="provinceID" onchange="loadcountry_District(this.value)">
                                 <option value="" selected="selected"><?php echo $this->lang->line('comNgo_dash_select_a_province'); ?></option>
                             </select>
                         </div>
@@ -518,24 +544,24 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_District'); ?><!--District --></label>
+                            <?php echo $this->lang->line('communityngo_District'); ?>
+                            <!--District --></label>
                     </div>
                     <div class="form-group col-sm-4">
                         <div id="div_load_district">
-                            <select name="districtID" class="form-control select2" id="districtID"
-                                    onchange="loadcountry_districtDivision(this.value);loadcountry_jamiya_Division(this.value)">
+                            <select name="districtID" class="form-control select2" id="districtID" onchange="loadcountry_districtDivision(this.value);loadcountry_jamiya_Division(this.value)">
                                 <option value="" selected="selected"><?php echo $this->lang->line('comNgo_dash_select_a_district'); ?></option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_DistrictDivision'); ?><!--District Division--></label>
+                            <?php echo $this->lang->line('communityngo_DistrictDivision'); ?>
+                            <!--District Division--></label>
                     </div>
                     <div class="form-group col-sm-4">
                         <div id="div_load_districtDivision">
-                            <select name="districtDivisionID" class="form-control select2" id="districtDivisionID"
-                                    onchange="loadcountry_GSDivision(this.value);loadcountry_Division_Area(this.value)">
+                            <select name="districtDivisionID" class="form-control select2" id="districtDivisionID" onchange="loadcountry_GSDivision(this.value);loadcountry_Division_Area(this.value)">
                                 <option value="" selected="selected"><?php echo $this->lang->line('comNgo_dash_select_a_district_division'); ?></option>
                             </select>
                         </div>
@@ -545,35 +571,35 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_GS_Division'); ?><!--GS Division--><label>
-                    </div>
-                    <div class="form-group col-sm-4">
-                             <span class="input-req" title="Required Field">
-                                 <div id="div_load_GS_Division">
-                                <select name="GS_Division" class="form-control select2" id="GS_Division"
-                                        onchange="fetchdivisioNo(this)">
-                                    <option value="" selected="selected">Select a GS Division</option>
-                                </select>
-                            </div>
-                                <span class="input-req-inner"></span></span>
-                    </div>
-                    <div class="form-group col-sm-2">
-                        <label class="title">
-                            <?php echo $this->lang->line('communityngo_GS_No'); ?><!--GS Division No--><label>
+                            <?php echo $this->lang->line('communityngo_GS_Division'); ?>
+                            <!--GS Division--><label>
                     </div>
                     <div class="form-group col-sm-4">
                         <span class="input-req" title="Required Field">
-                        <input type="text" name="GS_No"
-                               placeholder="<?php echo $this->lang->line('communityngo_GS_No'); ?>"
-                               value="" id="GS_No" class="form-control" readonly><span
-                                class="input-req-inner"></span></span>
+                            <div id="div_load_GS_Division">
+                                <select name="GS_Division" class="form-control select2" id="GS_Division" onchange="fetchdivisioNo(this)">
+                                    <option value="" selected="selected">Select a GS Division</option>
+                                </select>
+                            </div>
+                            <span class="input-req-inner"></span>
+                        </span>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label class="title">
+                            <?php echo $this->lang->line('communityngo_GS_No'); ?>
+                            <!--GS Division No--><label>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <span class="input-req" title="Required Field">
+                            <input type="text" name="GS_No" placeholder="<?php echo $this->lang->line('communityngo_GS_No'); ?>" value="" id="GS_No" class="form-control" readonly><span class="input-req-inner"></span></span>
                     </div>
                 </div>
 
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_village'); ?><!--Village--><label>
+                            <?php echo $this->lang->line('communityngo_village'); ?>
+                            <!--Village--><label>
                     </div>
                     <div class="form-group col-sm-4">
                         <div id="div_load_village">
@@ -583,7 +609,7 @@ $countryid = $Countrys['countryCode'];
                         </div>
                     </div>
                     <!--Jammiyah Division-->
-                    <div class="form-group col-sm-2" >
+                    <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_JammiyaDivision');  ?></label>
                     </div>
@@ -598,7 +624,8 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_region'); ?><!--Area--><label>
+                            <?php echo $this->lang->line('communityngo_region'); ?>
+                            <!--Area--><label>
                     </div>
                     <div class="form-group col-sm-4">
                         <span class="input-req" title="Required Field">
@@ -607,19 +634,18 @@ $countryid = $Countrys['countryCode'];
                                     <option value="" selected="selected"><?php echo $this->lang->line('communityngo_select_region'); ?></option>
                                 </select>
                             </div>
-                                <span class="input-req-inner"></span></span>
+                            <span class="input-req-inner"></span>
+                        </span>
                     </div>
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_houseNo'); ?><!--House No--><label>
+                            <?php echo $this->lang->line('communityngo_houseNo'); ?>
+                            <!--House No--><label>
                     </div>
                     <div class="form-group col-sm-4">
                         <span class="input-req" title="Required Field">
-                        <input type="text" name="HouseNo"
-                               placeholder="<?php echo $this->lang->line('communityngo_houseNo'); ?>"
-                               value="" id="HouseNo" class="form-control" required><span
-                                    class="input-req-inner"></span></span>
+                            <input type="text" name="HouseNo" placeholder="<?php echo $this->lang->line('communityngo_houseNo'); ?>" value="" id="HouseNo" class="form-control" required><span class="input-req-inner"></span></span>
                     </div>
 
                 </div>
@@ -627,24 +653,22 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_contactAddress'); ?><!--Address--></label>
+                            <?php echo $this->lang->line('communityngo_contactAddress'); ?>
+                            <!--Address--></label>
                     </div>
 
                     <div class="form-group col-sm-4">
-                                    <span class="input-req" title="Required Field"><textarea class="form-control"
-                                                                                             id="C_Address"
-                                                                                             name="C_Address" rows="2"
-                                                                                             required></textarea>
-                                        <span class="input-req-inner"></span></span>
+                        <span class="input-req" title="Required Field"><textarea class="form-control" id="C_Address" name="C_Address" rows="2" required></textarea>
+                            <span class="input-req-inner"></span></span>
                     </div>
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_perAddress'); ?><!--Address--></label>
+                            <?php echo $this->lang->line('communityngo_perAddress'); ?>
+                            <!--Address--></label>
                     </div>
 
-                    <div class="form-group col-sm-4"><textarea class="form-control" id="P_Address"
-                                                               name="P_Address" rows="2"></textarea>
+                    <div class="form-group col-sm-4"><textarea class="form-control" id="P_Address" name="P_Address" rows="2"></textarea>
                     </div>
                 </div>
 
@@ -655,26 +679,26 @@ $countryid = $Countrys['countryCode'];
             <div class="col-md-12 animated zoomIn">
                 <header class="head-title">
                     <h2>
-                        <?php echo $this->lang->line('communityngo_com_member_header_location'); ?><!--Member Location--></h2>
+                        <?php echo $this->lang->line('communityngo_com_member_header_location'); ?>
+                        <!--Member Location-->
+                    </h2>
                 </header>
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_com_member_latitude'); ?><!--Latitude--></label>
+                            <?php echo $this->lang->line('communityngo_com_member_latitude'); ?>
+                            <!--Latitude--></label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input type="text" name="C_Latitude"
-                               placeholder="<?php echo $this->lang->line('communityngo_com_member_latitude'); ?>"
-                               value="" id="C_Latitude" class="form-control">
+                        <input type="text" name="C_Latitude" placeholder="<?php echo $this->lang->line('communityngo_com_member_latitude'); ?>" value="" id="C_Latitude" class="form-control">
                     </div>
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_com_member_longitude'); ?><!--Longitude--></label>
+                            <?php echo $this->lang->line('communityngo_com_member_longitude'); ?>
+                            <!--Longitude--></label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input type="text" name="C_Longitude"
-                               placeholder="<?php echo $this->lang->line('communityngo_com_member_longitude'); ?>"
-                               value="" id="C_Longitude" class="form-control">
+                        <input type="text" name="C_Longitude" placeholder="<?php echo $this->lang->line('communityngo_com_member_longitude'); ?>" value="" id="C_Longitude" class="form-control">
                     </div>
                 </div>
 
@@ -685,35 +709,33 @@ $countryid = $Countrys['countryCode'];
             <div class="col-md-12 animated zoomIn">
                 <header class="head-title">
                     <h2>
-                        <?php echo $this->lang->line('communityngo_com_member_header_Other'); ?><!--OTHER DETAIL HEADER--></h2>
+                        <?php echo $this->lang->line('communityngo_com_member_header_Other'); ?>
+                        <!--OTHER DETAIL HEADER-->
+                    </h2>
                 </header>
                 <div class="row" style="margin-top: 10px;">
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_isAbroad'); ?><!--is abroad--></label>
+                            <?php echo $this->lang->line('communityngo_isAbroad'); ?>
+                            <!--is abroad--></label>
                     </div>
                     <div class="form-group col-sm-1">
-                        <select id="IsAbroad" class="form-control select2"
-                                name="IsAbroad" onchange="removeDisable();"
-                                data-placeholder="">
+                        <select id="IsAbroad" class="form-control select2" name="IsAbroad" onchange="removeDisable();" data-placeholder="">
                             <option value=""></option>
                             <option value="1">Yes</option>
                             <option value="0" selected>No</option>
                         </select>
                     </div>
                     <div class="form-group col-sm-3" style="padding-left: 0px;">
-                        <select id="CountryOfResidentID" class="form-control select2"
-                                name="CountryOfResidentID"
-                                data-placeholder="<?php echo $this->lang->line('common_Country'); ?>" disabled>
+                        <select id="CountryOfResidentID" class="form-control select2" name="CountryOfResidentID" data-placeholder="<?php echo $this->lang->line('common_Country'); ?>" disabled>
                             <option value=""></option>
                             <?php
                             if (!empty($country_drop)) {
                                 foreach ($country_drop as $val) {
-                                    ?>
-                                    <option
-                                        value="<?php echo $val['countryID'] ?>"><?php echo $val['CountryDes'] ?></option>
-                                    <?php
+                            ?>
+                                    <option value="<?php echo $val['countryID'] ?>"><?php echo $val['CountryDes'] ?></option>
+                            <?php
 
                                 }
                             }
@@ -723,13 +745,12 @@ $countryid = $Countrys['countryCode'];
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_IsSchoolCompleted'); ?><!--Is School Completed--></label>
+                            <?php echo $this->lang->line('communityngo_IsSchoolCompleted'); ?>
+                            <!--Is School Completed--></label>
                     </div>
 
                     <div class="form-group col-sm-1">
-                        <select id="IsSchoolCompleted" class="form-control select2"
-                                name="IsSchoolCompleted" onchange="remove_school_disable();"
-                                data-placeholder="">
+                        <select id="IsSchoolCompleted" class="form-control select2" name="IsSchoolCompleted" onchange="remove_school_disable();" data-placeholder="">
                             <option value=""></option>
                             <option value="1">Yes</option>
                             <option value="0" selected>No</option>
@@ -737,24 +758,20 @@ $countryid = $Countrys['countryCode'];
                     </div>
                     <div class="form-group col-sm-1">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_School'); ?><!--School--></label>
+                            <?php echo $this->lang->line('communityngo_School'); ?>
+                            <!--School--></label>
                     </div>
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
-                        <input type="hidden" name="CompletedYear"
-                               placeholder="<?php echo $this->lang->line('communityngo_CompletedYear'); ?>"
-                               value="" id="CompletedYear" class="form-control" disabled>
+                        <input type="hidden" name="CompletedYear" placeholder="<?php echo $this->lang->line('communityngo_CompletedYear'); ?>" value="" id="CompletedYear" class="form-control" disabled>
 
-                        <select id="SchoolAttended" class="form-control select2"
-                                data-placeholder="<?php echo $this->lang->line('communityngo_School'); ?>"
-                                name="SchoolAttended">
+                        <select id="SchoolAttended" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_School'); ?>" name="SchoolAttended">
                             <option value=""></option>
                             <?php
                             if (!empty($schools)) {
                                 foreach ($schools as $val) {
-                                    ?>
-                                    <option
-                                        value="<?php echo $val['schoolComID'] ?>"><?php echo $val['schoolComDes'] ?></option>
-                                    <?php
+                            ?>
+                                    <option value="<?php echo $val['schoolComID'] ?>"><?php echo $val['schoolComDes'] ?></option>
+                            <?php
                                 }
                             }
                             ?>
@@ -769,12 +786,11 @@ $countryid = $Countrys['countryCode'];
 
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_isConverted'); ?><!--IS CONVERTED--></label>
+                            <?php echo $this->lang->line('communityngo_isConverted'); ?>
+                            <!--IS CONVERTED--></label>
                     </div>
                     <div class="form-group col-sm-1">
-                        <select id="isConverted" class="form-control select2"
-                                name="isConverted" onchange="removeDisableYear();"
-                                data-placeholder="">
+                        <select id="isConverted" class="form-control select2" name="isConverted" onchange="removeDisableYear();" data-placeholder="">
                             <option value=""></option>
                             <option value="1">Yes</option>
                             <option value="0" selected>No</option>
@@ -782,21 +798,19 @@ $countryid = $Countrys['countryCode'];
                     </div>
                     <div class="form-group col-sm-1">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_Year'); ?><!--Year--></label>
+                            <?php echo $this->lang->line('communityngo_Year'); ?>
+                            <!--Year--></label>
                     </div>
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
-                        <input type="number" name="ConvertedYear"
-                               placeholder="<?php echo $this->lang->line('communityngo_ConvertedYear'); ?>"
-                               value="" id="ConvertedYear" class="form-control" disabled>
+                        <input type="number" name="ConvertedYear" placeholder="<?php echo $this->lang->line('communityngo_ConvertedYear'); ?>" value="" id="ConvertedYear" class="form-control" disabled>
                     </div>
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_converted_place'); ?><!-- CONVERTED PLACE--></label>
+                            <?php echo $this->lang->line('communityngo_converted_place'); ?>
+                            <!-- CONVERTED PLACE--></label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <input type="text" name="ConvertedPlace"
-                               placeholder="<?php echo $this->lang->line('communityngo_ConvertedPlace'); ?>"
-                               value="" id="ConvertedPlace" class="form-control" disabled>
+                        <input type="text" name="ConvertedPlace" placeholder="<?php echo $this->lang->line('communityngo_ConvertedPlace'); ?>" value="" id="ConvertedPlace" class="form-control" disabled>
                     </div>
 
                 </div>
@@ -805,12 +819,11 @@ $countryid = $Countrys['countryCode'];
                 <div class="row" style="margin-top: 10px;">
                     <div class="form-group col-sm-2">
                         <label class="title">
-                            <?php echo $this->lang->line('communityngo_isVoter'); ?><!--IS VOTER--></label>
+                            <?php echo $this->lang->line('communityngo_isVoter'); ?>
+                            <!--IS VOTER--></label>
                     </div>
                     <div class="form-group col-sm-4">
-                        <select id="isVoter" class="form-control select2"
-                                name="isVoter"
-                                data-placeholder="">
+                        <select id="isVoter" class="form-control select2" name="isVoter" data-placeholder="">
                             <option value=""></option>
                             <option value="1">Yes</option>
                             <option value="0" selected>No</option>
@@ -819,11 +832,12 @@ $countryid = $Countrys['countryCode'];
                 </div>
                 <div class="row" style="margin-top: 11px;">
                     <div class="form-group col-sm-12">
-                        <button class="btn btn-default pull-right next" style="margin-left: 1%; display: none;"
-                                id="nxtBtn">
-                            <?php echo $this->lang->line('common_next'); ?><!--Next--></button>
+                        <button class="btn btn-default pull-right next" style="margin-left: 1%; display: none;" id="nxtBtn">
+                            <?php echo $this->lang->line('common_next'); ?>
+                            <!--Next--></button>
                         <button id="save_btn" class="btn btn-primary pull-right CA_Submit_btn" type="submit">
-                            <?php echo $this->lang->line('common_save'); ?><!--Save--></button>
+                            <?php echo $this->lang->line('common_save'); ?>
+                            <!--Save--></button>
                     </div>
 
                 </div>
@@ -837,10 +851,11 @@ $countryid = $Countrys['countryCode'];
 
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev">
-                <?php echo $this->lang->line('common_previous'); ?><!--Previous--></button>
-            <button class="btn btn-default pull-right next" style="margin-left: 1%;"
-                    id="nxtBtn">
-                <?php echo $this->lang->line('common_next'); ?><!--Next--></button>
+                <?php echo $this->lang->line('common_previous'); ?>
+                <!--Previous--></button>
+            <button class="btn btn-default pull-right next" style="margin-left: 1%;" id="nxtBtn">
+                <?php echo $this->lang->line('common_next'); ?>
+                <!--Next--></button>
         </div>
     </div>
 
@@ -849,12 +864,14 @@ $countryid = $Countrys['countryCode'];
 
         <div class="text-right m-t-xs">
             <button id="saveParent_btn" class="btn btn-primary CA_Submit_btn memFamChainCls" type="button" onclick="save_communityParent();">
-                <?php echo $this->lang->line('common_update'); ?><!--Save--></button>
+                <?php echo $this->lang->line('common_update'); ?>
+                <!--Save--></button>
             <button class="btn btn-default prev">
-                <?php echo $this->lang->line('common_previous'); ?><!--Previous--></button>
-            <button class="btn btn-default pull-right next" style="margin-left: 1%;"
-                    id="nxtBtn">
-                <?php echo $this->lang->line('common_next'); ?><!--Next--></button>
+                <?php echo $this->lang->line('common_previous'); ?>
+                <!--Previous--></button>
+            <button class="btn btn-default pull-right next" style="margin-left: 1%;" id="nxtBtn">
+                <?php echo $this->lang->line('common_next'); ?>
+                <!--Next--></button>
         </div>
 
     </div>
@@ -864,14 +881,17 @@ $countryid = $Countrys['countryCode'];
 
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev">
-                <?php echo $this->lang->line('common_previous'); ?><!--Previous--></button>
-            <button class="btn btn-default next" style="margin-left: 1%;"
-                    id="nxtBtn">
-                <?php echo $this->lang->line('common_next'); ?><!--Next--></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php echo $this->lang->line('common_previous'); ?>
+                <!--Previous--></button>
+            <button class="btn btn-default next" style="margin-left: 1%;" id="nxtBtn">
+                <?php echo $this->lang->line('common_next'); ?>
+                <!--Next--></button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button id="saveFP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: block;" onclick="save_memFatherParents();">
-                <?php echo $this->lang->line('common_update'); ?><!--Save--></button>
+                <?php echo $this->lang->line('common_update'); ?>
+                <!--Save--></button>
             <button id="saveMP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: none;" onclick="save_memMotherParents();">
-                <?php echo $this->lang->line('common_update'); ?><!--Save--></button>
+                <?php echo $this->lang->line('common_update'); ?>
+                <!--Save--></button>
         </div>
     </div>
 
@@ -879,14 +899,17 @@ $countryid = $Countrys['countryCode'];
         <div id="grt_grandPrtsDetails"></div>
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev">
-                <?php echo $this->lang->line('common_previous'); ?><!--Previous--></button>
-            <button class="btn btn-default next" style="margin-left: 1%;"
-                    id="nxtBtn">
-                <?php echo $this->lang->line('common_next'); ?><!--Next--></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php echo $this->lang->line('common_previous'); ?>
+                <!--Previous--></button>
+            <button class="btn btn-default next" style="margin-left: 1%;" id="nxtBtn">
+                <?php echo $this->lang->line('common_next'); ?>
+                <!--Next--></button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button id="saveGFP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: block;" onclick="save_memGrtFatherParents();">
-                <?php echo $this->lang->line('common_update'); ?><!--Save--></button>
+                <?php echo $this->lang->line('common_update'); ?>
+                <!--Save--></button>
             <button id="saveGMP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: none;" onclick="save_memGrtMotherParents();">
-                <?php echo $this->lang->line('common_update'); ?><!--Save--></button>
+                <?php echo $this->lang->line('common_update'); ?>
+                <!--Save--></button>
         </div>
     </div>
 
@@ -898,11 +921,11 @@ $countryid = $Countrys['countryCode'];
                 <div class="form-group col-sm-3 col-xs-6">
                     <label for="isActive">&nbsp;</label>
                     <div class="input-group">
-                                            <span class="input-group-addon">
-                                                <input type="checkbox" name="isActive" id="isActive" value="0"/>
-                                            </span>
-                        <input type="text" class="form-control" disabled=""
-                               value="<?php echo $this->lang->line('communityngo_isActive'); ?>"> <!--Is Active-->
+                        <span class="input-group-addon">
+                            <input type="checkbox" name="isActive" id="isActive" value="0" />
+                        </span>
+                        <input type="text" class="form-control" disabled="" value="<?php echo $this->lang->line('communityngo_isActive'); ?>">
+                        <!--Is Active-->
                     </div>
                 </div>
             </div>
@@ -911,11 +934,10 @@ $countryid = $Countrys['countryCode'];
 
                 <div class="col-sm-3">
                     <label for="communityngo_deactivatedFor">
-                        <?php echo $this->lang->line('communityngo_deactivatedFor'); ?><!--Reason--></label>
+                        <?php echo $this->lang->line('communityngo_deactivatedFor'); ?>
+                        <!--Reason--></label>
                     <div class="form-group">
-                        <select id="DeactivatedFor" class="form-control select2"
-                                name="DeactivatedFor" onchange="removeBtnDisable();"
-                                data-placeholder="" required>
+                        <select id="DeactivatedFor" class="form-control select2" name="DeactivatedFor" onchange="removeBtnDisable();" data-placeholder="" required>
                             <option value=""></option>
                             <option value="1">Death</option>
                             <option value="2">Migrate</option>
@@ -926,20 +948,20 @@ $countryid = $Countrys['countryCode'];
                 <div class="col-sm-3">
                     <div class="form-group ">
                         <label for="deactivatedDate" class="form-group">
-                            <?php echo $this->lang->line('communityngo_deactivatedDate'); ?><!--Deactivated Date--></label>
+                            <?php echo $this->lang->line('communityngo_deactivatedDate'); ?>
+                            <!--Deactivated Date--></label>
 
                         <div class="input-group datepic">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" name="deactivatedDate" value="<?php echo $current_date; ?>"
-                                   id="deactivatedDate" class="form-control" required onblur="removeBtnDisable();"
-                                   data-inputmask="'alias': '<?php echo $date_format_policy ?>'">
+                            <input type="text" name="deactivatedDate" value="<?php echo $current_date; ?>" id="deactivatedDate" class="form-control" required onblur="removeBtnDisable();" data-inputmask="'alias': '<?php echo $date_format_policy ?>'">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xs-6">
                     <div class="form-group">
                         <label for="dischargedComment">
-                            <?php echo $this->lang->line('communityngo_deactivatedComment'); ?><!--Discharged Comment--></label>
+                            <?php echo $this->lang->line('communityngo_deactivatedComment'); ?>
+                            <!--Discharged Comment--></label>
                         <input type="text" name="deactivatedComment" id="deactivatedComment" class="form-control">
                     </div>
                 </div>
@@ -953,63 +975,59 @@ $countryid = $Countrys['countryCode'];
             <div class="zx-tab-pane" id="profile-v">
                 <div id="loadPageViewAttachment" class="col-md-8">
                     <div class="table-responsive">
-                    <span aria-hidden="true" class="glyphicon glyphicon-hand-right color"></span>
+                        <span aria-hidden="true" class="glyphicon glyphicon-hand-right color"></span>
                         &nbsp; <strong>
-                            <?php echo $this->lang->line('common_attachments'); ?><!--Attachments--></strong>
+                            <?php echo $this->lang->line('common_attachments'); ?>
+                            <!--Attachments--></strong>
                         <br><br>
                         <div class="row">
                             <div class="col-md-2">&nbsp;</div>
                             <div class="col-md-10"><span class="pull-right">
-                      <?php echo form_open_multipart('', 'id="status_attachment_uplode_form" class="form-inline"'); ?>
+                                    <?php echo form_open_multipart('', 'id="status_attachment_uplode_form" class="form-inline"'); ?>
                                     <div class="form-group">
-                                <input type="text" class="form-control" id="status_attachmentDescription"
-                                       name="status_attachmentDescription"
-                                       placeholder="<?php echo $this->lang->line('common_description'); ?>...">
+                                        <input type="text" class="form-control" id="status_attachmentDescription" name="status_attachmentDescription" placeholder="<?php echo $this->lang->line('common_description'); ?>...">
                                         <!--Description-->
-                                <input type="hidden" class="form-control" id="status_documentSystemCode"
-                                       name="status_documentSystemCode">
-                                <input type="hidden" class="form-control" id="status_documentID"
-                                       name="status_documentID">
-                                <input type="hidden" class="form-control" id="status_document_name"
-                                       name="status_document_name">
-                            </div>
-                          <div class="form-group">
-                              <div class="fileinput fileinput-new input-group" data-provides="fileinput"
-                                   style="margin-top: 8px;">
-                                  <div class="form-control" data-trigger="fileinput"><i
-                                          class="glyphicon glyphicon-file color fileinput-exists"></i> <span
-                                          class="fileinput-filename"></span></div>
-                                  <span class="input-group-addon btn btn-default btn-file"><span
-                                          class="fileinput-new"><span class="glyphicon glyphicon-plus"
-                                                                      aria-hidden="true"></span></span><span
-                                          class="fileinput-exists"><span class="glyphicon glyphicon-repeat"
-                                                                         aria-hidden="true"></span></span><input
-                                          type="file" name="document_file" id="document_file"></span>
-                                  <a class="input-group-addon btn btn-default fileinput-exists" id="status_remove_id"
-                                     data-dismiss="fileinput"><span class="glyphicon glyphicon-remove"
-                                                                    aria-hidden="true"></span></a>
-                              </div>
-                          </div>
-                          <button type="button" class="btn btn-default" onclick="status_attachment_upload()"><span
-                                  class="glyphicon glyphicon-floppy-open color" aria-hidden="true"></span></button>
-                                    </form></span>
+                                        <input type="hidden" class="form-control" id="status_documentSystemCode" name="status_documentSystemCode">
+                                        <input type="hidden" class="form-control" id="status_documentID" name="status_documentID">
+                                        <input type="hidden" class="form-control" id="status_document_name" name="status_document_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="fileinput fileinput-new input-group" data-provides="fileinput" style="margin-top: 8px;">
+                                            <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file color fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span><span class="fileinput-exists"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></span><input type="file" name="document_file" id="document_file"></span>
+                                            <a class="input-group-addon btn btn-default fileinput-exists" id="status_remove_id" data-dismiss="fileinput"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-default" onclick="status_attachment_upload()"><span class="glyphicon glyphicon-floppy-open color" aria-hidden="true"></span></button>
+                                    </form>
+                                </span>
                             </div>
                         </div>
                         <table class="table table-striped table-condensed table-hover">
                             <thead>
-                            <tr>
-                                <th>#</th>
-                                <th><?php echo $this->lang->line('common_file_name'); ?><!--File Name--></th>
-                                <th><?php echo $this->lang->line('common_description'); ?><!--Description--></th>
-                                <th><?php echo $this->lang->line('common_type'); ?><!--Type--></th>
-                                <th><?php echo $this->lang->line('common_action'); ?><!--Action--></th>
-                            </tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th><?php echo $this->lang->line('common_file_name'); ?>
+                                        <!--File Name-->
+                                    </th>
+                                    <th><?php echo $this->lang->line('common_description'); ?>
+                                        <!--Description-->
+                                    </th>
+                                    <th><?php echo $this->lang->line('common_type'); ?>
+                                        <!--Type-->
+                                    </th>
+                                    <th><?php echo $this->lang->line('common_action'); ?>
+                                        <!--Action-->
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody id="status_attachment_modal_body" class="no-padding">
-                            <tr class="danger">
-                                <td colspan="5" class="text-center">
-                                    <?php echo $this->lang->line('common_no_attachment_found'); ?><!--No Attachment Found--></td>
-                            </tr>
+                                <tr class="danger">
+                                    <td colspan="5" class="text-center">
+                                        <?php echo $this->lang->line('common_no_attachment_found'); ?>
+                                        <!--No Attachment Found-->
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -1020,17 +1038,18 @@ $countryid = $Countrys['countryCode'];
 
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev" style="margin-right: 1%;">
-                <?php echo $this->lang->line('common_previous'); ?><!--Previous--></button>
-            <button id="save_btn_status" class="btn btn-primary pull-right CA_Submit_btn" type="submit"
-                    onclick="save_memberStatus()" disabled>
-                <?php echo $this->lang->line('common_update'); ?><!--Save--></button>
+                <?php echo $this->lang->line('common_previous'); ?>
+                <!--Previous--></button>
+            <button id="save_btn_status" class="btn btn-primary pull-right CA_Submit_btn" type="submit" onclick="save_memberStatus()" disabled>
+                <?php echo $this->lang->line('common_update'); ?>
+                <!--Save--></button>
         </div>
     </div>
 </div>
 
 
 <script>
-    $('#save_btn').html('<?php echo $this->lang->line('common_save');?>');
+    $('#save_btn').html('<?php echo $this->lang->line('common_save'); ?>');
 
     $('.memFamChainCls').prop('disabled', false);
 
@@ -1043,7 +1062,7 @@ $countryid = $Countrys['countryCode'];
     var gs_division;
     var area;
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         control_staff_access(0, 'system/communityNgo/ngo_hi_communityMaster', 0);
 
@@ -1073,19 +1092,18 @@ $countryid = $Countrys['countryCode'];
         Com_MasterID = null;
 
         var masterID = '<?php if (isset($_POST['data_arr']) && !empty($_POST['data_arr'])) {
-            echo json_encode($_POST['data_arr']);
-        } ?>';
+                            echo json_encode($_POST['data_arr']);
+                        } ?>';
 
         if (masterID != null && masterID.length > 0) {
             var masterIDNew = JSON.parse(masterID);
-            $('.headerclose').click(function () {
+            $('.headerclose').click(function() {
 
                 fetchPage('system/communityNgo/ngo_mo_familyCreate', masterIDNew, 'Edit Family', 'NGO');
 
             });
-        }
-        else {
-            $('.headerclose').click(function () {
+        } else {
+            $('.headerclose').click(function() {
                 fetchPage('system/communityNgo/ngo_hi_communityMaster', '', 'Community Members');
             });
         }
@@ -1095,7 +1113,7 @@ $countryid = $Countrys['countryCode'];
         $('.datepic').datetimepicker({
             useCurrent: false,
             format: date_format_policy,
-        }).on('dp.change', function (ev) {
+        }).on('dp.change', function(ev) {
             $('#CommunityMaster_Form').bootstrapValidator('revalidateField', 'CDOB');
             calculateAge();
         });
@@ -1121,18 +1139,67 @@ $countryid = $Countrys['countryCode'];
 
         $('#CommunityMaster_Form').bootstrapValidator({
             live: 'enabled',
-            message: '<?php echo $this->lang->line('common_this_value_is_not_valid');?>.', /*This value is not valid*/
+            message: '<?php echo $this->lang->line('common_this_value_is_not_valid'); ?>.',
+            /*This value is not valid*/
             excluded: [':disabled'],
             fields: {
 
-                CDOB: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_dob_required');?>.'}}},
-                RegionID: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_region_required');?>.'}}},
-                GenderID: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_gender_required');?>.'}}},
-                TitleID: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_title_required');?>.'}}},
-                HouseNo: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_HouseNo_required');?>.'}}},
-                GS_Division: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_GS_Division_required');?>.'}}},
-                countyID: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_country_required');?>.'}}},
-                CountryCodePrimary: {validators: {notEmpty: {message: '<?php echo $this->lang->line('communityngo_CountryCodePrimary_required');?>.'}}},
+                CDOB: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_dob_required'); ?>.'
+                        }
+                    }
+                },
+                RegionID: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_region_required'); ?>.'
+                        }
+                    }
+                },
+                GenderID: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_gender_required'); ?>.'
+                        }
+                    }
+                },
+                TitleID: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_title_required'); ?>.'
+                        }
+                    }
+                },
+                HouseNo: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_HouseNo_required'); ?>.'
+                        }
+                    }
+                },
+                GS_Division: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_GS_Division_required'); ?>.'
+                        }
+                    }
+                },
+                countyID: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_country_required'); ?>.'
+                        }
+                    }
+                },
+                CountryCodePrimary: {
+                    validators: {
+                        notEmpty: {
+                            message: '<?php echo $this->lang->line('communityngo_CountryCodePrimary_required'); ?>.'
+                        }
+                    }
+                },
 
                 TP_Mobile: {
                     validators: {
@@ -1153,7 +1220,7 @@ $countryid = $Countrys['countryCode'];
                         }
                     }
                 },
-                TP_mobileNo2:{
+                TP_mobileNo2: {
                     validators: {
                         regexp: {
                             message: 'The phone number can only contain the digits, spaces and -',
@@ -1162,28 +1229,31 @@ $countryid = $Countrys['countryCode'];
                     }
                 }
             },
-        }).on('success.form.bv', function (e) {
+        }).on('success.form.bv', function(e) {
             e.preventDefault();
             var $form = $(e.target);
             var bv = $form.data('bootstrapValidator');
             var data = $form.serializeArray();
 
-            data.push({'name': 'Com_MasterID', 'value': Com_MasterID});
+            data.push({
+                'name': 'Com_MasterID',
+                'value': Com_MasterID
+            });
             $.ajax({
                 async: true,
                 type: 'post',
                 dataType: 'json',
                 data: data,
                 url: "<?php echo site_url('CommunityNgo/save_communityMember'); ?>",
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         Com_MasterID = data[2];
-                        $('#save_btn').html('<?php echo $this->lang->line('common_update');?>');
+                        $('#save_btn').html('<?php echo $this->lang->line('common_update'); ?>');
                         $('.btn-wizard').removeClass('disabled');
                         $('[href=#step2]').tab('show');
                         load_memberOtherDetails();
@@ -1193,8 +1263,8 @@ $countryid = $Countrys['countryCode'];
 
                     document.getElementById('nxtBtn').style.display = 'block';
                 },
-                error: function () {
-                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                error: function() {
+                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                     stopLoad();
                     refreshNotifications(true);
@@ -1203,19 +1273,19 @@ $countryid = $Countrys['countryCode'];
         });
 
 
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
             $('a[data-toggle="tab"]').removeClass('btn-primary');
             $('a[data-toggle="tab"]').addClass('btn-default');
             $(this).removeClass('btn-default');
             $(this).addClass('btn-primary');
         });
 
-        $('.next').click(function () {
+        $('.next').click(function() {
             var nextId = $(this).parents('.tab-pane').next().attr("id");
             $('[href=#' + nextId + ']').tab('show');
         });
 
-        $('.prev').click(function () {
+        $('.prev').click(function() {
             var prevId = $(this).parents('.tab-pane').prev().attr("id");
             $('[href=#' + prevId + ']').tab('show');
         });
@@ -1264,12 +1334,12 @@ $countryid = $Countrys['countryCode'];
 
         switch (dropdownvalue) {
             case '1':
-                $("#SchoolAttended").attr( "disabled", "disabled" );
+                $("#SchoolAttended").attr("disabled", "disabled");
 
                 break;
 
             default:
-                $("#SchoolAttended").removeAttr( "disabled", "disabled" );
+                $("#SchoolAttended").removeAttr("disabled", "disabled");
         }
     }
 
@@ -1279,12 +1349,14 @@ $countryid = $Countrys['countryCode'];
                 async: true,
                 type: 'post',
                 dataType: 'json',
-                data: {'Com_MasterID': Com_MasterID},
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
                 url: "<?php echo site_url('CommunityNgo/load_member'); ?>",
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     if (!jQuery.isEmptyObject(data)) {
                         Com_MasterID = data['Com_MasterID'];
 
@@ -1321,7 +1393,7 @@ $countryid = $Countrys['countryCode'];
                         $('#CmWeight').val(data['CmWeight']);
                         $('#GS_No').val(data['GS_No']);
                         $("#countyID").val(data['countyID']).change();
-                
+
                         country = data['countyID'];
                         province = data['provinceID'];
                         district = data['districtID'];
@@ -1352,14 +1424,15 @@ $countryid = $Countrys['countryCode'];
                         $("#CmDrvLicIssueDate").val(data['CmDrvLicIssueDate']);
                         $("#CmDrvLicExpiryDate").val(data['CmDrvLicExpiryDate']);
 
-                        $('#save_btn').html('<?php echo $this->lang->line('common_update');?>');
+                        $('#save_btn').html('<?php echo $this->lang->line('common_update'); ?>');
                         document.getElementById('nxtBtn').style.display = 'block';
 
                     }
                     stopLoad();
                     refreshNotifications(true);
-                }, error: function () {
-                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                },
+                error: function() {
+                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                     stopLoad();
                     refreshNotifications(true);
@@ -1369,18 +1442,20 @@ $countryid = $Countrys['countryCode'];
                 async: true,
                 type: 'post',
                 dataType: 'json',
-                data: {'Com_MasterID': Com_MasterID},
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
                 url: "<?php echo site_url('CommunityNgo/check_memFamilyChain'); ?>",
-                success: function (data) {
-                    if(data == 'yes'){
+                success: function(data) {
+                    if (data == 'yes') {
                         $('.memFamChainCls').prop('disabled', false);
-                    }
-                    else{
+                    } else {
                         $('.memFamChainCls').prop('disabled', false);
                     }
                     refreshNotifications(true);
-                }, error: function () {
-                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                },
+                error: function() {
+                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                     stopLoad();
                     refreshNotifications(true);
@@ -1397,12 +1472,14 @@ $countryid = $Countrys['countryCode'];
                 async: true,
                 type: 'post',
                 dataType: 'html',
-                data: {'Com_MasterID': Com_MasterID},
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
                 url: '<?php echo site_url("CommunityNgo/load_memberOtherDetails_View"); ?>',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
 
                     $('#OtherDetails').html(data);
@@ -1410,7 +1487,8 @@ $countryid = $Countrys['countryCode'];
                     $('[href=#languageTab]').addClass('active');
                     $('.language').addClass('active');
 
-                }, error: function () {
+                },
+                error: function() {
                     myAlert('e', 'An Error Occurred! Please Try Again.');
                     stopLoad();
                 }
@@ -1418,23 +1496,26 @@ $countryid = $Countrys['countryCode'];
         }
     }
 
-    function load_memParentDetails(){
+    function load_memParentDetails() {
         if (Com_MasterID) {
             $.ajax({
                 async: true,
                 type: 'post',
                 dataType: 'html',
-                data: {'Com_MasterID': Com_MasterID},
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
                 url: '<?php echo site_url("CommunityNgo/load_memParentDetails_view"); ?>',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
 
                     $('#memParentDetails').html(data);
 
-                }, error: function () {
+                },
+                error: function() {
                     myAlert('e', 'An Error Occurred! Please Try Again.');
                     stopLoad();
                 }
@@ -1449,12 +1530,14 @@ $countryid = $Countrys['countryCode'];
                 async: true,
                 type: 'post',
                 dataType: 'html',
-                data: {'Com_MasterID': Com_MasterID},
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
                 url: '<?php echo site_url("CommunityNgo/load_grandParentDetails_view"); ?>',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
 
                     $('#grandPrtsDetails').html(data);
@@ -1462,7 +1545,8 @@ $countryid = $Countrys['countryCode'];
                     $('[href=#ftrSideGrandTab]').addClass('active');
                     $('.ftrGrand').addClass('active');
 
-                }, error: function () {
+                },
+                error: function() {
                     myAlert('e', 'An Error Occurred! Please Try Again.');
                     stopLoad();
                 }
@@ -1470,18 +1554,20 @@ $countryid = $Countrys['countryCode'];
         }
     }
 
-    function load_grt_grandParentDetails(){
+    function load_grt_grandParentDetails() {
         if (Com_MasterID) {
             $.ajax({
                 async: true,
                 type: 'post',
                 dataType: 'html',
-                data: {'Com_MasterID': Com_MasterID},
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
                 url: '<?php echo site_url("CommunityNgo/load_grt_grandParentDetails_view"); ?>',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
 
                     $('#grt_grandPrtsDetails').html(data);
@@ -1489,7 +1575,8 @@ $countryid = $Countrys['countryCode'];
                     $('[href=#ftrSideGrtGrandTab]').addClass('active');
                     $('.grtFtrGrand').addClass('active');
 
-                }, error: function () {
+                },
+                error: function() {
                     myAlert('e', 'An Error Occurred! Please Try Again.');
                     stopLoad();
                 }
@@ -1504,12 +1591,14 @@ $countryid = $Countrys['countryCode'];
                 async: true,
                 type: 'post',
                 dataType: 'json',
-                data: {'Com_MasterID': Com_MasterID},
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
                 url: "<?php echo site_url('CommunityNgo/load_member'); ?>",
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     if (!jQuery.isEmptyObject(data)) {
 
                         $('#isActive').val(data['isActive']);
@@ -1525,8 +1614,9 @@ $countryid = $Countrys['countryCode'];
                     }
                     stopLoad();
                     refreshNotifications(true);
-                }, error: function () {
-                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                },
+                error: function() {
+                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                     stopLoad();
                     refreshNotifications(true);
@@ -1544,7 +1634,7 @@ $countryid = $Countrys['countryCode'];
             document.getElementById('Age_hidden').value = '';
         } else {
 
-            var date_format_policy = '<?php echo($date_format_policy) ?>';
+            var date_format_policy = '<?php echo ($date_format_policy) ?>';
 
             switch (date_format_policy) {
                 case 'yyyy-mm-dd':
@@ -1619,8 +1709,7 @@ $countryid = $Countrys['countryCode'];
 
     function save_memberStatus() {
 
-        swal(
-            {
+        swal({
                 title: "Are you sure?",
                 text: "You want to in-active this member!",
                 type: "warning",
@@ -1628,10 +1717,13 @@ $countryid = $Countrys['countryCode'];
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "In-active"
             },
-            function () {
+            function() {
 
                 var postData = $('#MemberStatus_Form').serializeArray();
-                postData.push({'name': 'Com_MasterID', 'value': Com_MasterID});
+                postData.push({
+                    'name': 'Com_MasterID',
+                    'value': Com_MasterID
+                });
 
                 $.ajax({
                     async: true,
@@ -1639,20 +1731,19 @@ $countryid = $Countrys['countryCode'];
                     dataType: 'json',
                     data: postData,
                     url: "<?php echo site_url('CommunityNgo/save_communityMemberStatus'); ?>",
-                    beforeSend: function () {
+                    beforeSend: function() {
                         startLoad();
                     },
-                    success: function (data) {
+                    success: function(data) {
                         stopLoad();
                         myAlert(data[0], data[1]);
                         if (data[0] == 's') {
                             Com_MasterID = data[2];
                             load_memberStatusDetails();
-                        } else {
-                        }
+                        } else {}
                     },
-                    error: function () {
-                        alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                    error: function() {
+                        alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                         /*An Error Occurred! Please Try Again*/
                         stopLoad();
                         refreshNotifications(true);
@@ -1662,7 +1753,7 @@ $countryid = $Countrys['countryCode'];
         );
     }
 
-    $("#isActive").click(function () {
+    $("#isActive").click(function() {
         if (this.checked) {
             $('#isActive').val('0');
 
@@ -1703,13 +1794,15 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'json',
-            data: {'division': GS_Div},
+            data: {
+                'division': GS_Div
+            },
             url: "<?php echo site_url('CommunityNgo/get_gs_division_no'); ?>",
-            success: function (data) {
+            success: function(data) {
                 $('#GS_No').val(data);
             },
-            error: function () {
-                alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+            error: function() {
+                alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                 /*An Error Occurred! Please Try Again*/
                 stopLoad();
                 refreshNotifications(true);
@@ -1748,47 +1841,36 @@ $countryid = $Countrys['countryCode'];
                     if (Day > 335) {
                         Day = Day - 335;
                         var Month = "12"; //December
-                    }
-                    else if (Day > 305) {
+                    } else if (Day > 305) {
                         Day = Day - 305;
                         Month = "11"; //November
-                    }
-                    else if (Day > 274) {
+                    } else if (Day > 274) {
                         Day = Day - 274;
                         Month = "10"; //October
-                    }
-                    else if (Day > 244) {
+                    } else if (Day > 244) {
                         Day = Day - 244;
                         Month = "09"; //September
-                    }
-                    else if (Day > 213) {
+                    } else if (Day > 213) {
                         Day = Day - 213;
                         Month = "08"; //Auguest
-                    }
-                    else if (Day > 182) {
+                    } else if (Day > 182) {
                         Day = Day - 182;
                         Month = "07"; //July
-                    }
-                    else if (Day > 152) {
+                    } else if (Day > 152) {
                         Day = Day - 152;
                         Month = "06"; //June
-                    }
-                    else if (Day > 121) {
+                    } else if (Day > 121) {
                         Day = Day - 121;
                         Month = "05"; //May
-                    }
-                    else if (Day > 91) {
+                    } else if (Day > 91) {
                         Day = Day - 91;
                         Month = "04"; //April
-                    }
-                    else if (Day > 60) {
+                    } else if (Day > 60) {
                         Day = Day - 60;
                         Month = "03"; //March
-                    }
-                    else if (Day < 32) {
+                    } else if (Day < 32) {
                         Month = "01"; //January
-                    }
-                    else if (Day > 31) {
+                    } else if (Day > 31) {
                         Day = Day - 31;
                         Month = "02"; //Febuary
                     }
@@ -1797,7 +1879,7 @@ $countryid = $Countrys['countryCode'];
                 //onchange gender
                 $("#GenderID").val(GenderID).change();
 
-                var date_format_policy = '<?php echo($date_format_policy) ?>';
+                var date_format_policy = '<?php echo ($date_format_policy) ?>';
 
                 switch (date_format_policy) {
                     case 'yyyy-mm-dd':
@@ -1846,10 +1928,13 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'json',
-            data: {'NIC': NIC_No, 'Com_MasterID': Com_MasterID},
+            data: {
+                'NIC': NIC_No,
+                'Com_MasterID': Com_MasterID
+            },
             url: "<?php echo site_url('CommunityNgo/check_isNIC_available'); ?>",
 
-            success: function (data) {
+            success: function(data) {
 
                 if (data[0] == 'e') {
                     myAlert(data[0], data[1]);
@@ -1865,7 +1950,7 @@ $countryid = $Countrys['countryCode'];
                 }
 
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -1877,16 +1962,18 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {countyID: countyID},
+            data: {
+                countyID: countyID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_province_based_countryDropdown'); ?>",
-            success: function (data) {
+            success: function(data) {
                 $('#provinceID').html(data);
                 $('#provinceID').val(province).change();
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#provinceID'));
 
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -1897,15 +1984,17 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {masterID: masterID},
+            data: {
+                masterID: masterID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_province_based_districtDropdown'); ?>",
-            success: function (data) {
+            success: function(data) {
                 $('#districtID').html(data);
                 $('#districtID').val(district).change();
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#districtID'));
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -1916,15 +2005,17 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {masterID: masterID},
+            data: {
+                masterID: masterID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_district_based_districtDivisionDropdown'); ?>",
-            success: function (data) {
+            success: function(data) {
                 $('#districtDivisionID').html(data);
                 $('#districtDivisionID').val(district_division).change();
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#districtDivisionID'));
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -1935,15 +2026,17 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {masterID: masterID},
+            data: {
+                masterID: masterID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_district_based_jammiyaDropdown'); ?>",
-            success: function (data) {
+            success: function(data) {
                 $('#jammiyahDivisionID').html(data);
-               // $('#jammiyahDivisionID').val(jammiyah_division).change();
+                // $('#jammiyahDivisionID').val(jammiyah_division).change();
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#jammiyahDivisionID'));
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -1954,15 +2047,17 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {masterID: masterID},
+            data: {
+                masterID: masterID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_division_based_GS_divisionDropdown'); ?>",
-            success: function (data) {
+            success: function(data) {
                 $('#GS_Division').html(data);
                 $('#GS_Division').val(gs_division).change();
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#GS_Division'));
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -1974,16 +2069,18 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {masterID: masterID},
+            data: {
+                masterID: masterID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_division_based_division_Area_Dropdown'); ?>",
 
-            success: function (data) {
+            success: function(data) {
                 $('#RegionID').html(data);
                 $('#RegionID').val(area).change();
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#RegionID'));
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -1994,16 +2091,18 @@ $countryid = $Countrys['countryCode'];
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {masterID: masterID},
+            data: {
+                masterID: masterID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_area_based_village_Dropdown'); ?>",
 
-            success: function (data) {
+            success: function(data) {
                 $('#VillageID').html(data);
-               // $('#VillageID').val(village).change();
+                // $('#VillageID').val(village).change();
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#VillageID'));
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -2021,18 +2120,20 @@ $countryid = $Countrys['countryCode'];
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            data: {'Com_MasterID': Com_MasterID},
+            data: {
+                'Com_MasterID': Com_MasterID
+            },
             url: "<?php echo site_url('CommunityNgo/load_memberStatus_attachments'); ?>",
-            beforeSend: function () {
+            beforeSend: function() {
                 startLoad();
             },
-            success: function (data) {
+            success: function(data) {
                 $('#status_attachment_modal_body').empty();
                 $('#status_attachment_modal_body').append('' + data + '');
 
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
@@ -2048,10 +2149,10 @@ $countryid = $Countrys['countryCode'];
             contentType: false,
             cache: false,
             processData: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 startLoad();
             },
-            success: function (data) {
+            success: function(data) {
                 stopLoad();
                 myAlert(data['type'], data['message'], 1000);
                 if (data['status']) {
@@ -2060,7 +2161,7 @@ $countryid = $Countrys['countryCode'];
                     $('#status_attachmentDescription').val('');
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 stopLoad();
                 swal("Cancelled", "No File Selected :)", "error");
             }
@@ -2077,17 +2178,20 @@ $countryid = $Countrys['countryCode'];
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "Yes!"
             },
-            function () {
+            function() {
                 $.ajax({
                     async: true,
                     type: 'post',
                     dataType: 'json',
-                    data: {'attachmentID': id, 'myFileName': fileName},
+                    data: {
+                        'attachmentID': id,
+                        'myFileName': fileName
+                    },
                     url: "<?php echo site_url('CommunityNgo/delete_member_attachment'); ?>",
-                    beforeSend: function () {
+                    beforeSend: function() {
                         startLoad();
                     },
-                    success: function (data) {
+                    success: function(data) {
                         stopLoad();
                         if (data == true) {
                             myAlert('s', 'Deleted Successfully');
@@ -2096,7 +2200,7 @@ $countryid = $Countrys['countryCode'];
                             myAlert('e', 'Deletion Failed');
                         }
                     },
-                    error: function () {
+                    error: function() {
                         stopLoad();
                         swal("Cancelled", "Your file is safe :)", "error");
                     }
@@ -2106,15 +2210,14 @@ $countryid = $Countrys['countryCode'];
     }
 
     /* Member Aditional datas */
-    function get_mrgCertificateDel(){
+    function get_mrgCertificateDel() {
         var CurrentStatus = document.getElementById('CurrentStatus').value;
 
-        if(CurrentStatus == '2'){
+        if (CurrentStatus == '2') {
             $('#MrgCertificateNo').prop('disabled', false);
             $('#MrgRegisteredDate').prop('disabled', false);
 
-        }
-        else{
+        } else {
             $('#MrgCertificateNo').prop('disabled', true);
             $('#MrgRegisteredDate').prop('disabled', true);
         }
@@ -2123,41 +2226,51 @@ $countryid = $Countrys['countryCode'];
 
     //mem parent
     function save_communityParent() {
+
+        $('#cfFullName').prop("disabled", false);
+        $('#cFatherDOB').prop("disabled", false);
+        $('#cfBornCountry').prop("disabled", false);
+        $('#cfBornArea').prop("disabled", false);
+        $('#cfBC_No').prop("disabled", false);
+        $('#cfBCDate').prop("disabled", false);
+        $('#cfOccupationId').prop("disabled", false);
+        $('#cfNIC_No').prop("disabled", false);
+        $('#cmFullName').prop("disabled", false);
+        $('#cMotherDOB').prop("disabled", false);
+        $('#cmBornCountry').prop("disabled", false);
+        $('#cmBornArea').prop("disabled", false);
+        $('#cmBC_No').prop("disabled", false);
+        $('#cmBCDate').prop("disabled", false);
+        $('#cmOccupationId').prop("disabled", false);
+        $('#cmNIC_No').prop("disabled", false);
+
+        save_communitySaveParent();
+    }
+
+    function save_communitySaveParent() {
         var postData = $('#CommunityParent_Form').serializeArray();
-        postData.push({'name': 'Com_MasterID', 'value': Com_MasterID});
+        postData.push({
+            'name': 'Com_MasterID',
+            'value': Com_MasterID
+        });
+
         if (Com_MasterID) {
-            $('#cfFullName').prop("disabled", false);
-            $('#cFatherDOB').prop("disabled", false);
-            $('#cfBornCountry').prop("disabled", false);
-            $('#cfBornArea').prop("disabled", false);
-            $('#cfBC_No').prop("disabled", false);
-            $('#cfBCDate').prop("disabled", false);
-            $('#cfOccupationId').prop("disabled", false);
-            $('#cfNIC_No').prop("disabled", false);
-            $('#cmFullName').prop("disabled", false);
-            $('#cMotherDOB').prop("disabled", false);
-            $('#cmBornCountry').prop("disabled", false);
-            $('#cmBornArea').prop("disabled", false);
-            $('#cmBC_No').prop("disabled", false);
-            $('#cmBCDate').prop("disabled", false);
-            $('#cmOccupationId').prop("disabled", false);
-            $('#cmNIC_No').prop("disabled", false);
             $.ajax({
                 type: 'post',
                 url: '<?php echo site_url('CommunityNgo/save_communityParent'); ?>',
                 data: postData,
                 dataType: 'json',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
                     myAlert(data[0], data[1]);
-                     fetch_memPrtDetails();
+                    fetch_memPrtDetails();
                 },
-                error: function () {
+                error: function() {
                     stopLoad();
-                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                 }
             });
@@ -2166,43 +2279,53 @@ $countryid = $Countrys['countryCode'];
 
     //mem grandparents
     function save_memFatherParents() {
+
+        $('#cf_GrandFFullName').prop("disabled", false);
+        $('#cf_GrandFDOB').prop("disabled", false);
+        $('#cf_GrandFBornCountry').prop("disabled", false);
+        $('#cf_GrandFBornArea').prop("disabled", false);
+        $('#cf_GrandFBC_No').prop("disabled", false);
+        $('#cf_GrandFBCDate').prop("disabled", false);
+        $('#cf_GrandFOccupationId').prop("disabled", false);
+        $('#cf_GrandFNIC_No').prop("disabled", false);
+        $('#cf_GrandMFullName').prop("disabled", false);
+        $('#cf_GrandMDOB').prop("disabled", false);
+        $('#cf_GrandMBornCountry').prop("disabled", false);
+        $('#cf_GrandMBornArea').prop("disabled", false);
+        $('#cf_GrandMBC_No').prop("disabled", false);
+        $('#cf_GrandMBCDate').prop("disabled", false);
+        $('#cf_GrandMOccupationId').prop("disabled", false);
+        $('#cf_GrandMNIC_No').prop("disabled", false);
+
+        save_memFatherSaveParents()
+    }
+
+    function save_memFatherSaveParents() {
         var postData = $('#memGrandPrtFtr_Form').serializeArray();
-        postData.push({'name': 'Com_MasterID', 'value': Com_MasterID});
+        postData.push({
+            'name': 'Com_MasterID',
+            'value': Com_MasterID
+        });
         if (Com_MasterID) {
-            $('#cf_GrandFFullName').prop("disabled", false);
-            $('#cf_GrandFDOB').prop("disabled", false);
-            $('#cf_GrandFBornCountry').prop("disabled", false);
-            $('#cf_GrandFBornArea').prop("disabled", false);
-            $('#cf_GrandFBC_No').prop("disabled", false);
-            $('#cf_GrandFBCDate').prop("disabled", false);
-            $('#cf_GrandFOccupationId').prop("disabled", false);
-            $('#cf_GrandFNIC_No').prop("disabled", false);
-            $('#cf_GrandMFullName').prop("disabled", false);
-            $('#cf_GrandMDOB').prop("disabled", false);
-            $('#cf_GrandMBornCountry').prop("disabled", false);
-            $('#cf_GrandMBornArea').prop("disabled", false);
-            $('#cf_GrandMBC_No').prop("disabled", false);
-            $('#cf_GrandMBCDate').prop("disabled", false);
-            $('#cf_GrandMOccupationId').prop("disabled", false);
-            $('#cf_GrandMNIC_No').prop("disabled", false);
+
             $.ajax({
                 type: 'post',
                 url: '<?php echo site_url('CommunityNgo/save_memFatherParents'); ?>',
                 data: postData,
                 dataType: 'json',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         fetch_gPrtDetails('ftrSideGrandTab');
                     }
                 },
-                error: function () {
+                error: function() {
                     stopLoad();
-                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                 }
             });
@@ -2210,43 +2333,53 @@ $countryid = $Countrys['countryCode'];
     }
 
     function save_memMotherParents() {
+
+        $('#cm_GrandFFullName').prop("disabled", false);
+        $('#cm_GrandFDOB').prop("disabled", false);
+        $('#cm_GrandFBornCountry').prop("disabled", false);
+        $('#cm_GrandFBornArea').prop("disabled", false);
+        $('#cm_GrandFBC_No').prop("disabled", false);
+        $('#cm_GrandFBCDate').prop("disabled", false);
+        $('#cm_GrandFOccupationId').prop("disabled", false);
+        $('#cm_GrandFNIC_No').prop("disabled", false);
+        $('#cm_GrandMFullName').prop("disabled", false);
+        $('#cm_GrandMDOB').prop("disabled", false);
+        $('#cm_GrandMBornCountry').prop("disabled", false);
+        $('#cm_GrandMBornArea').prop("disabled", false);
+        $('#cm_GrandMBC_No').prop("disabled", false);
+        $('#cm_GrandMBCDate').prop("disabled", false);
+        $('#cm_GrandMOccupationId').prop("disabled", false);
+        $('#cm_GrandMNIC_No').prop("disabled", false);
+
+        save_memMotherSaveParents();
+    }
+
+    function save_memMotherSaveParents() {
         var postData = $('#memGrandPrtMtr_Form').serializeArray();
-        postData.push({'name': 'Com_MasterID', 'value': Com_MasterID});
+        postData.push({
+            'name': 'Com_MasterID',
+            'value': Com_MasterID
+        });
         if (Com_MasterID) {
-            $('#cm_GrandFFullName').prop("disabled", false);
-            $('#cm_GrandFDOB').prop("disabled", false);
-            $('#cm_GrandFBornCountry').prop("disabled", false);
-            $('#cm_GrandFBornArea').prop("disabled", false);
-            $('#cm_GrandFBC_No').prop("disabled", false);
-            $('#cm_GrandFBCDate').prop("disabled", false);
-            $('#cm_GrandFOccupationId').prop("disabled", false);
-            $('#cm_GrandFNIC_No').prop("disabled", false);
-            $('#cm_GrandMFullName').prop("disabled", false);
-            $('#cm_GrandMDOB').prop("disabled", false);
-            $('#cm_GrandMBornCountry').prop("disabled", false);
-            $('#cm_GrandMBornArea').prop("disabled", false);
-            $('#cm_GrandMBC_No').prop("disabled", false);
-            $('#cm_GrandMBCDate').prop("disabled", false);
-            $('#cm_GrandMOccupationId').prop("disabled", false);
-            $('#cm_GrandMNIC_No').prop("disabled", false);
+
             $.ajax({
                 type: 'post',
                 url: '<?php echo site_url('CommunityNgo/save_memMotherParents'); ?>',
                 data: postData,
                 dataType: 'json',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         fetch_gPrtDetails('mtrSideGrandTab');
                     }
                 },
-                error: function () {
+                error: function() {
                     stopLoad();
-                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                 }
             });
@@ -2255,113 +2388,196 @@ $countryid = $Countrys['countryCode'];
 
     //mem great-grandparents
     function save_memGrtFatherParents() {
+        $('#cf_grt_GrandFFullName').prop("disabled", false);
+        $('#cf_grt_GrandFDOB').prop("disabled", false);
+        $('#cf_grt_GrandFBornCountry').prop("disabled", false);
+        $('#cf_grt_GrandFBornArea').prop("disabled", false);
+        $('#cf_grt_GrandFBC_No').prop("disabled", false);
+        $('#cf_grt_GrandFBCDate').prop("disabled", false);
+        $('#cf_grt_GrandFOccupationId').prop("disabled", false);
+        $('#cf_grt_GrandFNIC_No').prop("disabled", false);
+        $('#cf_grt_GrandMFullName').prop("disabled", false);
+        $('#cf_grt_GrandMDOB').prop("disabled", false);
+        $('#cf_grt_GrandMBornCountry').prop("disabled", false);
+        $('#cf_grt_GrandMBornArea').prop("disabled", false);
+        $('#cf_grt_GrandMBC_No').prop("disabled", false);
+        $('#cf_grt_GrandMBCDate').prop("disabled", false);
+        $('#cf_grt_GrandMOccupationId').prop("disabled", false);
+        $('#cf_grt_GrandMNIC_No').prop("disabled", false);
+
+        save_memGrtFatherSaveParents();
+    }
+
+    function save_memGrtFatherSaveParents() {
         var postData = $('#memGrtGrandPrtFtr_Form').serializeArray();
-        postData.push({'name': 'Com_MasterID', 'value': Com_MasterID});
+        postData.push({
+            'name': 'Com_MasterID',
+            'value': Com_MasterID
+        });
         if (Com_MasterID) {
-            $('#cf_grt_GrandFFullName').prop("disabled", false);
-            $('#cf_grt_GrandFDOB').prop("disabled", false);
-            $('#cf_grt_GrandFBornCountry').prop("disabled", false);
-            $('#cf_grt_GrandFBornArea').prop("disabled", false);
-            $('#cf_grt_GrandFBC_No').prop("disabled", false);
-            $('#cf_grt_GrandFBCDate').prop("disabled", false);
-            $('#cf_grt_GrandFOccupationId').prop("disabled", false);
-            $('#cf_grt_GrandFNIC_No').prop("disabled", false);
-            $('#cf_grt_GrandMFullName').prop("disabled", false);
-            $('#cf_grt_GrandMDOB').prop("disabled", false);
-            $('#cf_grt_GrandMBornCountry').prop("disabled", false);
-            $('#cf_grt_GrandMBornArea').prop("disabled", false);
-            $('#cf_grt_GrandMBC_No').prop("disabled", false);
-            $('#cf_grt_GrandMBCDate').prop("disabled", false);
-            $('#cf_grt_GrandMOccupationId').prop("disabled", false);
-            $('#cf_grt_GrandMNIC_No').prop("disabled", false);
+
             $.ajax({
                 type: 'post',
                 url: '<?php echo site_url('CommunityNgo/save_memGrtFatherParents'); ?>',
                 data: postData,
                 dataType: 'json',
-                beforeSend: function () {
+                beforeSend: function() {
+
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         fetch_grtGPrtDetails('ftrSideGrtGrandTab');
                     }
                 },
-                error: function () {
+                error: function() {
                     stopLoad();
-                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                 }
             });
         }
     }
 
+
     function save_memGrtMotherParents() {
+
+        $('#cm_grt_GrandFFullName').prop("disabled", false);
+        $('#cm_grt_GrandFDOB').prop("disabled", false);
+        $('#cm_grt_GrandFBornCountry').prop("disabled", false);
+        $('#cm_grt_GrandFBornArea').prop("disabled", false);
+        $('#cm_grt_GrandFBC_No').prop("disabled", false);
+        $('#cm_grt_GrandFBCDate').prop("disabled", false);
+        $('#cm_grt_GrandFOccupationId').prop("disabled", false);
+        $('#cm_grt_GrandFNIC_No').prop("disabled", false);
+        $('#cm_grt_GrandMFullName').prop("disabled", false);
+        $('#cm_grt_GrandMDOB').prop("disabled", false);
+        $('#cm_grt_GrandMBornCountry').prop("disabled", false);
+        $('#cm_grt_GrandMBornArea').prop("disabled", false);
+        $('#cm_grt_GrandMBC_No').prop("disabled", false);
+        $('#cm_grt_GrandMBCDate').prop("disabled", false);
+        $('#cm_grt_GrandMOccupationId').prop("disabled", false);
+        $('#cm_grt_GrandMNIC_No').prop("disabled", false);
+
+        save_memGrtMotherSaveParents();
+    }
+
+    function save_memGrtMotherSaveParents() {
         var postData = $('#memGrtGrandPrtMtr_Form').serializeArray();
-        postData.push({'name': 'Com_MasterID', 'value': Com_MasterID});
+        postData.push({
+            'name': 'Com_MasterID',
+            'value': Com_MasterID
+        });
         if (Com_MasterID) {
-            $('#cm_grt_GrandFFullName').prop("disabled", false);
-            $('#cm_grt_GrandFDOB').prop("disabled", false);
-            $('#cm_grt_GrandFBornCountry').prop("disabled", false);
-            $('#cm_grt_GrandFBornArea').prop("disabled", false);
-            $('#cm_grt_GrandFBC_No').prop("disabled", false);
-            $('#cm_grt_GrandFBCDate').prop("disabled", false);
-            $('#cm_grt_GrandFOccupationId').prop("disabled", false);
-            $('#cm_grt_GrandFNIC_No').prop("disabled", false);
-            $('#cm_grt_GrandMFullName').prop("disabled", false);
-            $('#cm_grt_GrandMDOB').prop("disabled", false);
-            $('#cm_grt_GrandMBornCountry').prop("disabled", false);
-            $('#cm_grt_GrandMBornArea').prop("disabled", false);
-            $('#cm_grt_GrandMBC_No').prop("disabled", false);
-            $('#cm_grt_GrandMBCDate').prop("disabled", false);
-            $('#cm_grt_GrandMOccupationId').prop("disabled", false);
-            $('#cm_grt_GrandMNIC_No').prop("disabled", false);
+
             $.ajax({
                 type: 'post',
                 url: '<?php echo site_url('CommunityNgo/save_memGrtMotherParents'); ?>',
                 data: postData,
                 dataType: 'json',
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     stopLoad();
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         fetch_grtGPrtDetails('mtrSideGrtGrandTab');
                     }
                 },
-                error: function () {
+                error: function() {
                     stopLoad();
-                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again');?>.');
+                    myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
                     /*An Error Occurred! Please Try Again*/
                 }
             });
         }
     }
 
-    function get_memBornArea(){
+    function get_memBornArea() {
 
         var bornConutryId = document.getElementById('CountryOfOrigin').value;
-        var areaFor='member';
+        var areaFor = 'member';
 
         $.ajax({
             async: true,
             type: 'post',
             dataType: 'html',
-            data: {bornConutryId: bornConutryId,'Com_MasterID':Com_MasterID,'areaFor':areaFor,'bldComMasID':Com_MasterID},
+            data: {
+                bornConutryId: bornConutryId,
+                'Com_MasterID': Com_MasterID,
+                'areaFor': areaFor,
+                'bldComMasID': Com_MasterID
+            },
             url: "<?php echo site_url('CommunityNgo/fetch_country_based_Area_Dropdown'); ?>",
-            success: function (data) {
+            success: function(data) {
                 $('#CPlaceOfBirth').html(data);
                 $('#CommunityMaster_Form').data('bootstrapValidator').resetField($('#CPlaceOfBirth'));
                 stopLoad();
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 myAlert('e', '<br>Message: ' + errorThrown);
             }
         });
+    }
+
+    function clear_memArea_data() {
+        $('#CPlaceOfBirth').val('').change();
+    }
+
+    function get_newAreaAdd_modal() {
+        $('#CPlaceOfBirth').val('').change();
+        var bornConutryId = document.getElementById('CountryOfOrigin').value;
+        var countryName = $("#CountryOfOrigin option:selected").text();
+
+        if (bornConutryId) {
+
+            document.getElementById('areaModalLabel').innerHTML = "<?php echo $this->lang->line('communityngo_addPlaceOfVBirth');?> : "+countryName;
+            $('#com_memAreaAdd_modal').modal('show');
+
+        }
+        else{
+            myAlert('e', 'First Select Country .');
+
+        }
+
+    }
+
+    function fetch_newMem_Area() {
+        var memberNewArea = $('#memberNewArea').val();
+        var bornConutryId = document.getElementById('CountryOfOrigin').value;
+
+        if (memberNewArea && bornConutryId) {
+            $.ajax({
+                async: true,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'bornConutryId': bornConutryId,
+                    'memberNewArea': memberNewArea
+                },
+                url: "<?php echo site_url('CommunityNgo/fetch_newMember_Area'); ?>",
+                beforeSend: function() {
+                    startLoad();
+                },
+                success: function(data) {
+                    stopLoad();
+
+                    get_memBornArea();
+                    $('#CPlaceOfBirth').val(memberNewArea).change();
+                    $('#CPlaceOfBirth').prop('readonly', true);
+                    $('#com_memAreaAdd_modal').modal('hide');
+                    myAlert(data[0], data[1]);
+                },
+                error: function() {
+                    alert('An Error Occurred! Please Try Again.');
+                    stopLoad();
+                }
+            });
+        }
+
     }
 </script>
 

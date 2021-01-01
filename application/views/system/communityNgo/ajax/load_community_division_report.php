@@ -15,57 +15,57 @@ if (!empty($diviReport)) { ?>
             <div class="reportHeader reportHeaderColor" style="text-align: center">
                 <strong>Community GS Division Report</strong></div>
             <div style="">
-                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" style="width: 100%">
+                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" border="1" style="width: 100%;border-collapse: collapse;border: 1px solid white;">
                     <thead class="report-header">
-                    <tr>
-                        <th>#</th>
-                        <th>CODE</th>
-                        <th>NAME</th>
-                        <th>NIC NO</th>
-                        <th>GENDER</th>
-                        <th>DOB</th>
-                        <th>MOBILE</th>
-                        <th>AREA</th>
-                        <th>GS DIVISION</th>
+                        <tr>
+                            <th>#</th>
+                            <th>CODE</th>
+                            <th>NAME</th>
+                            <th>NIC NO</th>
+                            <th>GENDER</th>
+                            <th>DOB</th>
+                            <th>MOBILE</th>
+                            <th>AREA</th>
+                            <th>GS DIVISION</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    if ($diviReport) {
-                        $r = 1;
-                        $totalComMm = 1;
-                        foreach ($diviReport as $val) {
-
-                            ?>
-                            <tr>
-
-                                <td><?php echo $r ?></td>
-                                <td><?php echo $val["MemberCode"] ?></td>
-                                <td width="180px"><?php echo $val["CName_with_initials"] ?></td>
-                                <td><?php echo $val["CNIC_No"] ?></td>
-                                <td><?php echo $val["name"] ?></td>
-                                <td><?php echo $val["CDOB"] ?></td>
-                                <td><?php echo $val["PrimaryNumber"] ?></td>
-                                <td><?php echo $val["Region"] ?></td>
-                                <td><?php echo $val["divDescription"] ?></td>
-                            </tr>
-                            <?php
-                            $r++;
-                            $totQual = $totalComMm++;
-                        }
+                        <?php
+                        if ($diviReport) {
+                            $r = 1;
+                            $totalComMm = 1;
+                            foreach ($diviReport as $val) {
 
                         ?>
+                                <tr>
 
-                    <?php }
-                    ?>
+                                    <td><?php echo $r ?></td>
+                                    <td><?php echo $val["MemberCode"] ?></td>
+                                    <td width="180px"><?php echo $val["CName_with_initials"] ?></td>
+                                    <td><?php echo $val["CNIC_No"] ?></td>
+                                    <td><?php echo $val["Gender"] ?></td>
+                                    <td><?php echo $val["CDOB"] ?></td>
+                                    <td><?php echo $val["PrimaryNumber"] ?></td>
+                                    <td><?php echo $val["Region"] ?></td>
+                                    <td><?php echo $val["divDescription"] ?></td>
+                                </tr>
+                            <?php
+                                $r++;
+                                $totQual = $totalComMm++;
+                            }
+
+                            ?>
+
+                        <?php }
+                        ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 <?php } else {
-    ?>
+?>
     <br>
     <div class="row">
         <div class="col-md-12 xxcol-md-offset-2">
@@ -73,18 +73,17 @@ if (!empty($diviReport)) { ?>
         </div>
     </div>
 
-    <?php
+<?php
 } ?>
-    <script>
-        $('#tbl_rpt_salesorder').tableHeadFixer({
-            head: true,
-            foot: true,
-            left: 0,
-            right: 0,
-            'z-index': 10
-        });
-
-    </script>
+<script>
+    $('#tbl_rpt_salesorder').tableHeadFixer({
+        head: true,
+        foot: true,
+        left: 0,
+        right: 0,
+        'z-index': 10
+    });
+</script>
 
 <?php
 /**
