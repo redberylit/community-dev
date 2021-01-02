@@ -1,0 +1,522 @@
+<?php
+/**
+ * System messages translation for CodeIgniter(tm)
+ *
+ * @author    Shafri
+ * @copyright    Copyright (c), GEARS Software Solution Pvt. Ltd. (http://gears-int.com)
+ * @link :   http://gears-int.com
+ *
+ * @prefix : navigation_menu_
+ * Created on 28-June-2017
+ */
+
+
+$lang['navigation_menu__dashboard'] = 'டாஷ்போர்ட்';
+$lang['navigation_menu__community.net'] = 'சமூகம்.Net';
+$lang['navigation_menu__payments'] = 'கட்டணங்கள்';
+$lang['navigation_menu__collections'] = 'அறவீடுகள்';
+$lang['navigation_menu__procurement'] = 'கொள்முதல்';
+$lang['navigation_menu__inventory'] = 'இருப்பு';
+$lang['navigation_menu__accounts_payable'] = 'செலுத்த வேண்டிய கணக்குகள்';
+$lang['navigation_menu__accounts_receivable'] = 'பெறத்தக்க கணக்குகள்';
+$lang['navigation_menu__finance'] = 'நிதி';
+$lang['navigation_menu__asset_management'] = '<lable style="font-size: 13px;">சொத்து மேலாண்மை</lable>';
+$lang['navigation_menu__treasury'] = 'Treasury';
+$lang['navigation_menu__hrms'] = '<lable style="font-size: 12px;">மனிதவள மேலாண்மை</lable>';
+$lang['navigation_menu__configuration'] = 'உள்ளமைவு';
+$lang['navigation_menu__tax'] = 'TAX';
+$lang['navigation_menu__pos_restaurant'] = 'POS Restaurant';
+$lang['navigation_menu__administration'] = 'Administration';
+$lang['navigation_menu__pos_general'] = 'POS General';
+$lang['navigation_menu__my_profile'] = 'My Profile';
+$lang['navigation_menu__manufacturing'] = 'Manufacturing';
+$lang['navigation_menu__sales___marketing'] = 'Sales & Marketing';
+$lang['navigation_menu__crm'] = 'CRM';
+$lang['navigation_menu__mpr'] = 'MPR';
+$lang['navigation_menu__dashboard'] = 'டாஷ்போர்ட்';//Dashboard
+$lang['navigation_menu__qhse'] = 'QHSE';
+$lang['navigation_menu__vdr'] = 'VDR';
+$lang['navigation_menu__fleet_management'] = 'Fleet Management';
+$lang['navigation_menu__srm'] = 'SRM';
+$lang['navigation_menu__group_management'] = 'Group Management';
+$lang['navigation_menu__project_management'] = 'Project Management';
+$lang['navigation_menu__buyback'] = 'Buyback';
+$lang['navigation_menu__operation_ngo'] = 'Operation NGO';
+
+$lang['navigation_menu_31_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_31_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_31_report'] = 'அறிக்கை';//Report;
+$lang['navigation_menu_31_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_32_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_32_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_32_report'] = 'அறிக்கை';//Report;
+$lang['navigation_menu_32_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_33_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_33_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_33_report'] = 'அறிக்கை';//Report;
+$lang['navigation_menu_33_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_34_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_34_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_34_report'] = 'உறுப்பினர் அறிக்கை';//Report;
+$lang['navigation_menu_35_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_35_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_35_report'] = 'அறிக்கை';//Report;
+$lang['navigation_menu_35_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_36_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_36_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_36_report'] = 'அறிக்கை';//Report;
+$lang['navigation_menu_36_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_37_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_37_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_37_report'] = 'அறிக்கை';//Report;
+$lang['navigation_menu_38_leave_management'] = 'Leave Management';
+$lang['navigation_menu_38_payroll'] = 'Payroll ';
+$lang['navigation_menu_38_attendance'] = 'Attendance';
+$lang['navigation_menu_38_employee'] = 'பணியாளர்';//Employee
+$lang['navigation_menu_38_other_masters'] = 'மற்றய மாஸ்டர்ஸ்';//Others Masters
+$lang['navigation_menu_38_expense_claim'] = 'Expense Claim';
+$lang['navigation_menu_38_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_38_loan'] = 'Loan';
+$lang['navigation_menu_38_report'] = 'அறிக்கை';//Report
+$lang['navigation_menu_38_over_time_management'] = 'மேலதிக நேர மேலாண்மை';//Over Time Management
+$lang['navigation_menu_39_company_user_group'] = 'நிறுவன பயனர் குழு';//Company User Group
+$lang['navigation_menu_39_company_configuration'] = 'நிறுவன கட்டமைப்பு';//Company Configuration
+$lang['navigation_menu_39_user_configuration'] = 'பயனர் உள்ளமைவு';//User Configuration
+$lang['navigation_menu_39_template_configuration'] = 'வார்ப்புரு கட்டமைப்பு';//Template Configuration
+$lang['navigation_menu_39_approval_setup'] = 'ஒப்புதல் அமைப்பு';//Approval Setup
+$lang['navigation_menu_39_navigation_group_setup'] = '<lable style="font-size: 14px;">ஊடுருவல் குழு அமைப்பு</lable>';//Navigation Group Setup
+$lang['navigation_menu_39_employee_navigation_access'] = '<lable style="font-size: 10px;">பணியாளர் செயன்முறை அணுகல்</lable>';//Employee Navigation Access
+$lang['navigation_menu_39_document_setup'] = 'ஆவண அமைப்பு';//Document Setup
+$lang['navigation_menu_39_report_template'] = 'அறிக்கை வார்ப்புரு';//Report Template
+$lang['navigation_menu_40_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_41_kitchen'] = 'Kitchen';
+$lang['navigation_menu_41_pos_tablet'] = 'POS Tablet';
+$lang['navigation_menu_41_dashboard'] = 'டாஷ்போர்ட்';//Dashboard
+$lang['navigation_menu_41_pos_terminal'] = 'POS Terminal';
+$lang['navigation_menu_41_config'] = 'config';
+$lang['navigation_menu_41_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_41_till_management_report'] = 'Till Management Report';
+$lang['navigation_menu_41_outlet_sales_report'] = 'Outlet Sales Report';
+$lang['navigation_menu_41_delivery_order'] = 'Delivery Order';
+$lang['navigation_menu_41_sales_report'] = 'Sales Report';
+$lang['navigation_menu_41_sales_detail_report'] = 'Sales Detail Report';
+$lang['navigation_menu_41_outlet_item_wise_sales'] = 'Outlet Item Wise Sales';
+$lang['navigation_menu_41_pos_sales_report'] = 'POS Sales Report';
+$lang['navigation_menu_41_item_wise_sales'] = 'Item Wise Sales';
+$lang['navigation_menu_41_product_mix'] = 'Product Mix';
+$lang['navigation_menu_41_franchise'] = 'Franchise';
+$lang['navigation_menu_41_delivery_commision_report'] = 'Delivery Commision report';
+$lang['navigation_menu_41_discount_report'] = 'Discount report';
+$lang['navigation_menu_41_reports'] = 'அறிக்கைகள்';//Reports
+$lang['navigation_menu_42_reversing_approved_document'] = 'Reversing Approved Document';
+$lang['navigation_menu_42_company_policy'] = 'Company Policy';
+$lang['navigation_menu_133_purchase_order'] = 'Purchase Order';
+$lang['navigation_menu_133_purchase_request'] = 'Purchase Request';
+$lang['navigation_menu_134_purchase_order'] = 'Purchase Order';
+$lang['navigation_menu_134_purchase_request'] = 'Purchase Request';
+$lang['navigation_menu_135_purchase_order_list'] = 'Purchase Order List';
+$lang['navigation_menu_136_purchasing_address'] = 'Purchasing Address';
+$lang['navigation_menu_137_goods_received_voucher'] = 'Goods Received Voucher';
+$lang['navigation_menu_137_material_issue'] = 'Material Issue';
+$lang['navigation_menu_137_stock_transfer'] = 'Stock Transfer';
+$lang['navigation_menu_137_purchase_return'] = 'Purchase Return';
+$lang['navigation_menu_137_stock_adjustment'] = 'Stock Adjustment';
+$lang['navigation_menu_137_material_receipt_note'] = 'Material Receipt Note';
+$lang['navigation_menu_137_material_request'] = 'Material Request';
+$lang['navigation_menu_137_stock_counting'] = 'Stock Counting';
+$lang['navigation_menu_138_goods_received_voucher'] = 'Goods Received Voucher';
+$lang['navigation_menu_138_purchase_return'] = 'Purchase Return';
+$lang['navigation_menu_138_material_issue'] = 'Material Issue';
+$lang['navigation_menu_138_stock_transfer'] = 'Stock Transfer';
+$lang['navigation_menu_138_stock_adjustment'] = 'Stock Adjustment';
+$lang['navigation_menu_138_material_receipt_note'] = 'Material Receipt Note';
+$lang['navigation_menu_138_material_request'] = 'Material Request';
+$lang['navigation_menu_138_stock_counting'] = 'Stock Counting';
+$lang['navigation_menu_139_item_inquiry'] = 'Item Inquiry';
+$lang['navigation_menu_139_item_ledger'] = 'Item Ledger';
+$lang['navigation_menu_139_item_valuation_summary'] = 'Item Valuation Summary';
+$lang['navigation_menu_139_item_counting'] = 'Item Counting';
+$lang['navigation_menu_139_fast_moving_item'] = 'Fast Moving Item';
+$lang['navigation_menu_139_unbilled_grv'] = 'Un-billed GRV';
+$lang['navigation_menu_140_units_of_measurement'] = 'Units of Measurement';
+$lang['navigation_menu_140_item_master'] = 'Item Master';
+$lang['navigation_menu_140_item_category'] = 'Item Category';
+$lang['navigation_menu_140_grv_addon_category'] = 'GRV Add-on Category';
+$lang['navigation_menu_140_warehouse_master'] = 'Warehouse Master ';
+$lang['navigation_menu_141_supplier_invoice'] = 'கொடுனா் விலைப்பட்டியல்';//Supplier Invoice
+$lang['navigation_menu_141_debit_note'] = 'பற்று குறிப்பு';//Debit Note
+$lang['navigation_menu_141_payment_voucher'] = 'கட்டண வவுச்சர்';//Payment Voucher
+$lang['navigation_menu_142_supplier_invoice'] = 'கொடுனா் விலைப்பட்டியல்';//Supplier Invoice
+$lang['navigation_menu_142_debit_note'] = 'பற்று குறிப்பு';//Debit Note
+$lang['navigation_menu_142_payment_voucher'] = 'கட்டண வவுச்சர்';//Payment Voucher
+$lang['navigation_menu_142_payment_matching'] = 'கட்டண பொருத்தம்';//Payment Matching
+$lang['navigation_menu_142_payment_reversal'] = 'நோ்மாறான கொடுப்பனவு';//Payment Reversal
+$lang['navigation_menu_143_vendor_ledger'] = 'விற்பனையாளர் பேரேடு';//Vendor Ledger
+$lang['navigation_menu_143_vendor_statement'] = 'விற்பனையாளர் அறிக்கை';//Vendor Statement
+$lang['navigation_menu_143_vendor_aging_summary'] = 'விற்பனையாளர் சுருக்கம்';//Vendor Aging Summary
+$lang['navigation_menu_143_vendor_aging_detail'] = 'விற்பனையாளர்  விவரம்';//Vendor Aging Detail
+$lang['navigation_menu_144_supplier_category'] = 'கொடுனா் வகை';//Supplier Category
+$lang['navigation_menu_144_supplier_master'] = 'கொடுனா் மாஸ்டர்';//Supplier Master
+$lang['navigation_menu_145_credit_note'] = 'வரவுக்குறிப்பு';//Credit Note
+$lang['navigation_menu_145_receipt_voucher'] = 'ரசீது வவுச்சர்';//Receipt Voucher
+$lang['navigation_menu_146_receipt_matching'] = 'ரசீது பொருத்தம்';//Receipt Matching
+$lang['navigation_menu_146_credit_note'] = 'வரவுக்குறிப்பு';//Credit Note
+$lang['navigation_menu_146_receipt_voucher'] = 'ரசீது வவுச்சர்';//Receipt Voucher
+$lang['navigation_menu_146_receipt_reversal'] = 'நோ்மாறான ரசீது';//Receipt Reversal
+$lang['navigation_menu_147_customer_ledger'] = 'உறுப்பினர் பேரேடு';//Customer Ledger
+$lang['navigation_menu_147_customer_statement'] = 'அறிக்கை';//Customer Statement
+$lang['navigation_menu_147_customer_aging_summary'] = 'வயது நிலை';//Customer Aging Summary
+$lang['navigation_menu_147_customer_aging_detail'] = 'வயது விவரம்';//Customer Aging Detail
+$lang['navigation_menu_147_collection_summary'] = 'அறவீட்டுச் சுருக்கம்';//Collection Summary
+$lang['navigation_menu_147_collection_details'] = 'அறவீட்டு விவரங்கள்';//Collection Details
+$lang['navigation_menu_149_journal_voucher'] = 'பத்திரிகை ரசீது';//Journal Voucher
+$lang['navigation_menu_149_recurring_jv'] = 'தொடர்ச்சியான JV';//Recurring JV
+$lang['navigation_menu_150_journal_voucher'] = 'பத்திரிகை ரசீது';//Journal Voucher
+$lang['navigation_menu_150_budget'] = 'வரவு செலவுத் திட்டம்';//Budget
+$lang['navigation_menu_150_recurring_jv'] = 'தொடர்ச்சியான JV';//Recurring JV
+$lang['navigation_menu_151_trial_balance'] = 'சோதனை இருப்பு';//Trial Balance
+$lang['navigation_menu_151_income_statement'] = 'வருமான அறிக்கை';//Income Statement
+$lang['navigation_menu_151_balance_sheet'] = 'இருப்புநிலை';//Balance Sheet
+$lang['navigation_menu_151_general_ledger'] = 'பொது பேரேடு';//General Ledger
+$lang['navigation_menu_152_segment'] = 'பிரிவு';//Segment
+$lang['navigation_menu_152_financial_year'] = 'நிதி ஆண்டு';//Financial Year
+$lang['navigation_menu_152_chart_of_accounts'] = 'கணக்குகளின் விளக்கப்படம்';//Chart of Accounts
+$lang['navigation_menu_153_asset'] = 'சொத்து';
+$lang['navigation_menu_153_depreciation'] = 'தேய்மானம்';//Depreciation
+$lang['navigation_menu_153_disposal'] = 'அகற்றல்';//Disposal
+$lang['navigation_menu_154_asset_depreciation'] = 'சொத்து தேய்மானம்';//Asset Depreciation
+$lang['navigation_menu_154_asset_disposal'] = 'சொத்து அகற்றல்';//Asset Disposal
+$lang['navigation_menu_155_monthly_depreciation_report'] = '<lable style="font-size: 10px;">மாதாந்த தேய்மான அறிக்கை</lable>';//Monthly Depreciation Report
+$lang['navigation_menu_155_asset_register'] = 'சொத்து பதிவு';//Asset Register
+$lang['navigation_menu_155_asset_register_summary'] = '<lable style="font-size: 12px;">சொத்து பதிவின் சுருக்கம்</lable>';//Asset Register Summary
+$lang['navigation_menu_156_asset_master'] = 'சொத்து மாஸ்டர்';//Asset Master
+$lang['navigation_menu_156_asset_location'] = 'சொத்து இருப்பிடம்';//Asset Location
+$lang['navigation_menu_157_bank_reconciliation'] = 'Bank Reconciliation';
+$lang['navigation_menu_157_bank_transfer'] = 'Bank Transfer';
+$lang['navigation_menu_158_loan_management'] = 'Loan Management';
+$lang['navigation_menu_158_bank_reconciliation'] = 'Bank Reconciliation';
+$lang['navigation_menu_158_bank_transfer'] = 'Bank Transfer';
+$lang['navigation_menu_158_currency_exchange'] = 'Currency Exchange';
+$lang['navigation_menu_159_post_dated_cheque'] = 'Postdated cheque';
+$lang['navigation_menu_159_bank___cash_register'] = 'Bank / Cash Register';
+$lang['navigation_menu_161_salary_declaration'] = 'Salary Declaration';
+$lang['navigation_menu_161_machine_attendance'] = 'Machine Attendance';
+$lang['navigation_menu_161_non_salary_processing'] = 'Non-Salary Processing';
+$lang['navigation_menu_161_fixed_element_declaration'] = 'Fixed Element Declaration';
+$lang['navigation_menu_161_payroll_processing'] = 'Payroll Processing';
+$lang['navigation_menu_161_loan'] = 'Loan';
+$lang['navigation_menu_161_leave'] = 'Leave';
+$lang['navigation_menu_161_attendance_summary'] = 'Attendance Summary';
+$lang['navigation_menu_162_employee_loan'] = 'Employee Loan';
+$lang['navigation_menu_162_loan_category'] = 'Loan Category';
+$lang['navigation_menu_163_employee_pay_scale'] = 'Employee Pay Scale';
+$lang['navigation_menu_163_pay_slip'] = 'Pay Slip';
+$lang['navigation_menu_163_report_master'] = 'Report Master';
+$lang['navigation_menu_163_employee_leave_balance'] = 'Employee Leave Balance';
+$lang['navigation_menu_163_etf'] = 'ETF';
+$lang['navigation_menu_163_epf'] = 'EPF ';
+$lang['navigation_menu_163_allowance_slip'] = 'Allowance Slip';
+$lang['navigation_menu_163_c_form'] = 'C Form';
+$lang['navigation_menu_163_r_form'] = 'R Form';
+$lang['navigation_menu_163_etf_return'] = 'ETF Return';
+$lang['navigation_menu_163_payee_registration'] = 'PAYE Registration';
+$lang['navigation_menu_163_income_tax_deduction'] = 'Income Tax Deduction';
+$lang['navigation_menu_163_salary_comparison'] = 'Salary Comparison';
+$lang['navigation_menu_163_localization'] = 'Localization';
+$lang['navigation_menu_163_salary_trend'] = 'Salary Trend';
+$lang['navigation_menu_163_employee_details_report'] = 'Employee Details Report';
+$lang['navigation_menu_163_employee_leave_history'] = 'Employee Leave History';
+$lang['navigation_menu_169_tax'] = 'Tax';
+$lang['navigation_menu_169_tax_group'] = 'Tax Group';
+$lang['navigation_menu_169_tax_authority'] = 'Tax Authority';
+$lang['navigation_menu_173_menu_master'] = 'Menu Master';
+$lang['navigation_menu_173_outlet_setup'] = 'Outlet Setup';
+$lang['navigation_menu_173_create_outlets'] = 'Create Outlets';
+$lang['navigation_menu_173_counter_setup'] = 'Counter Setup';
+$lang['navigation_menu_173_menu_size'] = 'Menu Size';
+$lang['navigation_menu_173_yield_setup'] = 'Yield Setup';
+$lang['navigation_menu_173_customer___order_setup'] = 'Customer / Order Setup';
+$lang['navigation_menu_173_promotion_discount_setup'] = 'Promotion/Discount Setup';
+$lang['navigation_menu_173_yield_preparation'] = 'Yield Preparation';
+$lang['navigation_menu_173_user_group'] = 'User Group';
+$lang['navigation_menu_173_authentication_process'] = 'Authentication Process';
+
+$lang['navigation_menu_175_gl_configuration'] = 'GL Configuration';
+$lang['navigation_menu_175_counter'] = 'Counter';
+$lang['navigation_menu_175_warehouse_users'] = 'Warehouse Users';
+$lang['navigation_menu_175_crew_roles'] = 'Crew Roles';
+$lang['navigation_menu_175_outlet_users'] = 'Outlet Users';
+$lang['navigation_menu_175_customers'] = 'உறுப்பினர்கள்';//Customers
+$lang['navigation_menu_175_card_master'] = 'Card Master';
+
+
+$lang['navigation_menu_285_template'] = 'Template';
+$lang['navigation_menu_313_apply_for_leave'] = 'Apply for Leave';
+$lang['navigation_menu_313_leave_master'] = 'Leave Master';
+$lang['navigation_menu_313_leave_group'] = 'Leave Group';
+$lang['navigation_menu_313_leave_calendar'] = 'Leave Calendar';
+$lang['navigation_menu_313_leave_adjustment'] = 'Leave Adjustment';
+$lang['navigation_menu_313_monthly_leave_accrual'] = 'Monthly Leave Accrual';
+$lang['navigation_menu_313_annual_leave_accrual'] = 'Annual Leave Accrual';
+$lang['navigation_menu_313_leave_plan'] = 'Leave Plan';
+$lang['navigation_menu_313_approval_setup'] = 'Approval Setup';
+$lang['navigation_menu_313_sick_leave_setup'] = 'Sick Leave setup';
+$lang['navigation_menu_318_terminal'] = 'Terminal';
+$lang['navigation_menu_318_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_318_dashboard'] = 'டாஷ்போர்ட்';//Dashboard
+$lang['navigation_menu_324_gl_configuration'] = 'GL Configuration';
+$lang['navigation_menu_324_counter'] = 'Counter';
+$lang['navigation_menu_324_warehouse_users'] = 'Warehouse Users';
+$lang['navigation_menu_329_profile'] = 'Profile';
+$lang['navigation_menu_329_pay_slip'] = 'Pay Slip';
+$lang['navigation_menu_329_apply_for_leave'] = 'Apply for Leave';
+$lang['navigation_menu_329_monthly_allowance_slip'] = 'Monthly Allowance Slip ';
+$lang['navigation_menu_329_expense_claim'] = 'Expense Claim';
+$lang['navigation_menu_329_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_329_leave_plan'] = 'Leave Plan';
+$lang['navigation_menu_329_sales_target'] = 'Sales Target';
+$lang['navigation_menu_342_monthly_addition'] = 'Monthly Addition';
+$lang['navigation_menu_342_monthly_deduction'] = 'Monthly Deduction';
+$lang['navigation_menu_342_payroll_processing'] = 'Payroll Processing';
+$lang['navigation_menu_342_monthly_add___ded'] = 'Monthly Add / Ded';
+$lang['navigation_menu_342_salary_category'] = 'Salary Category';
+$lang['navigation_menu_342_paysheet_template'] = 'Paysheet Template';
+$lang['navigation_menu_342_salary_declaration'] = 'Salary Declaration';
+$lang['navigation_menu_342_social_insurance_master'] = 'Social Insurance Master';
+$lang['navigation_menu_342_slab_master'] = 'Slab Master';
+$lang['navigation_menu_342_paysheet_grouping'] = 'Paysheet Grouping';
+$lang['navigation_menu_342_payee_master'] = 'PAYE Master';
+$lang['navigation_menu_342_non_salary_processing'] = 'Non-Salary Processing';
+$lang['navigation_menu_342_sso_slab_master'] = 'SSO Slab Master';
+$lang['navigation_menu_343_attendance_types'] = 'Attendance Types';
+$lang['navigation_menu_343_shift_master'] = 'Shift Master';
+$lang['navigation_menu_343_floor_master'] = 'Floor Master';
+$lang['navigation_menu_343_over_time_master'] = 'Over Time Master';
+$lang['navigation_menu_343_over_time_group_master'] = 'Over Time Group Master';
+$lang['navigation_menu_343_manual_attendance'] = 'Manual Attendance';
+$lang['navigation_menu_343_machine_attendance'] = 'Machine Attendance';
+$lang['navigation_menu_343_no_pay_setup'] = 'No pay setup';
+$lang['navigation_menu_343_machine_mapping'] = 'Machine Mapping';
+$lang['navigation_menu_343_attendance_summary'] = 'Attendance Summary';
+$lang['navigation_menu_343_attendance_template'] = 'Attendance Template';
+$lang['navigation_menu_344_employee_master'] = 'பணியாளர் மாஸ்டர்';//Employee Master
+$lang['navigation_menu_344_bank_master'] = 'வங்கி மாஸ்டர்';//Bank Master
+$lang['navigation_menu_344_employment_type'] = 'வேலை வகை';//Employment Type
+$lang['navigation_menu_344_employee_non_payroll_bank'] = 'Employee Non Payroll Bank';
+$lang['navigation_menu_344_grade'] = 'படித்தரம்';//Grade
+$lang['navigation_menu_345_department_master'] = 'துறை மாஸ்டர்';//Department Master
+$lang['navigation_menu_345_document_setup'] = 'ஆவண அமைப்பு';//Document Setup
+$lang['navigation_menu_345_religion_master'] = 'மதம் மாஸ்டர்';//Religion Master
+$lang['navigation_menu_345_country_master'] = 'நாடு மாஸ்டர்';
+$lang['navigation_menu_345_designation_master'] = 'பதவி மாஸ்டர்';//Designation Master
+$lang['navigation_menu_345_document_master'] = 'ஆவண மாஸ்டர்';//Document Master
+$lang['navigation_menu_345_nationality_master'] = 'தேசியம் மாஸ்டர்';//Nationality Master
+$lang['navigation_menu_345_insurance_category'] = 'காப்பீட்டு வகை';//Insurance Category
+$lang['navigation_menu_345_hr_documents'] = '<lable style="font-size: 12px;">மனிதவள ஆவணங்கள்</lable>';//HR Documents
+$lang['navigation_menu_348_job_cart'] = 'Job Cart';
+$lang['navigation_menu_348_configuration'] = 'Configuration';
+$lang['navigation_menu_348_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_348_dashboard'] = 'டாஷ்போர்ட்';//Dashboard
+$lang['navigation_menu_348_job'] = 'Job';
+$lang['navigation_menu_348_customer_inquiry'] = 'Customer Inquiry';
+$lang['navigation_menu_348_estimate'] = 'Estimate';
+$lang['navigation_menu_350_bill_of_material'] = 'Bill of Material';
+$lang['navigation_menu_350_item_master'] = 'Item Master';
+$lang['navigation_menu_350_over_heads'] = 'Over Heads';
+$lang['navigation_menu_350_asset_master'] = 'Asset Master';
+$lang['navigation_menu_350_crew'] = 'Crew';
+$lang['navigation_menu_350_company_workflow'] = 'Company Workflow';
+$lang['navigation_menu_350_template'] = 'Template';
+$lang['navigation_menu_350_machine'] = 'Machine';
+$lang['navigation_menu_350_template_setup'] = 'Template Setup';
+$lang['navigation_menu_350_customers'] = 'உறுப்பினர்கள்';//Customers
+$lang['navigation_menu_350_segment'] = 'Segment';
+$lang['navigation_menu_350_workflow_setup'] = 'Workflow Setup';
+$lang['navigation_menu_350_unit_of_measure'] = 'Unit Of Measure';
+$lang['navigation_menu_350_system_settings'] = 'System Settings';
+
+$lang['navigation_menu_361_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_361_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_361_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_361_reports'] = 'அறிக்கைகள்';//Reports
+$lang['navigation_menu_363_customer_category'] = 'Customer Category';
+$lang['navigation_menu_363_sales_person'] = 'Sales Person';
+$lang['navigation_menu_363_customer_master'] = 'Customer Master';
+$lang['navigation_menu_364_quotation___contract'] = 'Quotation / Contract';
+$lang['navigation_menu_364_sales_commission'] = 'Sales Commission';
+$lang['navigation_menu_364_commission_payment'] = 'Commission Payment';
+$lang['navigation_menu_364_sales_return'] = 'Sales Return';
+$lang['navigation_menu_364_invoice'] = 'விலைப்பட்டியல்';//Invoice
+$lang['navigation_menu_365_quotation___contract'] = 'Quotation / Contract';
+$lang['navigation_menu_365_sales_commission'] = 'Sales Commission';
+$lang['navigation_menu_365_sales_return'] = 'Sales Return';
+$lang['navigation_menu_365_commission_payment'] = 'Commision Payment';
+$lang['navigation_menu_365_invoice'] = 'விலைப்பட்டியல்';//Invoice
+$lang['navigation_menu_365_sales_order'] = 'Sales Order';
+$lang['navigation_menu_365_revenue_details_report'] = 'Revenue Details Report';
+$lang['navigation_menu_365_revenue_details_summary'] = 'Revenue Details Summary';
+$lang['navigation_menu_387_dashboard'] = 'டாஷ்போர்ட்';//Dashboard
+$lang['navigation_menu_387_campaigns'] = 'Campaigns';
+$lang['navigation_menu_387_tasks'] = 'Tasks';
+$lang['navigation_menu_387_meetings'] = 'Meetings';
+$lang['navigation_menu_387_contacts'] = 'Contacts';
+$lang['navigation_menu_387_accounts'] = 'Accounts';
+$lang['navigation_menu_387_leads'] = 'Leads';
+$lang['navigation_menu_387_opportunities'] = 'Opportunities';
+$lang['navigation_menu_387_organizations'] = 'Organizations';
+$lang['navigation_menu_387_system_settings'] = 'System Settings';
+$lang['navigation_menu_387_reports'] = 'அறிக்கைகள்';//Reports
+$lang['navigation_menu_387_projects'] = 'Projects';
+$lang['navigation_menu_387_sales_target'] = 'Sales Target';
+$lang['navigation_menu_387_quotation'] = 'Quotation';
+$lang['navigation_menu_387_expense_claim'] = 'Expense Claim';
+$lang['navigation_menu_409_expense_claim_master'] = 'Expense Claim Master';
+$lang['navigation_menu_409_expense_claim_category'] = 'Expense Claim Category';
+$lang['navigation_menu_410_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_415_expense_claim'] = 'Expense Claim';
+
+$lang['navigation_menu_420_master'] = 'மாஸ்டர்';
+$lang['navigation_menu_420_dashboard'] = 'டாஷ்போர்ட்';//Dashboard
+$lang['navigation_menu_420_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_421_srm_supplier_master'] = 'SRM கொடுனா் மாஸ்டர்';//SRM Supplier Master
+$lang['navigation_menu_421_srm_customer_master'] = 'SRM Customer Master';
+$lang['navigation_menu_421_customer_order'] = 'உறுப்பினர் பொருட்டு';//Customer Order
+$lang['navigation_menu_441_configuration'] = 'Configuration';
+$lang['navigation_menu_441_group_consolidation'] = 'Group Consolidation';
+$lang['navigation_menu_447_company_sub_groups'] = 'Company Sub Groups';
+$lang['navigation_menu_447_sub_group_employees'] = 'Sub Group Employees';
+$lang['navigation_menu_447_navigation_access'] = 'Navigation Access ';
+$lang['navigation_menu_447_sub_group_template_setup'] = 'Sub Group Template Setup';
+$lang['navigation_menu_448_customer_master'] = 'Customer Master';
+$lang['navigation_menu_448_supplier_master'] = 'கொடுனா் மாஸ்டர்';//Supplier Master
+$lang['navigation_menu_448_chart_of_accounts'] = 'Chart Of Accounts';
+$lang['navigation_menu_448_customer_category'] = 'Customer Category';
+$lang['navigation_menu_448_supplier_category'] = 'Supplier Category';
+$lang['navigation_menu_448_segment'] = 'Segment';
+$lang['navigation_menu_448_item_category'] = 'Item Category';
+$lang['navigation_menu_448_item_master'] = 'Item Master';
+$lang['navigation_menu_448_unit_of_measurement'] = 'Unit Of Measurement';
+$lang['navigation_menu_448_finance_year'] = 'Finance Year';
+$lang['navigation_menu_448_warehouse'] = 'Warehouse';
+
+$lang['navigation_menu_454_item_category'] = 'Item Category';
+$lang['navigation_menu_454_asset_category'] = 'Asset Category';
+$lang['navigation_menu_458_fixed_elements'] = 'Fixed Elements';
+$lang['navigation_menu_399_fixed_elements'] = 'Fixed Elements';
+$lang['navigation_menu_458_over_time_group'] = 'Over Time Group';
+$lang['navigation_menu_399_over_time_group'] = 'Over Time Group';
+$lang['navigation_menu_458_over_time_slab'] = 'Over Time Slab';
+$lang['navigation_menu_399_over_time_slab'] = 'Over Time Slab';
+$lang['navigation_menu_458_monthly_addition'] = 'Monthly Addition';
+$lang['navigation_menu_399_monthly_addition'] = 'Monthly Addition';
+$lang['navigation_menu_458_fixed_element_declaration'] = 'Fixed Element Declaration';
+$lang['navigation_menu_399_fixed_element_declaration'] = 'Fixed Element Declaration';
+$lang['navigation_menu_466_project_master'] = 'Project Master';
+$lang['navigation_menu_466_project_category'] = 'Project Category';
+$lang['navigation_menu_466_project'] = 'Project';
+$lang['navigation_menu_466_project_planning'] = 'Project Planning';
+$lang['navigation_menu_466_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_466_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_481_project_approval'] = 'Project Approval';
+$lang['navigation_menu_483_project_category'] = 'Project Category';
+$lang['navigation_menu_483_project_master'] = 'Project Master';
+
+$lang['navigation_menu_478_order_inquiry'] = 'Order Inquiry';
+$lang['navigation_menu_361_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_361_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_361_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_365_quotation___contract'] = 'Quotation / Contract';
+$lang['navigation_menu_365_invoice'] = 'விலைப்பட்டியல்';//Invoice
+$lang['navigation_menu_365_sales_commission'] = 'Sales Commission';
+$lang['navigation_menu_365_sales_return'] = 'Sales Return';
+$lang['navigation_menu_365_commission_payment'] = 'Commission Payment';
+$lang['navigation_menu_364_quotation___contract'] = 'Quotation / Contract';
+$lang['navigation_menu_364_invoice'] = 'விலைப்பட்டியல்';//Invoice
+$lang['navigation_menu_364_sales_commission'] = 'Sales Commission';
+$lang['navigation_menu_364_sales_return'] = 'Sales Return';
+$lang['navigation_menu_364_commission_payment'] = 'Commission Payment';
+$lang['navigation_menu_363_customer_master'] = 'உறுப்பினர் மாஸ்டர்';//Customer Master
+$lang['navigation_menu_363_customer_category'] = 'உறுப்பினர் வகை';//Customer Category
+$lang['navigation_menu_363_sales_person'] = 'Sales Person';
+$lang['navigation_menu_421_customer_order'] = 'உறுப்பினர் பொருட்டு';//Customer Order
+$lang['navigation_menu_478_order_inquiry'] = 'Order Inquiry';
+$lang['navigation_menu_478_order_review'] = 'Order Review';
+$lang['navigation_menu_478_customer_order'] = 'உறுப்பினர் பொருட்டு';//Customer Order
+
+$lang['navigation_menu_501_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_501_reports'] = 'அறிக்கைகள்';//Reports
+$lang['navigation_menu_501_masters'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_501_transaction'] = 'Transaction';
+
+$lang['navigation_menu_537_dispatch_note'] = 'Dispatch Note';
+$lang['navigation_menu_537_grn'] = 'GRN';
+$lang['navigation_menu_537_payment_voucher'] = 'கட்டண வவுச்சர்';//Payment Voucher
+$lang['navigation_menu_537_batch_closing'] = 'Batch Closing';
+
+
+$lang['navigation_menu_502_dispatch_note'] = 'Dispatch Note';
+$lang['navigation_menu_502_mortality'] = 'Mortality';
+$lang['navigation_menu_502_payment_voucher'] = 'கட்டண வவுச்சர்';//Payment Voucher
+$lang['navigation_menu_502_goods_received_note'] = 'Goods Received Note';
+
+$lang['navigation_menu_501_farm'] = 'Farm';
+$lang['navigation_menu_501_batch'] = 'Batch';
+$lang['navigation_menu_501_add_on_category'] = 'Add-on Category';
+$lang['navigation_menu_501_item_master'] = 'Item Master';
+$lang['navigation_menu_501_mortality_causes'] = 'Mortality Causes';
+$lang['navigation_menu_501_production_report'] = 'Production Report';
+
+
+$lang['navigation_menu_519_dashboard'] = 'டாஷ்போர்ட்';//Dashboard
+$lang['navigation_menu_519_dashboard_2'] = 'டாஷ்போர்ட் 2';//Dashboard 2
+
+$lang['navigation_menu_519_approval'] = 'ஒப்புதல்';//Approval
+$lang['navigation_menu_519_donor_collection'] = 'நன்கொடை சேகரிப்பு';
+$lang['navigation_menu_519_project_proposal'] = 'திட்ட வரைகோள்';//Project Proposal
+
+$lang['navigation_menu_519_transactions'] = 'பரிவர்த்தனைகள்';//Transactions
+$lang['navigation_menu_519_donor_commitments'] = '<label style="font-size: 10px;">நன்கொடையாளர் கடமைகள்</label>';//Donor Commitments
+$lang['navigation_menu_519_donor_collections'] = '<label style="font-size: 11px;">நன்கொடை சேகரிப்புகள்</label>';//Donor Collections
+$lang['navigation_menu_519_project'] = 'திட்டம்';//Project
+$lang['navigation_menu_1039_rental'] = 'வாடகை';//Rental
+$lang['navigation_menu_1039_notice_board'] = 'அறிவிப்பு பலகை';//Notice Board
+$lang['navigation_menu_1039_committee'] = 'கமிட்டிகள்';//Committees
+
+$lang['navigation_menu_519_community'] = 'சமூகம்';//Community
+$lang['navigation_menu_1046_member'] = 'சமூக உறுப்பினர்';//Member
+$lang['navigation_menu_1039_family'] = 'சமூக குடும்பம்';//Family
+$lang['navigation_menu_1039_family_login'] = 'குடும்ப உள்நுழைவு';//Family Login
+$lang['navigation_menu_1039_uploads'] = 'பதிவேற்றங்கள்';//Uploads
+
+$lang['navigation_menu_519_reports'] = 'அறிக்கைகள்';//Reports
+$lang['navigation_menu_519_members'] = 'உறுப்பினர்கள்';//Members
+$lang['navigation_menu_519_donor_commitment_status'] = 'நன்கொடையாளர் பங்களிப்பு நிலை';//Donor Commitment Status
+$lang['navigation_menu_1025_community'] = 'சமூகம்';//Community
+
+$lang['navigation_menu_519_community_master'] = 'சமூக மாஸ்டர்';//Community Master
+$lang['navigation_menu_1046_area'] = 'சமூக பிரதேசம்';//Area
+$lang['navigation_menu_519_community_donors'] = 'நன்கொடையாளர்கள்';//Community Donors
+$lang['navigation_menu_519_community_beneficiary'] = 'சமூக பயனாளி';//Community Beneficiary
+
+$lang['navigation_menu_519_master'] = 'மாஸ்டர்ஸ்';//Masters
+$lang['navigation_menu_519_projects'] = 'திட்டங்கள்';
+$lang['navigation_menu_1046_fee_setup'] = 'கட்டணம் அமைத்தல்';//Fee Setup
+$lang['navigation_menu_1046_rental_item'] = 'வாடகை பொருள்';//Rental Item
+$lang['navigation_menu_1046_fee_configuration'] = 'கட்டணம் உள்ளமைவு';//Fee Configuration
+$lang['navigation_menu_1046_rental_warehouse'] = 'வாடகை கிடங்கு';//Rental Warehouse
+$lang['navigation_menu_1046_committee_positions'] = 'கமிட்டி நிலைகள்';//Committee Positions
+
+$lang['navigation_menu_519_donors'] = 'நன்கொடையாளர்கள்';//Donors
+$lang['navigation_menu_519_beneficiary'] = 'பயனாளி';//Beneficiary
+
+$lang['navigation_menu_519_configuration'] = 'உள்ளமைவு';
+$lang['navigation_menu_519_document_master'] = 'ஆவண மாஸ்டர்';//Document Master
+$lang['navigation_menu_519_document_setup'] = 'ஆவண அமைப்பு';//Document Setup
+$lang['navigation_menu_519_area_setup'] = 'பிரதேச அமைவு';//Area Setup
+$lang['navigation_menu_519_beneficiary_types'] = 'பயனாளி வகைகள்';//Beneficiary Types
+
+
+/**duplicated */
+
+
+
