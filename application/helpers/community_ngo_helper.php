@@ -337,6 +337,10 @@ if (!function_exists('load_division_for_member')) {
                 $countries_arr[trim($row['stateID'])] = trim($row['Description']);
             }
         }
+         echo '<pre>';
+         print_r($countries_arr);
+         exit;
+        
         return $countries_arr;
     }
 }
