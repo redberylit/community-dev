@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 |
 */
-$config['bucket'] = 'gearsdev.testbucket';
+$config['bucket'] = 'slmcp';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['verify_peer'] = TRUE;
 
 
 
-$config['region'] = 'us-west-2';
+$config['region'] = 'ap-southeast-1';
 //$config['region'] = 'EU (Frankfurt)';
 
 
@@ -49,7 +49,7 @@ $config['region'] = 'us-west-2';
 |
 */
 
-$config['access_key'] = 'AKIAIBOOIVSEYQZRADJQ';
+$config['access_key'] = 'AKIAXB7H4X7BBXAZ2NQH';
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ $config['access_key'] = 'AKIAIBOOIVSEYQZRADJQ';
 |
 */
 
-$config['secret_key'] = 'uL4Qm/yMvLjvXHt1Sh/Z19mSd1+nMZjC3XCrUVEN';
+$config['secret_key'] = 'AHDUlsJdRwzNuoGg9zjOiGzHz5L2qhg46cA8DEUs';
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ $config['get_from_enviroment'] = FALSE;
 | Name for access key in enviroment
 |
 */
-$config['access_key_envname'] = 'AKIAIBOOIVSEYQZRADJQ';
+$config['access_key_envname'] = 'AKIAXB7H4X7BBXAZ2NQH';
 
 /*
 |--------------------------------------------------------------------------
@@ -92,7 +92,7 @@ $config['access_key_envname'] = 'AKIAIBOOIVSEYQZRADJQ';
 | Name for access key in enviroment
 |
 */
-$config['secret_key_envname'] = 'uL4Qm/yMvLjvXHt1Sh/Z19mSd1+nMZjC3XCrUVEN';
+$config['secret_key_envname'] = 'AHDUlsJdRwzNuoGg9zjOiGzHz5L2qhg46cA8DEUs';
 
 /*
 |--------------------------------------------------------------------------

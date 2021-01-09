@@ -75,10 +75,13 @@ $query_builder = TRUE;
 
 $db['db2'] = array(
     'dsn' => '',
-    'hostname' => '000.000.000.000',
-    'username' => 'null',
-    'password' => 'null',
-    'database' => 'central_db',
+ /*    'hostname' => '192.168.52.5',
+    'username' => 'mubashir',
+    'password' => 'Subaru123', */
+    'hostname' => 'commiunity.cydxem3txm8k.ap-southeast-1.rds.amazonaws.com',
+    'username' => 'admin',
+    'password' => 'i95YX8lLv6A9',
+    'database' => 'community_centraldb',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
@@ -96,12 +99,13 @@ $db['db2'] = array(
 );
 
 
+
 $db['default'] = array(
     'dsn' => '',
-    'hostname' => '000.000.000.000',
-    'username' => 'null',
-    'password' => 'null',
-    'database' => 'central_db',//
+    'hostname' => 'commiunity.cydxem3txm8k.ap-southeast-1.rds.amazonaws.com',
+    'username' => 'admin',
+    'password' => 'i95YX8lLv6A9',
+    'database' => 'community_centraldb',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
