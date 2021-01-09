@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 |
 */
-$config['bucket'] = 'slmcp';
+$config['bucket'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +35,7 @@ $config['verify_peer'] = TRUE;
 
 
 
-$config['region'] = 'ap-southeast-1';
+$config['region'] = '';
 //$config['region'] = 'EU (Frankfurt)';
 
 
@@ -49,7 +49,7 @@ $config['region'] = 'ap-southeast-1';
 |
 */
 
-$config['access_key'] = 'AKIAXB7H4X7BBXAZ2NQH';
+$config['access_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ $config['access_key'] = 'AKIAXB7H4X7BBXAZ2NQH';
 |
 */
 
-$config['secret_key'] = 'AHDUlsJdRwzNuoGg9zjOiGzHz5L2qhg46cA8DEUs';
+$config['secret_key'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -82,7 +82,7 @@ $config['get_from_enviroment'] = FALSE;
 | Name for access key in enviroment
 |
 */
-$config['access_key_envname'] = 'AKIAXB7H4X7BBXAZ2NQH';
+$config['access_key_envname'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -92,7 +92,7 @@ $config['access_key_envname'] = 'AKIAXB7H4X7BBXAZ2NQH';
 | Name for access key in enviroment
 |
 */
-$config['secret_key_envname'] = 'AHDUlsJdRwzNuoGg9zjOiGzHz5L2qhg46cA8DEUs';
+$config['secret_key_envname'] = '';
 
 /*
 |--------------------------------------------------------------------------
