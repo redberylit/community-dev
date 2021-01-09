@@ -35,7 +35,7 @@ $config['verify_peer'] = TRUE;
 
 
 
-$config['region'] = 'ap-southeast-1';
+$config['region'] = '';
 //$config['region'] = 'EU (Frankfurt)';
 
 
