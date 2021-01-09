@@ -6,13 +6,12 @@ $this->lang->load('common', $primaryLanguage);
 
 <?php
 $date_format_policy = date_format_policy();
-
-if (!empty($otrFamily)) { ?>
+if (!empty($comuFamilies)) { ?>
     <div class="row" style="margin-top: 5px">
         <div class="col-md-12">
             <?php
             if ($type == 'html') {
-                echo export_buttons('communityFamiliesRprt', 'Community Family Detail', True, false);
+                echo export_buttons('communityFamiliesRprt', 'Community Families Detail', True, false);
             } ?>
         </div>
     </div>
@@ -39,7 +38,7 @@ if (!empty($otrFamily)) { ?>
 
                 $x = 1;
                 $totFm =0;
-                foreach ($otrFamily as $val) {
+                foreach ($comuFamilies as $val) {
 
                     if($val['FamAncestory']==0){ $FamAnces ="Local"; }else{ $FamAnces ="Outside"; }
 
@@ -80,22 +79,22 @@ if (!empty($otrFamily)) { ?>
                         <td class="mailbox-name"><?php echo $val['FamilyAddedDate']; ?></td>
                         <td class="mailbox-name"><span data-toggle="tooltip" title="Total Members Of The Family" style="background-color: lightgrey; color: black;font-size: 11px;" class="badge"><b><?php echo $totMms; ?></b></span></td>
                         <td class="mailbox-name">
-                            <?php if(!empty($datHousing)){
+                                <?php if(!empty($datHousing)){
 
-                                ?>
+                                    ?>
 
-                                <a href="#" style="font-size:14px;"><span title="Enrolled" style="color: green;" rel="tooltip" class="fa fa-home" data-original-title="Enrolled"></span></a> &nbsp;
+                                    <a href="#" style="font-size:14px;"><span title="Enrolled" style="color: green;" rel="tooltip" class="fa fa-home" data-original-title="Enrolled"></span></a> &nbsp;
+
+                                    <?php
+                                }else{
+
+                                    ?>
+
+                                    <a href="#" style="font-size:14px;"><span title="Not Enrolled" style="color: red;" rel="tooltip" class="fa fa-home" data-original-title="Not Enrolled"></span></a> &nbsp;
 
                                 <?php
-                            }else{
-
+                                }
                                 ?>
-
-                                <a href="#" style="font-size:14px;"><span title="Not Enrolled" style="color: red;" rel="tooltip" class="fa fa-home" data-original-title="Not Enrolled"></span></a> &nbsp;
-
-                                <?php
-                            }
-                            ?>
 
                         </td>
                         <td class="mailbox-name">
@@ -112,11 +111,19 @@ if (!empty($otrFamily)) { ?>
                         </td>
                     </tr>
                     <?php
+                    $totFm += 1;
                     $x++;
                 }
                 ?>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td class="text-left" colspan="10">
+                        Total Families : <?php echo $totFm; ?>
 
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
     </div>
@@ -135,10 +142,11 @@ if (!empty($otrFamily)) { ?>
         });
     </script>
 
+
 <?php
 /**
  * Created by PhpStorm.
  * User: Moufiya
- * Date: 5/8/2019
- * Time: 11:38 AM
+ * Date: 1/22/2019
+ * Time: 9:22 AM
  */

@@ -15,88 +15,83 @@ if (!empty($memReport)) { ?>
             <div class="reportHeader reportHeaderColor" style="text-align: center">
                 <strong>Community Member Occupation Report</strong></div>
             <div style="">
-                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" style="width: 100%">
+                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" border="1" style="width: 100%;border-collapse: collapse;border: 1px solid white;">
                     <thead class="report-header">
-                    <tr>
-                        <th>#</th>
-                        <th>MEMBER</th>
-                        <th>NIC NO</th>
-                        <th>GENDER</th>
-                        <th>MOBILE</th>
-                        <th>OCCUPATION TYPE</th>
-                        <th>IsPrimary</th>
-                        <th>GRADE</th>
-                        <th>JOB</th>
-                        <th>PLACE</th>
-                        <th>ADDRESS</th>
-                        <th>DATE FROM</th>
+                        <tr>
+                            <th>#</th>
+                            <th>CODE</th>
+                            <th>NAME</th>
+                            <th>NIC NO</th>
+                            <th>GENDER</th>
+                            <th>MOBILE</th>
+                            <th>OCCUPATION TYPE</th>
+                            <th>IsPrimary</th>
+                            <th>GRADE</th>
+                            <th>JOB</th>
+                            <th>PLACE</th>
+                            <th>ADDRESS</th>
+                            <th>DATE FROM</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    if ($memReport) {
-                        $r = 1;
-                        $totalMrm = 1;
-                        foreach ($memReport as $val) {
+                        <?php
+                        if ($memReport) {
+                            $r = 1;
+                            $totalMrm = 1;
+                            foreach ($memReport as $val) {
 
-                            if (isset($val["OcDescription"]) && !empty($val["OcDescription"])) {
-                              $OccTypeID=$val["OcDescription"];
-                            }
-                            else{
-                                $OccTypeID='';
-                            }
-                            if (isset($val["gradeComDes"]) && !empty($val["gradeComDes"])) {
-                                $gradeComDes =$val["gradeComDes"];
-                            }
-                            else{
-                                $gradeComDes ='';
-                            }
-                            if (isset($val["JobCatDescription"]) && !empty($val["JobCatDescription"])) {
-                                $JobCatDescription =$val["JobCatDescription"];
-                            }
-                            else{
-                                $JobCatDescription ='';
-                            }
-
-                            if (isset($val["OccTypeID"]) && !empty($val["OccTypeID"]) && ($val["OccTypeID"] =='1')) {
-                                $WorkingPlace = $val["schoolComDes"];
-                            }
-                            else{
-                                if (isset($val["WorkingPlace"]) && !empty($val["WorkingPlace"])) {
-                                    $WorkingPlace = $val["WorkingPlace"];
+                                if (isset($val["OcDescription"]) && !empty($val["OcDescription"])) {
+                                    $OccTypeID = $val["OcDescription"];
                                 } else {
-                                    $WorkingPlace = '';
+                                    $OccTypeID = '';
                                 }
-                            }
-                            if (isset($val["Address"]) && !empty($val["Address"])) {
-                                $Address=$val["Address"];
-                            }
-                            else{
-                                $Address='';
-                            }
-                            if (isset($val["DateFrom"]) && !empty($val["DateFrom"])) {
+                                if (isset($val["gradeComDes"]) && !empty($val["gradeComDes"])) {
+                                    $gradeComDes = $val["gradeComDes"];
+                                } else {
+                                    $gradeComDes = '';
+                                }
+                                if (isset($val["JobCatDescription"]) && !empty($val["JobCatDescription"])) {
+                                    $JobCatDescription = $val["JobCatDescription"];
+                                } else {
+                                    $JobCatDescription = '';
+                                }
 
-                                $DateFrom = $val["DateFrom"];
-                            }
-                            else{
-                                $DateFrom = '';
-                            }
-                            if ((isset($val["isPrimary"]) && !empty($val["isPrimary"])) && $val["isPrimary"]==1) {
+                                if (isset($val["OccTypeID"]) && !empty($val["OccTypeID"]) && ($val["OccTypeID"] == '1')) {
+                                    $WorkingPlace = $val["schoolComDes"];
+                                } else {
+                                    if (isset($val["WorkingPlace"]) && !empty($val["WorkingPlace"])) {
+                                        $WorkingPlace = $val["WorkingPlace"];
+                                    } else {
+                                        $WorkingPlace = '';
+                                    }
+                                }
+                                if (isset($val["Address"]) && !empty($val["Address"])) {
+                                    $Address = $val["Address"];
+                                } else {
+                                    $Address = '';
+                                }
+                                if (isset($val["DateFrom"]) && !empty($val["DateFrom"])) {
 
-                              $isPrimary = 'Yes';
-                            }
-                            else{
-                                $isPrimary = '';
-                            }
+                                    $DateFrom = $val["DateFrom"];
+                                } else {
+                                    $DateFrom = '';
+                                }
+                                if ((isset($val["isPrimary"]) && !empty($val["isPrimary"])) && $val["isPrimary"] == 1) {
 
-                                ?>
+                                    $isPrimary = 'Yes';
+                                } else {
+                                    $isPrimary = '';
+                                }
+
+                        ?>
                                 <tr>
 
                                     <td><?php echo $r ?></td>
+                                    <td><?php echo $val["MemberCode"] ?></td>
                                     <td width="180px"><?php echo $val["CName_with_initials"] ?></td>
                                     <td><?php echo $val["CNIC_No"] ?></td>
-                                    <td><?php echo $val["name"] ?></td>
+                                    <td><?php echo $val["Gender"] ?></td>
                                     <td><?php echo $val["PrimaryNumber"] ?></td>
                                     <td><?php echo $OccTypeID ?></td>
                                     <td><?php echo $isPrimary ?></td>
@@ -106,22 +101,22 @@ if (!empty($memReport)) { ?>
                                     <td><?php echo $Address ?></td>
                                     <td><?php echo $DateFrom ?></td>
                                 </tr>
-                                <?php
-                            $r++;
-                            $totMr = $totalMrm++;
+                            <?php
+                                $r++;
+                                $totMr = $totalMrm++;
                             }
 
                             ?>
 
-                            <?php }
-                            ?>
+                        <?php }
+                        ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 <?php } else {
-    ?>
+?>
     <br>
     <div class="row">
         <div class="col-md-12 xxcol-md-offset-2">
@@ -129,7 +124,7 @@ if (!empty($memReport)) { ?>
         </div>
     </div>
 
-    <?php
+<?php
 } ?>
 <script>
     $('#tbl_rpt_salesorder').tableHeadFixer({
@@ -139,5 +134,4 @@ if (!empty($memReport)) { ?>
         right: 0,
         'z-index': 10
     });
-
 </script>
