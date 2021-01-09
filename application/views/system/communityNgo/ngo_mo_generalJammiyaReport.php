@@ -88,14 +88,15 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 <div class="nav-tabs-custom" style="margin-bottom: 0px; box-shadow: none;">
     <ul class="nav nav-tabs" style="border: 1px solid rgba(112, 107, 107, 0.21);">
         <li class="active">
+            <a href="#divisionAppTap" data-toggle="tab" aria-expanded="false" onclick="switchComMemDiviRprt();"><?php echo $titleTab4; ?></a>
+        </li>
+        <li class="">
             <a href="#approvelTab" data-toggle="tab" aria-expanded="true" onclick="switchComMemOccRprt();"><?php echo $title; ?> </a>
         </li>
         <li class="">
             <a href="#qualificationAppTap" data-toggle="tab" aria-expanded="false" onclick="switchComMemQualRprt();"><?php echo $titleTab2; ?></a>
         </li>
-        <li class="">
-            <a href="#divisionAppTap" data-toggle="tab" aria-expanded="false" onclick="switchComMemDiviRprt();"><?php echo $titleTab4; ?></a>
-        </li>
+
         <li class="">
             <a href="#helpRequirementsTap" data-toggle="tab" aria-expanded="false" onclick="switchComMemHelpRqRprt();"><?php echo $titleTab5; ?></a>
         </li>
@@ -109,7 +110,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
         <input type="text" name="switchHelpId" id="switchHelpId" value="" style="display:none;">
 
 
-        <div class="tab-pane active disabled" id="approvelTab">
+        <div class="tab-pane" id="approvelTab">
 
             <div class="table-responsive">
 
@@ -271,7 +272,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
             </div>
         </div>
-        <div class="tab-pane" id="divisionAppTap">
+        <div class="tab-pane active disabled" id="divisionAppTap">
 
             <div class="table-responsive">
                 <form method="post" name="form_rpt_memDivi" id="form_rpt_memDivi" class="form-horizontal">
@@ -410,7 +411,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                 <div style="display: none" id="memWillingToHelpDiv">
                     <form method="post" name="form_rpt_memHelpWilling" id="form_rpt_memHelpWilling" class="form-horizontal">
                         <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
-                        <div class="col-md-12" id="memhelpWilDiv">
+                        <div class="col-md-12" id="memhelpWillingDiv">
 
                             <div class="form-group col-sm-3" id="willingMemDiv">
                                 <label for="helpCategoryID" class="control-label"><?php echo $this->lang->line('communityNgo_willing_to_help_category'); ?></label>
@@ -427,7 +428,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-3" id="wilHelpSerchDiv" style="margin-left: 5px;">
+                            <div class="form-group col-sm-3" id="helpWilSerchDiv" style="margin-left: 5px;">
                                 <label for="helpWillSerch" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                                 <input name="helpWillSerch" type="text" class="form-control input-sm" style="height:30px;width:200px;font-size: 13px;" placeholder="Search by all" id="helpWillSerch">
                                 <!--Search by all-->
@@ -594,9 +595,8 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
     </div>
 </div>
 
-
-
 <?php echo footer_page('Right foot', 'Left foot', false); ?>
+
 <script>
     var helpDelIDs;
 
@@ -626,7 +626,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
     $("#sicknessID").multiselect2('updateButtonText');
 
     $('.headerclose').click(function() {
-        fetchPage('system/communityNgo/ngo_mo_communityReport', '', 'Community Member Report')
+        fetchPage('system/communityNgo/ngo_mo_generalJammiyaReport', '', 'Community Member Report')
     });
     $(document).ready(function(e) {
         //  generateReport();
@@ -906,7 +906,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('CommunityNgo/get_communityMem_status_report') ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/get_generalComStatus_report') ?>",
             data: $("#form_rpt_commMem").serialize(),
             dataType: "html",
             cache: false,
@@ -947,7 +947,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('CommunityNgo/get_communityMem_qual_report') ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/get_generalQualficatn_report') ?>",
             data: $("#form_rpt_memQual").serialize(),
             dataType: "html",
             cache: false,
@@ -993,7 +993,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('CommunityNgo/get_communityMem_otrReport') ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/get_geralaMember_delReport') ?>",
             data: $("#form_rpt_memOtr").serialize(),
             dataType: "html",
             cache: false,
@@ -1066,7 +1066,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('CommunityNgo/get_communityMem_diviReport') ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/get_generalMem_diviReport') ?>",
             data: $("#form_rpt_memDivi").serialize(),
             dataType: "html",
             cache: false,
@@ -1095,43 +1095,43 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
             var form = document.getElementById('form_rpt_commMem');
             form.target = '_blank';
-            form.action = '<?php echo site_url('CommunityNgo/get_communityMem_status_report_pdf'); ?>';
+            form.action = '<?php echo site_url('CommunityJammiyaNgo/get_generalComStatus_report_pdf'); ?>';
             form.submit();
         } else if (switchControlId == 2) {
 
             var form = document.getElementById('form_rpt_memQual');
             form.target = '_blank';
-            form.action = '<?php echo site_url('CommunityNgo/get_communityMem_qual_report_pdf'); ?>';
+            form.action = '<?php echo site_url('CommunityJammiyaNgo/get_generalQualficatn_report_pdf'); ?>';
             form.submit();
         } else if (switchControlId == 3) {
 
             var form = document.getElementById('form_rpt_memOtr');
             form.target = '_blank';
-            form.action = '<?php echo site_url('CommunityNgo/get_communityMem_otrReport_pdf'); ?>';
+            form.action = '<?php echo site_url('CommunityJammiyaNgo/get_geralaMember_delReport_pdf'); ?>';
             form.submit();
         } else if (switchControlId == 4) {
 
             var form = document.getElementById('form_rpt_memDivi');
             form.target = '_blank';
-            form.action = '<?php echo site_url('CommunityNgo/get_communityMem_diviReport_pdf'); ?>';
+            form.action = '<?php echo site_url('CommunityJammiyaNgo/get_generalMem_diviReport_pdf'); ?>';
             form.submit();
         } else if (switchControlId == 5 && switchHelpId == '9') {
 
             var form = document.getElementById('form_rpt_memHelpRq');
             form.target = '_blank';
-            form.action = '<?php echo site_url('CommunityNgo/get_communityMem_helpRq_report_pdf'); ?>';
+            form.action = '<?php echo site_url('CommunityJammiyaNgo/get_generalMemHelpRq_report_pdf'); ?>';
             form.submit();
         } else if (switchControlId == 5 && switchHelpId == '8') {
 
             var form = document.getElementById('form_rpt_memHelpWilling');
             form.target = '_blank';
-            form.action = '<?php echo site_url('CommunityNgo/get_comMem_willingToHelp_report_pdf'); ?>';
+            form.action = '<?php echo site_url('CommunityJammiyaNgo/get_generalWillingToHelp_report_pdf'); ?>';
             form.submit();
         } else if (switchControlId == 5 && switchHelpId == '7') {
 
             var form = document.getElementById('form_rpt_memHelpBoth');
             form.target = '_blank';
-            form.action = '<?php echo site_url('CommunityNgo/get_comMem_bothHelp_report_pdf'); ?>';
+            form.action = '<?php echo site_url('CommunityJammiyaNgo/get_generalBothHelp_report_pdf'); ?>';
             form.submit();
         }
 
@@ -1149,7 +1149,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
             data: {
                 memHelpType: helpRqType
             },
-            url: "<?php echo site_url('CommunityNgo/fetch_helpType_delDropdown'); ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/fetch_helpType_delDropdown'); ?>",
             success: function(data) {
                 $('#helpDelIds').html(data);
                 $('#helpDelIds').val(helpDelIDs).change();
@@ -1165,7 +1165,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('CommunityNgo/get_communityMem_helpRq_report') ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/get_generalMemHelpRq_report') ?>",
             data: $("#form_rpt_memHelpRq").serialize(),
             dataType: "html",
             cache: false,
@@ -1188,7 +1188,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('CommunityNgo/get_comMem_willingToHelp_report') ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/get_generalWillingToHelp_report') ?>",
             data: $("#form_rpt_memHelpWilling").serialize(),
             dataType: "html",
             cache: false,
@@ -1211,7 +1211,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('CommunityNgo/get_comMem_bothHelp_report') ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/get_generalBothHelp_report') ?>",
             data: $("#form_rpt_memHelpBoth").serialize(),
             dataType: "html",
             cache: false,
@@ -1268,7 +1268,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
             data: {
                 masterID: provinceID
             },
-            url: "<?php echo site_url('CommunityNgo/fetch_province_based_districtDropdown'); ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/fetchGen_province_districtDropdown'); ?>",
             success: function(data) {
                 $('#districtID').html(data);
                 //  $('#districtID').val(district).change();
@@ -1294,7 +1294,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
             data: {
                 masterID: districtID
             },
-            url: "<?php echo site_url('CommunityNgo/fetch_district_based_districtDivisionDropdown'); ?>",
+            url: "<?php echo site_url('CommunityJammiyaNgo/fetchGen_district_districtDivisionDropdown'); ?>",
             success: function(data) {
                 $('#districtDivisionID').html(data);
                 // $('#districtDivisionID').val(district_division).change();
@@ -1355,6 +1355,6 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 /**
  * Created by PhpStorm.
  * User: Moufiya
- * Date: 2/9/2018
- * Time: 11:59 AM
+ * Date: 25/12/2020
+ * Time: 19:00 PM
  */

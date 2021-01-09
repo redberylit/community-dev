@@ -48,7 +48,7 @@ if (!empty($housingEnrl)) { ?>
 
                     if($val['hEnrollingID']){
 
-                        $famOfExist = $this->db->query("SELECT * FROM srp_erp_ngo_com_house_enrolling LEFT JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID LEFT JOIN srp_erp_ngo_com_communitymaster ON Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_ngo_com_house_ownership_master ON srp_erp_ngo_com_house_ownership_master.ownershipAutoID = srp_erp_ngo_com_house_enrolling.ownershipAutoID LEFT JOIN srp_erp_ngo_com_house_type_master ON srp_erp_ngo_com_house_enrolling.hTypeAutoID=srp_erp_ngo_com_house_type_master.hTypeAutoID WHERE srp_erp_ngo_com_house_enrolling.companyID={$val['companyID']} AND FamHouseSt=1 AND srp_erp_ngo_com_house_enrolling.Link_hEnrollingID={$val['hEnrollingID']} ");
+                        $famOfExist = $this->db->query("SELECT * FROM srp_erp_ngo_com_house_enrolling LEFT JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID LEFT JOIN srp_erp_ngo_com_communitymaster ON Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_ngo_com_house_ownership_master ON srp_erp_ngo_com_house_ownership_master.ownershipAutoID = srp_erp_ngo_com_house_enrolling.ownershipAutoID LEFT JOIN srp_erp_ngo_com_house_type_master ON srp_erp_ngo_com_house_enrolling.hTypeAutoID=srp_erp_ngo_com_house_type_master.hTypeAutoID WHERE FamHouseSt=1 AND srp_erp_ngo_com_house_enrolling.Link_hEnrollingID={$val['hEnrollingID']} ");
                         $familyEnExt = $famOfExist->result();
 
                         ?>

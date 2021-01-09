@@ -15,104 +15,100 @@ if (!empty($qualReport)) { ?>
             <div class="reportHeader reportHeaderColor" style="text-align: center">
                 <strong>Community Member Qualification Report</strong></div>
             <div style="">
-                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" style="width: 100%">
+                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" border="1" style="width: 100%;border-collapse: collapse;border: 1px solid white;">
                     <thead class="report-header">
-                    <tr>
-                        <th>#</th>
-                        <th>MEMBER</th>
-                        <th>NIC NO</th>
-                        <th>GENDER</th>
-                        <th>MOBILE</th>
-                        <th>QUALIFICATION</th>
-                        <th>INSTITUTE</th>
-                        <th>CURRENTLY READING</th>
-                        <th>YEAR</th>
-                        <th>REMARK</th>
+                        <tr>
+                            <th>#</th>
+                            <th>CODE</th>
+                            <th>NAME</th>
+                            <th>NIC NO</th>
+                            <th>GENDER</th>
+                            <th>MOBILE</th>
+                            <th>QUALIFICATION</th>
+                            <th>INSTITUTE</th>
+                            <th>CURRENTLY READING</th>
+                            <th>YEAR</th>
+                            <th>REMARK</th>
 
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    if ($qualReport) {
-                        $r = 1;
-                        $totalQual = 1;
-                        foreach ($qualReport as $val) {
+                        <?php
+                        if ($qualReport) {
+                            $r = 1;
+                            $totalQual = 1;
+                            foreach ($qualReport as $val) {
 
-                            if (isset($val["DegreeDescription"]) && !empty($val["DegreeDescription"])) {
-                                $DegreeDes=$val["DegreeDescription"];
-                            }
-                            else{
-                                $DegreeDes='';
-                            }
-                            if (isset($val["UniversityDescription"]) && !empty($val["UniversityDescription"])) {
-                                $UniversityDes =$val["UniversityDescription"];
-                            }
-                            else{
-                                $UniversityDes ='';
-                            }
-                            if (isset($val["CurrentlyReading"]) && !empty($val["CurrentlyReading"])) {
-                                $CurrentlyReading =$val["CurrentlyReading"];
-                            }
-                            else{
-                                $CurrentlyReading ='';
-                            }
-                            if (isset($val["Year"]) && !empty($val["Year"])) {
-                                $Year =$val["Year"];
-                            }
-                            else{
-                                $Year ='';
-                            }
-                            if (isset($val["Remarks"]) && !empty($val["Remarks"])) {
-                                $Remarks=$val["Remarks"];
-                            }
-                            else{
-                                $Remarks='';
-                            }
-                        
+                                if (isset($val["DegreeDescription"]) && !empty($val["DegreeDescription"])) {
+                                    $DegreeDes = $val["DegreeDescription"];
+                                } else {
+                                    $DegreeDes = '';
+                                }
+                                if (isset($val["UniversityDescription"]) && !empty($val["UniversityDescription"])) {
+                                    $UniversityDes = $val["UniversityDescription"];
+                                } else {
+                                    $UniversityDes = '';
+                                }
+                                if (isset($val["CurrentlyReading"]) && !empty($val["CurrentlyReading"])) {
+                                    $CurrentlyReading = $val["CurrentlyReading"];
+                                } else {
+                                    $CurrentlyReading = '';
+                                }
+                                if (isset($val["Year"]) && !empty($val["Year"])) {
+                                    $Year = $val["Year"];
+                                } else {
+                                    $Year = '';
+                                }
+                                if (isset($val["Remarks"]) && !empty($val["Remarks"])) {
+                                    $Remarks = $val["Remarks"];
+                                } else {
+                                    $Remarks = '';
+                                }
 
-                            ?>
-                            <tr>
-
-                                <td><?php echo $r ?></td>
-                                <td width="180px"><?php echo $val["CName_with_initials"] ?></td>
-                                <td><?php echo $val["CNIC_No"] ?></td>
-                                <td><?php echo $val["name"] ?></td>
-                                <td><?php echo $val["PrimaryNumber"] ?></td>
-                                <td><?php echo $DegreeDes ?></td>
-                                <td><?php echo $UniversityDes ?></td>
-                                <td>
-                                    <?php if($CurrentlyReading == 1){
-                                        ?>
-                                        Yes
-                                        <?php
-                                    }elseif($CurrentlyReading == 0){
-                                        ?>
-                                        No
-                                        <?php
-                                    } else{
-
-                                    }
-                                     ?>
-                                </td>
-                                <td><?php echo $Year ?></td>
-                                <td><?php echo $Remarks ?></td>
-                            </tr>
-                            <?php
-                            $r++;
-                            $totQual = $totalQual++;
-                        }
 
                         ?>
+                                <tr>
 
-                    <?php }
-                    ?>
+                                    <td><?php echo $r ?></td>
+                                    <td><?php echo $val["MemberCode"] ?></td>
+                                    <td width="180px"><?php echo $val["CName_with_initials"] ?></td>
+                                    <td><?php echo $val["CNIC_No"] ?></td>
+                                    <td><?php echo $val["Gender"] ?></td>
+                                    <td><?php echo $val["PrimaryNumber"] ?></td>
+                                    <td><?php echo $DegreeDes ?></td>
+                                    <td><?php echo $UniversityDes ?></td>
+                                    <td>
+                                        <?php if ($CurrentlyReading == 1) {
+                                        ?>
+                                            Yes
+                                        <?php
+                                        } elseif ($CurrentlyReading == 0) {
+                                        ?>
+                                            No
+                                        <?php
+                                        } else {
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?php echo $Year ?></td>
+                                    <td><?php echo $Remarks ?></td>
+                                </tr>
+                            <?php
+                                $r++;
+                                $totQual = $totalQual++;
+                            }
+
+                            ?>
+
+                        <?php }
+                        ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 <?php } else {
-    ?>
+?>
     <br>
     <div class="row">
         <div class="col-md-12 xxcol-md-offset-2">
@@ -120,18 +116,17 @@ if (!empty($qualReport)) { ?>
         </div>
     </div>
 
-    <?php
+<?php
 } ?>
-    <script>
-        $('#tbl_rpt_salesorder').tableHeadFixer({
-            head: true,
-            foot: true,
-            left: 0,
-            right: 0,
-            'z-index': 10
-        });
-
-    </script>
+<script>
+    $('#tbl_rpt_salesorder').tableHeadFixer({
+        head: true,
+        foot: true,
+        left: 0,
+        right: 0,
+        'z-index': 10
+    });
+</script>
 
 
 <?php

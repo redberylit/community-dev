@@ -3,7 +3,7 @@
 if (!function_exists('send_requestEmail')) {
     function send_requestEmail($mailData)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->load->library('email_manual');
 
         $toEmail = $mailData['toEmail'];
@@ -37,7 +37,6 @@ if (!function_exists('send_requestEmail')) {
 
         $result = $CI->email->send();
         $CI->email->clear(TRUE);
-
     }
 }
 
@@ -77,7 +76,7 @@ if (!function_exists('selectOnTab')) {
 if (!function_exists('load_bloodGroup')) {
     function load_bloodGroup()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_bloodgrouptype")->result_array();
         return $data;
     }
@@ -87,7 +86,7 @@ if (!function_exists('load_bloodGroup')) {
 if (!function_exists('load_country')) {
     function load_country()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_countrymaster")->result_array();
         return $data;
     }
@@ -97,12 +96,11 @@ if (!function_exists('load_country')) {
 if (!function_exists('load_language')) {
     function load_language()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("*");
         $CI->db->FROM('srp_erp_lang_languages');
-        $CI->db->WHERE('isActive',1);
+        $CI->db->WHERE('isActive', 1);
         return $CI->db->get()->result_array();
-
     }
 }
 
@@ -110,10 +108,9 @@ if (!function_exists('load_language')) {
 if (!function_exists('load_schoolTypes')) {
     function load_schoolTypes()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_schooltypes")->result_array();
         return $data;
-
     }
 }
 
@@ -121,7 +118,7 @@ if (!function_exists('load_schoolTypes')) {
 if (!function_exists('load_degree')) {
     function load_degree()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_degreecategories")->result_array();
         return $data;
@@ -132,11 +129,10 @@ if (!function_exists('load_degree')) {
 if (!function_exists('load_university')) {
     function load_university()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_universities")->result_array();
         return $data;
-
     }
 }
 
@@ -144,10 +140,9 @@ if (!function_exists('load_university')) {
 if (!function_exists('load_Jobcategories')) {
     function load_Jobcategories()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_jobcategories ")->result_array();
         return $data;
-
     }
 }
 
@@ -155,10 +150,9 @@ if (!function_exists('load_Jobcategories')) {
 if (!function_exists('load_memParentJob')) {
     function load_memParentJob()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_jobspecialization ")->result_array();
         return $data;
-
     }
 }
 
@@ -167,7 +161,7 @@ if (!function_exists('load_memParentJob')) {
 if (!function_exists('load_all_countries')) {
     function load_all_countries($status = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("countryID,countryShortCode,CountryDes");
         $CI->db->FROM('srp_erp_countrymaster');
         $countries = $CI->db->get()->result_array();
@@ -184,7 +178,7 @@ if (!function_exists('load_all_countries')) {
 if (!function_exists('load_default_data')) {
     function load_default_data($status = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $company_id = current_companyID();
 
         $MainArea = $CI->db->query("SELECT * FROM srp_erp_ngo_com_regionmaster INNER JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_regionmaster.stateID WHERE companyID = {$company_id} ")->row_array();
@@ -198,7 +192,6 @@ if (!function_exists('load_default_data')) {
             $DistrictCode = '';
             $DDivisionCode = '';
             $ProvinceCode = '';
-
         } else {
             $CountryID = $MainArea['countyID'];
             $DD_ID = $MainArea['stateID'];
@@ -210,7 +203,7 @@ if (!function_exists('load_default_data')) {
             $Province = $CI->db->query("SELECT masterID,shortCode FROM srp_erp_statemaster WHERE countyID = {$CountryID} AND stateID = {$DistrictID} AND type = 2")->row_array();
             $ProvinceID = $Province['masterID'];
             $DistrictCode = $Province['shortCode'];
-            if($ProvinceID){
+            if ($ProvinceID) {
                 $ProvinceDel = $CI->db->query("SELECT masterID,shortCode FROM srp_erp_statemaster WHERE countyID = {$CountryID} AND stateID = {$ProvinceID} AND type = 1")->row_array();
                 $ProvinceCode = $ProvinceDel['shortCode'];
             }
@@ -237,7 +230,7 @@ if (!function_exists('fetch_ngo_policies')) {
     function fetch_ngo_policies($policyCode)
     {
 
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
         $CI->db->SELECT("policyCode");
         $CI->db->FROM('srp_erp_ngo_policies');
@@ -252,7 +245,7 @@ if (!function_exists('fetch_ngo_policies')) {
 if (!function_exists('load_region')) {
     function load_region()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $def_data = load_default_data();
 
         $CI->db->SELECT("*");
@@ -276,7 +269,7 @@ if (!function_exists('load_region')) {
 if (!function_exists('load_region_fo_members')) {
     function load_region_fo_members()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $def_data = load_default_data();
 
         $CI->db->SELECT("*");
@@ -302,7 +295,7 @@ if (!function_exists('load_region_fo_members')) {
 if (!function_exists('load_division')) {
     function load_division()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $def_data = load_default_data();
 
         $CI->db->SELECT("*");
@@ -326,7 +319,7 @@ if (!function_exists('load_division')) {
 if (!function_exists('load_division_for_member')) {
     function load_division_for_member()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $def_data = load_default_data();
         $countries_arr = '';
 
@@ -338,7 +331,7 @@ if (!function_exists('load_division_for_member')) {
         $CI->db->WHERE('divisionTypeCode', 'GN');
         $CI->db->order_by('Description');
         $countries = $CI->db->get()->result_array();
-      //   $countries_arr = array('' => '');
+        //   $countries_arr = array('' => '');
         if (isset($countries)) {
             foreach ($countries as $row) {
                 $countries_arr[trim($row['stateID'])] = trim($row['Description']);
@@ -353,7 +346,7 @@ if (!function_exists('load_division_for_member')) {
 if (!function_exists('load_occupationTypes')) {
     function load_occupationTypes()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_occupationtypes")->result_array();
         return $data;
     }
@@ -363,7 +356,7 @@ if (!function_exists('load_occupationTypes')) {
 if (!function_exists('load_ngoSchools')) {
     function load_ngoSchools()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_schools")->result_array();
         return $data;
     }
@@ -373,7 +366,7 @@ if (!function_exists('load_ngoSchools')) {
 if (!function_exists('load_propertyTypes')) {
     function load_propertyTypes()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_propertytypes")->result_array();
         return $data;
     }
@@ -383,7 +376,7 @@ if (!function_exists('load_propertyTypes')) {
 if (!function_exists('load_help_category')) {
     function load_help_category()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_helpcategories")->result_array();
         return $data;
     }
@@ -393,7 +386,7 @@ if (!function_exists('load_help_category')) {
 if (!function_exists('load_socialGrants')) {
     function load_socialGrants()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_socialgrants")->result_array();
         return $data;
     }
@@ -403,7 +396,7 @@ if (!function_exists('load_socialGrants')) {
 if (!function_exists('load_communityPeriods')) {
     function load_communityPeriods()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_financialperiodtypes")->result_array();
         return $data;
     }
@@ -412,7 +405,7 @@ if (!function_exists('load_communityPeriods')) {
 if (!function_exists('load_grades')) {
     function load_grades()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_grades ORDER BY SortOrder ASC")->result_array();
         return $data;
     }
@@ -422,7 +415,7 @@ if (!function_exists('load_grades')) {
 if (!function_exists('load_both_help_member')) {
     function load_both_help_member()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $company_id = current_companyID();
         $data = $CI->db->query("SELECT DISTINCT memMaster.Com_MasterID,CName_with_initials,CNIC_No,C_Address FROM srp_erp_ngo_com_communitymaster memMaster INNER JOIN srp_erp_ngo_com_memberhelprequirements helpRq ON helpRq.Com_MasterID=memMaster.Com_MasterID INNER JOIN srp_erp_ngo_com_memberwillingtohelp helpWilling ON helpWilling.Com_MasterID=memMaster.Com_MasterID WHERE memMaster.companyID='{$company_id}' AND memMaster.isDeleted='0'")->result_array();
 
@@ -434,7 +427,7 @@ if (!function_exists('load_both_help_member')) {
 if (!function_exists('load_titles')) {
     function load_titles()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("TitleID,TitleDescription");
         $CI->db->FROM('srp_titlemaster');
         $CI->db->WHERE('Erp_companyID', current_companyID());
@@ -455,7 +448,7 @@ if (!function_exists('load_titles')) {
 if (!function_exists('all_country_codes')) {
     function all_country_codes()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->select("countryCode");
         $CI->db->from('srp_erp_countrymaster');
         $CI->db->where('countryCode !=', '');
@@ -476,7 +469,7 @@ if (!function_exists('all_country_codes')) {
 if (!function_exists('all_periodType_drop')) {
     function all_periodType_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT PeriodTypeID,Description FROM srp_erp_ngo_com_financialperiodtypes")->result_array();
         $data_arr = array('' => 'Select Period Type');
@@ -492,7 +485,7 @@ if (!function_exists('all_periodType_drop')) {
 if (!function_exists('periodType_without_Daily')) {
     function periodType_without_Daily()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT PeriodTypeID,Description FROM srp_erp_ngo_com_financialperiodtypes WHERE PeriodTypeID != 5 ")->result_array();
         $data_arr = array('' => 'Select Period Type');
@@ -508,7 +501,7 @@ if (!function_exists('periodType_without_Daily')) {
 if (!function_exists('fetch_all_segment')) {
     function fetch_all_segment()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $primaryLanguage = getPrimaryLanguage();
         $CI->lang->load('common', $primaryLanguage);
         $CI->db->select('segmentCode,description,segmentID');
@@ -532,7 +525,7 @@ if (!function_exists('fetch_all_segment')) {
 if (!function_exists('load_gender')) {
     function load_gender()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("genderID,name");
         $CI->db->FROM('srp_erp_gender');
         $CI->db->order_by('genderID', 'ASC');
@@ -549,7 +542,7 @@ if (!function_exists('load_gender')) {
 if (!function_exists('load_gender_for_collection')) {
     function load_gender_for_collection()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("genderID,name");
         $CI->db->FROM('srp_erp_gender');
         $CI->db->order_by('genderID', 'ASC');
@@ -567,7 +560,7 @@ if (!function_exists('load_gender_for_collection')) {
 if (!function_exists('fetch_occupationType_drop')) {
     function fetch_occupationType_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("OccTypeID,Description");
         $CI->db->FROM('srp_erp_ngo_com_occupationtypes');
         $CI->db->order_by('OccTypeID', 'ASC');
@@ -586,11 +579,10 @@ if (!function_exists('fetch_occupationType_drop')) {
 if (!function_exists('load_collectionType')) {
     function load_collectionType()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("*");
         $CI->db->FROM('srp_erp_ngo_com_collectiontypes');
         return $CI->db->get()->result_array();
-
     }
 }
 
@@ -598,7 +590,7 @@ if (!function_exists('load_collectionType')) {
 if (!function_exists('load_prq_action')) { /*get po action list*/
     function load_prq_action($itemIssueAutoID, $POConfirmedYN, $isDeleted)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->load->library('session');
         $status = '<span class="pull-right">';
 
@@ -659,14 +651,13 @@ if (!function_exists('viewImage')) {
     {
 
         $companyCode = current_companyCode();
-        $communityimage = get_all_community_images($Image,'Community/'.$companyCode.'/MemberImages/','commMemNoImg');
+        $communityimage = get_all_community_images($Image, 'Community/' . $companyCode . '/MemberImages/', 'commMemNoImg');
 
         $status = '<center>';
         if ($Image) {
             $status .= '<img class="align-left"
                  src="' . $communityimage . '"
                  width="32" height="32">';
-
         } else {
             $status .= '<img class="align-left" src="' . $communityimage . '"
                                      alt="" width="32" height="32">';
@@ -680,7 +671,7 @@ if (!function_exists('viewImage')) {
 if (!function_exists('load_com_member_action')) { /*get member action list*/
     function load_com_member_action($Com_MasterID, $isActive, $isDeleted, $MemberCode, $CName_with_initials)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->load->library('session');
 
         $company_id = current_companyID();
@@ -707,7 +698,7 @@ if (!function_exists('load_com_member_action')) { /*get member action list*/
                                         title="" rel="tooltip" class="glyphicon glyphicon-eye-open"
                                         data-original-title="View"></span></a>&nbsp;&nbsp;| &nbsp;&nbsp;';
             $status .= '<a href="#"
-                               onclick="fetchPage(\''.$page.'\',' . $Com_MasterID . ',\'Edit Member - ' . $MemberCode . ' \')"><span
+                               onclick="fetchPage(\'' . $page . '\',' . $Com_MasterID . ',\'Edit Member - ' . $MemberCode . ' \')"><span
                                         title="Edit" rel="tooltip"
                                         class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;| &nbsp;&nbsp;';
 
@@ -740,7 +731,7 @@ if (!function_exists('view_detail_modal')) {
 if (!function_exists('all_member_drop')) {
     function all_member_drop($status = TRUE)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $primaryLanguage = getPrimaryLanguage();
         $CI->lang->load('common', $primaryLanguage);
         $CI->db->select("Com_MasterID,MemberCode,CName_with_initials");
@@ -769,7 +760,7 @@ if (!function_exists('all_member_drop')) {
 if (!function_exists('all_member_drop_for_community')) {
     function all_member_drop_for_community($status = TRUE)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $primaryLanguage = getPrimaryLanguage();
         $CI->lang->load('common', $primaryLanguage);
         $CI->db->select("Com_MasterID,MemberCode,CName_with_initials");
@@ -797,7 +788,7 @@ if (!function_exists('fetch_rental_item_issue')) {
 
     function fetch_rental_item_issue()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data = $CI->db->query('SELECT rentalItemID,rentalItemType,itemAutoID,rentalItemCode,rentalItemDes,PeriodTypeID,defaultUnitOfMeasureID,defaultUnitOfMeasure,currentStock,RentalPrice,srp_erp_ngo_com_rentalitems.SortOrder,rentalStatus,faID FROM srp_erp_ngo_com_rentalitems  WHERE  srp_erp_ngo_com_rentalitems.companyID = "' . $companyID . '" AND srp_erp_ngo_com_rentalitems.rentalStatus = "1" AND srp_erp_ngo_com_rentalitems.isDeleted = "0" ')->result_array();
@@ -885,7 +876,7 @@ if (!function_exists('other_attachments')) {
 if (!function_exists('fetch_all_gl_codes')) {
     function fetch_all_gl_codes($code = NULL, $category = NULL)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("GLAutoID,systemAccountCode,GLSecondaryCode,GLDescription,systemAccountCode,subCategory,accountCategoryTypeID");
         $CI->db->from('srp_erp_chartofaccounts');
         if ($code) {
@@ -916,7 +907,7 @@ if (!function_exists('fetch_all_gl_codes')) {
 if (!function_exists('income_gl_drop')) {
     function income_gl_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->select("GLAutoID,systemAccountCode,GLSecondaryCode,GLDescription,subCategory");
         $CI->db->from('srp_erp_chartofaccounts');
         $CI->db->where('masterCategory', 'PL');
@@ -942,11 +933,11 @@ if (!function_exists('income_gl_drop')) {
 if (!function_exists('receivable_gl_drop')) {
     function receivable_gl_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->select("GLAutoID,systemAccountCode,GLSecondaryCode,GLDescription,subCategory");
         $CI->db->from('srp_erp_chartofaccounts');
         $CI->db->where('masterCategory', 'BS');
-       // $CI->db->where('controllAccountYN', 0);
+        // $CI->db->where('controllAccountYN', 0);
         $CI->db->where('masterAccountYN', 0);
         $CI->db->where('accountCategoryTypeID !=', 4);
         $CI->db->where('approvedYN', 1);
@@ -972,7 +963,7 @@ if (!function_exists('fetch_comMaster_lead')) {
     function fetch_comMaster_lead()
     {
 
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
         $data = $CI->db->query("SELECT Com_MasterID,CName_with_initials,CNIC_No,companyID,C_Address FROM srp_erp_ngo_com_communitymaster WHERE companyID='{$companyID}' AND comVerifiApproved='1' AND isDeleted='0'")->result_array();
         return $data;
@@ -985,7 +976,7 @@ if (!function_exists('fetch_headsOf_family')) {
     function fetch_headsOf_family()
     {
 
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data = $CI->db->query("SELECT Com_MasterID,CName_with_initials,CNIC_No,srp_erp_ngo_com_familymaster.companyID,C_Address FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_familymaster.LeaderID=srp_erp_ngo_com_communitymaster.Com_MasterID WHERE srp_erp_ngo_com_familymaster.companyID='{$companyID}' AND srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'")->result_array();
@@ -998,7 +989,7 @@ if (!function_exists('fetch_headsOf_family')) {
 if (!function_exists('fetch_memOccupation')) {
     function fetch_memOccupation()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data = $CI->db->query("SELECT Com_MasterID,MemJobID,JobCategoryID,gradeComID,companyID,IFNULL(WorkingPlace ,'')AS WorkingPlaceS,IFNULL(Address,'') AS AddressS FROM srp_erp_ngo_com_memjobs WHERE companyID='{$companyID}'")->result_array();
@@ -1011,7 +1002,7 @@ if (!function_exists('fetch_memOccupation')) {
 if (!function_exists('fetch_family_ancestry')) {
     function fetch_family_ancestry()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT AncestryCatID,AncestryDes FROM srp_erp_ngo_com_ancestrycategory ")->result_array();
 
         return $data;
@@ -1022,7 +1013,7 @@ if (!function_exists('fetch_family_ancestry')) {
 if (!function_exists('fetch_fam_econStatus')) {
     function fetch_fam_econStatus()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT EconStateID,EconStateDes FROM srp_erp_ngo_com_familyeconomicstatemaster")->result_array();
 
         return $data;
@@ -1033,7 +1024,7 @@ if (!function_exists('fetch_fam_econStatus')) {
 if (!function_exists('fetch_house_exitInEnroll')) {
     function fetch_house_exitInEnroll()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data = $CI->db->query("SELECT hEnrollingID,FamilySystemCode,FamilyName,LeaderID FROM srp_erp_ngo_com_house_enrolling INNER JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_familymaster.FamMasterID=srp_erp_ngo_com_house_enrolling.FamMasterID WHERE srp_erp_ngo_com_house_enrolling.companyID={$companyID} AND srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' AND (FamHouseSt ='0' OR FamHouseSt IS NULL)")->result_array();
@@ -1046,7 +1037,7 @@ if (!function_exists('fetch_house_exitInEnroll')) {
 if (!function_exists('fetch_house_house_ownership')) {
     function fetch_house_house_ownership()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_house_ownership_master WHERE ownershipAutoID !='4'")->result_array();
 
@@ -1058,7 +1049,7 @@ if (!function_exists('fetch_house_house_ownership')) {
 if (!function_exists('fetch_house_type_master')) {
     function fetch_house_type_master()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_house_type_master")->result_array();
 
@@ -1070,7 +1061,7 @@ if (!function_exists('fetch_house_type_master')) {
 if (!function_exists('fetch_water_supply_master')) {
     function fetch_water_supply_master()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_source_of_water_master")->result_array();
 
@@ -1081,7 +1072,7 @@ if (!function_exists('fetch_water_supply_master')) {
 if (!function_exists('fetch_sanitation_status_master')) {
     function fetch_sanitation_status_master()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_sanitation_status_master")->result_array();
 
@@ -1092,7 +1083,7 @@ if (!function_exists('fetch_sanitation_status_master')) {
 if (!function_exists('fetch_disaster_type_master')) {
     function fetch_disaster_type_master()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_disaster_type_master")->result_array();
 
@@ -1103,7 +1094,7 @@ if (!function_exists('fetch_disaster_type_master')) {
 if (!function_exists('load_houseOwnership')) {
     function load_houseOwnership()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $CI->db->SELECT("*");
         $CI->db->FROM('srp_erp_ngo_com_house_ownership_master');
@@ -1122,7 +1113,7 @@ if (!function_exists('load_houseOwnership')) {
 if (!function_exists('load_houseTypes')) {
     function load_houseTypes()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $CI->db->SELECT("*");
         $CI->db->FROM('srp_erp_ngo_com_house_type_master');
@@ -1142,7 +1133,7 @@ if (!function_exists('load_houseTypes')) {
 if (!function_exists('fetch_project_com_drop')) {
     function fetch_project_com_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("ngoProjectID,projectName");
         $CI->db->FROM('srp_erp_ngo_projects');
         $CI->db->WHERE('companyID', current_companyID());
@@ -1162,7 +1153,7 @@ if (!function_exists('fetch_project_com_drop')) {
 if (!function_exists('fetch_familyMemAct_drop')) { /*fetch fetch_familyMem act drop*/
     function fetch_familyMemAct_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("companyID,Com_MasterID,CName_with_initials,HouseNo,C_Address");
         $CI->db->FROM('srp_erp_ngo_com_communitymaster');
         $CI->db->WHERE('companyID', current_companyID());
@@ -1175,7 +1166,6 @@ if (!function_exists('fetch_familyMemAct_drop')) { /*fetch fetch_familyMem act d
             foreach ($data as $row) {
 
                 $data_arr[trim($row['Com_MasterID'])] = trim($row['CName_with_initials']) . ' | ' . trim($row['HouseNo']) . ' | ' . trim($row['C_Address']);
-
             }
         }
         return $data_arr;
@@ -1185,7 +1175,7 @@ if (!function_exists('fetch_familyMemAct_drop')) { /*fetch fetch_familyMem act d
 if (!function_exists('fetch_familyMems_drop')) { /*fetch fetch_familyMems_drop*/
     function fetch_familyMems_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("companyID,Com_MasterID,CName_with_initials,HouseNo,C_Address");
         $CI->db->FROM('srp_erp_ngo_com_communitymaster');
         $CI->db->WHERE('companyID', current_companyID());
@@ -1197,29 +1187,27 @@ if (!function_exists('fetch_familyMems_drop')) { /*fetch fetch_familyMems_drop*/
             foreach ($data as $row) {
 
                 $data_arr[trim($row['Com_MasterID'])] = trim($row['CName_with_initials']) . ' | ' . trim($row['HouseNo']) . ' | ' . trim($row['C_Address']);
-
             }
         }
         return $data_arr;
     }
 }
 
-if (!function_exists('fetch_maleMember_drop')) { /*fetch fetch_male_drop*/
-    function fetch_maleMember_drop()
+/* member parent drop */
+if (!function_exists('fetch_parentMale_drop')) { /*fetch parent male_drop*/
+    function fetch_parentMale_drop()
     {
-        $CI =& get_instance();
-        $companyID = $CI->common_data['company_data']['company_id'];
-        $data = $CI->db->query("SELECT Com_MasterID,CName_with_initials,CNIC_No,companyID,C_Address FROM srp_erp_ngo_com_communitymaster WHERE companyID='{$companyID}' AND GenderID='1' AND comVerifiApproved='1' AND isDeleted='0' ORDER BY Com_MasterID")->result_array();
+        $CI = &get_instance();
+        $data = $CI->db->query("SELECT Com_MasterID,CName_with_initials,CNIC_No,companyID,C_Address FROM srp_erp_ngo_com_communitymaster WHERE GenderID='1' AND comVerifiApproved='1' AND isDeleted='0' ORDER BY Com_MasterID")->result_array();
         return $data;
     }
 }
 
-if (!function_exists('fetch_femaleMember_drop')) { /*fetch fetch_female_drop*/
-    function fetch_femaleMember_drop()
+if (!function_exists('fetch_parentFemale_drop')) { /*fetch parent female_drop*/
+    function fetch_parentFemale_drop()
     {
-        $CI =& get_instance();
-        $companyID = $CI->common_data['company_data']['company_id'];
-        $data = $CI->db->query("SELECT Com_MasterID,CName_with_initials,CNIC_No,companyID,C_Address FROM srp_erp_ngo_com_communitymaster WHERE companyID='{$companyID}' AND GenderID='2' AND comVerifiApproved='1' AND isDeleted='0' ORDER BY Com_MasterID")->result_array();
+        $CI = &get_instance();
+        $data = $CI->db->query("SELECT Com_MasterID,CName_with_initials,CNIC_No,companyID,C_Address FROM srp_erp_ngo_com_communitymaster WHERE GenderID='2' AND comVerifiApproved='1' AND isDeleted='0' ORDER BY Com_MasterID")->result_array();
         return $data;
     }
 }
@@ -1228,19 +1216,18 @@ if (!function_exists('fetch_femaleMember_drop')) { /*fetch fetch_female_drop*/
 if (!function_exists('fetch_family_relationship')) {
     function fetch_family_relationship()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
-      if($companyID == '79'){
-      $CI->db->SELECT("relationshipID,relationship,genderID");
-      $CI->db->FROM('srp_erp_family_relationship');
-      $CI->db->order_by('relationshipID', 'ASC');
-       }
-       else{
-      $CI->db->SELECT("relationshipID,relationship,genderID");
-      $CI->db->FROM('srp_erp_family_relationship');
-      $CI->db->where('relationshipID !=', '12');
-      $CI->db->order_by('relationshipID', 'ASC');
-         }
+        if ($companyID == '79') {
+            $CI->db->SELECT("relationshipID,relationship,genderID");
+            $CI->db->FROM('srp_erp_family_relationship');
+            $CI->db->order_by('relationshipID', 'ASC');
+        } else {
+            $CI->db->SELECT("relationshipID,relationship,genderID");
+            $CI->db->FROM('srp_erp_family_relationship');
+            $CI->db->where('relationshipID !=', '12');
+            $CI->db->order_by('relationshipID', 'ASC');
+        }
         $data = $CI->db->get()->result_array();
         $data_arr = array('' => 'Select Relationship');
         if (isset($data)) {
@@ -1256,14 +1243,12 @@ if (!function_exists('fetch_family_relationship')) {
 if (!function_exists('fetch_ngo_relationType_drop')) {
     function fetch_ngo_relationType_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
-        if($companyID == '79'){
+        if ($companyID == '79') {
             $data = $CI->db->query("SELECT relationshipID,relationship,genderID FROM srp_erp_family_relationship")->result_array();
-        }
-        else{
+        } else {
             $data = $CI->db->query("SELECT relationshipID,relationship,genderID FROM srp_erp_family_relationship WHERE relationshipID !='12'")->result_array();
-
         }
         return $data;
     }
@@ -1273,7 +1258,7 @@ if (!function_exists('fetch_ngo_relationType_drop')) {
 if (!function_exists('fetch_com_gender')) {
     function fetch_com_gender()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("genderID,name");
         $CI->db->FROM('srp_erp_gender');
         $CI->db->order_by('genderID', 'ASC');
@@ -1292,7 +1277,7 @@ if (!function_exists('fetch_com_gender')) {
 if (!function_exists('fetch_ngo_memberType_drop')) {
     function fetch_ngo_memberType_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $data = $CI->db->query("SELECT OccTypeID,Description FROM srp_erp_ngo_com_occupationtypes")->result_array();
 
@@ -1304,7 +1289,7 @@ if (!function_exists('fetch_ngo_memberType_drop')) {
 if (!function_exists('fetch_all_countries')) {
     function fetch_all_countries($status = true)/*Load all Supplier*/
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("countryID,countryShortCode,CountryDes");
         $CI->db->FROM('srp_erp_countrymaster');
         $countries = $CI->db->get()->result_array();
@@ -1321,7 +1306,7 @@ if (!function_exists('fetch_all_countries')) {
 if (!function_exists('fetch_com_beneficiary_types')) {
     function fetch_com_beneficiary_types()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("beneficiaryTypeID,description");
         $CI->db->FROM('srp_erp_ngo_benificiarytypes');
         $CI->db->WHERE('companyID', current_companyID());
@@ -1341,7 +1326,7 @@ if (!function_exists('fetch_com_beneficiary_types')) {
 if (!function_exists('all_statemaster')) {
     function all_statemaster($custom = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->select("stateID,Description");
         $CI->db->from('srp_erp_statemaster');
         $states = $CI->db->get()->result_array();
@@ -1358,7 +1343,7 @@ if (!function_exists('all_statemaster')) {
 if (!function_exists('fetch_com_project_shortCode')) {
     function fetch_com_project_shortCode($beneficiaryID)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("projectShortCode");
         $CI->db->FROM('srp_erp_ngo_beneficiaryprojects bp');
         $CI->db->join('srp_erp_ngo_projects pro', 'bp.projectID = pro.ngoProjectID');
@@ -1370,7 +1355,7 @@ if (!function_exists('fetch_com_project_shortCode')) {
 if (!function_exists('fetch_com_title')) {
     function fetch_com_title()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("TitleID,TitleDescription");
         $CI->db->FROM('srp_titlemaster');
         $CI->db->WHERE('Erp_companyID', current_companyID());
@@ -1390,7 +1375,7 @@ if (!function_exists('fetch_com_title')) {
 if (!function_exists('drop_gender')) {
     function drop_gender()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT srp_erp_gender.genderID,srp_erp_gender.name FROM srp_erp_gender ")->result_array();
         return $data;
     }
@@ -1399,7 +1384,7 @@ if (!function_exists('drop_gender')) {
 if (!function_exists('drop_maritalstatus')) {
     function drop_maritalstatus()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_maritalstatus ")->result_array();
         return $data;
     }
@@ -1409,7 +1394,7 @@ if (!function_exists('drop_maritalstatus')) {
 if (!function_exists('load_totHouses')) {
     function load_totHouses()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data = $CI->db->query("SELECT COUNT(*) AS totHouseCount1  FROM srp_erp_ngo_com_house_enrolling LEFT JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID WHERE srp_erp_ngo_com_house_enrolling.companyID='" . $companyID . "' AND (srp_erp_ngo_com_house_enrolling.FamHouseSt = '0' OR srp_erp_ngo_com_house_enrolling.FamHouseSt = NULL) AND srp_erp_ngo_com_familymaster.isDeleted = '0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'")->row_array();
@@ -1423,7 +1408,7 @@ if (!function_exists('load_totHouses')) {
 if (!function_exists('comNgoWarehouseBinFilter')) {
     function comNgoWarehouseBinFilter()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("srp_erp_warehousemaster.*");
         $CI->db->FROM('srp_erp_warehousemaster');
         $CI->db->WHERE('companyID', current_companyID());
@@ -1450,7 +1435,6 @@ if (!function_exists('alter_CommitteePosition')) {
         }
 
         return '<span class="pull-right">' . $action . '</span>';
-
     }
 }
 
@@ -1461,10 +1445,8 @@ if (!function_exists('alter_CommitteeMas')) {
 
         if ($isActive == '1') {
             $action = '<a onclick=\'fetchPage("system/communityNgo/ngo_mo_committee_contents",' . $CommitteeID . ',"Committee - ' . $CommitteeDes . '","NGO"); \'><span title="Sub Committees" style="color:#009688;font-size:18px;" rel="tooltip" class="fa fa-sitemap fa-lg" data-original-title="Sub Committees"></span></a>';
-
         } else {
             $action = '<a><span title="Sub Committees - Inactive" style="color:#d9534f;font-size:18px;" rel="tooltip" class="fa fa-sitemap fa-lg" data-original-title="Sub Committees"></span></a>';
-
         }
 
         $action .= '&nbsp;&nbsp; | &nbsp;&nbsp;<a class="CA_Alter_btn" onclick="editCommitteeMas(' . $CommitteeID . ', ' . $CommitteeDs . ', ' . $isActive . ')"><span title="Edit" rel="tooltip" class="glyphicon glyphicon-pencil"></span></a>';
@@ -1475,7 +1457,6 @@ if (!function_exists('alter_CommitteeMas')) {
         }
 
         return '<span class="pull-right">' . $action . '</span>';
-
     }
 }
 
@@ -1484,7 +1465,7 @@ if (!function_exists('alter_CommitteeMas')) {
 if (!function_exists('fetch_subCommittees_drop')) {
     function fetch_subCommittees_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data = $CI->db->query("SELECT CommitteeAreawiseID,CommitteeAreawiseDes FROM srp_erp_ngo_com_committeeareawise WHERE companyID='" . $companyID . "'")->result_array();
@@ -1500,10 +1481,8 @@ if (!function_exists('active_Member')) {
             $clCode = 'color:rgb(6,2,2);';
         } else {
             $clCode = 'color:rgb(203,203,203);';
-
         }
         return '<div style="text-align: center"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-ok" style="' . $clCode . '"></span></div>';
-
     }
 }
 
@@ -1513,7 +1492,7 @@ if (!function_exists('fetch_committee_postitn')) {
     function fetch_committee_postitn()
     {
 
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_committeeposition WHERE companyID='{$companyID}' AND isDeleted='0'")->result_array();
@@ -1544,7 +1523,7 @@ if (!function_exists('cmtee_memServiceDel')) {
                 break;
             case 'order':
 
-                $CI =& get_instance();
+                $CI = &get_instance();
                 $companyID = $CI->common_data['company_data']['company_id'];
                 $sort = $CI->db->query("SELECT sortOrder FROM srp_erp_ngo_com_committeememberservices WHERE companyID='{$companyID}' AND CmtMemServiceID='{$CmtMemServiceID}'")->result_array();
                 $select = '<div class="hideinput hide xxx_' . $CmtMemServiceID . '"><select class="" id="' . $name . '_' . $CmtMemServiceID . '" name="' . $name . '" >';
@@ -1562,7 +1541,6 @@ if (!function_exists('cmtee_memServiceDel')) {
 
                 $html = $select . '<div class="showinput xx_' . $CmtMemServiceID . '" id="' . $name . '_1' . $CmtMemServiceID . '">' . $value . '</div>';
                 break;
-
         }
         return $html;
     }
@@ -1573,7 +1551,7 @@ if (!function_exists('fetch_familyMaster')) {
 
     function fetch_familyMaster($status = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("FamMasterID,FamilySystemCode,FamilyName,CName_with_initials");
         $CI->db->FROM('srp_erp_ngo_com_familymaster');
         $CI->db->join('srp_erp_ngo_com_communitymaster', 'srp_erp_ngo_com_familymaster.LeaderID = srp_erp_ngo_com_communitymaster.Com_MasterID');
@@ -1601,7 +1579,7 @@ if (!function_exists('fetch_committeesMaster')) {
 
     function fetch_committeesMaster($status = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("CommitteeID,CommitteeDes");
         $CI->db->FROM('srp_erp_ngo_com_committeesmaster');
         $CI->db->WHERE('isDeleted', '0');
@@ -1625,7 +1603,7 @@ if (!function_exists('fetch_committeesMaster')) {
 if (!function_exists('load_committeesMem')) {
     function load_committeesMem()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("CommitteeAreawiseID,CommitteeID,CommitteeHeadID,Com_MasterID,CName_with_initials");
         $CI->db->FROM('srp_erp_ngo_com_committeeareawise');
         $CI->db->join('srp_erp_ngo_com_communitymaster', 'srp_erp_ngo_com_committeeareawise.CommitteeHeadID = srp_erp_ngo_com_communitymaster.Com_MasterID');
@@ -1652,10 +1630,8 @@ if (!function_exists('active_famLog')) {
             $clCode = 'color:rgb(6,2,2);';
         } else {
             $clCode = 'color:rgb(203,203,203);';
-
         }
         return '<div style="text-align: center"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-ok" style="' . $clCode . '"></span></div>';
-
     }
 }
 
@@ -1664,7 +1640,7 @@ if (!function_exists('fetch_permanentSickness')) {
 
     function fetch_permanentSicknes($status = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("sickAutoID,sickDescription");
         $CI->db->FROM('srp_erp_ngo_com_permanent_sickness');
         $CI->db->order_by('sickAutoID', 'ASC');
@@ -1688,7 +1664,7 @@ if (!function_exists('fetch_vehicleMaster')) {
 
     function fetch_vehicleMaster($status = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("vehicleAutoID,vehicleDescription");
         $CI->db->FROM('srp_erp_ngo_com_vehicles_master');
         $CI->db->order_by('vehicleAutoID', 'ASC');
@@ -1711,7 +1687,7 @@ if (!function_exists('fetch_BloodGrpsDes')) {
 
     function fetch_BloodGrpsDes($status = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("BloodTypeID,BloodDescription");
         $CI->db->FROM('srp_erp_bloodgrouptype');
         $CI->db->order_by('BloodTypeID', 'ASC');
@@ -1733,7 +1709,7 @@ if (!function_exists('fetch_BloodGrpsDes')) {
 if (!function_exists('allEconState_drop')) {
     function allEconState_drop($type = 0)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $primaryLanguage = getPrimaryLanguage();
         $CI->lang->load('common', $primaryLanguage);
         $CI->db->SELECT("t1.EconStateID,EconStateDes");
@@ -1753,7 +1729,6 @@ if (!function_exists('allEconState_drop')) {
         } else {
             return $data;
         }
-
     }
 }
 
@@ -1761,7 +1736,7 @@ if (!function_exists('allEconState_drop')) {
 if (!function_exists('fetch_com_countryMaster_code')) {
     function fetch_com_countryMaster_code($countryID)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("countryShortCode");
         $CI->db->FROM('srp_erp_countrymaster');
         $CI->db->WHERE('countryID', $countryID);
@@ -1772,7 +1747,7 @@ if (!function_exists('fetch_com_countryMaster_code')) {
 if (!function_exists('fetch_com_stateMaster_name')) {
     function fetch_com_stateMaster_name($stateID)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("shortCode");
         $CI->db->FROM('srp_erp_statemaster');
         $CI->db->WHERE('stateID', $stateID);
@@ -1784,7 +1759,7 @@ if (!function_exists('fetch_com_stateMaster_name')) {
 if (!function_exists('fetch_ngo_status')) {
     function fetch_ngo_status($documentID)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("statusID,description");
         $CI->db->FROM('srp_erp_ngo_status');
         $CI->db->WHERE('documentID', $documentID);
@@ -1803,7 +1778,7 @@ if (!function_exists('fetch_ngo_status')) {
 if (!function_exists('fetch_project_donor_drop')) {
     function fetch_project_donor_drop($status = false)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("ngoProjectID,projectName");
         $CI->db->FROM('srp_erp_ngo_projects pro');
 
@@ -1833,7 +1808,7 @@ if (!function_exists('fetch_project_donor_drop')) {
 if (!function_exists('fetch_fam_ageGroup')) {
     function fetch_fam_ageGroup()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_zakatagegroupmaster")->result_array();
 
         return $data;
@@ -1843,7 +1818,7 @@ if (!function_exists('fetch_fam_ageGroup')) {
 if (!function_exists('econ_status')) {
     function econ_status($benificiaryID)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("EconStateID,EconStateDes");
         $CI->db->FROM('srp_erp_ngo_com_familyeconomicstatemaster');
         $CI->db->order_by('srp_erp_ngo_com_familyeconomicstatemaster.EconStateID', 'ASC');
@@ -1868,28 +1843,24 @@ if (!function_exists('econ_status')) {
 if (!function_exists('report_load_region')) {
     function report_load_region()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $def_data = load_default_data();
 
         $companyID = $CI->common_data['company_data']['company_id'];
 
-        $data='';
-        if(!empty($def_data) && !empty($def_data['country'])){
+        $data = '';
+        if (!empty($def_data) && !empty($def_data['country'])) {
             $data = $CI->db->query("SELECT * FROM srp_erp_statemaster WHERE countyID={$def_data['country']} AND masterID={$def_data['DD']} AND srp_erp_statemaster.type='4' AND divisionTypeCode='MH' ORDER BY Description")->result_array();
-
-        }
-        else{
+        } else {
 
             $data2Count = $CI->db->query("SELECT countryID FROM srp_erp_company WHERE srp_erp_company.company_id = {$companyID}")->row_array();
-            $countryFil=$data2Count['countryID'];
-            if(!empty($countryFil)){
-                $countrysFil =$countryFil;
-            }
-            else{
-                $countrysFil='';
+            $countryFil = $data2Count['countryID'];
+            if (!empty($countryFil)) {
+                $countrysFil = $countryFil;
+            } else {
+                $countrysFil = '';
             }
             $data = $CI->db->query("SELECT * FROM srp_erp_statemaster WHERE countyID={$countrysFil} AND srp_erp_statemaster.type='4' AND divisionTypeCode='MH' ORDER BY Description")->result_array();
-
         }
 
         return $data;
@@ -1899,27 +1870,24 @@ if (!function_exists('report_load_region')) {
 if (!function_exists('load_divisionForUploads')) {
     function load_divisionForUploads()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $def_data = load_default_data();
 
         $companyID = $CI->common_data['company_data']['company_id'];
 
-        $data='';
-        if(!empty($def_data) && !empty($def_data['country'])) {
+        $data = '';
+        if (!empty($def_data) && !empty($def_data['country'])) {
             $data = $CI->db->query("SELECT * FROM srp_erp_statemaster WHERE countyID={$def_data['country']} AND masterID={$def_data['DD']} AND srp_erp_statemaster.type='4' AND divisionTypeCode='GN' ORDER BY Description")->result_array();
-        }
-        else{
+        } else {
 
             $data2Count = $CI->db->query("SELECT countryID FROM srp_erp_company WHERE srp_erp_company.company_id = {$companyID}")->row_array();
-            $countryFil=$data2Count['countryID'];
-            if(!empty($countryFil)){
-                $countrysFil =$countryFil;
-            }
-            else{
-                $countrysFil='';
+            $countryFil = $data2Count['countryID'];
+            if (!empty($countryFil)) {
+                $countrysFil = $countryFil;
+            } else {
+                $countrysFil = '';
             }
             $data = $CI->db->query("SELECT * FROM srp_erp_statemaster WHERE countyID={$countrysFil} AND srp_erp_statemaster.type='4' AND divisionTypeCode='GN' ORDER BY Description")->result_array();
-
         }
 
         return $data;
@@ -1929,7 +1897,7 @@ if (!function_exists('load_divisionForUploads')) {
 if (!function_exists('Notice_Type_drop')) {
     function Notice_Type_drop()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("*");
         $CI->db->FROM('srp_erp_ngo_com_noticeboardmaster');
         $CI->db->order_by('NoticeTypeID');
@@ -1947,7 +1915,7 @@ if (!function_exists('Notice_Type_drop')) {
 if (!function_exists('Notice_Type_filter')) {
     function Notice_Type_filter()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("*");
         $CI->db->FROM('srp_erp_ngo_com_noticeboardmaster');
         $CI->db->order_by('NoticeTypeID');
@@ -1967,16 +1935,15 @@ if (!function_exists('Notice_Type_filter')) {
 if (!function_exists('all_states')) {
     function all_states($custom = true)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $data2Count = $CI->db->query("SELECT countryID FROM srp_erp_company WHERE srp_erp_company.company_id = {$companyID}")->row_array();
-        $countryFil=$data2Count['countryID'];
-        if(!empty($countryFil)){
-            $countrysFil =$countryFil;
-        }
-        else{
-            $countrysFil='';
+        $countryFil = $data2Count['countryID'];
+        if (!empty($countryFil)) {
+            $countrysFil = $countryFil;
+        } else {
+            $countrysFil = '';
         }
 
         $CI->db->select("stateID,Description");
@@ -1998,25 +1965,23 @@ if (!function_exists('load_countries_compare')) {
     function load_countries_compare($status = true)
     {
 
-        $CI =& get_instance();
+        $CI = &get_instance();
 
         $companyID = $CI->common_data['company_data']['company_id'];
 
         $dataCount = $CI->db->query("SELECT srp_erp_statemaster.countyID FROM srp_erp_ngo_com_regionmaster INNER JOIN srp_erp_statemaster ON srp_erp_ngo_com_regionmaster.stateID=srp_erp_statemaster.stateID WHERE srp_erp_ngo_com_regionmaster.companyID = {$companyID}")->row_array();
 
-        if(empty($dataCount)){
+        if (empty($dataCount)) {
 
             $data2Count = $CI->db->query("SELECT countryID FROM srp_erp_company WHERE srp_erp_company.company_id = {$companyID}")->row_array();
-            $countryFil=$data2Count['countryID'];
-            if(!empty($countryFil)){
-                $countrysFil =$countryFil;
+            $countryFil = $data2Count['countryID'];
+            if (!empty($countryFil)) {
+                $countrysFil = $countryFil;
+            } else {
+                $countrysFil = '';
             }
-            else{
-                $countrysFil='';
-            }
-        }
-        else{
-            $countrysFil=$dataCount['countyID'];
+        } else {
+            $countrysFil = $dataCount['countyID'];
         }
         $data = $CI->db->query("SELECT countryID,countryShortCode,CountryDes FROM srp_erp_countrymaster WHERE countryID={$countrysFil}")->result_array();
 
@@ -2028,29 +1993,25 @@ if (!function_exists('load_countries_compare')) {
 if (!function_exists('load_allComCompanies')) {
     function load_allComCompanies()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $data = $CI->db->query("SELECT * FROM srp_erp_company")->result_array();
         return $data;
     }
 }
 
 if (!function_exists('get_all_community_images')) {
-    function get_all_community_images($communityImgtesrt,$path,$type)
+    function get_all_community_images($communityImgtesrt, $path, $type)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->load->library('s3');
-        if($type=="commMemNoImg")
-        {
+        if ($type == "commMemNoImg") {
             $noimage = $CI->s3->getMyAuthenticatedURL('Community/no-memberImg.png', 3600);
-        }
-        else if($type=="communityNoImg"){
+        } else if ($type == "communityNoImg") {
             $noimage = $CI->s3->getMyAuthenticatedURL('Community/no-image.png', 3600);
         }
-        if($communityImgtesrt!='')
-        {
-            $comm_image = $CI->s3->getMyAuthenticatedURL($communityImgtesrt , 3600);
-        }else
-        {
+        if ($communityImgtesrt != '') {
+            $comm_image = $CI->s3->getMyAuthenticatedURL($communityImgtesrt, 3600);
+        } else {
             $comm_image = $noimage;
         }
 
@@ -2065,7 +2026,7 @@ if (!function_exists('fetch_comMasters_approval')) {
     function fetch_comMasters_approval()
     {
 
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->db->SELECT("FamMasterID,FamilySystemCode,FamilyName,CName_with_initials");
         $CI->db->FROM('srp_erp_ngo_com_familymaster');
         $CI->db->join('srp_erp_ngo_com_communitymaster', 'srp_erp_ngo_com_familymaster.LeaderID = srp_erp_ngo_com_communitymaster.Com_MasterID');
@@ -2075,8 +2036,6 @@ if (!function_exists('fetch_comMasters_approval')) {
         $CI->db->WHERE('srp_erp_ngo_com_familymaster.VerificationDocID IS NOT NULL', NULL);
         $CI->db->order_by('FamMasterID', 'ASC');
         return $CI->db->get()->result_array();
-
-
     }
 }
 
@@ -2084,7 +2043,7 @@ if (!function_exists('fetch_memApproval_status')) {
     function fetch_memApproval_status()
     {
         $companyID = current_companyID();
-        $CI =& get_instance();
+        $CI = &get_instance();
         $statusCount = $CI->db->query("SELECT * FROM (
                                           SELECT  (SELECT COUNT(FamMasterID) AS femCount FROM srp_erp_ngo_com_familymaster WHERE companyID={$companyID} AND isDeleted=0 AND (srp_erp_ngo_com_familymaster.VerificationDocID !=0 OR srp_erp_ngo_com_familymaster.VerificationDocID IS NOT NULL)
                                           AND isVerifyDocApproved=1) AS memApproved,(SELECT COUNT(FamMasterID) AS femCount FROM srp_erp_ngo_com_familymaster WHERE companyID={$companyID}
@@ -2100,7 +2059,7 @@ if (!function_exists('fetch_memApproval_status')) {
 if (!function_exists('fetch_approvalRegions')) {
     function fetch_approvalRegions()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = current_companyID();
 
         $data = $CI->db->query("SELECT srp_erp_statemaster.stateID,srp_erp_statemaster.Description, count(FamMasterID) AS femCount
@@ -2117,7 +2076,7 @@ if (!function_exists('fetch_approvalRegions')) {
 if (!function_exists('fetch_memGender_approvals')) {
     function fetch_memGender_approvals()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = current_companyID();
         $data = $CI->db->query("SELECT srp_erp_gender.genderID,srp_erp_gender.name as genderName, count(FamMasterID) AS femCount FROM srp_erp_gender LEFT JOIN srp_erp_ngo_com_communitymaster comGender ON comGender.GenderID=srp_erp_gender.genderID INNER JOIN srp_erp_ngo_com_familymaster femGen ON femGen.LeaderID = comGender.Com_MasterID WHERE comGender.companyID={$companyID} AND comGender.isDeleted = 0 AND femGen.isDeleted=0 AND (femGen.VerificationDocID != 0 OR femGen.VerificationDocID IS NOT NULL) GROUP BY comGender.GenderID")->result_array();
         return $data;
@@ -2127,7 +2086,7 @@ if (!function_exists('fetch_memGender_approvals')) {
 if (!function_exists('memApprovalsPagination')) {
     function memApprovalsPagination()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->load->library("pagination");
         //$CI->load->library("s3");
 
@@ -2154,10 +2113,9 @@ if (!function_exists('memApprovalsPagination')) {
 
 
         if ($apprvlStatus != '' && $apprvlStatus != 'null') {
-            if($apprvlStatus == 3){
+            if ($apprvlStatus == 3) {
                 $apprvlStatus_filter = " AND isVerifyDocApproved = 0 ";
-            }
-            else{
+            } else {
                 $apprvlStatus_filter = " AND isVerifyDocApproved = " . $apprvlStatus;
             }
             $isFiltered = 1;
@@ -2177,12 +2135,12 @@ if (!function_exists('memApprovalsPagination')) {
             $isFiltered = 1;
         }
 
-        if($letter != null){
-            $alpha_filter = ' AND (CName_with_initials LIKE \''.$letter.'%\') ';
+        if ($letter != null) {
+            $alpha_filter = ' AND (CName_with_initials LIKE \'' . $letter . '%\') ';
             $isFiltered = 1;
         }
 
-        if($searchKey != ''){
+        if ($searchKey != '') {
 
             $searchKey_filter = " WHERE ((MemberCode Like '%" . $searchKey . "%') OR (CName_with_initials Like '%" . $searchKey . "%') OR (provinceAr Like '%" . $searchKey . "%') OR (regionAr Like '%" . $searchKey . "%') OR (genderName = '" . $searchKey . "') OR (CNIC_No Like '%" . $searchKey . "%') OR (PrimaryNumber Like '%" . $searchKey . "%') OR (familyNm Like '%" . $searchKey . "%'))";
             $isFiltered = 1;
@@ -2190,8 +2148,8 @@ if (!function_exists('memApprovalsPagination')) {
 
         $countFilter = 0;
 
-        if($isFiltered == 1){
-            $countFilterWhere = $gender_filter . $area_filter . $alpha_filter. $apprvlStatus_filter;
+        if ($isFiltered == 1) {
+            $countFilterWhere = $gender_filter . $area_filter . $alpha_filter . $apprvlStatus_filter;
             $convertFormat = convert_date_format_sql();
             $countFilter = $CI->db->query("SELECT COUNT(FamMasterID) AS femCount FROM(
                                                    SELECT  t1.Com_MasterID,t1.MemberCode,t1.CName_with_initials,srp_erp_gender.genderID AS Gender,t1.TP_Mobile AS PrimaryNumber,stateAr.Description AS regionAr ,stateProvince.Description AS provinceAr,
@@ -2208,11 +2166,10 @@ if (!function_exists('memApprovalsPagination')) {
                                     LEFT JOIN srp_erp_system_document_types AS sysDocType ON sysDocType.id=srp_erp_ngo_com_familymaster.VerificationDocID
                                                WHERE t1.companyID={$companyID} AND t1.isDeleted = 0 AND srp_erp_ngo_com_familymaster.isDeleted=0 AND (srp_erp_ngo_com_familymaster.VerificationDocID !=0 OR srp_erp_ngo_com_familymaster.VerificationDocID IS NOT NULL) {$countFilterWhere}
                                            ) AS t1 {$searchKey_filter} ")->row('femCount');
-
         }
 
-       // var_dump($countFilter);
-      //  exit;
+        // var_dump($countFilter);
+        //  exit;
 
         $config = array();
         $config["base_url"] = "#memApprovals_list";
@@ -2223,7 +2180,7 @@ if (!function_exists('memApprovalsPagination')) {
 
         $CI->pagination->initialize($config);
 
-        $page = (!empty($data_pagination)) ? (($data_pagination -1) * $per_page): 0;
+        $page = (!empty($data_pagination)) ? (($data_pagination - 1) * $per_page) : 0;
         $employeeData = load_approvalMembers_data($page, $per_page);
         $dataCount = $employeeData['dataCount'];
 
@@ -2231,17 +2188,16 @@ if (!function_exists('memApprovalsPagination')) {
         $data["memApproval_list"] = $employeeData['memApproval_list'];
         $data["pagination"] = $CI->pagination->create_links_memApproval_master();
         $data["per_page"] = $per_page;
-        $thisPageStartNumber = ($page+1);
-        $thisPageEndNumber = $page+$dataCount;
+        $thisPageStartNumber = ($page + 1);
+        $thisPageEndNumber = $page + $dataCount;
 
-        if($isFiltered == 1){
+        if ($isFiltered == 1) {
             $data["filterDisplay"] = "Showing {$thisPageStartNumber} to {$thisPageEndNumber} of {$countFilter} entries (filtered from {$count} total entries)";
-        }else{
+        } else {
             $data["filterDisplay"] = "Showing {$thisPageStartNumber} to {$thisPageEndNumber} of {$count} entries";
         }
 
         return $data;
-
     }
 }
 
@@ -2257,7 +2213,7 @@ if (!function_exists('load_approvalMembers_data')) {
         $designation_filter = '';
         $apprvlStatus_filter = '';
 
-        $CI =& get_instance();
+        $CI = &get_instance();
         $letter = $CI->input->post('letter');
         $searchKey = $CI->input->post('searchKey');
         $genderApr = $CI->input->post('genderApr');
@@ -2265,10 +2221,9 @@ if (!function_exists('load_approvalMembers_data')) {
         $apprvlStatus = $CI->input->post('apprvlStatus');
 
         if ($apprvlStatus != '' && $apprvlStatus != 'null') {
-            if($apprvlStatus == 3){
+            if ($apprvlStatus == 3) {
                 $apprvlStatus_filter = " AND isVerifyDocApproved = 0 ";
-            }
-            else{
+            } else {
                 $apprvlStatus_filter = " AND isVerifyDocApproved = " . $apprvlStatus;
             }
         }
@@ -2285,13 +2240,12 @@ if (!function_exists('load_approvalMembers_data')) {
             $area_filter = " AND stateAr.stateID IN " . $whereIN;
         }
 
-        if($letter != null){
-            $alpha_filter = ' AND ( CName_with_initials LIKE \''.$letter.'%\') ';
+        if ($letter != null) {
+            $alpha_filter = ' AND ( CName_with_initials LIKE \'' . $letter . '%\') ';
         }
 
-        if($searchKey != ''){
+        if ($searchKey != '') {
             $searchKey_filter = " WHERE ((MemberCode Like '%" . $searchKey . "%') OR (CName_with_initials Like '%" . $searchKey . "%') OR (provinceAr Like '%" . $searchKey . "%') OR (regionAr Like '%" . $searchKey . "%') OR (genderName = '" . $searchKey . "') OR (CNIC_No Like '%" . $searchKey . "%') OR (PrimaryNumber Like '%" . $searchKey . "%') OR (familyNm Like '%" . $searchKey . "%'))";
-
         }
 
         $companyID = current_companyID();
@@ -2313,31 +2267,28 @@ if (!function_exists('load_approvalMembers_data')) {
                                     WHERE {$where}
                                 ) t1 {$searchKey_filter} ORDER BY t1.MemberCode LIMIT {$page}, {$per_page}")->result_array();
         //echo $CI->db->last_query();
-     //  var_dump($data);
+        //  var_dump($data);
         $memApproval_list = $data;
         $returnData = '';
         $color = "#FF0";
-        if(!empty($memApproval_list)){
+        if (!empty($memApproval_list)) {
 
             $CI->load->library('s3');
             $male_img = $CI->s3->getMyAuthenticatedURL('images/users/male.png', 3600);
             $female_img = $CI->s3->getMyAuthenticatedURL('images/users/female.png', 3600);
 
-            foreach($memApproval_list as $key=>$appMemData){
+            foreach ($memApproval_list as $key => $appMemData) {
                 $appMemID = $appMemData['Com_MasterID'];
 
                 //$CImage = CImageCheck($appMemData['CImage'], $appMemData['Gender']);
                 $CImage = trim($appMemData['CImage']);
-                if($CImage == ''){
-                    $CImage = ($appMemData['Gender'] == 1)? $male_img: $female_img;
-                }
-                elseif ($CImage == 'images/users/male.png'){
+                if ($CImage == '') {
+                    $CImage = ($appMemData['Gender'] == 1) ? $male_img : $female_img;
+                } elseif ($CImage == 'images/users/male.png') {
                     $CImage = $male_img;
-                }
-                elseif ($CImage == 'images/users/female.png'){
+                } elseif ($CImage == 'images/users/female.png') {
                     $CImage = $female_img;
-                }
-                else{
+                } else {
                     $CImage = $CI->s3->getMyAuthenticatedURL($CImage, 3600);
                     /*if( $CI->s3->getMyObjectInfo($CImage) ){
                         $CImage = $CI->s3->getMyAuthenticatedURL($CImage, 3600);
@@ -2348,51 +2299,47 @@ if (!function_exists('load_approvalMembers_data')) {
                 }
 
 
-                $firstDivStyle = ($key==0)? ' style="margin-top: 1px;"' : '';
-                $firstDivInput = ($key==0)? '<input id="first-in-emp-list" />' : '';
+                $firstDivStyle = ($key == 0) ? ' style="margin-top: 1px;"' : '';
+                $firstDivInput = ($key == 0) ? '<input id="first-in-emp-list" />' : '';
 
 
-                    $mailID = $appMemData['EmailID'];
-                    $appMemName = $appMemData['CName_with_initials'];
-                    $empCode = $appMemData['MemberCode'];
-                    $DOJ = $appMemData['doj'];
-                    $familyNm = $appMemData['familyNm'];
-                    $provinceAr = $appMemData['provinceAr'];
-                    $regionAr = $appMemData['regionAr'];
-                    $genderStr = $appMemData['genderStr'];
-                    $CountryCode = $appMemData['CountryCodePrimary'];
-                    $mobileNo = $appMemData['PrimaryNumber'];
-                    $CNIC_No = $appMemData['CNIC_No'];
-                    $C_Address = $appMemData['C_Address'];
-                    $FamilyAddedDate = $appMemData['FamilyAddedDates'];
-                    $sysDocDescription = $appMemData['sysDocDescription'];
-                    $VerificationDocID = $appMemData['VerificationDocID'];
-                    $isVerifyDocApproved = $appMemData['isVerifyDocApproved'];
-                    $phone_no = preg_replace('/[^0-9]/', '', ($CountryCode.'|'.$mobileNo));
+                $mailID = $appMemData['EmailID'];
+                $appMemName = $appMemData['CName_with_initials'];
+                $empCode = $appMemData['MemberCode'];
+                $DOJ = $appMemData['doj'];
+                $familyNm = $appMemData['familyNm'];
+                $provinceAr = $appMemData['provinceAr'];
+                $regionAr = $appMemData['regionAr'];
+                $genderStr = $appMemData['genderStr'];
+                $CountryCode = $appMemData['CountryCodePrimary'];
+                $mobileNo = $appMemData['PrimaryNumber'];
+                $CNIC_No = $appMemData['CNIC_No'];
+                $C_Address = $appMemData['C_Address'];
+                $FamilyAddedDate = $appMemData['FamilyAddedDates'];
+                $sysDocDescription = $appMemData['sysDocDescription'];
+                $VerificationDocID = $appMemData['VerificationDocID'];
+                $isVerifyDocApproved = $appMemData['isVerifyDocApproved'];
+                $phone_no = preg_replace('/[^0-9]/', '', ($CountryCode . '|' . $mobileNo));
 
-                if($isVerifyDocApproved == '1'){
+                if ($isVerifyDocApproved == '1') {
                     $label = 'success';
-                    $apprvlStatus ='Approved';
-                }
-                elseif($isVerifyDocApproved == '4'){
+                    $apprvlStatus = 'Approved';
+                } elseif ($isVerifyDocApproved == '4') {
                     $label = 'danger';
-                    $apprvlStatus ='Cancelled';
-                }
-                elseif($isVerifyDocApproved == '5'){
+                    $apprvlStatus = 'Cancelled';
+                } elseif ($isVerifyDocApproved == '5') {
                     $label = 'warning';
-                    $apprvlStatus ='Pending For Clarification';
-                }
-                else{
+                    $apprvlStatus = 'Pending For Clarification';
+                } else {
                     $label = 'info';
-                    $apprvlStatus ='Remaining';
-
+                    $apprvlStatus = 'Remaining';
                 }
 
                 $returnData .= $firstDivInput;
-                $returnData .= '<div class="candidate-description client-description applicants-content" '.$firstDivStyle.'>
+                $returnData .= '<div class="candidate-description client-description applicants-content" ' . $firstDivStyle . '>
                                     <div class="language-print client-des clearfix">
                                         <div class="aplicants-pic pull-left">
-                                            <img src="'.$CImage.'" alt="">
+                                            <img src="' . $CImage . '" alt="">
                                             <ul class="list-inline">
 
                                             </ul>
@@ -2400,24 +2347,24 @@ if (!function_exists('load_approvalMembers_data')) {
 
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <h5 class="memAppNameLink" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\''.$sysDocDescription.'\','.$phone_no.');"> <a href="#" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\''.$sysDocDescription.'\','.$phone_no.');">'.$empCode.' |</a>'.$appMemName.'</h5>
+                                                <h5 class="memAppNameLink" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\'' . $sysDocDescription . '\',' . $phone_no . ');"> <a href="#" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\'' . $sysDocDescription . '\',' . $phone_no . ');">' . $empCode . ' |</a>' . $appMemName . '</h5>
                                                
                                             </div>
-                                            <span class="pull-right label label-'.$label.' emp-status-label">'.$apprvlStatus.'</span>
-                                            <span class="pull-right label notfi-label" onclick="openPersonal_notifiyModal('.$appMemID.')"> <i class="fa fa-bell" aria-hidden="true"></i> </span>
+                                            <span class="pull-right label label-' . $label . ' emp-status-label">' . $apprvlStatus . '</span>
+                                            <span class="pull-right label notfi-label" onclick="openPersonal_notifiyModal(' . $appMemID . ')"> <i class="fa fa-bell" aria-hidden="true"></i> </span>
                                         </div>
 
                                         <div class="aplicant-details-show clearfix">
                                             <ul class="list-unstyled pull-left">
-                                                <li><span>Family Name: <b class="aplicant-detail">'.$familyNm.'</b></span></li>
-                                                <li><span>Family Added Date: <b class="aplicant-detail">'.$FamilyAddedDate.'</b></span></li>
-                                                <li><span>Area: <b class="aplicant-detail">'.$regionAr.'</b></span></li>
-                                                <li><span>Date Of Birth : <b class="aplicant-detail">'.$DOJ.'</b></span></li>
-                                                <li><span>Gender: <b class="aplicant-detail">'.$genderStr.'</b></span></li>
-                                                <li><span>Address: <b class="aplicant-detail">'.$C_Address.'</b></span></li>
-                                                <li><span>N.I.C.: <b class="aplicant-detail">'.$CNIC_No.'</b></span></li>
-                                                <li><span>Primary E-Mail: <b class="aplicant-detail">'.$mailID.'</b></span></li>
-                                                <li><span>Mobile: <b class="aplicant-detail">'.$CountryCode.'|'.$mobileNo.'</b></span></li>
+                                                <li><span>Family Name: <b class="aplicant-detail">' . $familyNm . '</b></span></li>
+                                                <li><span>Family Added Date: <b class="aplicant-detail">' . $FamilyAddedDate . '</b></span></li>
+                                                <li><span>Area: <b class="aplicant-detail">' . $regionAr . '</b></span></li>
+                                                <li><span>Date Of Birth : <b class="aplicant-detail">' . $DOJ . '</b></span></li>
+                                                <li><span>Gender: <b class="aplicant-detail">' . $genderStr . '</b></span></li>
+                                                <li><span>Address: <b class="aplicant-detail">' . $C_Address . '</b></span></li>
+                                                <li><span>N.I.C.: <b class="aplicant-detail">' . $CNIC_No . '</b></span></li>
+                                                <li><span>Primary E-Mail: <b class="aplicant-detail">' . $mailID . '</b></span></li>
+                                                <li><span>Mobile: <b class="aplicant-detail">' . $CountryCode . '|' . $mobileNo . '</b></span></li>
                                             </ul>
 
                                             <ul class="list-unstyled pull-left">
@@ -2428,15 +2375,15 @@ if (!function_exists('load_approvalMembers_data')) {
              <!-- small box -->
              <div class="small-box bg-teal bs">
                  <div style="background-color: grey;text-align: center;">Document Verification</div>
-                 <a href="#" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\''.$sysDocDescription.'\','.$phone_no.');">
+                 <a href="#" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\'' . $sysDocDescription . '\',' . $phone_no . ');">
                      <div style="background-color: grey;height: 90px;text-align: center;">
                          <i class="fa fa-file-image-o fa-5x" style="color: white;margin-top: 10px;"></i>
                    
                      </div>
                  </a>
                  <div style="padding: 3px 0;background: rgba(0,0,0,0.2);text-align: center;" data-toggle="tooltip" data-placement="bottom" title =""> <!--Assigned Classes : php foreach ($title2 as $tit){echo $tit.\', \';} ? -->
-                     <a href="#" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\''.$sysDocDescription.'\','.$phone_no.');" style="color: #fff;">
-                         '.$sysDocDescription.'</a>
+                     <a href="#" onclick="openVerify_docs(' . $appMemID . ', \'' . $appMemName . '\', ' . $VerificationDocID . ',\'' . $sysDocDescription . '\',' . $phone_no . ');" style="color: #fff;">
+                         ' . $sysDocDescription . '</a>
                  </div>
 
              </div>
@@ -2451,8 +2398,7 @@ if (!function_exists('load_approvalMembers_data')) {
                                     </div>
                                 </div>';
             }
-        }
-        else{
+        } else {
             $returnData .= '<div class="candidate-description client-description applicants-content">No records</div>';
         }
         return [
@@ -2467,7 +2413,7 @@ if (!function_exists('load_approvalMembers_data')) {
 if (!function_exists('addApprovalsPagination')) {
     function addApprovalsPagination()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->load->library("pagination");
         //$CI->load->library("s3");
 
@@ -2494,10 +2440,9 @@ if (!function_exists('addApprovalsPagination')) {
 
 
         if ($apprvlStatus != '' && $apprvlStatus != 'null') {
-            if($apprvlStatus == 3){
+            if ($apprvlStatus == 3) {
                 $apprvlStatus_filter = " AND is_approved = 0 ";
-            }
-            else{
+            } else {
                 $apprvlStatus_filter = " AND is_approved = " . $apprvlStatus;
             }
             $isFiltered = 1;
@@ -2516,12 +2461,12 @@ if (!function_exists('addApprovalsPagination')) {
             $isFiltered = 1;
         }
 
-        if($letter != null){
-            $alpha_filter = ' AND (CName_with_initials LIKE \''.$letter.'%\') ';
+        if ($letter != null) {
+            $alpha_filter = ' AND (CName_with_initials LIKE \'' . $letter . '%\') ';
             $isFiltered = 1;
         }
 
-        if($searchKey != ''){
+        if ($searchKey != '') {
 
             $searchKey_filter = " WHERE ((MemberCode Like '%" . $searchKey . "%') OR (CName_with_initials Like '%" . $searchKey . "%') OR (provinceAr Like '%" . $searchKey . "%') OR (advertisementType Like '%" . $searchKey . "%') OR (category_name = '" . $searchKey . "') OR (CNIC_No Like '%" . $searchKey . "%') OR (PrimaryNumber Like '%" . $searchKey . "%') OR (familyNm Like '%" . $searchKey . "%'))";
             $isFiltered = 1;
@@ -2529,8 +2474,8 @@ if (!function_exists('addApprovalsPagination')) {
 
         $countFilter = 0;
 
-        if($isFiltered == 1){
-            $countFilterWhere = $gender_filter . $adType_filter . $alpha_filter. $apprvlStatus_filter;
+        if ($isFiltered == 1) {
+            $countFilterWhere = $gender_filter . $adType_filter . $alpha_filter . $apprvlStatus_filter;
             $convertFormat = convert_date_format_sql();
             $countFilter = $CI->db->query("SELECT COUNT(advertise.FamMasterID) AS comAdCount FROM(
                                            SELECT advertise.id advertiseId,advertise.FamMasterID,comMas.Com_MasterID,comMas.MemberCode,comMas.CName_with_initials,adSub_category.advertisement_category_id AS Gender,comMas.CountryCodePrimary,advertise.mobile,stateAr.Description AS stateArDes ,stateProvince.Description AS provinceAr,
@@ -2546,7 +2491,6 @@ if (!function_exists('addApprovalsPagination')) {
                                     LEFT JOIN srp_erp_statemaster AS stateProvince ON stateProvince.stateID=comMas.provinceID
                    WHERE comMas.companyID={$companyID} AND comMas.isDeleted = 0 AND femMas.isDeleted=0 AND (advertise.is_deleted =0 OR advertise.is_deleted IS NULL) {$countFilterWhere}
                                            ) AS advertise {$searchKey_filter} ")->row('comAdCount');
-
         }
 
         // var_dump($countFilter);
@@ -2561,7 +2505,7 @@ if (!function_exists('addApprovalsPagination')) {
 
         $CI->pagination->initialize($config);
 
-        $page = (!empty($data_pagination)) ? (($data_pagination -1) * $per_page): 0;
+        $page = (!empty($data_pagination)) ? (($data_pagination - 1) * $per_page) : 0;
         $employeeData = load_approvalAdvertisement_data($page, $per_page);
         $dataCount = $employeeData['dataCount'];
 
@@ -2569,17 +2513,16 @@ if (!function_exists('addApprovalsPagination')) {
         $data["adApprovals_list"] = $employeeData['adApprovals_list'];
         $data["pagination"] = $CI->pagination->create_links_addApproval_master();
         $data["per_page"] = $per_page;
-        $thisPageStartNumber = ($page+1);
-        $thisPageEndNumber = $page+$dataCount;
+        $thisPageStartNumber = ($page + 1);
+        $thisPageEndNumber = $page + $dataCount;
 
-        if($isFiltered == 1){
+        if ($isFiltered == 1) {
             $data["filterDisplay"] = "Showing {$thisPageStartNumber} to {$thisPageEndNumber} of {$countFilter} entries (filtered from {$count} total entries)";
-        }else{
+        } else {
             $data["filterDisplay"] = "Showing {$thisPageStartNumber} to {$thisPageEndNumber} of {$count} entries";
         }
 
         return $data;
-
     }
 }
 
@@ -2593,7 +2536,7 @@ if (!function_exists('load_approvalAdvertisement_data')) {
         $designation_filter = '';
         $apprvlStatus_filter = '';
 
-        $CI =& get_instance();
+        $CI = &get_instance();
         $letter = $CI->input->post('letter');
         $searchKey = $CI->input->post('searchKey');
         $categoryApr = $CI->input->post('categoryApr');
@@ -2601,10 +2544,9 @@ if (!function_exists('load_approvalAdvertisement_data')) {
         $apprvlStatus = $CI->input->post('apprvlStatus');
 
         if ($apprvlStatus != '' && $apprvlStatus != 'null') {
-            if($apprvlStatus == 3){
+            if ($apprvlStatus == 3) {
                 $apprvlStatus_filter = " AND is_approved = 0 ";
-            }
-            else{
+            } else {
                 $apprvlStatus_filter = " AND is_approved = " . $apprvlStatus;
             }
         }
@@ -2621,13 +2563,12 @@ if (!function_exists('load_approvalAdvertisement_data')) {
             $adType_filter = " AND advertise.type_id IN " . $whereIN;
         }
 
-        if($letter != null){
-            $alpha_filter = ' AND ( CName_with_initials LIKE \''.$letter.'%\') ';
+        if ($letter != null) {
+            $alpha_filter = ' AND ( CName_with_initials LIKE \'' . $letter . '%\') ';
         }
 
-        if($searchKey != ''){
+        if ($searchKey != '') {
             $searchKey_filter = " WHERE ((MemberCode Like '%" . $searchKey . "%') OR (CName_with_initials Like '%" . $searchKey . "%') OR (provinceAr Like '%" . $searchKey . "%') OR (advertisementType Like '%" . $searchKey . "%') OR (category_name = '" . $searchKey . "') OR (CNIC_No Like '%" . $searchKey . "%') OR (PrimaryNumber Like '%" . $searchKey . "%') OR (familyNm Like '%" . $searchKey . "%'))";
-
         }
 
         $companyID = current_companyID();
@@ -2654,27 +2595,24 @@ if (!function_exists('load_approvalAdvertisement_data')) {
         $adApprovals_list = $data;
         $returnData = '';
         $color = "#FF0";
-        if(!empty($adApprovals_list)){
+        if (!empty($adApprovals_list)) {
 
             $CI->load->library('s3');
             $male_img = $CI->s3->getMyAuthenticatedURL('images/users/male.png', 3600);
             $female_img = $CI->s3->getMyAuthenticatedURL('images/users/female.png', 3600);
 
-            foreach($adApprovals_list as $key=>$appMemData){
+            foreach ($adApprovals_list as $key => $appMemData) {
                 $adMemID = $appMemData['Com_MasterID'];
 
                 //$CImage = CImageCheck($appMemData['CImage'], $appMemData['Gender']);
                 $CImage = trim($appMemData['CImage']);
-                if($CImage == ''){
-                    $CImage = ($appMemData['Gender'] == 1)? $male_img: $female_img;
-                }
-                elseif ($CImage == 'images/users/male.png'){
+                if ($CImage == '') {
+                    $CImage = ($appMemData['Gender'] == 1) ? $male_img : $female_img;
+                } elseif ($CImage == 'images/users/male.png') {
                     $CImage = $male_img;
-                }
-                elseif ($CImage == 'images/users/female.png'){
+                } elseif ($CImage == 'images/users/female.png') {
                     $CImage = $female_img;
-                }
-                else{
+                } else {
                     $CImage = $CI->s3->getMyAuthenticatedURL($CImage, 3600);
                     /*if( $CI->s3->getMyObjectInfo($CImage) ){
                         $CImage = $CI->s3->getMyAuthenticatedURL($CImage, 3600);
@@ -2685,8 +2623,8 @@ if (!function_exists('load_approvalAdvertisement_data')) {
                 }
 
 
-                $firstDivStyle = ($key==0)? ' style="margin-top: 1px;"' : '';
-                $firstDivInput = ($key==0)? '<input id="first-in-emp-list" />' : '';
+                $firstDivStyle = ($key == 0) ? ' style="margin-top: 1px;"' : '';
+                $firstDivInput = ($key == 0) ? '<input id="first-in-emp-list" />' : '';
 
 
                 $advertiseId = $appMemData['advertiseId'];
@@ -2712,50 +2650,43 @@ if (!function_exists('load_approvalAdvertisement_data')) {
                 $upload_title = $appMemData['upload_title'];
                 $upload_description = $appMemData['upload_description'];
 
-                if($is_approved == '1'){
+                if ($is_approved == '1') {
                     $label = 'success';
-                    $apprvlStatus ='Approved';
-                }
-                elseif($is_approved == '4'){
+                    $apprvlStatus = 'Approved';
+                } elseif ($is_approved == '4') {
                     $label = 'danger';
-                    $apprvlStatus ='Cancelled';
-                }
-                elseif($is_approved == '5'){
+                    $apprvlStatus = 'Cancelled';
+                } elseif ($is_approved == '5') {
                     $label = 'warning';
-                    $apprvlStatus ='Pending For Clarification';
-                }
-                else{
+                    $apprvlStatus = 'Pending For Clarification';
+                } else {
                     $label = 'info';
-                    $apprvlStatus ='Remaining';
-
+                    $apprvlStatus = 'Remaining';
                 }
 
-                if($is_public == '1'){
-                    $is_publicStatus ='<lable style="color: green;">Yes</lable>';
-                }
-                else{
-                    $is_publicStatus ='<lable style="color: red;">No</lable>';
+                if ($is_public == '1') {
+                    $is_publicStatus = '<lable style="color: green;">Yes</lable>';
+                } else {
+                    $is_publicStatus = '<lable style="color: red;">No</lable>';
                 }
 
-                if($published_date==null || $published_date == ''){
+                if ($published_date == null || $published_date == '') {
                     $published_dates = convert_date_format_sql();
-                }
-                else{
+                } else {
                     $published_dates = $published_date;
                 }
 
-                if($expire_date ==null || $expire_date == ''){
+                if ($expire_date == null || $expire_date == '') {
                     $expire_dates = convert_date_format_sql();
-                }
-                else{
+                } else {
                     $expire_dates = $expire_date;
                 }
 
                 $returnData .= $firstDivInput;
-                $returnData .= '<div class="candidate-description client-description applicants-content" '.$firstDivStyle.'>
+                $returnData .= '<div class="candidate-description client-description applicants-content" ' . $firstDivStyle . '>
                                     <div class="language-print client-des clearfix">
                                         <div class="aplicants-pic pull-left">
-                                            <img src="'.$CImage.'" alt="">
+                                            <img src="' . $CImage . '" alt="">
                                             <ul class="list-inline">
 
                                             </ul>
@@ -2763,27 +2694,27 @@ if (!function_exists('load_approvalAdvertisement_data')) {
 
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                              <b>Advertised By : </b> '.$empCode .'|'.$adMemName.'
+                                              <b>Advertised By : </b> ' . $empCode . '|' . $adMemName . '
                                                
                                             </div>
-                                            <span class="pull-right label label-'.$label.' emp-status-label"><a style="color:#ffffff;" onclick="openAdVerify_docs(' . $advertiseId . ', \'' . $adMemName . '\', ' . $type_id . ',\''.$sub_category_name.'\','.$mobileNo.','.$expire_days.');">'.$apprvlStatus.'</a></span>
-                                            <span class="pull-right label notfi-label" onclick="openMemAdd_notifiyModal('.$adMemID.')"> <i class="fa fa-bell" aria-hidden="true"></i> </span>
+                                            <span class="pull-right label label-' . $label . ' emp-status-label"><a style="color:#ffffff;" onclick="openAdVerify_docs(' . $advertiseId . ', \'' . $adMemName . '\', ' . $type_id . ',\'' . $sub_category_name . '\',' . $mobileNo . ',' . $expire_days . ');">' . $apprvlStatus . '</a></span>
+                                            <span class="pull-right label notfi-label" onclick="openMemAdd_notifiyModal(' . $adMemID . ')"> <i class="fa fa-bell" aria-hidden="true"></i> </span>
                                         </div>
 
                                         <div class="aplicant-details-show clearfix">
                                         
                                            <ul class="list-unstyled pull-left">
-                                                 <li><span>Title : <b class="aplicant-detail">'.$upload_title.'</b></span></li>
-                                                 <li><span>Category : <b class="aplicant-detail">'.$categoryStr.'</b></span></li>
-                                                <li><span>Sub Category: <b class="aplicant-detail">'.$sub_category_name.'</b></span></li>
-                                                <li><span>Added Date: <b class="aplicant-detail">'.$added_date.'</b></span></li>
-                                                <li><span>Amount : <b class="aplicant-detail">'.$amount.'</b></span></li>
-                                                <li><span>Is Public: <b class="aplicant-detail">'.$is_publicStatus.'</b></span></li>
+                                                 <li><span>Title : <b class="aplicant-detail">' . $upload_title . '</b></span></li>
+                                                 <li><span>Category : <b class="aplicant-detail">' . $categoryStr . '</b></span></li>
+                                                <li><span>Sub Category: <b class="aplicant-detail">' . $sub_category_name . '</b></span></li>
+                                                <li><span>Added Date: <b class="aplicant-detail">' . $added_date . '</b></span></li>
+                                                <li><span>Amount : <b class="aplicant-detail">' . $amount . '</b></span></li>
+                                                <li><span>Is Public: <b class="aplicant-detail">' . $is_publicStatus . '</b></span></li>
 
-                                                <li style="margin-top: 10px;"><span>Family Name: <b class="aplicant-detail">'.$familyNm.'</b></span></li>
-                                                <li><span>Mobile: <b class="aplicant-detail">'.$mobileNo.'</b></span></li>
-                                                <li><span>Province: <b class="aplicant-detail">'.$provinceAr.'</b></span></li>
-                                                <li><span>Primary E-Mail: <b class="aplicant-detail">'.$mailID.'</b></span></li>
+                                                <li style="margin-top: 10px;"><span>Family Name: <b class="aplicant-detail">' . $familyNm . '</b></span></li>
+                                                <li><span>Mobile: <b class="aplicant-detail">' . $mobileNo . '</b></span></li>
+                                                <li><span>Province: <b class="aplicant-detail">' . $provinceAr . '</b></span></li>
+                                                <li><span>Primary E-Mail: <b class="aplicant-detail">' . $mailID . '</b></span></li>
                                             </ul>
                                             <ul class="list-unstyled pull-left">
                                              
@@ -2793,29 +2724,26 @@ if (!function_exists('load_approvalAdvertisement_data')) {
              <!-- small box -->
              <div class="small-box bg-maroon bs">
                  <div style="background-color: grey;text-align: center;">Advertisement Verification</div>
-                 <a href="#" onclick="openAdVerify_docs(' . $advertiseId . ', \'' . $adMemName . '\', ' . $type_id . ',\''.$sub_category_name.'\','.$mobileNo.','.$expire_days.');">  </a>
+                 <a href="#" onclick="openAdVerify_docs(' . $advertiseId . ', \'' . $adMemName . '\', ' . $type_id . ',\'' . $sub_category_name . '\',' . $mobileNo . ',' . $expire_days . ');">  </a>
                      <div style="background-color: grey;height: 90px;text-align: center;">';
-                if($type_id == '2') {
+                if ($type_id == '2') {
                     $returnData .= '<span class="tipped-top"><a data-modal="#modal_adVideo" onclick="openAdVideo_mod(\'' . $uploadAdd_url . '\', \'' . $upload_title . '\');"><img style="height:88px;width:200px;"
                                                                        src="' . base_url("images/community/videoImg2.jpg") . '"></a></span>';
-                }
-                elseif($type_id == '1'){
+                } elseif ($type_id == '1') {
                     $returnData .= '<span class="tipped-top"><a data-modal="#modal_adAudio" onclick="openAdAudio_modal(\'' . $uploadAdd_url . '\', \'' . $upload_title . '\');" style="height:90px;"><img style="height:88px;width:200px;"
                                                                        src="' . base_url("images/community/audio2.jpg") . '"></a></span>';
-                }
-                elseif($type_id == '4'){
-                    $returnData .= '<span class="tipped-top"><a onclick="open_ApproveAddViewer('.$advertiseId.');"><img style="height:88px;width:200px;"
+                } elseif ($type_id == '4') {
+                    $returnData .= '<span class="tipped-top"><a onclick="open_ApproveAddViewer(' . $advertiseId . ');"><img style="height:88px;width:200px;"
                                                                        src="' . base_url("images/community/document-icon2.png") . '"></a></span>';
-                }
-                elseif($type_id == '3'){
+                } elseif ($type_id == '3') {
                     $returnData .= '<span class="tipped-top"><a onclick="open_pageUrlInNewTab(\'' . $uploadAdd_url . '\')"><img style="height:88px;width:200px;"
                                                                        src="' . base_url("images/community/pageUrls.png") . '"></a></span>';
                 }
-                     $returnData .= '</div>
+                $returnData .= '</div>
                
                  <div style="padding: 3px 0;background: rgba(0,0,0,0.2);text-align: center;" data-toggle="tooltip" data-placement="bottom" title =""> <!--Assigned Classes : php foreach ($title2 as $tit){echo $tit.\', \';} ? -->
-                     <a href="#" onclick="openAdVerify_docs(' . $advertiseId . ', \'' . $adMemName . '\', ' . $type_id . ',\''.$sub_category_name.'\','.$mobileNo.','.$expire_days.');" style="color: #AAAAAA;">
-                         '.$sub_category_name.'</a>
+                     <a href="#" onclick="openAdVerify_docs(' . $advertiseId . ', \'' . $adMemName . '\', ' . $type_id . ',\'' . $sub_category_name . '\',' . $mobileNo . ',' . $expire_days . ');" style="color: #AAAAAA;">
+                         ' . $sub_category_name . '</a>
                  </div>
 
              </div>
@@ -2825,14 +2753,13 @@ if (!function_exists('load_approvalAdvertisement_data')) {
 
                                              
                                             </ul>
-                                            <div><span style="color: transparent;">space</span><span style="color: brown;">Published Date: <b class="aplicant-detail">'.$published_dates.'</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Expire Date: <b class="aplicant-detail">'.$expire_dates.'</b></span></div>
+                                            <div><span style="color: transparent;">space</span><span style="color: brown;">Published Date: <b class="aplicant-detail">' . $published_dates . '</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Expire Date: <b class="aplicant-detail">' . $expire_dates . '</b></span></div>
 
                                         </div>
                                     </div>
                                 </div>';
             }
-        }
-        else{
+        } else {
             $returnData .= '<div class="candidate-description client-description applicants-content">No records</div>';
         }
         return [
@@ -2846,7 +2773,7 @@ if (!function_exists('fetch_adApproval_status')) {
     function fetch_adApproval_status()
     {
         $companyID = current_companyID();
-        $CI =& get_instance();
+        $CI = &get_instance();
         $statusCount = $CI->db->query("SELECT * FROM (
                                           SELECT  (SELECT COUNT(advertise.FamMasterID) AS comAdCount FROM srp_erp_ngo_com_advertisments advertise INNER JOIN srp_erp_ngo_com_familymaster femMas ON femMas.FamMasterID = advertise.FamMasterID WHERE femMas.companyID={$companyID} AND femMas.isDeleted=0 AND (advertise.is_deleted =0 OR advertise.is_deleted IS NULL)
                                           AND advertise.is_approved=1) AS adApproved,(SELECT COUNT(advertise.FamMasterID) AS comAdCount FROM srp_erp_ngo_com_advertisments advertise INNER JOIN srp_erp_ngo_com_familymaster femMas ON femMas.FamMasterID = advertise.FamMasterID WHERE femMas.companyID={$companyID}
@@ -2861,7 +2788,7 @@ if (!function_exists('fetch_adApproval_status')) {
 if (!function_exists('fetch_advertiseTypes')) {
     function fetch_advertiseTypes()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = current_companyID();
 
         $data = $CI->db->query("SELECT advertise.type_id,adType.advertisementType, count(advertise.FamMasterID) AS comAdCount
@@ -2878,7 +2805,7 @@ if (!function_exists('fetch_advertiseTypes')) {
 if (!function_exists('fetch_advertisement_cat_approval')) {
     function fetch_advertisement_cat_approval()
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $companyID = current_companyID();
         $data = $CI->db->query("SELECT ad_category.id,ad_category.category_name as categoryName, count(advertise.FamMasterID) AS comAdCount FROM srp_erp_ngo_com_advertisments advertise LEFT JOIN advertisement_sub_category adSub_category ON adSub_category.id =advertise.advertisement_sub_category_id LEFT JOIN advertisement_category ad_category ON adSub_category.advertisement_category_id=ad_category.id INNER JOIN srp_erp_ngo_com_familymaster femMas ON femMas.FamMasterID = advertise.FamMasterID LEFT JOIN srp_erp_ngo_com_communitymaster comMas ON comMas.Com_MasterID=femMas.LeaderID WHERE femMas.companyID={$companyID} AND femMas.isDeleted = 0 AND advertise.is_deleted=0 GROUP BY adSub_category.advertisement_category_id")->result_array();
         return $data;
@@ -2887,11 +2814,11 @@ if (!function_exists('fetch_advertisement_cat_approval')) {
 
 /* community aws uploads */
 if (!function_exists('get_all_community_uploads')) {
-    function get_all_community_uploads($imagename,$path,$type = null)
+    function get_all_community_uploads($imagename, $path, $type = null)
     {
-        $CI =& get_instance();
+        $CI = &get_instance();
         $CI->load->library('s3');
-        $image = $CI->s3->getMyAuthenticatedURL($path.$imagename , 3600);
+        $image = $CI->s3->getMyAuthenticatedURL($path . $imagename, 3600);
         return $image;
     }
 }
