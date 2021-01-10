@@ -353,7 +353,7 @@ class CommunityNgo_model extends ERP_Model
         } else {
 
             //get member mahallah
-           /*  $getAreaCode = $this->db->query("SELECT memArea.masterID,memArea.shortCode FROM srp_erp_statemaster memArea WHERE memArea.stateID={$RegionID} AND memArea.countyID = {$countyID}");
+            /*  $getAreaCode = $this->db->query("SELECT memArea.masterID,memArea.shortCode FROM srp_erp_statemaster memArea WHERE memArea.stateID={$RegionID} AND memArea.countyID = {$countyID}");
             $memAreaCode = $getAreaCode->row();
             $rowAreaCode = $memAreaCode->shortCode; */
 
@@ -361,7 +361,7 @@ class CommunityNgo_model extends ERP_Model
             $serial = $this->db->query("select IF ( isnull(MAX(SerialNo)), 1, (MAX(SerialNo) + 1) ) AS SerialNo FROM `srp_erp_ngo_com_communitymaster` WHERE companyID={$companyID}")->row_array();
 
             $data['SerialNo'] = $serial['SerialNo'];
-            $data['MemberCode'] = ($defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $company_code . '/'. 'MEM'. str_pad($data['SerialNo'], 6, '0', STR_PAD_LEFT));
+            $data['MemberCode'] = ($defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $company_code . '/' . 'MEM' . str_pad($data['SerialNo'], 6, '0', STR_PAD_LEFT));
 
             $data['companyID'] = $companyID;
             $data['createdPCID'] = $this->common_data['current_pc'];
@@ -3429,7 +3429,6 @@ HAVING
 
         $companyID = $this->common_data['company_data']['company_id'];
         $hEnrollingID = $this->input->post('hEnrollingID');
-        $FamMasterID = $this->input->post('FamMasterID2');
 
         $FamHouseCn = $this->input->post('FamHouseCn');
 
@@ -3606,7 +3605,7 @@ HAVING
 
                 $data['FamilySerialNo'] = $serial['FamilySerialNo'];
                 $data['FamilyCode'] = 'FAM' . '/' . $defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $rowAreaCode;
-                $data['FamilySystemCode'] = ($defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $company_code . '/'. 'FAM'. str_pad($data['FamilySerialNo'], 6, '0', STR_PAD_LEFT));
+                $data['FamilySystemCode'] = ($defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $company_code . '/' . 'FAM' . str_pad($data['FamilySerialNo'], 6, '0', STR_PAD_LEFT));
                 $data['LeaderID'] = $this->input->post('LeaderID');
                 $data['FamilyName'] = $this->input->post('FamilyName');
                 $data['isVerifyDocApproved'] = '1';
@@ -3756,12 +3755,12 @@ HAVING
             $serial = $this->db->query("select IF ( isnull(MAX(SerialNo)), 1, (MAX(SerialNo) + 1) ) AS SerialNo FROM `srp_erp_ngo_com_communitymaster` WHERE companyID={$companyID}")->row_array();
 
             //get member mahallah
-         /*    $getAreaCode = $this->db->query("SELECT memArea.masterID,memArea.shortCode FROM srp_erp_statemaster memArea WHERE memArea.stateID={$RegionID} AND memArea.countyID = {$countyID}");
+            /*    $getAreaCode = $this->db->query("SELECT memArea.masterID,memArea.shortCode FROM srp_erp_statemaster memArea WHERE memArea.stateID={$RegionID} AND memArea.countyID = {$countyID}");
             $memAreaCode = $getAreaCode->row();
             $rowAreaCode = $memAreaCode->shortCode; */
 
             $data['SerialNo'] = $serial['SerialNo'];
-            $data['MemberCode'] = ($defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $company_code . '/'. 'MEM'. str_pad($data['SerialNo'], 6, '0', STR_PAD_LEFT));
+            $data['MemberCode'] = ($defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $company_code . '/' . 'MEM' . str_pad($data['SerialNo'], 6, '0', STR_PAD_LEFT));
             $data['CName_with_initials'] = $nameWithIni[$key];
 
             $data['TitleID'] = $TitleID[$key];
@@ -4041,7 +4040,7 @@ HAVING
 
         $FamMasterID = $this->input->post('FamMasterID');
 
-        $Com_MasterID = $this->input->post('Com_MasterID');
+        $Com_MasterID = $this->input->post('memberIDs');
 
         $FamMemAddedDate = $this->input->post('FamMemAddedDate');
         $memRelaID = $this->input->post('memRelaID');
@@ -6954,7 +6953,7 @@ WHERE dds.DocDesID
 
     /*End of Committee Master */
     /*family Report */
-    function get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr)
+    function get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus)
     {
 
         $companyID = $this->common_data['company_data']['company_id'];
@@ -6967,6 +6966,11 @@ WHERE dds.DocDesID
         $houseOwnshpS = "";
         if (!empty($houseOwnshp)) {
             $houseOwnshpS = "AND srp_erp_ngo_com_house_enrolling.ownershipAutoID = $houseOwnshp ";
+        }
+
+        $famEconStID = "";
+        if (!empty($famEconStatus)) {
+            $famEconStID = "AND srp_erp_ngo_com_familymaster.ComEconSteID  = $famEconStatus";
         }
 
         $houseTypeS = "";
@@ -6988,7 +6992,7 @@ WHERE dds.DocDesID
 
         $where = "srp_erp_ngo_com_house_enrolling.companyID = " . $companyID . $deleted . $VerifiyDocApproved . $division_filter . $region_filter;
 
-        $houseTot = $this->db->query("SELECT COUNT(*) AS totHouseCount FROM srp_erp_ngo_com_house_enrolling INNER JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID WHERE (srp_erp_ngo_com_house_enrolling.FamHouseSt = '0' OR srp_erp_ngo_com_house_enrolling.FamHouseSt = NULL) AND $where " . " $FamMasID $houseOwnshpS $houseTypeS ")->row_array();
+        $houseTot = $this->db->query("SELECT COUNT(*) AS totHouseCount FROM srp_erp_ngo_com_house_enrolling INNER JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID WHERE (srp_erp_ngo_com_house_enrolling.FamHouseSt = '0' OR srp_erp_ngo_com_house_enrolling.FamHouseSt = NULL) AND $where " . " $FamMasID $famEconStID $houseOwnshpS $houseTypeS ")->row_array();
 
 
         echo json_encode(
