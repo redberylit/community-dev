@@ -440,11 +440,11 @@ companyID = $companyID ";
                     if (current_companyID() != 16) {
                         ?>
 
-                        <li class="support support-menu">
+                       <!-- <li class="support support-menu">
                             <a title="Modules" href="<?php echo site_url('modules') ?>"> <i style="font-size:  18px;"
                                                                                             class="fa fa-puzzle-piece"
                                                                                             aria-hidden="true"></i> </a>
-                        </li>
+                        </li>-->
 
 
                         <li class="support support-menu">
