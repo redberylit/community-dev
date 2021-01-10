@@ -7735,8 +7735,6 @@ if (!function_exists('send_approvalEmail')) {
         $config['protocol'] = 'smtp';
         $config['smtp_host'] = 'smtp.sendgrid.net';
         $config['smtp_user'] = 'apikey';
-        //$config['smtp_pass'] = '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';
-        $config['smtp_pass'] = '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';
         $config['smtp_crypto'] = 'tls';
         $config['smtp_port'] = '587';
         $config['crlf'] = "\r\n";
