@@ -14,3 +14,11 @@
 .headStyle2{
     color: #ffffff !important;
 }
+.skin-black-light .main-header>.navbar .nav .open>a, .skin-black-light .main-header>.navbar .nav .open>a:focus, .skin-black-light .main-header>.navbar .nav .open>a:hover, .skin-black-light .main-header>.navbar .nav>.active>a, .skin-black-light .main-header>.navbar .nav>li>a:active, .skin-black-light .main-header>.navbar .nav>li>a:focus, .skin-black-light .main-header>.navbar .nav>li>a:hover {
+    background: #364f83 !important;
+    color: #fff !important;;
+}
+.logo-mini{
+    color: #ffffff;
+    font-size: 13px !important;
+}

@@ -48,7 +48,7 @@ if ($session == 1) {
         <?php
         } ?>
         <div class="text-center m-b-md">
-            <img style="margin-top:20px;max-height:60px;margin-bottom:15px;" src="<?php echo base_url('images/slk_flag3.png') ?>" alt="Logo"><br/>
+            <img style="margin-top:20px;max-height:60px;margin-bottom:15px;background-color: #3b5998;background-image: linear-gradient(#4e69a2, #3b5998 50%);padding: 10px 10px;" src="<?php echo base_url('images/sl-logo.png') ?>" alt="Logo"><br/>
             <h3>Forgot Password</h3>
             <!--<small>Web Enterprise Resource Planning Solution.</small>-->
 
