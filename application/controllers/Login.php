@@ -172,6 +172,7 @@ class Login extends CI_Controller
             $this->db->join('srp_erp_company', ' user.companyID = srp_erp_company.company_id', 'inner');
             $resultDb2 = $this->db->get("user")->row_array();
             $result = "";
+
             if ($resultDb2) {
                 //echo '<pre>';print_r($resultDb2); echo '</pre>'; die();
                 if ($resultDb2['isGroupUser'] == 1) {

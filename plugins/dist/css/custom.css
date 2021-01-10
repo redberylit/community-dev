@@ -1,0 +1,16 @@
+/**********************************/
+/************Custom css************/
+.main-header>.navbar{
+    background-color: #3b5998;
+    background-image: linear-gradient(#4e69a2, #3b5998 50%);
+}
+.skin-black-light .main-header .navbar-toggle, .skin-black-light .main-header>.navbar .nav>li>a {
+    color: #ffffff !important;
+}
+.skin-black-light .main-header>.logo{
+    background-color: #3b5998;
+    background-image: linear-gradient(#4e69a2, #3b5998 50%);
+}
+.headStyle2{
+    color: #ffffff !important;
+}

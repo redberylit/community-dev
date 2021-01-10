@@ -12,7 +12,7 @@ $thirdpartapp = getPolicyValues('TPA','ALL');
     <style>
 
         .headStyle2 {
-            color: #000000 !important;
+            color: #000000;
         }
         .headStyle1 {
             color: #fff7f7 !important;

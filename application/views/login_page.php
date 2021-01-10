@@ -18,6 +18,8 @@ if ($session == 1) {
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/AdminLTE.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/validation/css/bootstrapValidator.min.css'); ?>"/>
     <link rel="stylesheet" href="<?php echo base_url('plugins/animate/animate.css'); ?>"/>
+
+    <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/news.css'); ?>">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -69,64 +71,104 @@ if ($session == 1) {
         input[type=text],input[type=password]{
             border-radius: 8px;
         }
+
     </style>
 </head>
 <body class="hold-transition login-page" style="">
-<div class="col-sm-4">
-</div>
-<div class="col-sm-4">
-    <div class="login-box" style="width: 100%;">
-        <!-- /.login-logo -->
-        <div class="login-box-body">
-            <?php if ($this->session->flashdata('msg')) { ?>
-                <div role="alert" class="alert alert-success"><?php echo $this->session->flashdata('msg'); ?></div>
-            <?php } ?>
-            <?php if (!empty($extra) && ($type == 'e')) { ?>
-                <div role="alert" class="alert alert-danger"><?php echo $extra; ?></div>
-            <?php } elseif (!empty($extra) && ($type == 's')) {
-                ?>
-                <div role="alert" class="alert alert-success"><?php echo $extra; ?></div>
-                <?php
-            } ?>
-            <div class="text-center m-b-md">
-                <img style="max-height: 170px;margin-bottom: -24px;" src="<?php echo base_url('images/slk_flag.png') ?>" alt="Logo">
-                <!--<small>Web Enterprise Resource Planning Solution.</small>-->
-                <h3 class="fnt2">Welcome To Community System</h3>
-                <h4 class="fnt">Please Confirm Your User Credential</h4>
-            </div>
-            <br>
-            <?php echo form_open('login/loginSubmit', ' id="login_form" role="form"'); ?>
-            <p class="fnt">Username</p>
-            <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="Username" id="from_username"
-                       placeholder="Please enter you username" readonly
-                       onfocus="this.removeAttribute('readonly');">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-            </div>
-            <p class="fnt">Password</p>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" name="Password" id="from_password" placeholder="******"
-                       autocomplete="off" readonly
-                       onfocus="this.removeAttribute('readonly');">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <br>
-                <div class="col-xs-8">
-                    <a href="<?php echo site_url('Login/forget_password') ?>" style="color: #304FFE;">&nbsp; Forgot password?</a>
+
+
+<!--------------------->
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="logo">
+                    <div class="login-logo">
+                        <a href="<?php echo site_url() ?>"><img src="<?php echo base_url('images/sl-logo.png') ?>"></a>
+                    </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-xs-12">
-                    <br>
-                    <button type="submit" class="btn btn-success btn-block btn-flat btn-block">Sign In</button>
-                </div>
-                <!-- /.col -->
             </div>
+
+                <?php echo form_open('login/loginSubmit', ' id="login_form" style="display: contents;" role="form"'); ?>
+                <div class="col-sm-6">
+                    <div class="row label-custom">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <div class="login-bottom-text checkbox hidden-sm login-text-label">
+                                    <p>
+                                        Username
+                                    </p>
+                                </div>
+                                <input type="text" name="Username" id="from_username" class="form-control" placeholder="Please enter you username" readonly onfocus="this.removeAttribute('readonly');">
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <div class="login-bottom-text checkbox hidden-sm login-text-label">
+                                    <p>
+                                        Password
+                                    </p>
+                                </div>
+                                <input  type="password" class="form-control" name="Password" id="from_password" placeholder="******"
+                                        autocomplete="off" readonly
+                                        onfocus="this.removeAttribute('readonly');">
+                                <a href="<?php echo site_url('Login/forget_password') ?>" class="login-bottom-text forgot-password">Forgotten account?</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default btn-header-login btn-block btn-flat">Log In</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
-        <!-- /.login-box-body -->
     </div>
+</header>
+
+
+
+<?php if ($this->session->flashdata('msg')) { ?>
+    <div role="alert" class="alert alert-success"><?php echo $this->session->flashdata('msg'); ?></div>
+<?php } ?>
+<?php if (!empty($extra) && ($type == 'e')) { ?>
+    <div role="alert" class="alert alert-danger"><?php echo $extra; ?></div>
+<?php } elseif (!empty($extra) && ($type == 's')) {
+    ?>
+    <div role="alert" class="alert alert-success"><?php echo $extra; ?></div>
+    <?php
+} ?>
+
+
+<article class="container">
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="login-main">
+                <h4 class="txt-7 mt-1"> This portal helps you to connect and share<br>with the people in your life.</h4>
+                <img src="<?php echo base_url('images/bg-login.png') ?>" alt="">
+
+            </div>
+        </div>
+
+        <!--<div class="col-sm-2">
+
+            <div class="">
+
+                <h3 class="txt-6">Member Registration</h3>
+
+            </div>
+        </div>-->
+    </div>
+
+</article>
+<!--------------------->
+
+
+
+<div class="col-sm-4">
 </div>
+
 <!-- /.login-box -->
 
 <script src="<?php echo base_url('plugins/jQuery/jQuery-2.1.4.min.js'); ?>"></script>

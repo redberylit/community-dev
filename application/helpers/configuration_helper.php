@@ -14,7 +14,7 @@ $actual_link_html = base_url('images/logo/');
 define('UPLOAD_PATH', $_SERVER["DOCUMENT_ROOT"]);
 define('UPLOAD_PATH_POS', $_SERVER["DOCUMENT_ROOT"] . '/community/');
 define('UPLOAD_PATH_MFQ', $_SERVER["DOCUMENT_ROOT"] . '/community/uploads/mfq/');
-define('LOGO', 'slk_flag3.png');
+define('LOGO', 'sl-logo.png');
 define('LOGO_GEARS', 'gears-standard-logo-w.png');
 define('SYS_NAME', 'Mahallas.Net');
 define('SETTINGS_BAR', 'off'); // on, off
