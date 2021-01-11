@@ -1058,7 +1058,7 @@ WHERE $where ")->row_array();
 
         $data['socialGrant'] = $this->db->query("SELECT t1.MemSocialGrantID,t2.SocialGrantDescription,t1.SocialGrantRemark,t1.PeriodTypeID,t3.Description,t1.GrantAmount FROM srp_erp_ngo_com_membersocialgrants AS t1
                                         JOIN srp_erp_ngo_com_socialgrants AS t2 ON t2.SocialGrantID = t1.SocialGrantID
-                                        JOIN srp_erp_ngo_com_financialperiodtypes AS t3 ON t3.PeriodTypeID = t1.PeriodTypeID
+                                        LEFT JOIN srp_erp_ngo_com_financialperiodtypes AS t3 ON t3.PeriodTypeID = t1.PeriodTypeID
                                         WHERE t1.companyID={$companyID} AND Com_MasterID = {$Com_MasterID} ")->result_array();
 
         $this->load->view('system/communityNgo/ajax/ngo_hi_memQualification', $data);
@@ -1871,10 +1871,11 @@ FROM srp_erp_ngo_com_communitymaster AS t1
         );
 
         $companyID = current_companyID();
-        $isExist = $this->db->query("SELECT MemSocialGrantID FROM srp_erp_ngo_com_membersocialgrants WHERE companyID={$companyID} AND Com_MasterID = '$Com_MasterID' AND SocialGrantID = '$SocialGrantID' ")->row('MemSocialGrantID');
+        $isSocailGrantExist = $this->db->query("SELECT * FROM srp_erp_ngo_com_membersocialgrants WHERE companyID={$companyID} AND Com_MasterID = '".$Com_MasterID."' AND SocialGrantID = '".$SocialGrantID."'");
+        $chkSocailGrantExist = $isSocailGrantExist->row();
 
         if (empty($id)) {
-            if (isset($isExist)) {
+            if (!empty($chkSocailGrantExist)) {
                 echo json_encode(['e', 'Already available']);
             } else {
                 $int = $this->db->insert('srp_erp_ngo_com_membersocialgrants', $data);
