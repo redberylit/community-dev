@@ -6953,7 +6953,7 @@ WHERE dds.DocDesID
 
     /*End of Committee Master */
     /*family Report */
-    function get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus)
+    function get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus,$famHdGender,$famHdStateId,$famSocialGrantArr,$text)
     {
 
         $companyID = $this->common_data['company_data']['company_id'];
@@ -6987,12 +6987,33 @@ WHERE dds.DocDesID
             $region_filter = 'AND srp_erp_ngo_com_communitymaster.RegionID IN (' . join(",", $RegionIDArr) . ' )';
         }
 
+        $famHodState = "";
+        if (!empty($famHdStateId)) {
+            $famHodState = "AND srp_erp_ngo_com_communitymaster.CurrentStatus = $famHdStateId ";
+        }
+
+        $famHdGenderId = "";
+        if (!empty($famHdGender)) {
+            $famHdGenderId = "AND srp_erp_ngo_com_communitymaster.GenderID = $famHdGender ";
+        }
+
+        $social_filter = "";
+        if (!empty($famSocialGrantArr)) {
+            $social_filter = 'AND srp_erp_ngo_com_membersocialgrants.SocialGrantID IN (' . join(",", $famSocialGrantArr) . ' )';
+        }
+
+        $srch_string = '';
+        if (isset($text) && !empty($text)) {
+
+            $srch_string = " AND ((MemberCode Like '%" . $text . "%') OR (HouseNo Like '%" . $text . "%') OR (C_Address Like '%" . $text . "%') OR (srp_erp_gender.name Like '%" . $text . "%') OR (areac.Description Like '%" . $text . "%') OR (divisionc.Description Like '%" . $text . "%') OR (srp_erp_ngo_com_familymaster.FamilySystemCode Like '%" . $text . "%') OR (CDOB Like '%" . $text . "%') OR (CName_with_initials Like '%" . $text . "%') OR (CNIC_No Like '%" . $text . "%') OR (name Like '%" . $text . "%') OR (EmailID Like '%" . $text . "%') OR (CONCAT(TP_home,TP_Mobile) Like '%" . $text . "%'))";
+        }
+
         $deleted = " AND srp_erp_ngo_com_familymaster.isDeleted = '0' ";
         $VerifiyDocApproved = " AND srp_erp_ngo_com_familymaster.isVerifyDocApproved = '1' ";
 
-        $where = "srp_erp_ngo_com_house_enrolling.companyID = " . $companyID . $deleted . $VerifiyDocApproved . $division_filter . $region_filter;
+        $where = "srp_erp_ngo_com_house_enrolling.companyID = " . $companyID . $deleted . $VerifiyDocApproved . $division_filter . $region_filter . $srch_string . $social_filter;
 
-        $houseTot = $this->db->query("SELECT COUNT(*) AS totHouseCount FROM srp_erp_ngo_com_house_enrolling INNER JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID WHERE (srp_erp_ngo_com_house_enrolling.FamHouseSt = '0' OR srp_erp_ngo_com_house_enrolling.FamHouseSt = NULL) AND $where " . " $FamMasID $famEconStID $houseOwnshpS $houseTypeS ")->row_array();
+        $houseTot = $this->db->query("SELECT COUNT(*) AS totHouseCount FROM srp_erp_ngo_com_house_enrolling INNER JOIN srp_erp_ngo_com_familymaster ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_membersocialgrants ON srp_erp_ngo_com_membersocialgrants.Com_MasterID = srp_erp_ngo_com_communitymaster.Com_MasterID WHERE (srp_erp_ngo_com_house_enrolling.FamHouseSt = '0' OR srp_erp_ngo_com_house_enrolling.FamHouseSt = NULL) AND $where " . " $FamMasID $famEconStID $houseOwnshpS $houseTypeS $famHodState $famHdGenderId")->row_array();
 
 
         echo json_encode(

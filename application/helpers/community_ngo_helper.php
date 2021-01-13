@@ -1574,6 +1574,30 @@ if (!function_exists('fetch_familyMaster')) {
     }
 }
 
+/* socail grants */
+if (!function_exists('fetch_socialGrantData')) {
+
+    function fetch_socialGrantData($status = true)
+    {
+        $CI = &get_instance();
+        $CI->db->SELECT("SocialGrantID,SocialGrantDescription");
+        $CI->db->FROM('srp_erp_ngo_com_socialgrants');
+        $CI->db->order_by('SocialGrantID', 'ASC');
+        $socialGrant = $CI->db->get()->result_array();
+        if ($status) {
+            $socialGrant_arr = array('' => 'Select Social Grant');
+        } else {
+            $socialGrant_arr = '';
+        }
+        if (isset($socialGrant)) {
+            foreach ($socialGrant as $row) {
+                $socialGrant_arr[trim($row['SocialGrantID'])] = trim($row['SocialGrantDescription']);
+            }
+        }
+        return $socialGrant_arr;
+    }
+}
+
 /*committees */
 if (!function_exists('fetch_committeesMaster')) {
 

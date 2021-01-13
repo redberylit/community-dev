@@ -101,22 +101,22 @@ $csrf = array(
 
                 <form method="post" name="form_rpt_ngoFamily" id="form_rpt_ngoFamily" class="form-horizontal">
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
+
                     <div class="col-md-12">
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px">
-                            <label class="col-md-4 control-label text-left" for="GS_Division"><?php echo $this->lang->line('communityngo_GS_Division'); ?></label>
-                            <div class="form-group col-md-8">
-                                <?php echo form_dropdown('GS_Division[]', $division_arr, '', 'onchange="get_familyOfGSdivision();"  class="form-control" id="GS_Division" multiple="multiple"'); ?>
-                            </div>
+                        <div class="form-group col-sm-3" style="margin-left:5px;margin-bottom: 0px">
+                            <label class="control-label" for="GS_Division"><?php echo $this->lang->line('communityngo_GS_Division'); ?></label>
+                            <br>
+                            <?php echo form_dropdown('GS_Division[]', $division_arr, '', 'onchange="get_familyOfGSdivision();"  class="form-control" id="GS_Division" multiple="multiple"'); ?>
                         </div>
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px">
-                            <label class="col-md-6 control-label text-left" for="RegionID"><?php echo $this->lang->line('communityngo_region'); ?></label>
-                            <div class="form-group col-md-6">
-                                <?php echo form_dropdown('RegionID[]', $area_arr, '', 'onchange="get_familyOfGSdivision();"  class="form-control"" id="RegionID" multiple="multiple"'); ?>
-                            </div>
+                        <div class="form-group col-sm-3" style="margin-left:5px;margin-bottom: 0px">
+                            <label class="control-label" for="RegionID"><?php echo $this->lang->line('communityngo_region'); ?></label>
+                            <br>
+                            <?php echo form_dropdown('RegionID[]', $area_arr, '', 'onchange="get_familyOfGSdivision();"  class="form-control"" id="RegionID" multiple="multiple"'); ?>
                         </div>
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px">
-                            <label class="col-md-6 control-label text-left" for="FamMasterID"><?php echo $this->lang->line('comNgo_dash_families'); ?></label>
-                            <div class="form-group col-md-6" id="famMasIddrp">
+                        <div class="form-group col-sm-3" style="margin-left:5px;margin-bottom: 0px">
+                            <label class="control-label" for="FamMasterID"><?php echo $this->lang->line('comNgo_dash_families'); ?></label>
+                            <br>
+                            <div id="famMasIddrp">
                                 <?php echo form_dropdown('FamMasterID[]', fetch_familyMaster(false), '', 'multiple  class="form-control" id="FamMasterID" required'); ?>
                             </div>
                         </div>
@@ -140,6 +140,7 @@ $csrf = array(
                             </div>
 
                         </div>
+
                     </div>
 
                     <div class="col-md-12">
@@ -160,14 +161,61 @@ $csrf = array(
                             <br>
                             <?php echo form_dropdown('famEconStatus', $fam_econStatus, '', 'class="form-control select2" id="famEconStatus" style="height:30px;width: 180px;font-size: 13px;" required '); ?>
                         </div>
-                        <div class="form-group col-sm-2" id="placeComDiv" style="margin-left: 10px;">
+                        <div class="form-group col-sm-3" id="placeComDiv" style="margin-left: 10px;">
                             <label class="control-label" for="familyText"><?php echo $this->lang->line('common_search'); ?></label>
                             <br>
                             <input name="familyText" type="text" class="form-control input-sm" style="height:30px;width:100%;font-size: 13px;" placeholder="Search by all" id="familyText">
                             <!--Search by all-->
                         </div>
+                    </div>
+                    <div class="col-md-12">
 
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px;">
+                        <div class="form-group col-sm-2" style="margin-top:20px;margin-left: 10px;">
+                            <?php echo $this->lang->line('CommunityNgo_leaderOf'); ?> :
+                        </div>
+                        <div class="form-group col-sm-2" style="margin-bottom: 0px">
+                            <label class="control-label" for="famHdGender"><?php echo $this->lang->line('common_gender'); ?></label>
+                            <br>
+                            <select id="famHdGender" class="form-control select2" name="famHdGender" data-placeholder="Select Gender">
+                                <option value="" selected> <?php echo $this->lang->line('common_all'); ?></option>
+                                <?php
+                                $com_gen = drop_gender();
+                                if (!empty($com_gen)) {
+                                    foreach ($com_gen as $val) {
+                                ?>
+                                        <option value="<?php echo $val['genderID'] ?>"><?php echo $val['name'] ?></option>
+                                <?php
+
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-2" style="margin-left:5px;margin-bottom: 0px">
+                            <label class="control-label" for="famHdStateId"><?php echo $this->lang->line('communityngo_status'); ?></label>
+                            <br>
+                            <select class="form-control select2" id="famHdStateId" name="famHdStateId" data-placeholder="Select Status">
+                                <option value="" selected><?php echo $this->lang->line('common_all'); ?></option>
+                                <?php
+                                $com_status = drop_maritalstatus();
+                                if (!empty($com_status)) {
+                                    foreach ($com_status as $val) {
+                                ?>
+                                        <option value="<?php echo $val['maritalstatusID'] ?>"><?php echo $val['maritalstatus'] ?></option>
+                                <?php
+
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-2" style="margin-left:5px;margin-bottom: 0px">
+                            <label class="control-label" for="famSocialGrant"><?php echo $this->lang->line('communityNgo_socialGrant'); ?></label>
+                            <br>
+                            <?php echo form_dropdown('famSocialGrant[]', fetch_socialGrantData(false), '', 'multiple  class="form-control" id="famSocialGrant" required'); ?>
+                        </div>
+
+                        <div class="form-group col-sm-3" style="margin-bottom:0px;">
                             <br>
                             <button type="button" class="btn btn-primary pull-right" onclick="generateFamilyReport()" name="filterDivisubmit" id="filterDivisubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                             </button>
@@ -251,9 +299,11 @@ $csrf = array(
                             <div class="col-sm-1">
                                 <ul class="zx-nav zx-nav-tabs zx-tabs-left zx-vertical-text">
                                     <li id="TabViewHousing_view" class="active"><a href="#femHousingHome-m" data-toggle="tab"><?php echo $this->lang->line('common_view'); ?>
-                                            <!--View--></a></li>
+                                            <!--View-->
+                                        </a></li>
                                     <li id="TabViewHousingAttachment"><a href="#femHousing-m" data-toggle="tab"><?php echo $this->lang->line('common_attachment'); ?>
-                                            <!--Attachment--></a></li>
+                                            <!--Attachment-->
+                                        </a></li>
                                 </ul>
                             </div>
                             <div class="col-sm-11" style="padding-left: 0px;margin-left: -2%;">
@@ -265,7 +315,8 @@ $csrf = array(
                                         <div id="loadPageHousingAttachment" class="col-md-8">
                                             <div class="table-responsive">
                                                 <span aria-hidden="true" class="glyphicon glyphicon-hand-right color"></span>&nbsp; <strong><?php echo $this->lang->line('common_attachments'); ?>
-                                                    <!--Attachments--></strong>
+                                                    <!--Attachments-->
+                                                </strong>
                                                 <br><br>
                                                 <table class="table table-striped table-condensed table-hover">
                                                     <thead>
@@ -304,7 +355,8 @@ $csrf = array(
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('common_Close'); ?>
-                        <!--Close--></button>
+                        <!--Close-->
+                    </button>
                 </div>
             </form>
         </div>
@@ -358,6 +410,14 @@ $csrf = array(
     $("#RegionID").multiselect2('selectAll', false);
     $("#RegionID").multiselect2('updateButtonText');
 
+    $('#famSocialGrant').multiselect2({
+        enableCaseInsensitiveFiltering: true,
+        includeSelectAllOption: true,
+        numberDisplayed: 1,
+        buttonWidth: '180px',
+        maxHeight: '30px'
+    });
+
     $('.headerclose').click(function() {
         fetchPage('system/communityNgo/ngo_mo_communityMasReports', '', 'Community Report')
     });
@@ -373,7 +433,6 @@ $csrf = array(
         $("#div_comm_contents").html('');
         $('#form_rpt_ngoCommittee')[0].reset();
         $('#form_rpt_ngoFamily')[0].reset();
-
 
         $('#FamMasterID').multiselect2({
             includeSelectAllOption: true,
@@ -396,6 +455,7 @@ $csrf = array(
         });
         $("#GS_Division").multiselect2('selectAll', false);
         $("#GS_Division").multiselect2('updateButtonText');
+
         $('#RegionID').multiselect2({
             includeSelectAllOption: true,
             selectAllValue: 'select-all-value',
@@ -406,6 +466,14 @@ $csrf = array(
         });
         $("#RegionID").multiselect2('selectAll', false);
         $("#RegionID").multiselect2('updateButtonText');
+
+        $('#famSocialGrant').multiselect2({
+            enableCaseInsensitiveFiltering: true,
+            includeSelectAllOption: true,
+            numberDisplayed: 1,
+            buttonWidth: '180px',
+            maxHeight: '30px'
+        });
 
         // $('.select2').select2();
         $('#CommitteeID').multiselect2({
@@ -424,7 +492,6 @@ $csrf = array(
         document.getElementById('CommitteeIDDiv').style.display = 'block';
         $("#committeeText").val("");
 
-
     }
 
     function switchComMemFamRprt() {
@@ -432,7 +499,6 @@ $csrf = array(
         $("#div_comm_contents").html('');
         $('#form_rpt_ngoCommittee')[0].reset();
         $('#form_rpt_ngoFamily')[0].reset();
-
 
         $('#FamMasterID').multiselect2({
             includeSelectAllOption: true,
@@ -465,6 +531,7 @@ $csrf = array(
         });
         $("#GS_Division").multiselect2('selectAll', false);
         $("#GS_Division").multiselect2('updateButtonText');
+
         $('#RegionID').multiselect2({
             enableCaseInsensitiveFiltering: true,
             includeSelectAllOption: true,
@@ -474,6 +541,14 @@ $csrf = array(
         });
         $("#RegionID").multiselect2('selectAll', false);
         $("#RegionID").multiselect2('updateButtonText');
+
+        $('#famSocialGrant').multiselect2({
+            enableCaseInsensitiveFiltering: true,
+            includeSelectAllOption: true,
+            numberDisplayed: 1,
+            buttonWidth: '180px',
+            maxHeight: '30px'
+        });
 
         document.getElementById('switchControlId').value = 4;
         document.getElementById('CommitteeIDDiv').style.display = 'none';

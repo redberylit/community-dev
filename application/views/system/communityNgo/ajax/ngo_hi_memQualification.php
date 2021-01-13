@@ -851,7 +851,6 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
     </div>
 </div>
 
-
 <div class="modal" id="language_modal" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -867,7 +866,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="LanguageID">
                                 <?php echo $this->lang->line('communityngo_Language'); ?>
-                                <!--Language--> <?php required_mark(); ?></label>
+                                <!--Language--> <?php required_mark(); ?>
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <select id="LanguageID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_Language'); ?>" name="LanguageID">
@@ -901,7 +901,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -922,7 +923,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">
                             <?php echo $this->lang->line('communityngo_Language'); ?>
-                            <!--Language--></label>
+                            <!--Language-->
+                        </label>
                         <div class="col-sm-7">
                             <input type="text" name="memNewLanguage" value="" id="memNewLanguage" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_Language'); ?>">
                         </div>
@@ -932,10 +934,60 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
                 <button type="button" class="btn btn-primary" onclick="fetch_newMem_language()">
                     <?php echo $this->lang->line('common_add'); ?>
-                    <!--Add--></button>
+                    <!--Add-->
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="com_memMediumAdd_modal" role="dialog" aria-labelledby="myLargeModalLabel" style="z-index: 1600;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="mediumAddModalLabel">
+                    <?php echo $this->lang->line('communityngo_addSchMedium'); ?></h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail4" class="col-sm-3 control-label">
+                            <?php echo $this->lang->line('communityngo_medium'); ?>
+                            <!--Medium-->
+                        </label>
+                        <div class="col-sm-7">
+                            <select id="schNewMediumId" class="form-control" data-placeholder="<?php echo $this->lang->line('communityngo_medium'); ?>" name="schNewMediumId">
+                                <option value=""></option>
+                                <?php
+                                if (!empty($language)) {
+                                    foreach ($language as $val) {
+                                ?>
+                                        <option value="<?php echo $val['languageID'] ?>"><?php echo $val['description'] ?></option>
+                                <?php
+
+                                    }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <?php echo $this->lang->line('common_Close'); ?>
+                    <!--Close-->
+                </button>
+                <button type="button" class="btn btn-primary" onclick="fetch_schoolNew_medium()">
+                    <?php echo $this->lang->line('common_add'); ?>
+                    <!--Add-->
+                </button>
             </div>
         </div>
     </div>
@@ -956,7 +1008,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="sickAutoID">
                                 <?php echo $this->lang->line('communityngo_Disease'); ?>
-                                <!--Sickness--> <?php required_mark(); ?></label>
+                                <!--Sickness--> <?php required_mark(); ?>
+                            </label>
 
                             <div class="col-sm-7">
                                 <div class="input-group">
@@ -977,7 +1030,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_sickness_from'); ?>
-                                <!--Started From--></label>
+                                <!--Started From-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="text" name="startedFrom" value="" id="startedFrom" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_sickness_from'); ?>">
                             </div>
@@ -986,7 +1040,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 12%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_medicalcondiation'); ?>
-                                <!--Medical Condition--></label>
+                                <!--Medical Condition-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" id="medicalCondition" placeholder="<?php echo $this->lang->line('communityngo_medicalcondiation'); ?>" name="medicalCondition" rows="2"></textarea>
                             </div>
@@ -995,7 +1050,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 20%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('CommunityNgo_member_expenses'); ?>
-                                <!--Monthly Expenses--></label>
+                                <!--Monthly Expenses-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <div class="input-group-addon"><?php echo $currencyCode; ?></div>
@@ -1007,7 +1063,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 26%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_Remarks'); ?>
-                                <!--Remarks--></label>
+                                <!--Remarks-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" id="Sick_remark" placeholder="<?php echo $this->lang->line('communityngo_Remarks'); ?>" name="Sick_remark" rows="2"></textarea>
                             </div>
@@ -1024,7 +1081,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -1045,7 +1103,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-bottom: 6%;">
                             <label class="col-sm-4 control-label" for="DegreeID">
                                 <?php echo $this->lang->line('communityngo_QualificationType'); ?>
-                                <!--Degree--> <?php required_mark(); ?></label>
+                                <!--Degree--> <?php required_mark(); ?>
+                            </label>
                             <div class="col-sm-7">
 
                                 <div class="input-group">
@@ -1073,7 +1132,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group university_div" style="margin-bottom: 12%; display: block;" id="university_div">
                             <label class="col-sm-4 control-label" for="UniversityID">
                                 <?php echo $this->lang->line('communityngo_University'); ?>
-                                <!--Institution--></label>
+                                <!--Institution-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <select id="UniversityID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_University'); ?>" name="UniversityID">
@@ -1102,7 +1162,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group grade_div" style="margin-bottom: 12%; display: block;" id="grade_div">
                             <label class="col-sm-4 control-label" for="gradeComID">
                                 <?php echo $this->lang->line('communityngo_SchoolGrade'); ?>
-                                <!--Grade--></label>
+                                <!--Grade-->
+                            </label>
                             <div class="col-sm-7">
                                 <select id="gradeComID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>" name="gradeComID">
                                     <option value=""></option>
@@ -1122,7 +1183,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="CurrentlyReading">
                                 <?php echo $this->lang->line('communityngo_currently_reading'); ?>
-                                <!--Currently Reading--></label>
+                                <!--Currently Reading-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="checkbox" name="CurrentlyReading" id="CurrentlyReading" value="1" style="margin-top: 10px">
                             </div>
@@ -1131,7 +1193,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-bottom: 23%;">
                             <label class="col-sm-4 control-label" for="Year">
                                 <?php echo $this->lang->line('communityngo_Year'); ?>
-                                <!--Completed Year--></label>
+                                <!--Completed Year-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="text" name="Year" value="" id="Year" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_Year'); ?>">
                             </div>
@@ -1140,7 +1203,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-bottom: 12%;">
                             <label class="col-sm-4 control-label" for="Remarks">
                                 <?php echo $this->lang->line('communityngo_Remarks'); ?>
-                                <!--Remarks--></label>
+                                <!--Remarks-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" id="Remarks" placeholder="Remarks" name="Remarks" rows="2"></textarea>
                             </div>
@@ -1154,13 +1218,16 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 <input type="hidden" id="hidden-id" name="hidden-id" value="0">
                 <button type="button" class="btn btn-primary btn-sm actionBtn" id="save-btn" onclick="saveQualification()">
                     <?php echo $this->lang->line('common_save'); ?>
-                    <!--Save--></button>
+                    <!--Save-->
+                </button>
                 <button type="button" class="btn btn-primary btn-sm actionBtn" id="update-btn" onclick="updateQualification()">
                     <?php echo $this->lang->line('common_update'); ?>
-                    <!--Update--></button>
+                    <!--Update-->
+                </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -1182,7 +1249,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="padding:15px">
                             <label class="col-sm-4 control-label" for="OccTypeID">
                                 <?php echo $this->lang->line('communityngo_occupationType'); ?>
-                                <!--Occupation Types--> <?php required_mark(); ?></label>
+                                <!--Occupation Types--> <?php required_mark(); ?>
+                            </label>
                             <div class="col-sm-7">
                                 <select id="OccTypeID" class="form-control select2 occupationType" onchange="change_dropdown();" data-placeholder="<?php echo $this->lang->line('communityngo_occupationType'); ?>" name="OccTypeID">
                                     <option value=""></option>
@@ -1210,7 +1278,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group School" style="padding:15px">
                             <label class="col-sm-4 control-label" for="School">
                                 <?php echo $this->lang->line('communityngo_School'); ?>
-                                <!--School--><?php required_mark(); ?></label>
+                                <!--School--><?php required_mark(); ?>
+                            </label>
 
 
                             <div class="col-sm-7">
@@ -1241,7 +1310,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group schoolTypeID" style="padding:15px">
                             <label class="col-sm-4 control-label" for="schoolTypeID">
                                 <?php echo $this->lang->line('communityngo_SchoolType'); ?>
-                                <!--School Type--><?php required_mark(); ?></label>
+                                <!--School Type--><?php required_mark(); ?>
+                            </label>
 
                             <div class="col-sm-7">
                                 <select id="schoolTypeID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_SchoolType'); ?>" name="schoolTypeID">
@@ -1263,7 +1333,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group gradeComID" style="padding:15px">
                             <label class="col-sm-4 control-label" for="gradeComID">
                                 <?php echo $this->lang->line('communityngo_SchoolGrade'); ?>
-                                <!--Occupation Types--><?php required_mark(); ?></label>
+                                <!--Occupation Types--><?php required_mark(); ?>
+                            </label>
                             <div class="col-sm-7">
                                 <select id="gradeComID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>" name="gradeComID">
                                     <option value=""></option>
@@ -1283,19 +1354,26 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group MediumID" style="padding:15px">
                             <label class="col-sm-4 control-label" for="gradeComID">
                                 <?php echo $this->lang->line('communityngo_medium'); ?>
-                                <!--Medium--></label>
+                                <!--Medium-->
+                            </label>
                             <div class="col-sm-7">
-                                <select id="MediumID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_medium'); ?>" name="MediumID">
-                                    <option value=""></option>
-                                </select>
-
+                                <div class="input-group">
+                                    <select id="MediumID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_medium'); ?>" name="MediumID">
+                                        <option value=""></option>
+                                    </select>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" id="addMediumBtn" type="button" title="Clear" rel="tooltip" onclick="clear_memMedium_data()" style="height: 29px; padding: 2px 10px;"><i class="fa fa-repeat"></i></button>
+                                        <button class="btn btn-default" type="button" title="Add School Medium" rel="tooltip" onclick="get_schMediumAdd_modal()" style="height: 29px; padding: 2px 10px;"><i class="fa fa-plus"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group JobCategoryID hide" style="padding:15px">
                             <label class="col-sm-4 control-label" for="JobCategoryID">
                                 <?php echo $this->lang->line('communityngo_Job_Category'); ?>
-                                <!--Job Category--> <?php required_mark(); ?></label>
+                                <!--Job Category--> <?php required_mark(); ?>
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <select id="JobCategoryID" class="form-control select2" onchange="get_job_specialization(this.value);" data-placeholder="<?php echo $this->lang->line('communityngo_Job_Category'); ?>" name="JobCategoryID">
@@ -1322,7 +1400,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group specializationID hide" style="padding:15px">
                             <label class="col-sm-4 control-label" for="specializationID">
                                 <?php echo $this->lang->line('communityngo_Job_Specialization'); ?>
-                                <!--Job Specialization--> </label>
+                                <!--Job Specialization-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <select id="specializationID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_Job_Specialization'); ?>" name="specializationID">
@@ -1340,7 +1419,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group jobDescription hide" style="padding:15px">
                             <label class="col-sm-4 control-label" for="jobDescription">
                                 <?php echo $this->lang->line('communityngo_Job_Description'); ?>
-                                <!--Job Description--></label>
+                                <!--Job Description-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" id="jobDescription" name="jobDescription" placeholder="<?php echo $this->lang->line('communityngo_Job_Description'); ?>">
                             </div>
@@ -1349,7 +1429,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group WorkingPlace hide" style="padding:15px">
                             <label class="col-sm-4 control-label" for="WorkingPlace">
                                 <?php echo $this->lang->line('communityngo_Job_WorkingPlace'); ?>
-                                <!--Working Place--></label>
+                                <!--Working Place-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" id="WorkingPlace" name="WorkingPlace" placeholder="<?php echo $this->lang->line('communityngo_Job_WorkingPlace'); ?>">
                             </div>
@@ -1357,7 +1438,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group JobMonthlyIncome hide" style="padding:15px;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_Job_MonthlyIncome'); ?>
-                                <!--Monthly Income--></label>
+                                <!--Monthly Income-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <div class="input-group-addon"><?php echo $currencyCode; ?></div>
@@ -1368,7 +1450,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group MonthlyExpenditure hide" style="padding: 15px;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_Expenditure'); ?>
-                                <!--Monthly HH Expenditure--></label>
+                                <!--Monthly HH Expenditure-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <div class="input-group-addon"><?php echo $currencyCode; ?></div>
@@ -1379,7 +1462,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group Address" style="padding:15px">
                             <label class="col-sm-4 control-label" for="Address">
                                 <?php echo $this->lang->line('communityngo_Job_Address'); ?>
-                                <!--Address--></label>
+                                <!--Address-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" rows="2" name="Address" id="Address" placeholder="<?php echo $this->lang->line('communityngo_Job_Address'); ?>"></textarea>
                             </div>
@@ -1388,7 +1472,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group DateFrom" style="padding:15px">
                             <label class="col-sm-4 control-label" for="DateFrom">
                                 <?php echo $this->lang->line('communityngo_DateFrom'); ?>
-                                <!--Date From--></label>
+                                <!--Date From-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group datepic">
                                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -1400,7 +1485,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group DateTo " style="padding:15px">
                             <label class="col-sm-4 control-label" for="DateTo">
                                 <?php echo $this->lang->line('communityngo_DateTo'); ?>
-                                <!--Date To--></label>
+                                <!--Date To-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group datepic">
                                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -1412,7 +1498,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group isPrimary" style="padding:15px">
                             <label class="col-sm-4 control-label" for="isPrimary">
                                 <?php echo $this->lang->line('communityngo_isPrimary'); ?>
-                                <!--is primary--></label>
+                                <!--is primary-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="checkbox" name="isPrimary" id="isPrimary" value="1" style="margin-top: 10px">
                             </div>
@@ -1421,7 +1508,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group isActive" style="padding:15px">
                             <label class="col-sm-4 control-label" for="isActive">
                                 <?php echo $this->lang->line('CommunityNgo_Is_Active'); ?>
-                                <!--is active--></label>
+                                <!--is active-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="checkbox" name="isActive" id="isActive" value="1" style="margin-top: 10px">
                             </div>
@@ -1443,7 +1531,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -1466,7 +1555,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="PropertyID">
                                 <?php echo $this->lang->line('communityngo_property_type'); ?>
-                                <!--Properties Types--> <?php required_mark(); ?></label>
+                                <!--Properties Types--> <?php required_mark(); ?>
+                            </label>
                             <div class="col-sm-7">
                                 <select id="PropertyID" class="form-control select2 occupationType" onchange="change_property_dropdown();" data-placeholder="<?php echo $this->lang->line('communityngo_property_type'); ?>" name="PropertyID">
                                     <option value=""></option>
@@ -1493,7 +1583,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group vehicleAutoID" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label" for="vehicleAutoID">
                                 <?php echo $this->lang->line('communityngo_vehicle_details'); ?>
-                                <!--vehicle--> <?php required_mark(); ?></label>
+                                <!--vehicle--> <?php required_mark(); ?>
+                            </label>
 
                             <div class="col-sm-7">
                                 <div class="input-group">
@@ -1515,7 +1606,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_property_desc'); ?>
-                                <!--property Description--></label>
+                                <!--property Description-->
+                            </label>
                             <div class="col-sm-7">
                                 <input type="text" name="vehiDescription" value="" id="vehiDescription" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_property_desc'); ?>">
                             </div>
@@ -1523,7 +1615,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 12%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_property_status'); ?>
-                                <!--property Status--></label>
+                                <!--property Status-->
+                            </label>
                             <div class="form-group col-sm-7">
                                 <select id="vehiStatus" class="form-control select2" name="vehiStatus" data-placeholder="<?php echo $this->lang->line('communityngo_property_status'); ?>">
                                     <option value=""></option>
@@ -1535,7 +1628,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 18%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('common_value'); ?>
-                                <!--Value--></label>
+                                <!--Value-->
+                            </label>
                             <div class="col-sm-7" style="margin-bottom:6px;">
                                 <div class="input-group">
                                     <div class="input-group-addon"><?php echo $currencyCode; ?></div>
@@ -1546,7 +1640,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 18%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_Remarks'); ?>
-                                <!--Remarks--></label>
+                                <!--Remarks-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" id="vehiRemark" placeholder="<?php echo $this->lang->line('communityngo_Remarks'); ?>" name="vehiRemark" rows="3"></textarea>
                             </div>
@@ -1563,7 +1658,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -1585,7 +1681,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="memHelpType">
                                 <?php echo $this->lang->line('communityngo_memHelp_type'); ?>
-                                <!--Help Requirement Type--> <?php required_mark(); ?></label>
+                                <!--Help Requirement Type--> <?php required_mark(); ?>
+                            </label>
 
                             <div class="form-group col-sm-7">
                                 <select id="memHelpType" class="form-control select2" name="memHelpType" onchange="get_helpType_del();" data-placeholder="<?php echo $this->lang->line('communityngo_memHelp_type'); ?>">
@@ -1600,7 +1697,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="helpDelID">
                                 <?php echo $this->lang->line('communityngo_memHelp_details'); ?>
-                                <!--Help Requirement del--> <?php required_mark(); ?></label>
+                                <!--Help Requirement del--> <?php required_mark(); ?>
+                            </label>
 
 
                             <div class="form-group col-sm-7">
@@ -1620,7 +1718,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityngo_memHelp_desc'); ?>
-                                <!--Help Description--></label>
+                                <!--Help Description-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" id="hlprDescription" placeholder="<?php echo $this->lang->line('communityngo_memHelp_desc'); ?>" name="hlprDescription" rows="4"></textarea>
                             </div>
@@ -1637,7 +1736,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -1660,7 +1760,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="helpCategoryID">
                                 <?php echo $this->lang->line('communityNgo_willing_to_help_category'); ?>
-                                <!--Help category--> <?php required_mark(); ?></label>
+                                <!--Help category--> <?php required_mark(); ?>
+                            </label>
 
 
                             <div class="form-group col-sm-7">
@@ -1689,7 +1790,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityNgo_willing_to_help_comment'); ?>
-                                <!--Comments--></label>
+                                <!--Comments-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" id="helpComments" placeholder="<?php echo $this->lang->line('communityNgo_willing_to_help_comment'); ?>" name="helpComments" rows="4"></textarea>
                             </div>
@@ -1706,7 +1808,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -1729,7 +1832,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group">
                             <label class="col-sm-4 control-label" for="SocialGrantID">
                                 <?php echo $this->lang->line('communityNgo_socialGrant_category'); ?>
-                                <!--social Grant category--> <?php required_mark(); ?></label>
+                                <!--social Grant category--> <?php required_mark(); ?>
+                            </label>
                             <div class="form-group col-sm-7">
                                 <div class="input-group">
                                     <select name="SocialGrantID" class="form-control select2" id="SocialGrantID" data-placeholder="Select a social grant">
@@ -1756,7 +1860,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('common_period'); ?>
-                                <!--Period--></label>
+                                <!--Period-->
+                            </label>
                             <div class="col-sm-7">
                                 <select name="PeriodTypeID" class="form-control select2" id="PeriodTypeID" data-placeholder="Select a period">
                                     <option value=""></option>
@@ -1776,7 +1881,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('communityNgo_socialGrant_amount'); ?>
-                                <!--Grant Amount--></label>
+                                <!--Grant Amount-->
+                            </label>
                             <div class="col-sm-7">
                                 <div class="input-group">
                                     <div class="input-group-addon"><?php echo $currencyCode; ?></div>
@@ -1788,7 +1894,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                         <div class="form-group" style="margin-top: 6%;">
                             <label class="col-sm-4 control-label">
                                 <?php echo $this->lang->line('common_remarks'); ?>
-                                <!--Comments--></label>
+                                <!--Comments-->
+                            </label>
                             <div class="col-sm-7">
                                 <textarea class="form-control" id="SocialGrantRemark" placeholder="<?php echo $this->lang->line('common_remarks'); ?>" name="SocialGrantRemark" rows="4"></textarea>
                             </div>
@@ -1805,7 +1912,8 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                 </button>
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
             </div>
             </form>
         </div>
@@ -1943,6 +2051,65 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
     function get_newLangAdd_modal() {
         $('#LanguageID').val('').change();
         $('#com_memLangAdd_modal').modal('show');
+    }
+
+    function clear_memMedium_data() {
+        $('#MediumID').val('').change();
+    }
+
+    function get_schMediumAdd_modal() {
+        $('#MediumID').val('').change();
+        var schoolComID = document.getElementById('schoolComID').value;
+        var schoolDescription = document.getElementById('schoolComID').innerHTML;
+
+        if (schoolComID) {
+
+        $('#mediumAddModalLabel').text('<?php echo $this->lang->line('communityngo_addSchMedium'); ?>')+ schoolDescription;
+
+        $('#com_memMediumAdd_modal').modal('show');
+        }
+        else{
+           
+            myAlert('e', 'The School is required !');    
+        }
+    }
+
+    function fetch_schoolNew_medium() {
+        var schNewMediumId = $('#schNewMediumId').val();
+        var schoolComID = document.getElementById('schoolComID').value;
+
+        if (schNewMediumId) {
+            $.ajax({
+                async: true,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'schoolComID': schoolComID,
+                    'schNewMediumId': schNewMediumId
+                },
+                url: "<?php echo site_url('CommunityNgo/fetch_schoolNew_medium'); ?>",
+                beforeSend: function() {
+                    startLoad();
+                },
+                success: function(data) {
+                    stopLoad();
+
+                    $('#MediumID').val(schNewMediumId).change();
+                    $('#MediumID').prop('readonly', true);
+
+                    get_sch_medium(schoolComID);
+                    $('#com_memMediumAdd_modal').modal('hide');
+                    myAlert(data[0], data[1]);
+
+
+                },
+                error: function() {
+                    alert('An Error Occurred! Please Try Again.');
+                    stopLoad();
+                }
+            });
+        }
+
     }
 
     function fetch_newMem_language() {

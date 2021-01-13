@@ -1304,6 +1304,33 @@ FROM srp_erp_ngo_com_communitymaster AS t1
         }
     }
 
+    function fetch_schoolNew_medium()
+    {
+
+        $this->form_validation->set_rules('schNewMediumId', 'Medium', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            die(json_encode(['e', validation_errors()]));
+        }
+
+        $schoolComID = $this->input->post('schoolComID');
+        $schNewMediumId = $this->input->post('schNewMediumId');
+
+        $chkNewSchMedium = $this->db->query("SELECT schMediumID FROM srp_erp_ngo_com_schoolmedium WHERE schoolComID = '$schoolComID' AND LanguageID = '$schNewMediumId'")->row('schMediumID');
+
+        if (isset($chkNewSchMedium)) {
+            echo json_encode(['e', 'Already available']);
+        } else {
+            $mediumData['schoolComID'] = $schoolComID;
+            $mediumData['LanguageID'] = $schNewMediumId;
+
+            $this->db->insert('srp_erp_ngo_com_schoolmedium', $mediumData);
+
+            echo json_encode(['s', 'Inserted successfully']);
+
+        }
+
+    }
     /*end member occupation*/
 
     /***Start of Language ***/
@@ -2112,9 +2139,9 @@ FROM srp_erp_ngo_com_communitymaster AS t1
         if (isset($memberNewArea) && !empty($memberNewArea)) {
             $search_string = " ((AreaDes Like '%" . $memberNewArea . "%'))";
         }
-        $chkNewLanguage = $this->db->query("SELECT * FROM srp_erp_ngo_com_countryareas WHERE countryID={$bornConutryId} AND {$search_string}")->row();
+        $chkNewMem_area = $this->db->query("SELECT * FROM srp_erp_ngo_com_countryareas WHERE countryID={$bornConutryId} AND {$search_string}")->row();
 
-        if (isset($chkNewLanguage)) {
+        if (isset($chkNewMem_area)) {
 
             $updateArea =  $this->db->query("UPDATE srp_erp_ngo_com_countryareas SET isActive=1 WHERE countryID={$bornConutryId} AND {$search_string}");
             if ($updateArea) {
@@ -2123,7 +2150,7 @@ FROM srp_erp_ngo_com_communitymaster AS t1
                 $common_failed = $this->lang->line('common_failed');/* 'failed'*/
                 echo json_encode(['e', $common_failed]);
             }
-            // $CountryAreaID = $chkNewLanguage->CountryAreaID;
+            // $CountryAreaID = $chkNewMem_area->CountryAreaID;
         } else {
             $memAreaData['countryID'] = $bornConutryId;
             $memAreaData['AreaDes'] = $memberNewArea;
@@ -6222,6 +6249,10 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $RegionIDArr = $this->input->post('RegionID');
         $famEconStatus = $this->input->post('famEconStatus');
         $text = trim($this->input->post('familyText'));
+        $famHdGender = $this->input->post('famHdGender');
+        $famHdStateId = $this->input->post('famHdStateId');
+        $famSocialGrantArr = $this->input->post('famSocialGrant');
+
         $convertFormat = convert_date_format_sql();
 
         $division_filter = "";
@@ -6254,6 +6285,21 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
             $houseTypeS = "AND srp_erp_ngo_com_house_enrolling.hTypeAutoID = $houseType ";
         }
 
+        $famHodState = "";
+        if (!empty($famHdStateId)) {
+            $famHodState = "AND srp_erp_ngo_com_communitymaster.CurrentStatus = $famHdStateId ";
+        }
+
+        $famHdGenderId = "";
+        if (!empty($famHdGender)) {
+            $famHdGenderId = "AND srp_erp_ngo_com_communitymaster.GenderID = $famHdGender ";
+        }
+
+        $social_filter = "";
+        if (!empty($famSocialGrantArr)) {
+            $social_filter = 'AND srp_erp_ngo_com_membersocialgrants.SocialGrantID IN (' . join(",", $famSocialGrantArr) . ' )';
+        }
+
         $srch_string = '';
         if (isset($text) && !empty($text)) {
 
@@ -6263,9 +6309,9 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $deleted = " AND srp_erp_ngo_com_familymaster.isDeleted = '0' ";
         $verifyDocApp = " AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'";
 
-        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $deleted . $verifyDocApp . $division_filter . $region_filter . $srch_string;
+        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $deleted . $verifyDocApp . $division_filter . $region_filter . $srch_string . $social_filter;
 
-        $data['familyReport'] = $this->db->query("SELECT *,srp_erp_ngo_com_familymaster.companyID,srp_erp_ngo_com_familymaster.FamMasterID,CName_with_initials,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,DATE_FORMAT(CDOB,'{$convertFormat}') AS CDOB,Age,areac.Description AS Region,divisionc.stateID,divisionc.Description AS diviDescription FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_titlemaster ON srp_titlemaster.TitleID = srp_erp_ngo_com_communitymaster.TitleID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_house_enrolling ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID WHERE $where $FamMasRrtID $famEconStID $houseOwnshpS $houseTypeS ORDER BY srp_erp_ngo_com_familymaster.FamMasterID DESC ")->result_array();
+        $data['familyReport'] = $this->db->query("SELECT *,srp_erp_ngo_com_familymaster.companyID,srp_erp_ngo_com_familymaster.FamMasterID,CName_with_initials,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,DATE_FORMAT(CDOB,'{$convertFormat}') AS CDOB,Age,areac.Description AS Region,divisionc.stateID,divisionc.Description AS diviDescription FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_titlemaster ON srp_titlemaster.TitleID = srp_erp_ngo_com_communitymaster.TitleID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_house_enrolling ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID LEFT JOIN srp_erp_ngo_com_membersocialgrants ON srp_erp_ngo_com_membersocialgrants.Com_MasterID = srp_erp_ngo_com_communitymaster.Com_MasterID WHERE $where $FamMasRrtID $famEconStID $houseOwnshpS $houseTypeS $famHodState $famHdGenderId GROUP BY srp_erp_ngo_com_familymaster.FamMasterID ORDER BY srp_erp_ngo_com_familymaster.FamMasterID DESC ")->result_array();
 
         $data["type"] = "html";
         echo $html = $this->load->view('system/communityNgo/ajax/load_community_family_report', $data, true);
@@ -6283,6 +6329,10 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $RegionIDArr = $this->input->post('RegionID');
         $famEconStatus = $this->input->post('famEconStatus');
         $text = trim($this->input->post('familyText'));
+        $famHdGender = $this->input->post('famHdGender');
+        $famHdStateId = $this->input->post('famHdStateId');
+        $famSocialGrantArr = $this->input->post('famSocialGrant');
+
         $convertFormat = convert_date_format_sql();
 
         $division_filter = "";
@@ -6314,6 +6364,21 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
             $houseTypeS = "AND srp_erp_ngo_com_house_enrolling.hTypeAutoID = $houseType ";
         }
 
+        $famHodState = "";
+        if (!empty($famHdStateId)) {
+            $famHodState = "AND srp_erp_ngo_com_communitymaster.CurrentStatus = $famHdStateId ";
+        }
+
+        $famHdGenderId = "";
+        if (!empty($famHdGender)) {
+            $famHdGenderId = "AND srp_erp_ngo_com_communitymaster.GenderID = $famHdGender ";
+        }
+
+        $social_filter = "";
+        if (!empty($famSocialGrantArr)) {
+            $social_filter = 'AND srp_erp_ngo_com_membersocialgrants.SocialGrantID IN (' . join(",", $famSocialGrantArr) . ' )';
+        }
+
         $srch_string = '';
         if (isset($text) && !empty($text)) {
 
@@ -6323,9 +6388,9 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $deleted = " AND srp_erp_ngo_com_familymaster.isDeleted = '0' ";
         $verifyDocApp = " AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'";
 
-        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $deleted . $verifyDocApp . $division_filter . $region_filter . $srch_string;
+        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $deleted . $verifyDocApp . $division_filter . $region_filter . $srch_string . $social_filter;
 
-        $data['familyReport'] = $this->db->query("SELECT *,srp_erp_ngo_com_familymaster.companyID,srp_erp_ngo_com_familymaster.FamMasterID,CName_with_initials,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,DATE_FORMAT(CDOB,'{$convertFormat}') AS CDOB,Age,areac.Description AS Region,divisionc.stateID,divisionc.Description AS diviDescription FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_titlemaster ON srp_titlemaster.TitleID = srp_erp_ngo_com_communitymaster.TitleID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_house_enrolling ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID WHERE $where $FamMasRrtID $famEconStID $houseOwnshpS $houseTypeS ORDER BY srp_erp_ngo_com_familymaster.FamMasterID DESC ")->result_array();
+        $data['familyReport'] = $this->db->query("SELECT *,srp_erp_ngo_com_familymaster.companyID,srp_erp_ngo_com_familymaster.FamMasterID,CName_with_initials,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,DATE_FORMAT(CDOB,'{$convertFormat}') AS CDOB,Age,areac.Description AS Region,divisionc.stateID,divisionc.Description AS diviDescription FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_titlemaster ON srp_titlemaster.TitleID = srp_erp_ngo_com_communitymaster.TitleID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_house_enrolling ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID LEFT JOIN srp_erp_ngo_com_membersocialgrants ON srp_erp_ngo_com_membersocialgrants.Com_MasterID = srp_erp_ngo_com_communitymaster.Com_MasterID WHERE $where $FamMasRrtID $famEconStID $houseOwnshpS $houseTypeS $famHodState $famHdGenderId GROUP BY srp_erp_ngo_com_familymaster.FamMasterID ORDER BY srp_erp_ngo_com_familymaster.FamMasterID DESC ")->result_array();
 
         $data["type"] = "pdf";
         $html = $this->load->view('system/communityNgo/ajax/load_community_family_report', $data, true);
@@ -6345,6 +6410,10 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $RegionIDArr = $this->input->post('RegionID');
         $famEconStatus = $this->input->post('famEconStatus');
         $text = trim($this->input->post('familyText'));
+        $famHdGender = $this->input->post('famHdGender');
+        $famHdStateId = $this->input->post('famHdStateId');
+        $famSocialGrantArr = $this->input->post('famSocialGrant');
+
         $convertFormat = convert_date_format_sql();
 
         $division_filter = "";
@@ -6376,6 +6445,21 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
             $houseTypeS = "AND srp_erp_ngo_com_house_enrolling.hTypeAutoID = $houseType ";
         }
 
+        $famHodState = "";
+        if (!empty($famHdStateId)) {
+            $famHodState = "AND srp_erp_ngo_com_communitymaster.CurrentStatus = $famHdStateId ";
+        }
+
+        $famHdGenderId = "";
+        if (!empty($famHdGender)) {
+            $famHdGenderId = "AND srp_erp_ngo_com_communitymaster.GenderID = $famHdGender ";
+        }
+
+        $social_filter = "";
+        if (!empty($famSocialGrantArr)) {
+            $social_filter = 'AND srp_erp_ngo_com_membersocialgrants.SocialGrantID IN (' . join(",", $famSocialGrantArr) . ' )';
+        }
+
         $srch_string = '';
         if (isset($text) && !empty($text)) {
 
@@ -6385,29 +6469,31 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $deleted = " AND srp_erp_ngo_com_familymaster.isDeleted = '0' ";
         $verifyDocApp = " AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'";
 
-        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $deleted . $verifyDocApp . $division_filter . $region_filter . $srch_string;
+        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $deleted . $verifyDocApp . $division_filter . $region_filter . $srch_string . $social_filter;
 
-        $famMasDrop = $this->db->query("SELECT srp_erp_ngo_com_familymaster.FamMasterID,srp_erp_ngo_com_familymaster.FamilySystemCode,srp_erp_ngo_com_communitymaster.CName_with_initials FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_titlemaster ON srp_titlemaster.TitleID = srp_erp_ngo_com_communitymaster.TitleID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_house_enrolling ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterID WHERE $where $FamMasRrtID $famEconStID $houseOwnshpS $houseTypeS ORDER BY srp_erp_ngo_com_familymaster.FamMasterID DESC ")->result_array();
+        $famMasDrop = $this->db->query("SELECT srp_erp_ngo_com_familymaster.FamMasterID,srp_erp_ngo_com_familymaster.FamilySystemCode,srp_erp_ngo_com_communitymaster.CName_with_initials FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_titlemaster ON srp_titlemaster.TitleID = srp_erp_ngo_com_communitymaster.TitleID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_house_enrolling ON srp_erp_ngo_com_house_enrolling.FamMasterID=srp_erp_ngo_com_familymaster.FamMasterIDLEFT JOIN srp_erp_ngo_com_membersocialgrants ON srp_erp_ngo_com_membersocialgrants.Com_MasterID = srp_erp_ngo_com_communitymaster.Com_MasterID WHERE $where $FamMasRrtID $famEconStID $houseOwnshpS $houseTypeS $famHodState $famHdGenderId ORDER BY srp_erp_ngo_com_familymaster.FamMasterID DESC ")->result_array();
 
         $data['famMasDrop'] = $famMasDrop;
 
         echo $this->load->view('system/communityNgo/ajax/com_familyMasters_dropDown', $data, true);
     }
 
-
     function get_totalFamHousing()
     {
 
         $FamMasterID = $this->input->post("FamMasterID");
-        $famAreaId = $this->input->post("famAreaId");
         $houseOwnshp = $this->input->post("houseOwnshp");
         $houseType = $this->input->post("houseType");
         $GS_DivisionArr = $this->input->post('GS_Division');
         $RegionIDArr = $this->input->post('RegionID');
         $famEconStatus = $this->input->post('famEconStatus');
+        $famHdGender = $this->input->post('famHdGender');
+        $famHdStateId = $this->input->post('famHdStateId');
+        $famSocialGrantArr = $this->input->post('famSocialGrant');
+        $text = trim($this->input->post('familyText'));
 
         $this->load->model('CommunityNgo_model');
-        $this->CommunityNgo_model->get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus);
+        $this->CommunityNgo_model->get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus,$famHdGender,$famHdStateId,$famSocialGrantArr,$text);
     }
 
     function get_houseEnrolling_del()
@@ -6421,6 +6507,10 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $GS_DivisionArr = $this->input->post('GS_Division');
         $RegionIDArr = $this->input->post('RegionID');
         $famEconStatus = $this->input->post('famEconStatus');
+        $famHdGender = $this->input->post('famHdGender');
+        $famHdStateId = $this->input->post('famHdStateId');
+        $famSocialGrantArr = $this->input->post('famSocialGrant');
+        $text = trim($this->input->post('familyText'));
 
         $division_filter = "";
         if (!empty($GS_DivisionArr)) {
@@ -6451,17 +6541,39 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
             $houseTypeS = "AND hEnr.hTypeAutoID = $houseType ";
         }
 
+        $famHodState = "";
+        if (!empty($famHdStateId)) {
+            $famHodState = "AND cm.CurrentStatus = $famHdStateId ";
+        }
+
+        $famHdGenderId = "";
+        if (!empty($famHdGender)) {
+            $famHdGenderId = "AND cm.GenderID = $famHdGender ";
+        }
+
+        $social_filter = "";
+        if (!empty($famSocialGrantArr)) {
+            $social_filter = 'AND srp_erp_ngo_com_membersocialgrants.SocialGrantID IN (' . join(",", $famSocialGrantArr) . ' )';
+        }
+
+        $srch_string = '';
+        if (isset($text) && !empty($text)) {
+
+            $srch_string = " AND ((MemberCode Like '%" . $text . "%') OR (HouseNo Like '%" . $text . "%') OR (C_Address Like '%" . $text . "%') OR (srp_erp_gender.name Like '%" . $text . "%') OR (areac.Description Like '%" . $text . "%') OR (divisionc.Description Like '%" . $text . "%') OR (srp_erp_ngo_com_familymaster.FamilySystemCode Like '%" . $text . "%') OR (CDOB Like '%" . $text . "%') OR (CName_with_initials Like '%" . $text . "%') OR (CNIC_No Like '%" . $text . "%') OR (name Like '%" . $text . "%') OR (EmailID Like '%" . $text . "%') OR (CONCAT(TP_home,TP_Mobile) Like '%" . $text . "%'))";
+        }
+
         $deleted = " AND fm.isDeleted = '0' ";
         $isVerifyDocApproved = " AND fm.isVerifyDocApproved = '1' ";
 
-        $where = "hEnr.companyID = " . $companyID . $isVerifyDocApproved . $division_filter . $region_filter . $deleted;
+        $where = "hEnr.companyID = " . $companyID . $isVerifyDocApproved . $division_filter . $region_filter . $deleted . $srch_string . $social_filter;
 
         $data['housingEnrl'] = $this->db->query("SELECT hEnr.hEnrollingID,hEnr.companyID AS companyID,fm.FamilySystemCode,fm.FamilyName,hEnr.FamHouseSt,hEnr.Link_hEnrollingID,cm.CName_with_initials,cm.C_Address,onrSp.ownershipDescription,tpMas.hTypeDescription,hEnr.hESizeInPerches,hEnr.isHmElectric,hEnr.isHmWaterSup,hEnr.isHmToilet,hEnr.isHmBathroom,hEnr.isHmTelephone,hEnr.isHmKitchen FROM srp_erp_ngo_com_house_enrolling hEnr 
 LEFT JOIN srp_erp_ngo_com_familymaster fm ON fm.FamMasterID = hEnr.FamMasterID 
 LEFT JOIN srp_erp_ngo_com_house_ownership_master onrSp ON onrSp.ownershipAutoID = hEnr.ownershipAutoID
 LEFT JOIN srp_erp_ngo_com_house_type_master tpMas ON tpMas.hTypeAutoID = hEnr.hTypeAutoID
 LEFT JOIN srp_erp_ngo_com_communitymaster cm ON cm.Com_MasterID = fm.LeaderID
-WHERE $where AND (hEnr.FamHouseSt = '0' OR hEnr.FamHouseSt IS NULL) AND (fm.isDeleted = '0' OR fm.isDeleted IS NULL) $FamMasterIDS  " . " $houseOwnshpS $houseTypeS $famEconStID ORDER BY hEnr.hEnrollingID")->result_array();
+LEFT JOIN srp_erp_ngo_com_membersocialgrants ON srp_erp_ngo_com_membersocialgrants.Com_MasterID = cm.Com_MasterID
+WHERE $where AND (hEnr.FamHouseSt = '0' OR hEnr.FamHouseSt IS NULL) AND (fm.isDeleted = '0' OR fm.isDeleted IS NULL) $FamMasterIDS  " . " $houseOwnshpS $houseTypeS $famHodState $famHdGenderId $famEconStID ORDER BY hEnr.hEnrollingID")->result_array();
 
         $data["type"] = "html";
         $html = $this->load->view('system/communityNgo/ajax/load_com_dash_other_housingDel.php', $data, true);

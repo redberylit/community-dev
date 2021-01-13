@@ -29,14 +29,11 @@ $companyID = $this->common_data['company_data']['company_id'];
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-1 hide" id="search_cancel">
+                        <div class="col-sm-2 hide" id="search_cancel">
                             <span class="tipped-top"><a id="cancelSearch" href="#" onclick="clear_publicSearch()"><img src="<?php echo base_url("images/community/cancel-search.gif") ?>"></a></span>
                         </div>
-                        <div class="form-group col-sm-2">
-                        </div>
-                        <div class="form-group col-sm-3">
-                            <label style="font-size: 11px;text-decoration-style: solid;font-weight:normal;float:right;">(Note : Search by NIC or Contact NO or Contact Address or Name)</label>
-
+                        <div class="form-group col-sm-5">
+                            <label style="font-size: 11px;text-decoration-style: solid;font-weight:bold;float:right;">[ Note : Search by NIC or Contact NO or Contact Address or Name ]</label>
                         </div>
                     </div>
                 </form>
