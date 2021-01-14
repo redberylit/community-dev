@@ -23,7 +23,7 @@ date_default_timezone_set('Asia/Colombo');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/community-dev/';
+$config['base_url'] = '/';
 
 /*
 |--------------------------------------------------------------------------
