@@ -680,38 +680,38 @@ if (!function_exists('load_com_member_action')) { /*get member action list*/
                               WHERE srp_erp_templates.FormCatID = 530 AND companyID={$company_id}
                               ORDER BY srp_erp_templatemaster.FormCatID")->row('createPageLink');
 
-        $status = '<span class="pull-right">';
+        $status = '<span class="pull-right inline-row">';
 
         if ($isActive == 0) {
-            $status .= '<a href="#"
+            $status .= '<a href="#" class="view-dt-btn hvr-pop"
                                    onclick="fetchPage(\'system/communityNgo/ngo_member_view\',' . $Com_MasterID . ',\'View Details - ' . $MemberCode . '\')"><span
                                         title="" rel="tooltip" class="glyphicon glyphicon-eye-open"
-                                        data-original-title="View"></span></a>&nbsp;&nbsp;| &nbsp;&nbsp;';
-            $status .= '<a href="#"
+                                        data-original-title="View"></span></a>';
+            $status .= '<a href="#" class="print-dt-btn hvr-pop"
                                    onclick="memberReportPdf(' . $Com_MasterID . ',\'Print Details - ' . $MemberCode . '\')"><span
                                         title="" rel="tooltip" class="glyphicon glyphicon-print"
                                         data-original-title="Print"></span></a>';
         } else {
 
-            $status .= '<a href="#"
+            $status .= '<a href="#" class="view-dt-btn hvr-pop"
                                    onclick="fetchPage(\'system/communityNgo/ngo_member_view\',' . $Com_MasterID . ',\'View Details - ' . $MemberCode . ' \')"><span
                                         title="" rel="tooltip" class="glyphicon glyphicon-eye-open"
-                                        data-original-title="View"></span></a>&nbsp;&nbsp;| &nbsp;&nbsp;';
-            $status .= '<a href="#"
+                                        data-original-title="View"></span></a>';
+            $status .= '<a href="#" class="edit-dt-btn hvr-pop"
                                onclick="fetchPage(\'' . $page . '\',' . $Com_MasterID . ',\'Edit Member - ' . $MemberCode . ' \')"><span
                                         title="Edit" rel="tooltip"
-                                        class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;| &nbsp;&nbsp;';
+                                        class="glyphicon glyphicon-pencil"></span></a>';
 
-            $status .= '<a href="#"
+            $status .= '<a href="#" class="print-dt-btn hvr-pop"
                                    onclick="memberReportPdf(' . $Com_MasterID . ',\'Print Details - ' . $MemberCode . '\')"><span
                                         title="" rel="tooltip" class="glyphicon glyphicon-print"
-                                        data-original-title="Print"></span></a>&nbsp;&nbsp;| &nbsp;&nbsp;';
+                                        data-original-title="Print"></span></a>';
 
-            $status .= '<a onclick="delete_communityMembers(' . $Com_MasterID . ')"><span
+            $status .= '<a  class="delete-dt-btn hvr-pop" onclick="delete_communityMembers(' . $Com_MasterID . ')"><span
                                         title="Delete"
                                         rel="tooltip"
                                         class="glyphicon glyphicon-trash CA_Alter_btn"
-                                        style="color:#d15b47;"></span></a>';
+                                        ></span></a>';
         }
 
         $status .= '</span>';

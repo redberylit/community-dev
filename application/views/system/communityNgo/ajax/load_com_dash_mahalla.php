@@ -312,8 +312,8 @@ if (!empty($comMaster)) {
                                 } ?>],
                     datasets: [{
                         label: "<?php echo $this->lang->line('comNgo_dash_blood_group_status'); ?>",
-                        fillColor: "rgba(180, 31, 8, 0.6)",
-                        strokeColor: "rgba(180, 31, 8,0.7)",
+                        fillColor: "#f45b5b",
+                        strokeColor: "#f45b5b",
                         pointColor: "#D2691E",
                         pointStrokeColor: "rgba(180, 31, 8,0.7)",
                         pointHighlightFill: "#fff",

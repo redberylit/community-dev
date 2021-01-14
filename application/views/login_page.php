@@ -143,11 +143,11 @@ if ($session == 1) {
 
 <article class="container">
     <div class="row">
+        
         <div class="col-sm-10">
             <div class="login-main">
-                <h4 class="txt-7 mt-1"> This portal helps you to connect and share<br>with the people in your life.</h4>
+                <h4 class="txt-7 mt-1"> Together We Are Stronger.</h4>
                 <img src="<?php echo base_url('images/bg-login.png') ?>" alt="">
-
             </div>
         </div>
 

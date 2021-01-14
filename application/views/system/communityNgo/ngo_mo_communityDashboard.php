@@ -356,49 +356,71 @@ $csrf = array(
                                     <a onclick="community_generalDash()" id="" data-id="0"
                                        href="#comGeneral_dashboardTemp" data-toggle="tab"
                                        aria-expanded="true"><span><i class="fa fa-tachometer" aria-hidden="true"
-                                                                     style="color: #50749f;font-size: 16px;"></i> <?php echo $this->lang->line('comNgo_dash_community'); ?></span></a>
+                                                                     style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_community'); ?></span></a>
                                 </li>
                                 <li class="">
                                     <a onclick="mahalla_fees_dash()" id="" data-id="0"
                                        href="#payments_dashboardTemp" data-toggle="tab"
                                        aria-expanded="true"><span><i class="fa fa-money" aria-hidden="true"
-                                                                     style="color: #00a000;font-size: 16px;"></i> <?php echo $this->lang->line('comNgo_dash_payments'); ?></span></a>
+                                                                     style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_payments'); ?></span></a>
                                 </li>
                                 <li class="">
                                     <a onclick="mahalla_other_dash()" id="" data-id="0"
                                        href="#commOther_dashboardTemp" data-toggle="tab"
                                        aria-expanded="true"><span><i class="fa fa-align-justify" aria-hidden="true"
-                                                                     style="color: #ffbe00;font-size: 16px;"></i> <?php echo $this->lang->line('comNgo_dash_rentals_and_other'); ?></span></a>
+                                                                     style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_rentals_and_other'); ?></span></a>
                                 </li>
                                 <li class="">
                                     <a onclick="community_find_people()" id="" data-id="0"
                                        href="#commFindPeople_dashbrdTemp" data-toggle="tab"
                                        aria-expanded="true"><span><i class="glyphicon glyphicon-user" aria-hidden="true"
-                                                                     style="color: purple;font-size: 16px;"></i> <?php echo $this->lang->line('comNgo_dash_family_find_people'); ?></span></a>
+                                                                     style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_family_find_people'); ?></span></a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="panel-body" style="background-color: #ecf0f5;">
+                        <div class="panel-body">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="comGeneral_dashboardTemp">
-                                    <div class="box box-warning">
+                                    <div class="tab-body">
                                         <div class="box-header with-border">
                                             <div class="row" style="margin-top: 5px">
                                                 <form method="post" name="form_dash_famDivi" id="form_dash_famDivi" class="form-horizontal">
 
                                                 <div class="col-md-12" id="">
-                                                    <div class="col-sm-5">
-                                                        <h4 class="box-title"><?php echo $this->lang->line('comNgo_dash_dashboard'); ?></h4>
+                                                    <div class="col-sm-8">
+                                                        <h4 class="txt-dashboard"><?php echo $this->lang->line('comNgo_dash_dashboard'); ?></h4>
+                                                    </div>
+
+                                                    <div class="col-sm-4">
+                                                        <div class="row">
+                                                             <div class="col-sm-5">
+                                                                <label class="title"><?php echo $this->lang->line('communityngo_region'); ?><!--Area--></label>
+
+                                                                    <?php echo form_dropdown('areaMemId', $com_area, '', 'class="form-control select2 pull-right" id="areaMemId" multiple=""'); ?>
+                                                            </div>
+                                                            <div class="col-sm-5 mb-3">
+                                                                <label class="title"><?php echo $this->lang->line('communityngo_GS_Division'); ?><!--GS Division--></label>
+
+                                                                    <?php echo form_dropdown('gsDivitnId', $comDivision, '', 'class="form-control select2 pull-right" id="gsDivitnId" multiple=""'); ?>
+
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <label style="color: transparent;">lable</label>
+                                                                <button class="btn btn-primary btn-sm btn-flat hvr-underline-from-left" onclick="reload_MHdashboard();" type="button" id="getGenDel" value="" style="" data-toggle="tooltip" title="Search"><i class="fa fa-search"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--
+                                                    <div class="col-sm-2">
+                                                        <label class="title"><?php //echo $this->lang->line('communityngo_region'); ?></label>
+
+                                                            <?php //echo form_dropdown('areaMemId', $com_area, '', 'class="form-control select2 pull-right" id="areaMemId" multiple=""'); ?>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <label class="title"><?php echo $this->lang->line('communityngo_region'); ?><!--Area--><label>
+                                                        <label class="title"><?php //echo $this->lang->line('communityngo_GS_Division'); ?></label>
 
-                                                            <?php echo form_dropdown('areaMemId', $com_area, '', 'class="form-control select2 pull-right" id="areaMemId" multiple=""'); ?>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <label class="title"><?php echo $this->lang->line('communityngo_GS_Division'); ?><!--GS Division--><label>
-
-                                                            <?php echo form_dropdown('gsDivitnId', $comDivision, '', 'class="form-control select2 pull-right" id="gsDivitnId" multiple=""'); ?>
+                                                            <?php //echo form_dropdown('gsDivitnId', $comDivision, '', 'class="form-control select2 pull-right" id="gsDivitnId" multiple=""'); ?>
 
                                                     </div>
                                                     <div class="col-sm-1" style="">
@@ -412,8 +434,10 @@ $csrf = array(
 
                                                         <span class="tipped-top" style="margin-left: auto;"><a id="cancelSearchDashboard" href="#"
                                                                            onclick="clearDashboardSearchFilter()"><img
-                                src="<?php echo base_url("images/community/cancel-search.gif") ?>"></a></span>
-                                                    </div>
+                                src="<?php //echo base_url("images/community/cancel-search.gif") ?>"></a></span>
+                                                    </div>-->
+
+
 
                                                 </div>
                                                 </form>
@@ -421,52 +445,108 @@ $csrf = array(
                                             <hr>
 
                                             <div class="row">
-                                                <div class="col-lg-2 col-xs-6">
-                                                    <div class="white-box">
+                                                <div class="col-lg-3 col-xs-6">
+                                                    <!--<div class="white-box">
                                                         <div class="r-icon-stats">
                                                             <i class="ti-stats-up bg-members">
                                                                 <div id="total_members" class="countstar responsive">0</div>
                                                             </i>
                                                         </div>
                                                         <div class="bodystate">
-                                                            <div class="numberStar" onclick="open_comMemberModel();" style="text-transform: uppercase;"><?php echo $this->lang->line('comNgo_dash_members'); ?></div>
+                                                            <div class="numberStar" onclick="open_comMemberModel();" style="text-transform: uppercase;"><?php // echo $this->lang->line('comNgo_dash_members'); ?></div>
+                                                        </div>
+                                                    </div>-->
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comMemberModel();"><?php echo $this->lang->line('comNgo_dash_members'); ?></a></h5>
+                                                                    <h2 id="total_members" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/members.png">  
+                                                                    
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 col-xs-6">
-                                                    <div class="white-box">
+                                                <div class="col-lg-3 col-xs-6">
+                                                    <!--<div class="white-box">
                                                         <div class="r-icon-stats">
                                                             <i class="ti-stats-up bg-families">
                                                                 <div id="total_families" class="countstar responsive">0</div>
                                                             </i>
                                                         </div>
                                                         <div class="bodystate">
-                                                            <div class="numberStar" onclick="open_comFamiliesModel();" style="text-transform: uppercase;"><?php echo $this->lang->line('comNgo_dash_families'); ?></div>
+                                                            <div class="numberStar" onclick="open_comFamiliesModel();" style="text-transform: uppercase;"><?php //echo $this->lang->line('comNgo_dash_families'); ?></div>
+                                                        </div>
+                                                    </div>-->
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comFamiliesModel();"><?php echo $this->lang->line('comNgo_dash_families'); ?></a></h5>
+                                                                    <h2 id="total_families" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/family.png">  
+                                                                    
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
-                                                <div class="col-lg-2 col-xs-6">
-                                                    <div class="white-box">
+                                                <div class="col-lg-3 col-xs-6">
+                                                    <!--<div class="white-box">
                                                         <div class="r-icon-stats">
                                                             <i class="ti-stats-up bg-committees">
                                                                 <div id="total_committees" class="countstar responsive">0</div>
                                                             </i>
                                                         </div>
                                                         <div class="bodystate">
-                                                            <div class="numberStar" onclick="open_comCommitteesModel();" style="text-transform: uppercase;"><?php echo $this->lang->line('comNgo_dash_committees'); ?></div>
+                                                            <div class="numberStar" onclick="open_comCommitteesModel();" style="text-transform: uppercase;"><?php //echo $this->lang->line('comNgo_dash_committees'); ?></div>
+                                                        </div>
+                                                    </div>-->
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comCommitteesModel();"><?php echo $this->lang->line('comNgo_dash_committees'); ?></a></h5>
+                                                                    <h2 id="total_committees" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/committees.png">  
+                                                                    
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-2 col-xs-6">
-                                                    <div class="white-box">
+                                                <div class="col-lg-3 col-xs-6">
+                                                    <!--<div class="white-box">
                                                         <div class="control-label infoComm-box">
                                                             <span class="infoComm-box-icon bg-aqua"><i class="fa fa-home" title="Houses"></i></span>
 
                                                             <div class="infoComm-box-content">
-                                                                <span class="infoComm-box-text" style="color: #0099CC;" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalHouseEn'); ?></span>
+                                                                <span class="infoComm-box-text" style="color: #0099CC;" onclick="fetch_comHousingData();"><?php //echo $this->lang->line('comNgo_dash_totalHouseEn'); ?></span>
                                                                 <label class="infoComm-box-number" style="text-align: center;"><span class="badge" style="background-color: lightgrey;color: #006f00;font-size:16px;" id="noOfTotHouses" title="Total Houses"></span></label>
+                                                            </div>                                                           
+                                                        </div>
+                                                    </div>-->
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalHouseEn'); ?></a></h5>
+                                                                    <h2 id="noOfTotHouses" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/house.png">  
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <!-- /.info-box-content -->
                                                         </div>
                                                     </div>
                                                 </div>
