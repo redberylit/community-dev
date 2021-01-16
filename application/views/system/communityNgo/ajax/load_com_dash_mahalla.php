@@ -122,11 +122,11 @@ if (!empty($comMaster)) {
                             <div class="chart" id="donut_forMah_population" style="height: 250px; position: relative;"></div>
                         </div>
                         <div>
-                            <li class="fa fa-circle-o text"> <?php echo $this->lang->line('common_total'); ?>:</li> <span><input id="memTotal" value="" style="border: none;font-weight: bold;"></span>
+                            <li class="fa fa-circle-o text"> <?php echo $this->lang->line('common_total'); ?>:</li> <span><input id="memTotal" value="" style="border: none;font-weight: bold;" readonly></span>
                             <br>
-                            <li class="fa fa-circle-o text-green"> <?php echo $this->lang->line('common_male'); ?>:</li> <span><input id="maleTotal" value="" style="border: none;font-weight: bold;"></span>
+                            <li class="fa fa-circle-o text-green"> <?php echo $this->lang->line('common_male'); ?>:</li> <span><input id="maleTotal" value="" style="border: none;font-weight: bold;" readonly></span>
                             <br>
-                            <li class="fa fa-circle-o text-blue"> <?php echo $this->lang->line('common_female'); ?>:</li> <span><input id="femaleTotal" value="" style="border: none;font-weight: bold;"></span>
+                            <li class="fa fa-circle-o text-blue"> <?php echo $this->lang->line('common_female'); ?>:</li> <span><input id="femaleTotal" value="" style="border: none;font-weight: bold;" readonly></span>
                         </div>
                         <!-- /.row -->
 
@@ -152,12 +152,12 @@ if (!empty($comMaster)) {
                                     </div>
                                     <div class="col-md-5">
                                         <ul class="chart-legend clearfix" style="font-size: 12px;font-weight: bold;">
-                                            <li><i class="fa fa-circle-o text-red"></i> <input id="occTypeDiv1" value="" style="border: none;"></li>
-                                            <li><i class="fa fa-circle-o text-green"></i> <input id="occTypeDiv2" value="" style="border: none;"></li>
-                                            <li><i class="fa fa-circle-o text-yellow"></i> <input id="occTypeDiv3" value="" style="border: none;"></li>
-                                            <li><i class="fa fa-circle-o text-aqua"></i> <input id="occTypeDiv4" value="" style="border: none;"></li>
-                                            <li><i class="fa fa-circle-o text-light-blue"></i> <input id="occTypeDiv5" value="" style="border: none;"></li>
-                                            <li><i class="fa fa-circle-o text-gray"></i> <input id="occTypeDiv6" value="" style="border: none;"></li>
+                                            <li><i class="fa fa-circle-o text-red"></i> <input id="occTypeDiv1" value="" style="border: none;" readonly></li>
+                                            <li><i class="fa fa-circle-o text-green"></i> <input id="occTypeDiv2" value="" style="border: none;" readonly></li>
+                                            <li><i class="fa fa-circle-o text-yellow"></i> <input id="occTypeDiv3" value="" style="border: none;" readonly></li>
+                                            <li><i class="fa fa-circle-o text-aqua"></i> <input id="occTypeDiv4" value="" style="border: none;" readonly></li>
+                                            <li><i class="fa fa-circle-o text-light-blue"></i> <input id="occTypeDiv5" value="" style="border: none;" readonly></li>
+                                            <li><i class="fa fa-circle-o text-gray"></i> <input id="occTypeDiv6" value="" style="border: none;" readonly></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -243,24 +243,28 @@ if (!empty($comMaster)) {
                     <?php if (!empty($maritalBase) && ($maritalStCount != 0 || $maritalStCount == null)) { ?>
                         <ul class="chart-responsive circleUl">
                             <li class="merr-item">
-                                <div class="bg-info"><span style="color: transparent;">...</span> <?php echo $maritalSt_type1['maritalstatus']; ?> <span class="text-muted" style="float: right;"> <?php
-                                                                                                                                                                                                    echo round((($maritalSt_type1['merrType1'] / $maritalStCount) * 100), 0); ?> % </span></div>
+                                <div class="bg-info"><span style="color: transparent;">...</span> <?php echo $maritalSt_type1['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type1['merrType1'] / $maritalStCount) * 100), 0); ?> % ">
+                                        <?php echo $maritalSt_type1['merrType1']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-success"><span style="color: transparent;">...</span> <?php echo $maritalSt_type2['maritalstatus']; ?> <span class="text-muted" style="float: right;"> <?php
-                                                                                                                                                                                                        echo round((($maritalSt_type2['merrType2'] / $maritalStCount) * 100), 0); ?> % </span></div>
+                                <div class="bg-light"><span style="color: transparent;">...</span> <?php echo $maritalSt_type2['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type2['merrType2'] / $maritalStCount) * 100), 0); ?> % ">
+                                        <?php echo $maritalSt_type2['merrType2']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-secondary"><span style="color: transparent;">...</span> <?php echo $maritalSt_type3['maritalstatus']; ?> <span class="text-muted" style="float: right;"> <?php
-                                                                                                                                                                                                        echo round((($maritalSt_type3['merrType3'] / $maritalStCount) * 100), 0); ?> % </span></div>
+                                <div class="bg-success"><span style="color: transparent;">...</span> <?php echo $maritalSt_type3['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type3['merrType3'] / $maritalStCount) * 100), 0); ?> % ">
+                                        <?php echo $maritalSt_type3['merrType3']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-danger"><span style="color: transparent;">...</span> <?php echo $maritalSt_type4['maritalstatus']; ?> <span class="text-muted" style="float: right;"> <?php
-                                                                                                                                                                                                        echo round((($maritalSt_type4['merrType4'] / $maritalStCount) * 100), 0); ?> % </span></div>
+                                <div class="bg-dark"><span style="color: transparent;">...</span> <?php echo $maritalSt_type4['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type4['merrType4'] / $maritalStCount) * 100), 0); ?> % ">
+                                        <?php echo $maritalSt_type4['merrType4']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-warning"><span style="color: transparent;">...</span> <?php echo $maritalSt_type5['maritalstatus']; ?> <span class="text-muted" style="float: right;"> <?php
-                                                                                                                                                                                                        echo round((($maritalSt_type5['merrType5'] / $maritalStCount) * 100), 0); ?> % </span></div>
+                                <div class="bg-danger"><span style="color: transparent;">...</span> <?php echo $maritalSt_type5['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type5['merrType5'] / $maritalStCount) * 100), 0); ?> % ">
+                                        <?php echo $maritalSt_type5['merrType5']; ?> </span></div>
+                            </li>
+                            <li class="merr-item">
+                                <div class="bg-warning" title="NaN"><span style="color: transparent;">...</span> Not Assigned <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type6['merrType6'] / $maritalStCount) * 100), 0); ?> % ">
+                                        <?php echo $maritalSt_type6['merrType6']; ?> </span></div>
                             </li>
                         </ul>
                     <?php } else { ?>
@@ -308,7 +312,11 @@ if (!empty($comMaster)) {
                 var bloodTypesData = {
 
                     labels: [<?php foreach ($loadBloodCount as $resBloDes) {
-                                    echo "'" . $resBloDes['BloodDescription'] . "',";
+                                    if ($resBloDes['BloodDescription']) {
+                                        echo "'" . $resBloDes['BloodDescription'] . "',";
+                                    } else {
+                                        echo "NaN ,";
+                                    }
                                 } ?>],
                     datasets: [{
                         label: "<?php echo $this->lang->line('comNgo_dash_blood_group_status'); ?>",
@@ -379,7 +387,6 @@ if (!empty($comMaster)) {
 
         //occupation donut chart
         <?php if (!empty($OccupationBase)) { ?>
-
             $(function() {
 
                 <?php
@@ -511,14 +518,14 @@ if (!empty($comMaster)) {
                 name: 'Status',
                 data: [<?php foreach ($loadPerEconState as $val) {
                             echo $val['countComState']; ?>, <?php
-                                                } ?>]
+                                                        } ?>]
             }, {
                 type: 'spline',
                 name: 'Status',
                 fillColor: '#717475',
                 data: [<?php foreach ($loadPerEconState as $val) {
                             echo $val['countComState']; ?>, <?php
-                                                } ?>],
+                                                        } ?>],
                 marker: {
                     lineWidth: 2,
                     lineColor: '#717475',

@@ -2244,6 +2244,20 @@ FROM srp_erp_ngo_com_communitymaster AS t1
         }
     }
 
+    function fetch_phnNo_length()
+    {
+        $countryCode = $this->input->post('countryCode');
+        if ($countryCode) {
+            $queryPhnLength = $this->db->query("SELECT lengthOfCNumber FROM srp_erp_countrymaster WHERE countryCode = {$countryCode}");
+            $rowPhnLength = $queryPhnLength->row();
+            if (!empty($rowPhnLength)) {
+                echo $rowPhnLength->lengthOfCNumber;
+            } else {
+                echo '10';
+            }
+        }
+    }
+
     public function get_comMemBloodRelative()
     {
 

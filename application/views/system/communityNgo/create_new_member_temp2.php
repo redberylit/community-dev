@@ -22,10 +22,12 @@ echo selectOnTab();
 
 $company_id = current_companyID();
 
-$where = "WHERE company_id = $company_id";
-$data = $this->db->query("select * FROM srp_erp_company $where ")->row_array();
+$where = "WHERE srp_erp_company.company_id = $company_id";
+$data = $this->db->query("select srp_erp_company.countryID,srp_erp_countrymaster.lengthOfCNumber FROM srp_erp_company left join srp_erp_countrymaster on srp_erp_countrymaster.countryID=srp_erp_company.countryID $where ")->row_array();
 
 $countryid = $data['countryID'];
+$lengthOfCNumber = $data['lengthOfCNumber'];
+
 $filter = "WHERE countryID = $countryid ";
 $Countrys = $this->db->query("SELECT * FROM srp_erp_countrymaster $filter")->row_array();
 
@@ -51,32 +53,38 @@ $countryid = $Countrys['countryCode'];
         <?php echo $this->lang->line('CommunityNgo_step_one'); ?>
         <!--Step 1 -->-
         <?php echo $this->lang->line('communityngo_com_member_header'); ?>
-        <!-- Header--></a>
+        <!-- Header-->
+    </a>
     <a class="btn btn-default btn-wizard" href="#step2" onclick="load_memberOtherDetails();" data-toggle="tab">
         <?php echo $this->lang->line('CommunityNgo_step_two'); ?>
         <!--Step 2--> -
         <?php echo $this->lang->line('communityngo_com_member_header_Other'); ?>
-        <!--Other--></a>
+        <!--Other-->
+    </a>
     <a class="btn btn-default btn-wizard" href="#step3" data-toggle="tab" onclick="load_memParentDetails();">
         <?php echo $this->lang->line('CommunityNgo_step_three'); ?>
         <!--Step 3--> -
         <?php echo $this->lang->line('communityngo_com_mem_header_parent'); ?>
-        <!--Other--></a>
+        <!--Other-->
+    </a>
     <a class="btn btn-default btn-wizard" href="#step4" data-toggle="tab" onclick="load_grandParentDetails();">
         <?php echo $this->lang->line('CommunityNgo_step_four'); ?>
         <!--Step 4--> -
         <?php echo $this->lang->line('communityngo_com_mem_header_grandparent'); ?>
-        <!--Other--></a>
+        <!--Other-->
+    </a>
     <a class="btn btn-default btn-wizard" href="#step5" data-toggle="tab" onclick="load_grt_grandParentDetails();">
         <?php echo $this->lang->line('CommunityNgo_step_five'); ?>
         <!--Step 5--> -
         <?php echo $this->lang->line('communityngo_com_mem_header_great-grandparent'); ?>
-        <!--Other--></a>
+        <!--Other-->
+    </a>
     <a class="btn btn-default btn-wizard" href="#step6" onclick="load_memberStatusDetails();load_memberStatus_attachments();" data-toggle="tab">
         <?php echo $this->lang->line('CommunityNgo_step_six'); ?>
         <!--Step 6--> -
         <?php echo $this->lang->line('communityngo_com_member_header_Status'); ?>
-        <!--Status--></a>
+        <!--Status-->
+    </a>
 </div>
 
 <div class="modal fade bs-example-modal-lg" id="com_memAreaAdd_modal" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -93,7 +101,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">
                             <?php echo $this->lang->line('communityngo_region_temp2'); ?>
-                            <!--Language--></label>
+                            <!--Language-->
+                        </label>
                         <div class="col-sm-7">
                             <input type="text" name="memberNewArea" value="" id="memberNewArea" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_region_temp2'); ?>">
                         </div>
@@ -103,10 +112,12 @@ $countryid = $Countrys['countryCode'];
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close--></button>
+                    <!--Close-->
+                </button>
                 <button type="button" class="btn btn-primary" onclick="fetch_newMem_Area()">
                     <?php echo $this->lang->line('common_add'); ?>
-                    <!--Add--></button>
+                    <!--Add-->
+                </button>
             </div>
         </div>
     </div>
@@ -129,7 +140,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_title'); ?>
-                            <!--Title--></label>
+                            <!--Title-->
+                        </label>
                     </div>
 
                     <div class="form-group col-sm-4">
@@ -146,7 +158,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_name'); ?>
-                            <!--Name--></label>
+                            <!--Name-->
+                        </label>
                     </div>
 
                     <div class="form-group col-sm-4">
@@ -161,7 +174,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_name_with_initial'); ?>
-                            <!--Name_with_initial--></label>
+                            <!--Name_with_initial-->
+                        </label>
 
                     </div>
                     <div class="form-group col-sm-4">
@@ -172,7 +186,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_memberOtherName'); ?>
-                            <!--Other Name--></label>
+                            <!--Other Name-->
+                        </label>
 
                     </div>
                     <div class="form-group col-sm-4"><input type="text" name="OtherName" id="OtherName" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_memberOtherName'); ?>">
@@ -184,7 +199,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_gender'); ?>
-                            <!--Gender--></label>
+                            <!--Gender-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <span class="input-req" title="Required Field">
@@ -199,7 +215,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_bloodGroup'); ?>
-                            <!--Blood Group--></label>
+                            <!--Blood Group-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <select id="BloodGroupID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_bloodGroup'); ?>" name="BloodGroupID">
@@ -231,7 +248,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_dob'); ?>
-                            <!--Date of Birth--></label>
+                            <!--Date of Birth-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-3">
                         <span class="input-req" title="Required Field">
@@ -251,7 +269,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_country_origin'); ?>
-                            <!--Country--></label>
+                            <!--Country-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
 
@@ -261,7 +280,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_placeOfBirth'); ?>
-                            <!--POB--></label>
+                            <!--POB-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-3">
                         <select name="CPlaceOfBirth" class="form-control select2" id="CPlaceOfBirth">
@@ -280,7 +300,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityNgo_bc_no'); ?>
-                            <!--BC No--></label>
+                            <!--BC No-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <input type="text" name="CBC_No" placeholder="<?php echo $this->lang->line('communityNgo_bc_no'); ?>" value="" id="CBC_No" class="form-control">
@@ -288,7 +309,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityNgo_regDate'); ?>
-                            <!--Registered Date--></label>
+                            <!--Registered Date-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
 
@@ -303,7 +325,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_status'); ?>
-                            <!--Marital Status :--></label>
+                            <!--Marital Status :-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2">
                         <select id="CurrentStatus" class="form-control select2" name="CurrentStatus" data-placeholder="<?php echo $this->lang->line('communityngo_status'); ?>" onchange="get_mrgCertificateDel();">
@@ -326,7 +349,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_registered_date'); ?>
-                            <!--Registered Date--></label>
+                            <!--Registered Date-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
 
@@ -342,7 +366,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_height'); ?>
-                            <!--Height (cm) :--></label>
+                            <!--Height (cm) :-->
+                        </label>
                     </div>
 
                     <div class="form-group col-sm-1">
@@ -385,13 +410,13 @@ $countryid = $Countrys['countryCode'];
 
                     <div class="form-group col-sm-2">
                         <span class="input-req" title="Required Field">
-                            <?php echo form_dropdown('CountryCodePrimary', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodePrimary"'); ?>
+                            <?php echo form_dropdown('CountryCodePrimary', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodePrimary" onchange="get_phoneNumberCode(this.value,2);"'); ?>
                             <span class="input-req-inner"></span></span>
                     </div>
 
                     <div class="form-group col-sm-2" style=" padding-left: 0px;">
                         <span class="input-req" title="Required Field">
-                            <input type="text" name="TP_Mobile" data-inputmask="'alias': '99-999 9999'" id="TP_Mobile" class="form-control" required><span class="input-req-inner"></span></span>
+                            <input type="text" name="TP_Mobile" id="TP_Mobile" maxlength="<?php echo $lengthOfCNumber; ?>" class="form-control" required><span class="input-req-inner"></span></span>
 
                         <input type="hidden" name="AreaCodePrimary" id="AreaCodePrimary" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
                     </div>
@@ -404,11 +429,11 @@ $countryid = $Countrys['countryCode'];
                     </div>
 
                     <div class="form-group col-sm-2">
-                        <?php echo form_dropdown('CountryCodeSecondary', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodeSecondary"'); ?>
+                        <?php echo form_dropdown('CountryCodeSecondary', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodeSecondary" onchange="get_phoneNumberCode(this.value,1);"'); ?>
                     </div>
 
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
-                        <input type="text" name="TP_home" placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>" id="TP_home" data-inputmask="'alias': '999-999 9999'" class="form-control">
+                        <input type="text" name="TP_home" placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>" id="TP_home" maxlength="<?php echo $lengthOfCNumber; ?>" class="form-control">
                         <input type="hidden" name="AreaCodeSecondary" id="AreaCodeSecondary" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
                     </div>
                     <div class="form-group col-sm-2">
@@ -418,11 +443,11 @@ $countryid = $Countrys['countryCode'];
                     </div>
 
                     <div class="form-group col-sm-2">
-                        <?php echo form_dropdown('CountryCodeMobile2', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodeMobile2"'); ?>
+                        <?php echo form_dropdown('CountryCodeMobile2', $countryCode_arr, $countryid, 'class="form-control" id="CountryCodeMobile2" onchange="get_phoneNumberCode(this.value,3);"'); ?>
                     </div>
 
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
-                        <input type="text" name="TP_mobileNo2" placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>" id="TP_mobileNo2" data-inputmask="'alias': '999-999 9999'" class="form-control">
+                        <input type="text" name="TP_mobileNo2" placeholder="<?php echo $this->lang->line('communityngo_TP_No'); ?>" id="TP_mobileNo2" maxlength="<?php echo $lengthOfCNumber; ?>" class="form-control">
                         <input type="hidden" name="AreaCodeMobile2" id="AreaCodeMobile2" class="form-control" placeholder="<?php echo $this->lang->line('communityngo_AreaCode'); ?>">
                     </div>
                 </div>
@@ -431,7 +456,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('common_passport_number_no'); ?>
-                            <!--Passport No :--></label>
+                            <!--Passport No :-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2">
                         <input type="text" name="CmPassportNo" placeholder="<?php echo $this->lang->line('common_passport_number_no'); ?>" value="" id="CmPassportNo" class="form-control">
@@ -439,7 +465,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('common_issue_date'); ?>
-                            <!--issue Date--></label>
+                            <!--issue Date-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2">
 
@@ -452,7 +479,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('common_expire_date'); ?>
-                            <!--expiry Date--></label>
+                            <!--expiry Date-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2">
 
@@ -468,7 +496,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_drivingLicense'); ?>
-                            <!--Driving License :--></label>
+                            <!--Driving License :-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2">
                         <input type="text" name="CmDrivingLicenseNo" placeholder="<?php echo $this->lang->line('communityngo_drivingLicense'); ?>" value="" id="CmDrivingLicenseNo" class="form-control">
@@ -476,7 +505,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('common_issue_date'); ?>
-                            <!--issue Date--></label>
+                            <!--issue Date-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2">
 
@@ -489,7 +519,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('common_expire_date'); ?>
-                            <!--expiry Date--></label>
+                            <!--expiry Date-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2">
 
@@ -519,7 +550,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_country'); ?>
-                            <!--Country--></label>
+                            <!--Country-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <span class="input-req" title="Required Field">
@@ -529,7 +561,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_Province'); ?>
-                            <!--Province--></label>
+                            <!--Province-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <div id="div_load_province">
@@ -545,7 +578,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_District'); ?>
-                            <!--District --></label>
+                            <!--District -->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <div id="div_load_district">
@@ -557,7 +591,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_DistrictDivision'); ?>
-                            <!--District Division--></label>
+                            <!--District Division-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <div id="div_load_districtDivision">
@@ -654,7 +689,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_contactAddress'); ?>
-                            <!--Address--></label>
+                            <!--Address-->
+                        </label>
                     </div>
 
                     <div class="form-group col-sm-4">
@@ -665,7 +701,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_perAddress'); ?>
-                            <!--Address--></label>
+                            <!--Address-->
+                        </label>
                     </div>
 
                     <div class="form-group col-sm-4"><textarea class="form-control" id="P_Address" name="P_Address" rows="2"></textarea>
@@ -687,7 +724,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_com_member_latitude'); ?>
-                            <!--Latitude--></label>
+                            <!--Latitude-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <input type="text" name="C_Latitude" placeholder="<?php echo $this->lang->line('communityngo_com_member_latitude'); ?>" value="" id="C_Latitude" class="form-control">
@@ -695,7 +733,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_com_member_longitude'); ?>
-                            <!--Longitude--></label>
+                            <!--Longitude-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <input type="text" name="C_Longitude" placeholder="<?php echo $this->lang->line('communityngo_com_member_longitude'); ?>" value="" id="C_Longitude" class="form-control">
@@ -718,7 +757,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_isAbroad'); ?>
-                            <!--is abroad--></label>
+                            <!--is abroad-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-1">
                         <select id="IsAbroad" class="form-control select2" name="IsAbroad" onchange="removeDisable();" data-placeholder="">
@@ -746,7 +786,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_IsSchoolCompleted'); ?>
-                            <!--Is School Completed--></label>
+                            <!--Is School Completed-->
+                        </label>
                     </div>
 
                     <div class="form-group col-sm-1">
@@ -759,7 +800,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-1">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_School'); ?>
-                            <!--School--></label>
+                            <!--School-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
                         <input type="hidden" name="CompletedYear" placeholder="<?php echo $this->lang->line('communityngo_CompletedYear'); ?>" value="" id="CompletedYear" class="form-control" disabled>
@@ -787,7 +829,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_isConverted'); ?>
-                            <!--IS CONVERTED--></label>
+                            <!--IS CONVERTED-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-1">
                         <select id="isConverted" class="form-control select2" name="isConverted" onchange="removeDisableYear();" data-placeholder="">
@@ -799,7 +842,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-1">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_Year'); ?>
-                            <!--Year--></label>
+                            <!--Year-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
                         <input type="number" name="ConvertedYear" placeholder="<?php echo $this->lang->line('communityngo_ConvertedYear'); ?>" value="" id="ConvertedYear" class="form-control" disabled>
@@ -807,7 +851,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2" style="padding-left: 0px;">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_converted_place'); ?>
-                            <!-- CONVERTED PLACE--></label>
+                            <!-- CONVERTED PLACE-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <input type="text" name="ConvertedPlace" placeholder="<?php echo $this->lang->line('communityngo_ConvertedPlace'); ?>" value="" id="ConvertedPlace" class="form-control" disabled>
@@ -820,7 +865,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-2">
                         <label class="title">
                             <?php echo $this->lang->line('communityngo_isVoter'); ?>
-                            <!--IS VOTER--></label>
+                            <!--IS VOTER-->
+                        </label>
                     </div>
                     <div class="form-group col-sm-4">
                         <select id="isVoter" class="form-control select2" name="isVoter" data-placeholder="">
@@ -834,10 +880,12 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group col-sm-12">
                         <button class="btn btn-default pull-right next" style="margin-left: 1%; display: none;" id="nxtBtn">
                             <?php echo $this->lang->line('common_next'); ?>
-                            <!--Next--></button>
+                            <!--Next-->
+                        </button>
                         <button id="save_btn" class="btn btn-primary pull-right CA_Submit_btn" type="submit">
                             <?php echo $this->lang->line('common_save'); ?>
-                            <!--Save--></button>
+                            <!--Save-->
+                        </button>
                     </div>
 
                 </div>
@@ -852,10 +900,12 @@ $countryid = $Countrys['countryCode'];
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev">
                 <?php echo $this->lang->line('common_previous'); ?>
-                <!--Previous--></button>
+                <!--Previous-->
+            </button>
             <button class="btn btn-default pull-right next" style="margin-left: 1%;" id="nxtBtn">
                 <?php echo $this->lang->line('common_next'); ?>
-                <!--Next--></button>
+                <!--Next-->
+            </button>
         </div>
     </div>
 
@@ -865,13 +915,16 @@ $countryid = $Countrys['countryCode'];
         <div class="text-right m-t-xs">
             <button id="saveParent_btn" class="btn btn-primary CA_Submit_btn memFamChainCls" type="button" onclick="save_communityParent();">
                 <?php echo $this->lang->line('common_update'); ?>
-                <!--Save--></button>
+                <!--Save-->
+            </button>
             <button class="btn btn-default prev">
                 <?php echo $this->lang->line('common_previous'); ?>
-                <!--Previous--></button>
+                <!--Previous-->
+            </button>
             <button class="btn btn-default pull-right next" style="margin-left: 1%;" id="nxtBtn">
                 <?php echo $this->lang->line('common_next'); ?>
-                <!--Next--></button>
+                <!--Next-->
+            </button>
         </div>
 
     </div>
@@ -882,16 +935,20 @@ $countryid = $Countrys['countryCode'];
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev">
                 <?php echo $this->lang->line('common_previous'); ?>
-                <!--Previous--></button>
+                <!--Previous-->
+            </button>
             <button class="btn btn-default next" style="margin-left: 1%;" id="nxtBtn">
                 <?php echo $this->lang->line('common_next'); ?>
-                <!--Next--></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--Next-->
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button id="saveFP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: block;" onclick="save_memFatherParents();">
                 <?php echo $this->lang->line('common_update'); ?>
-                <!--Save--></button>
+                <!--Save-->
+            </button>
             <button id="saveMP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: none;" onclick="save_memMotherParents();">
                 <?php echo $this->lang->line('common_update'); ?>
-                <!--Save--></button>
+                <!--Save-->
+            </button>
         </div>
     </div>
 
@@ -900,16 +957,20 @@ $countryid = $Countrys['countryCode'];
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev">
                 <?php echo $this->lang->line('common_previous'); ?>
-                <!--Previous--></button>
+                <!--Previous-->
+            </button>
             <button class="btn btn-default next" style="margin-left: 1%;" id="nxtBtn">
                 <?php echo $this->lang->line('common_next'); ?>
-                <!--Next--></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--Next-->
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button id="saveGFP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: block;" onclick="save_memGrtFatherParents();">
                 <?php echo $this->lang->line('common_update'); ?>
-                <!--Save--></button>
+                <!--Save-->
+            </button>
             <button id="saveGMP_btn" class="btn btn-primary pull-right CA_Submit_btn memFamChainCls" type="button" style="display: none;" onclick="save_memGrtMotherParents();">
                 <?php echo $this->lang->line('common_update'); ?>
-                <!--Save--></button>
+                <!--Save-->
+            </button>
         </div>
     </div>
 
@@ -935,7 +996,8 @@ $countryid = $Countrys['countryCode'];
                 <div class="col-sm-3">
                     <label for="communityngo_deactivatedFor">
                         <?php echo $this->lang->line('communityngo_deactivatedFor'); ?>
-                        <!--Reason--></label>
+                        <!--Reason-->
+                    </label>
                     <div class="form-group">
                         <select id="DeactivatedFor" class="form-control select2" name="DeactivatedFor" onchange="removeBtnDisable();" data-placeholder="" required>
                             <option value=""></option>
@@ -949,7 +1011,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group ">
                         <label for="deactivatedDate" class="form-group">
                             <?php echo $this->lang->line('communityngo_deactivatedDate'); ?>
-                            <!--Deactivated Date--></label>
+                            <!--Deactivated Date-->
+                        </label>
 
                         <div class="input-group datepic">
                             <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -961,7 +1024,8 @@ $countryid = $Countrys['countryCode'];
                     <div class="form-group">
                         <label for="dischargedComment">
                             <?php echo $this->lang->line('communityngo_deactivatedComment'); ?>
-                            <!--Discharged Comment--></label>
+                            <!--Discharged Comment-->
+                        </label>
                         <input type="text" name="deactivatedComment" id="deactivatedComment" class="form-control">
                     </div>
                 </div>
@@ -978,7 +1042,8 @@ $countryid = $Countrys['countryCode'];
                         <span aria-hidden="true" class="glyphicon glyphicon-hand-right color"></span>
                         &nbsp; <strong>
                             <?php echo $this->lang->line('common_attachments'); ?>
-                            <!--Attachments--></strong>
+                            <!--Attachments-->
+                        </strong>
                         <br><br>
                         <div class="row">
                             <div class="col-md-2">&nbsp;</div>
@@ -1039,10 +1104,12 @@ $countryid = $Countrys['countryCode'];
         <div class="text-right m-t-xs">
             <button class="btn btn-default prev" style="margin-right: 1%;">
                 <?php echo $this->lang->line('common_previous'); ?>
-                <!--Previous--></button>
+                <!--Previous-->
+            </button>
             <button id="save_btn_status" class="btn btn-primary pull-right CA_Submit_btn" type="submit" onclick="save_memberStatus()" disabled>
                 <?php echo $this->lang->line('common_update'); ?>
-                <!--Save--></button>
+                <!--Save-->
+            </button>
         </div>
     </div>
 </div>
@@ -2534,11 +2601,10 @@ $countryid = $Countrys['countryCode'];
 
         if (bornConutryId) {
 
-            document.getElementById('areaModalLabel').innerHTML = "<?php echo $this->lang->line('communityngo_addPlaceOfVBirth');?> : "+countryName;
+            document.getElementById('areaModalLabel').innerHTML = "<?php echo $this->lang->line('communityngo_addPlaceOfVBirth'); ?> : " + countryName;
             $('#com_memAreaAdd_modal').modal('show');
 
-        }
-        else{
+        } else {
             myAlert('e', 'First Select Country .');
 
         }
@@ -2578,6 +2644,32 @@ $countryid = $Countrys['countryCode'];
             });
         }
 
+    }
+
+    function get_phoneNumberCode(countryCode, phnType) {
+
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: 'html',
+            data: {
+                countryCode: countryCode
+            },
+            url: "<?php echo site_url('CommunityNgo/fetch_phnNo_length'); ?>",
+            success: function(data) {
+                if (phnType == 1) {
+                    document.getElementById("TP_home").maxLength = data;
+                }
+                if (phnType == 2) {
+                    document.getElementById("TP_Mobile").maxLength = data;
+                }
+                if (phnType == 3) {
+                    document.getElementById("TP_mobileNo2").maxLength = data;
+
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {}
+        });
     }
 </script>
 

@@ -34,12 +34,12 @@ class CommunityNgoDashboard extends ERP_Controller
             $gsDivitnIdS = "AND srp_erp_ngo_com_communitymaster.GS_Division IN(" . join(',', $gsDivitnId) . ")";
         }
 
-        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID ;
+        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID;
 
         $data['comMaster'] = $this->db->query("SELECT srp_erp_ngo_com_communitymaster.SerialNo AS SerialNos FROM srp_erp_ngo_com_communitymaster WHERE (isDeleted IS NULL OR isDeleted = '' OR isDeleted = 0) AND isActive='1' AND comVerifiApproved='1' AND $where ")->row_array();
 
 
-        $member_count = $this->db->query("SELECT COUNT(*) as membersCount FROM srp_erp_ngo_com_communitymaster where companyID = '{$companyID}' AND (isDeleted IS NULL OR isDeleted = '' OR isDeleted = 0) AND isActive='1' AND comVerifiApproved='1'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $member_count = $this->db->query("SELECT COUNT(*) as membersCount FROM srp_erp_ngo_com_communitymaster where companyID = '{$companyID}' AND (isDeleted IS NULL OR isDeleted = '' OR isDeleted = 0) AND isActive='1' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
 
         $male_count = $this->db->query("SELECT COUNT(*) as malesCount FROM srp_erp_ngo_com_communitymaster where companyID = '{$companyID}' AND (isDeleted IS NULL OR isDeleted = '' OR isDeleted = 0) AND isActive='1' AND GenderID='1' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS")->row_array();
 
@@ -52,14 +52,14 @@ class CommunityNgoDashboard extends ERP_Controller
 
 
         //get Occupation-Wise
-        $data['OccupationBase'] = $this->db->query("SELECT srp_erp_ngo_com_occupationtypes.Description FROM  srp_erp_ngo_com_occupationtypes INNER JOIN srp_erp_ngo_com_memjobs ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_occupationtypes.OccTypeID ")->result_array();
-        $occupation_count = $this->db->query("SELECT COUNT(*) as occupationCount FROM  srp_erp_ngo_com_memjobs LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0'")->row_array();
-        $data['occupation_type1'] = $this->db->query("SELECT COUNT(*) as occType1,srp_erp_ngo_com_occupationtypes.Description FROM  srp_erp_ngo_com_memjobs LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='1'  $areaMemIdS  " . " $gsDivitnIdS")->row_array();
-        $data['occupation_type2'] = $this->db->query("SELECT COUNT(*) as occType2,srp_erp_ngo_com_occupationtypes.Description FROM  srp_erp_ngo_com_memjobs LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='2'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['occupation_type3'] = $this->db->query("SELECT COUNT(*) as occType3,srp_erp_ngo_com_occupationtypes.Description FROM  srp_erp_ngo_com_memjobs LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='3'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['occupation_type4'] = $this->db->query("SELECT COUNT(*) as occType4,srp_erp_ngo_com_occupationtypes.Description FROM  srp_erp_ngo_com_memjobs LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='4' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['occupation_type5'] = $this->db->query("SELECT COUNT(*) as occType5,srp_erp_ngo_com_occupationtypes.Description FROM  srp_erp_ngo_com_memjobs LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='5' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['occupation_type6'] = $this->db->query("SELECT COUNT(*) as occType6,srp_erp_ngo_com_occupationtypes.Description FROM  srp_erp_ngo_com_memjobs LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='6'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['OccupationBase'] = $this->db->query("SELECT srp_erp_ngo_com_occupationtypes.Description FROM srp_erp_ngo_com_occupationtypes INNER JOIN srp_erp_ngo_com_memjobs ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_occupationtypes.OccTypeID ")->result_array();
+        $occupation_count = $this->db->query("SELECT COUNT(*) as occupationCount FROM srp_erp_ngo_com_memjobs INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_memjobs.OccTypeID IN ('1','2','3','4','5','6') $areaMemIdS  " . " $gsDivitnIdS")->row_array();
+        $data['occupation_type1'] = $this->db->query("SELECT COUNT(*) as occType1,srp_erp_ngo_com_occupationtypes.Description FROM srp_erp_ngo_com_memjobs INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='1' $areaMemIdS  " . " $gsDivitnIdS")->row_array();
+        $data['occupation_type2'] = $this->db->query("SELECT COUNT(*) as occType2,srp_erp_ngo_com_occupationtypes.Description FROM srp_erp_ngo_com_memjobs INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='2' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['occupation_type3'] = $this->db->query("SELECT COUNT(*) as occType3,srp_erp_ngo_com_occupationtypes.Description FROM srp_erp_ngo_com_memjobs INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='3' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['occupation_type4'] = $this->db->query("SELECT COUNT(*) as occType4,srp_erp_ngo_com_occupationtypes.Description FROM srp_erp_ngo_com_memjobs INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='4' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['occupation_type5'] = $this->db->query("SELECT COUNT(*) as occType5,srp_erp_ngo_com_occupationtypes.Description FROM srp_erp_ngo_com_memjobs INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='5' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['occupation_type6'] = $this->db->query("SELECT COUNT(*) as occType6,srp_erp_ngo_com_occupationtypes.Description FROM srp_erp_ngo_com_memjobs INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_memjobs.Com_MasterID =srp_erp_ngo_com_communitymaster.Com_MasterID INNER JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_memjobs.OccTypeID=srp_erp_ngo_com_occupationtypes.OccTypeID WHERE srp_erp_ngo_com_memjobs.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isActive='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND comVerifiApproved='1' AND srp_erp_ngo_com_memjobs.OccTypeID='6' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
 
 
         $data['occupationTot'] = $occupation_count['occupationCount'];
@@ -70,26 +70,28 @@ class CommunityNgoDashboard extends ERP_Controller
         $delBlood = $this->db->query("SELECT BloodTypeID,BloodDescription FROM srp_erp_bloodgrouptype ORDER BY BloodTypeID ASC ");
         $res_bloodGrp = $delBlood->result();
         $BloodTypeIDs = array();
-        foreach($res_bloodGrp as $row_bloodGrps) {
+        foreach ($res_bloodGrp as $row_bloodGrps) {
             $BloodTypeIDs[] = $row_bloodGrps->BloodTypeID;
         }
 
         $BloodTypeID = "'" . implode("', '", $BloodTypeIDs) . "'";
 
-       // $data['loadBloodDes'] = $this->db->query("SELECT BloodTypeID,BloodDescription FROM srp_erp_bloodgrouptype WHERE BloodTypeID IN ($BloodTypeID) ORDER BY BloodTypeID ASC ")->result_array();
+        // $data['loadBloodDes'] = $this->db->query("SELECT BloodTypeID,BloodDescription FROM srp_erp_bloodgrouptype WHERE BloodTypeID IN ($BloodTypeID) ORDER BY BloodTypeID ASC ")->result_array();
 
-        $data['loadBloodCount'] = $this->db->query("SELECT COUNT(*) AS `NoOfGrpMem`,BloodDescription FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_ngo_com_communitymaster.BloodGroupID=srp_erp_bloodgrouptype.BloodTypeID WHERE companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND BloodGroupID IN ($BloodTypeID)  $areaMemIdS  " . " $gsDivitnIdS GROUP BY BloodGroupID")->result_array();
+        $data['loadBloodCount'] = $this->db->query("SELECT COUNT(*) AS `NoOfGrpMem`,BloodDescription FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_ngo_com_communitymaster.BloodGroupID=srp_erp_bloodgrouptype.BloodTypeID WHERE companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND BloodGroupID IN ($BloodTypeID) $areaMemIdS  " . " $gsDivitnIdS GROUP BY BloodGroupID
+        UNION SELECT COUNT(*) AS `NoOfGrpMem`,BloodDescription FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_ngo_com_communitymaster.BloodGroupID=srp_erp_bloodgrouptype.BloodTypeID WHERE companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND BloodGroupID NOT IN ($BloodTypeID) $areaMemIdS  " . " $gsDivitnIdS ")->result_array();
 
         //end of blood group counts
 
         //get Marital Status
-        $data['maritalBase'] = $this->db->query("SELECT srp_erp_ngo_com_maritalstatus.maritalstatus FROM  srp_erp_ngo_com_maritalstatus INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_maritalstatus.maritalstatusID ORDER BY srp_erp_ngo_com_maritalstatus.maritalstatusID DESC")->result_array();
-        $marital_count = $this->db->query("SELECT COUNT(*) as maritalStCount FROM  srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['maritalSt_type1'] = $this->db->query("SELECT COUNT(*) as merrType1,srp_erp_ngo_com_maritalstatus.maritalstatus FROM  srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='1'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['maritalSt_type2'] = $this->db->query("SELECT COUNT(*) as merrType2,srp_erp_ngo_com_maritalstatus.maritalstatus FROM  srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='2'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['maritalSt_type3'] = $this->db->query("SELECT COUNT(*) as merrType3,srp_erp_ngo_com_maritalstatus.maritalstatus FROM  srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='3'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['maritalSt_type4'] = $this->db->query("SELECT COUNT(*) as merrType4,srp_erp_ngo_com_maritalstatus.maritalstatus FROM  srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='4'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
-        $data['maritalSt_type5'] = $this->db->query("SELECT COUNT(*) as merrType5,srp_erp_ngo_com_maritalstatus.maritalstatus FROM  srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='5'  $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['maritalBase'] = $this->db->query("SELECT srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_maritalstatus INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_maritalstatus.maritalstatusID ORDER BY srp_erp_ngo_com_maritalstatus.maritalstatusID DESC")->result_array();
+        $marital_count = $this->db->query("SELECT COUNT(*) as maritalStCount FROM srp_erp_ngo_com_communitymaster WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['maritalSt_type1'] = $this->db->query("SELECT COUNT(*) as merrType1,srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='1' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['maritalSt_type2'] = $this->db->query("SELECT COUNT(*) as merrType2,srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='2' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['maritalSt_type3'] = $this->db->query("SELECT COUNT(*) as merrType3,srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='3' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['maritalSt_type4'] = $this->db->query("SELECT COUNT(*) as merrType4,srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='4' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['maritalSt_type5'] = $this->db->query("SELECT COUNT(*) as merrType5,srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_communitymaster INNER JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_communitymaster.CurrentStatus=srp_erp_ngo_com_maritalstatus.maritalstatusID WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus='5' $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
+        $data['maritalSt_type6'] = $this->db->query("SELECT COUNT(*) as merrType6 FROM srp_erp_ngo_com_communitymaster WHERE srp_erp_ngo_com_communitymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.CurrentStatus NOT IN ('1','2','3','4','5') $areaMemIdS  " . " $gsDivitnIdS ")->row_array();
 
 
         $data['maritalStCount'] = $marital_count['maritalStCount'];
@@ -99,21 +101,21 @@ class CommunityNgoDashboard extends ERP_Controller
         $query_ancesData = $this->db->query("SELECT DISTINCT AncestryCatID,AncestryDes FROM srp_erp_ngo_com_ancestrycategory");
         $res_ancesData = $query_ancesData->result();
         $AncestryCatID = array();
-        foreach($res_ancesData as $row_ancesData) {
+        foreach ($res_ancesData as $row_ancesData) {
             $AncestryCatID[] = $row_ancesData->AncestryCatID;
         }
 
         $AncestryCatIDS = "'" . implode("', '", $AncestryCatID) . "'";
 
         $data['loadFamAnces'] = $this->db->query("SELECT * FROM srp_erp_ngo_com_ancestrycategory WHERE AncestryCatID IN ($AncestryCatIDS)")->result_array();
-        $data['loadPerFamilyAnces'] = $this->db->query("SELECT COUNT(*) AS `count` FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_ngo_com_ancestrycategory ON srp_erp_ngo_com_ancestrycategory.AncestryCatID=srp_erp_ngo_com_familymaster.AncestryCatID WHERE srp_erp_ngo_com_familymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' AND srp_erp_ngo_com_familymaster.FamAncestory = '1' AND srp_erp_ngo_com_familymaster.AncestryCatID IN ($AncestryCatIDS) $areaMemIdS  " . " $gsDivitnIdS  GROUP BY srp_erp_ngo_com_familymaster.AncestryCatID")->result_array();
+        $data['loadPerFamilyAnces'] = $this->db->query("SELECT COUNT(*) AS `count` FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_ngo_com_ancestrycategory ON srp_erp_ngo_com_ancestrycategory.AncestryCatID=srp_erp_ngo_com_familymaster.AncestryCatID WHERE srp_erp_ngo_com_familymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' AND srp_erp_ngo_com_familymaster.FamAncestory = '1' AND srp_erp_ngo_com_familymaster.AncestryCatID IN ($AncestryCatIDS) $areaMemIdS  " . " $gsDivitnIdS  GROUP BY srp_erp_ngo_com_familymaster.AncestryCatID")->result_array();
         //end of Family Ancestry
 
         //get Econ State
         $query_econData = $this->db->query("SELECT EconStateID,EconStateDes,EconStateVal FROM srp_erp_ngo_com_familyeconomicstatemaster ORDER BY EconStateID DESC");
         $res_econData = $query_econData->result();
         $EconStateID = array();
-        foreach($res_econData as $row_econData) {
+        foreach ($res_econData as $row_econData) {
             $EconStateID[] = $row_econData->EconStateID;
         }
 
@@ -121,24 +123,21 @@ class CommunityNgoDashboard extends ERP_Controller
 
         $data['loadEconState'] = $this->db->query("SELECT * FROM srp_erp_ngo_com_familyeconomicstatemaster WHERE EconStateID IN ($EconStateIDS) ORDER BY EconStateID DESC")->result_array();
 
-        $data['loadPerEconState'] = $this->db->query("SELECT COUNT(*) AS `countComState` FROM srp_erp_ngo_com_familymaster LEFT JOIN srp_erp_ngo_com_familyeconomicstatemaster ON srp_erp_ngo_com_familymaster.ComEconSteID=srp_erp_ngo_com_familyeconomicstatemaster.EconStateID LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_familymaster.LeaderID=srp_erp_ngo_com_communitymaster.Com_MasterID WHERE srp_erp_ngo_com_familymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' AND srp_erp_ngo_com_familymaster.ComEconSteID IN ($EconStateIDS) $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_familymaster.ComEconSteID ORDER BY srp_erp_ngo_com_familymaster.ComEconSteID ASC")->result_array();
+        $data['loadPerEconState'] = $this->db->query("SELECT COUNT(*) AS `countComState` FROM srp_erp_ngo_com_familymaster LEFT JOIN srp_erp_ngo_com_familyeconomicstatemaster ON srp_erp_ngo_com_familymaster.ComEconSteID=srp_erp_ngo_com_familyeconomicstatemaster.EconStateID LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_familymaster.LeaderID=srp_erp_ngo_com_communitymaster.Com_MasterID WHERE srp_erp_ngo_com_familymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' AND srp_erp_ngo_com_familymaster.ComEconSteID IN ($EconStateIDS) $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_familymaster.ComEconSteID ORDER BY srp_erp_ngo_com_familymaster.ComEconSteID ASC")->result_array();
 
         //end of  Econ State
 
         $this->load->view('system/communityNgo/ajax/load_com_dash_mahalla', $data);
-
     }
 
     function get_family_details()
     {
 
         $FamMasterID = $this->input->post("FamMasterID");
-       // $famAreaId = $this->input->post("areaMemId");
+        // $famAreaId = $this->input->post("areaMemId");
 
         $this->load->model('CommunityNgo_dash_model');
         $this->CommunityNgo_dash_model->get_family_details($FamMasterID);
-
-
     }
 
     function commPayments_summery()
@@ -151,31 +150,29 @@ class CommunityNgoDashboard extends ERP_Controller
 
         if (isset($areaMemId) && !empty($areaMemId)) {
             $areaMemIdS = join($areaMemId, ",");
-        }
-        else{
-            $areaMemIdS='';
+        } else {
+            $areaMemIdS = '';
         }
         // var_dump($areaMemIdS);
 
         if (isset($gsDivitnId) && !empty($gsDivitnId)) {
             $gsDivitnIdS = join($gsDivitnId, ",");
-        }
-        else{
-            $gsDivitnIdS='';
+        } else {
+            $gsDivitnIdS = '';
         }
 
         $deleted = " AND srp_erp_ngo_com_familymaster.isDeleted = '0' ";
         $verifyDocApp = " AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'";
-        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID. $deleted.$verifyDocApp;
+        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID . $deleted . $verifyDocApp;
 
         $data['master'] = $this->db->query("SELECT *,srp_erp_ngo_com_communitymaster.SerialNo AS SerialNos,srp_erp_ngo_com_familymaster.createdDateTime,LedgerNo,srp_erp_ngo_com_familymaster.createdUserName,srp_erp_ngo_com_familymaster.modifiedDateTime,areac.stateID,areac.Description AS arDescription,divisionc.stateID,divisionc.Description AS diviDescription,srp_erp_ngo_com_maritalstatus.maritalstatusID,srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_bloodgrouptype.BloodTypeID = srp_erp_ngo_com_communitymaster.BloodGroupID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_maritalstatus.maritalstatusID = srp_erp_ngo_com_communitymaster.CurrentStatus WHERE $where  ")->row_array();
 
         //get last seven details of fee
-        $query_weekFeeData = $this->db->query("SELECT DISTINCT RVdate,receiptVoucherAutoId FROM srp_erp_customerreceiptmaster INNER JOIN srp_erp_customermaster ON srp_erp_customerreceiptmaster.customerID=srp_erp_customermaster.customerAutoID WHERE srp_erp_customerreceiptmaster.companyID = '".$companyID."' AND srp_erp_customermaster.communityMemberID IS NOT NULL  ORDER BY RVdate DESC LIMIT 7");
+        $query_weekFeeData = $this->db->query("SELECT DISTINCT RVdate,receiptVoucherAutoId FROM srp_erp_customerreceiptmaster INNER JOIN srp_erp_customermaster ON srp_erp_customerreceiptmaster.customerID=srp_erp_customermaster.customerAutoID WHERE srp_erp_customerreceiptmaster.companyID = '" . $companyID . "' AND srp_erp_customermaster.communityMemberID IS NOT NULL  ORDER BY RVdate DESC LIMIT 7");
         $res_weekFeeData = $query_weekFeeData->result();
         $receiptVouchID = array();
         $RVdate = array();
-        foreach($res_weekFeeData as $row_weekFeeData) {
+        foreach ($res_weekFeeData as $row_weekFeeData) {
             $receiptVouchID[] = $row_weekFeeData->receiptVoucherAutoId;
             $RVdate[] = $row_weekFeeData->RVdate;
         }
@@ -183,7 +180,7 @@ class CommunityNgoDashboard extends ERP_Controller
         $In_receiptVouchID = "'" . implode("', '", $receiptVouchID) . "'";
         $RVdateS = "'" . implode("', '", $RVdate) . "'";
 
-        $data['loadWeekFee'] = $this->db->query("SELECT * FROM srp_erp_customerreceiptmaster WHERE companyID = '".$companyID."' AND RVdate IN ($RVdateS) GROUP BY RVdate")->result_array();
+        $data['loadWeekFee'] = $this->db->query("SELECT * FROM srp_erp_customerreceiptmaster WHERE companyID = '" . $companyID . "' AND RVdate IN ($RVdateS) GROUP BY RVdate")->result_array();
         $data['loadPerWeekFee'] = $this->db->query("SELECT SUM(srp_erp_customerreceiptdetail.companyLocalAmount) AS recAmountPaid FROM srp_erp_customerreceiptdetail LEFT JOIN srp_erp_customerreceiptmaster ON srp_erp_customerreceiptdetail.receiptVoucherAutoId=srp_erp_customerreceiptmaster.receiptVoucherAutoId WHERE RVdate IN ($RVdateS) GROUP BY RVdate")->result_array();
         //end of last seven details of fee
 
@@ -192,34 +189,34 @@ class CommunityNgoDashboard extends ERP_Controller
 LEFT JOIN srp_erp_customerinvoicemaster ON srp_erp_customerreceiptdetail.invoiceAutoID=srp_erp_customerinvoicemaster.invoiceAutoID 
 LEFT JOIN srp_erp_customerreceiptmaster ON srp_erp_customerreceiptdetail.receiptVoucherAutoId=srp_erp_customerreceiptmaster.receiptVoucherAutoId 
  LEFT JOIN srp_erp_customermaster ON srp_erp_customermaster.customerAutoID = srp_erp_customerinvoicemaster.customerID
-WHERE srp_erp_customerreceiptdetail.companyID = '".$companyID."' AND srp_erp_customermaster.communityMemberID IS NOT NULL AND srp_erp_customerreceiptmaster.RVdate= CURDATE() GROUP BY srp_erp_customerinvoicemaster.invoiceNarration ORDER BY srp_erp_customerinvoicemaster.invoiceNarration DESC")->result_array();
+WHERE srp_erp_customerreceiptdetail.companyID = '" . $companyID . "' AND srp_erp_customermaster.communityMemberID IS NOT NULL AND srp_erp_customerreceiptmaster.RVdate= CURDATE() GROUP BY srp_erp_customerinvoicemaster.invoiceNarration ORDER BY srp_erp_customerinvoicemaster.invoiceNarration DESC")->result_array();
 
         $data['todayFeeDel'] = $this->db->query("SELECT SUM(srp_erp_customerreceiptdetail.companyLocalAmount) AS todayAmntPaid FROM srp_erp_customerreceiptdetail 
 LEFT JOIN srp_erp_customerinvoicemaster ON srp_erp_customerreceiptdetail.invoiceAutoID=srp_erp_customerinvoicemaster.invoiceAutoID  
 LEFT JOIN srp_erp_customerreceiptmaster ON srp_erp_customerreceiptdetail.receiptVoucherAutoId=srp_erp_customerreceiptmaster.receiptVoucherAutoId 
  LEFT JOIN srp_erp_customermaster ON srp_erp_customermaster.customerAutoID = srp_erp_customerinvoicemaster.customerID
-WHERE srp_erp_customerreceiptdetail.companyID = '".$companyID."' AND srp_erp_customermaster.communityMemberID IS NOT NULL AND srp_erp_customerreceiptmaster.RVdate= CURDATE() GROUP BY srp_erp_customerinvoicemaster.invoiceNarration ORDER BY srp_erp_customerinvoicemaster.invoiceNarration DESC")->result_array();
+WHERE srp_erp_customerreceiptdetail.companyID = '" . $companyID . "' AND srp_erp_customermaster.communityMemberID IS NOT NULL AND srp_erp_customerreceiptmaster.RVdate= CURDATE() GROUP BY srp_erp_customerinvoicemaster.invoiceNarration ORDER BY srp_erp_customerinvoicemaster.invoiceNarration DESC")->result_array();
 
         //end of today fee collection
         //get general ledger
 
         $data['glSumFeeDel'] = $this->db->query("SELECT DISTINCT srp_erp_customerinvoicemaster.invoiceNarration,srp_erp_customerinvoicemaster.companyID,srp_erp_customerinvoicemaster.invoiceAutoID,srp_erp_customermaster.communityMemberID FROM srp_erp_customerinvoicemaster 
  LEFT JOIN srp_erp_customermaster ON srp_erp_customermaster.customerAutoID = srp_erp_customerinvoicemaster.customerID
-WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_customermaster.communityMemberID IS NOT NULL GROUP BY srp_erp_customerinvoicemaster.invoiceNarration ORDER BY srp_erp_customerinvoicemaster.invoiceNarration DESC")->result_array();
+WHERE srp_erp_customerinvoicemaster.companyID = '" . $companyID . "' AND srp_erp_customermaster.communityMemberID IS NOT NULL GROUP BY srp_erp_customerinvoicemaster.invoiceNarration ORDER BY srp_erp_customerinvoicemaster.invoiceNarration DESC")->result_array();
 
         //end of general ledger
 
         $this->load->view('system/communityNgo/ajax/load_com_dash_mahalla_fees', $data);
-
     }
 
-    function get_mahalla_paymentsInfo(){
+    function get_mahalla_paymentsInfo()
+    {
 
         $date_from = $_POST['date_from'];
         $date_To = $_POST['date_To'];
 
         $this->load->model('CommunityNgo_dash_model');
-        $this->CommunityNgo_dash_model->get_mahallaPaymentsInfo($date_from,$date_To);
+        $this->CommunityNgo_dash_model->get_mahallaPaymentsInfo($date_from, $date_To);
     }
 
     function commGeneral_getData()
@@ -234,20 +231,18 @@ WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_cus
 
         if (isset($areaMemId) && !empty($areaMemId)) {
             $areaMemIdS = join($areaMemId, ",");
-        }
-        else{
-            $areaMemIdS='';
+        } else {
+            $areaMemIdS = '';
         }
         // var_dump($areaMemIdS);
 
         if (isset($gsDivitnId) && !empty($gsDivitnId)) {
             $gsDivitnIdS = join($gsDivitnId, ",");
-        }
-        else{
-            $gsDivitnIdS='';
+        } else {
+            $gsDivitnIdS = '';
         }
 
-        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID ;
+        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID;
 
         $data['masterCom'] = $this->db->query("SELECT * FROM srp_erp_ngo_com_communitymaster WHERE $where AND isDeleted='0' AND comVerifiApproved='1' ")->row_array();
 
@@ -266,16 +261,16 @@ WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_cus
         //end of rental
 
         //get zakat progress
-        $data['zakatBeneficiary'] = $this->db->query("SELECT * FROM srp_erp_ngo_projects INNER JOIN srp_erp_ngo_beneficiarymaster ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_projects.companyID = '".$companyID."' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL GROUP BY srp_erp_ngo_beneficiarymaster.projectID ORDER BY srp_erp_ngo_beneficiarymaster.projectID DESC")->result_array();
+        $data['zakatBeneficiary'] = $this->db->query("SELECT * FROM srp_erp_ngo_projects INNER JOIN srp_erp_ngo_beneficiarymaster ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_projects.companyID = '" . $companyID . "' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL GROUP BY srp_erp_ngo_beneficiarymaster.projectID ORDER BY srp_erp_ngo_beneficiarymaster.projectID DESC")->result_array();
 
-        $data['totFemAddedtoBen'] = $this->db->query("SELECT COUNT(*) as totFemAddedBen FROM srp_erp_ngo_beneficiarymaster INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_beneficiarymaster.companyID = '".$companyID."' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL")->row_array();
-        $data['totConfirmed'] = $this->db->query("SELECT COUNT(*) as totConfirmed,benificiaryID,projectID,srp_erp_ngo_projects.documentSystemCode,srp_erp_ngo_projects.projectName FROM srp_erp_ngo_beneficiarymaster INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_beneficiarymaster.companyID = '".$companyID."' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.confirmedYN='1' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL ")->row_array();
-        $data['totNotConfirmed'] = $this->db->query("SELECT COUNT(*) as totNotConfirmed,benificiaryID,projectID,srp_erp_ngo_projects.documentSystemCode,srp_erp_ngo_projects.projectName FROM srp_erp_ngo_beneficiarymaster INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_beneficiarymaster.companyID = '".$companyID."' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.confirmedYN='0' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL")->row_array();
+        $data['totFemAddedtoBen'] = $this->db->query("SELECT COUNT(*) as totFemAddedBen FROM srp_erp_ngo_beneficiarymaster INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_beneficiarymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL")->row_array();
+        $data['totConfirmed'] = $this->db->query("SELECT COUNT(*) as totConfirmed,benificiaryID,projectID,srp_erp_ngo_projects.documentSystemCode,srp_erp_ngo_projects.projectName FROM srp_erp_ngo_beneficiarymaster INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_beneficiarymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.confirmedYN='1' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL ")->row_array();
+        $data['totNotConfirmed'] = $this->db->query("SELECT COUNT(*) as totNotConfirmed,benificiaryID,projectID,srp_erp_ngo_projects.documentSystemCode,srp_erp_ngo_projects.projectName FROM srp_erp_ngo_beneficiarymaster INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_beneficiarymaster.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_beneficiarymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template' AND srp_erp_ngo_beneficiarymaster.confirmedYN='0' AND srp_erp_ngo_beneficiarymaster.Com_MasterID IS NOT NULL")->row_array();
 
 
-       $data['totZakatProposals'] = $this->db->query("SELECT COUNT(*) as totZakatProposal FROM srp_erp_ngo_projectproposals ppm LEFT JOIN srp_erp_ngo_status st ON ppm.status = st.statusID LEFT JOIN srp_erp_ngo_projects ON ppm.projectID=srp_erp_ngo_projects.ngoProjectID WHERE ppm.companyID={$companyID} AND st.documentID = 6 AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template'")->row_array();
+        $data['totZakatProposals'] = $this->db->query("SELECT COUNT(*) as totZakatProposal FROM srp_erp_ngo_projectproposals ppm LEFT JOIN srp_erp_ngo_status st ON ppm.status = st.statusID LEFT JOIN srp_erp_ngo_projects ON ppm.projectID=srp_erp_ngo_projects.ngoProjectID WHERE ppm.companyID={$companyID} AND st.documentID = 6 AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template'")->row_array();
 
-       // $data['totZakatProposals'] = $this->db->query("SELECT COUNT(*) as totZakatProposal FROM srp_erp_ngo_projectproposals INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_projectproposals.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_projectproposals.companyID = '".$companyID."' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template'")->row_array();
+        // $data['totZakatProposals'] = $this->db->query("SELECT COUNT(*) as totZakatProposal FROM srp_erp_ngo_projectproposals INNER JOIN srp_erp_ngo_projects ON srp_erp_ngo_projectproposals.projectID=srp_erp_ngo_projects.ngoProjectID WHERE srp_erp_ngo_projectproposals.companyID = '".$companyID."' AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template'")->row_array();
 
         $data['ZakatProposeList'] = $this->db->query("SELECT ppm.proposalID,ppm.projectID,ppm.proposalTitle,ppm.documentSystemCode,ppm.proposalName,DATE_FORMAT(ppm.DocumentDate,'{$convertFormat}') AS DocumentDate,st.description as statusName,ppm.confirmedYN,ppm.approvedYN as approvedYN,ppm.createdUserID FROM srp_erp_ngo_projectproposals ppm LEFT JOIN srp_erp_ngo_status st ON ppm.status = st.statusID LEFT JOIN srp_erp_ngo_projects ON ppm.projectID=srp_erp_ngo_projects.ngoProjectID WHERE ppm.companyID={$companyID} AND st.documentID = 6 AND srp_erp_ngo_projects.templateID='beneficiary_feed_zakat_template'  ORDER BY ppm.proposalID DESC")->result_array();
 
@@ -297,14 +292,12 @@ WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_cus
         //end of renting progress
 
         $this->load->view('system/communityNgo/ajax/load_com_dash_mahalla_other', $data);
-
     }
 
     function comMahalla_findPeople()
     {
 
         $this->load->view('system/communityNgo/ajax/load_com_dash_mahalla_findPeople');
-
     }
 
     function load_mahallaPeople_srchPersonDel()
@@ -321,17 +314,14 @@ WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_cus
             $search_string = " ((MemberCode Like '%" . $text . "%') OR (CName_with_initials Like '%" . $text . "%') OR (division.Description Like '%" . $text . "%') OR (area.Description Like '%" . $text . "%') OR (CNIC_No Like '%" . $text . "%') OR (CONCAT(TP_home,TP_Mobile) Like '%" . $text . "%'))";
         }
 
-        $where = $search_string ;
-        if($where){
+        $where = $search_string;
+        if ($where) {
             $data['srchPeopleDel'] = $this->db->query("SELECT *,srp_erp_ngo_com_communitymaster.Com_MasterID,DATE_FORMAT(CDOB,'{$convertFormat}') AS CDOBs,srp_erp_gender.name AS genderName,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,area.Description AS Region ,division.Description AS GS_Division,srp_erp_ngo_com_maritalstatus.maritalstatusID,srp_erp_ngo_com_maritalstatus.maritalstatus,BloodDescription FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_titlemaster ON srp_titlemaster.TitleID = srp_erp_ngo_com_communitymaster.TitleID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster division ON division.stateID = srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster area ON area.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_maritalstatus.maritalstatusID = srp_erp_ngo_com_communitymaster.CurrentStatus LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_ngo_com_communitymaster.BloodGroupID=srp_erp_bloodgrouptype.BloodTypeID WHERE srp_erp_ngo_com_communitymaster.companyID ={$companyID} AND comVerifiApproved='1' AND srp_erp_ngo_com_communitymaster.isDeleted='0' AND $where ")->result_array();
-
-        }
-        else{
-            $data['srchPeopleDel']='';
+        } else {
+            $data['srchPeopleDel'] = '';
         }
 
         $this->load->view('system/communityNgo/ajax/load_com_dash_mahalla_findPeople_result', $data);
-
     }
 
     function load_beneficiary_family_del()
@@ -340,14 +330,12 @@ WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_cus
         $projectID = trim($this->input->post('projectID'));
 
         $confirmState = trim($this->input->post('confirmState'));
-        if($confirmState ==2){
-            $conform= 0;
-        }
-        else if($confirmState ==1){
-            $conform=1;
-        }
-       else{
-        $conform='';
+        if ($confirmState == 2) {
+            $conform = 0;
+        } else if ($confirmState == 1) {
+            $conform = 1;
+        } else {
+            $conform = '';
         }
 
         $companyID = current_companyID();
@@ -424,7 +412,8 @@ WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_cus
 
     }
 
-    function load_rentingPro_del(){
+    function load_rentingPro_del()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
 
@@ -447,7 +436,8 @@ WHERE srp_erp_customerinvoicemaster.companyID = '".$companyID."' AND srp_erp_cus
         //  }
     }
 
-    function load_houseEnrolling_del(){
+    function load_houseEnrolling_del()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
 
@@ -469,7 +459,7 @@ LEFT JOIN srp_erp_ngo_com_familymaster fm ON fm.FamMasterID = hEnr.FamMasterID
 LEFT JOIN srp_erp_ngo_com_house_ownership_master onrSp ON onrSp.ownershipAutoID = hEnr.ownershipAutoID
 LEFT JOIN srp_erp_ngo_com_house_type_master tpMas ON tpMas.hTypeAutoID = hEnr.hTypeAutoID
 LEFT JOIN srp_erp_ngo_com_communitymaster cm ON cm.Com_MasterID = fm.LeaderID
-WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHouseSt IS NULL) AND (fm.isDeleted = '0' OR fm.isDeleted IS NULL) AND cm.comVerifiApproved='1' AND (cm.isDeleted = '0' OR cm.isDeleted IS NULL) AND cm.comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS  ORDER BY hEnr.hEnrollingID")->result_array();
+WHERE hEnr.companyID = '" . $companyID . "' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHouseSt IS NULL) AND (fm.isDeleted = '0' OR fm.isDeleted IS NULL) AND cm.comVerifiApproved='1' AND (cm.isDeleted = '0' OR cm.isDeleted IS NULL) AND cm.comVerifiApproved='1' $areaMemIdS  " . " $gsDivitnIdS  ORDER BY hEnr.hEnrollingID")->result_array();
 
         $data["type"] = "html";
         $html = $this->load->view('system/communityNgo/ajax/load_com_dash_other_housingDel.php', $data, true);
@@ -482,7 +472,8 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
         //  }
     }
 
-    function load_houseEnrolling_del_pdf(){
+    function load_houseEnrolling_del_pdf()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
 
@@ -504,12 +495,12 @@ LEFT JOIN srp_erp_ngo_com_familymaster fm ON fm.FamMasterID = hEnr.FamMasterID
 LEFT JOIN srp_erp_ngo_com_house_ownership_master onrSp ON onrSp.ownershipAutoID = hEnr.ownershipAutoID
 LEFT JOIN srp_erp_ngo_com_house_type_master tpMas ON tpMas.hTypeAutoID = hEnr.hTypeAutoID
 LEFT JOIN srp_erp_ngo_com_communitymaster cm ON cm.Com_MasterID = fm.LeaderID
-WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHouseSt IS NULL) AND (fm.isDeleted = '0' OR fm.isDeleted IS NULL) AND cm.comVerifiApproved='1' AND(cm.isDeleted = '0' OR cm.isDeleted IS NULL) AND cm.comVerifiApproved ='1' $areaMemIdS  " . " $gsDivitnIdS  ORDER BY hEnr.hEnrollingID")->result_array();
+WHERE hEnr.companyID = '" . $companyID . "' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHouseSt IS NULL) AND (fm.isDeleted = '0' OR fm.isDeleted IS NULL) AND cm.comVerifiApproved='1' AND(cm.isDeleted = '0' OR cm.isDeleted IS NULL) AND cm.comVerifiApproved ='1' $areaMemIdS  " . " $gsDivitnIdS  ORDER BY hEnr.hEnrollingID")->result_array();
 
-          $data["type"] = "pdf";
-          $html = $this->load->view('system/communityNgo/ajax/load_com_dash_other_housingDel', $data, true);
-          $this->load->library('pdf');
-          $pdf = $this->pdf->printed($html, 'A4');
+        $data["type"] = "pdf";
+        $html = $this->load->view('system/communityNgo/ajax/load_com_dash_other_housingDel', $data, true);
+        $this->load->library('pdf');
+        $pdf = $this->pdf->printed($html, 'A4');
     }
 
     //area filtering
@@ -530,10 +521,9 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
         echo '<option value="">Select a Jammiyah Division</option>';
         if (!empty($division)) {
             foreach ($division as $row) {
-                if((!empty($stateGet) && $stateGet->type == 3 && $stateGet->divisionTypeCode =='JD') && ($stateGet->stateID == $row['stateID'])){
+                if ((!empty($stateGet) && $stateGet->type == 3 && $stateGet->divisionTypeCode == 'JD') && ($stateGet->stateID == $row['stateID'])) {
                     echo '<option value="' . trim($row['stateID']) . '" selected="selected">' . trim($row['Description']) . '</option>';
-                }
-                else {
+                } else {
                     echo '<option value="' . trim($row['stateID']) . '">' . trim($row['Description']) . '</option>';
                 }
             }
@@ -551,8 +541,9 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
 
     //community relevant modal popup
 
-      /*community members */
-    function load_comMembers_del(){
+    /*community members */
+    function load_comMembers_del()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
 
@@ -582,7 +573,8 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
         //  }
     }
 
-    function load_comMembers_del_pdf(){
+    function load_comMembers_del_pdf()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
 
@@ -608,7 +600,8 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
     }
 
     /*community families */
-    function load_comFamilies_del(){
+    function load_comFamilies_del()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
         $convertFormat = convert_date_format_sql();
@@ -626,7 +619,7 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
             $gsDivitnIdS = "AND srp_erp_ngo_com_communitymaster.GS_Division IN(" . join(',', $gsDivitnId) . ")";
         }
 
-        $data['comuFamilies'] = $this->db->query("SELECT srp_erp_ngo_com_familymaster.companyID,srp_erp_ngo_com_familymaster.createdUserID,LeaderID,FamilyCode,FamilyName,confirmedYN,srp_erp_ngo_com_familymaster.FamMasterID,FamilySystemCode,DATE_FORMAT(FamilyAddedDate,'{$convertFormat}') AS FamilyAddedDate, LedgerNo, CName_with_initials,FamAncestory,ComEconSteID,TP_home,TP_Mobile FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster on Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID  WHERE srp_erp_ngo_com_familymaster.companyID = '".$companyID."' AND srp_erp_ngo_com_familymaster.isDeleted = '0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' $areaMemIdS  " . " $gsDivitnIdS ORDER BY FamMasterID DESC")->result_array();
+        $data['comuFamilies'] = $this->db->query("SELECT srp_erp_ngo_com_familymaster.companyID,srp_erp_ngo_com_familymaster.createdUserID,LeaderID,FamilyCode,FamilyName,confirmedYN,srp_erp_ngo_com_familymaster.FamMasterID,FamilySystemCode,DATE_FORMAT(FamilyAddedDate,'{$convertFormat}') AS FamilyAddedDate, LedgerNo, CName_with_initials,FamAncestory,ComEconSteID,TP_home,TP_Mobile FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster on Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID  WHERE srp_erp_ngo_com_familymaster.companyID = '" . $companyID . "' AND srp_erp_ngo_com_familymaster.isDeleted = '0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' $areaMemIdS  " . " $gsDivitnIdS ORDER BY FamMasterID DESC")->result_array();
 
         $data["type"] = "html";
         $html = $this->load->view('system/communityNgo/ajax/load_com_dash_other_familiesDel.php', $data, true);
@@ -640,7 +633,8 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
     }
 
     /*community committees */
-    function load_comCommittees_del(){
+    function load_comCommittees_del()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
 
@@ -658,11 +652,11 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
         $data["type"] = "html";
         $html = $this->load->view('system/communityNgo/ajax/load_com_dash_other_committeesDel.php', $data, true);
         echo $html;
-
     }
 
     /*community a family members */
-    function load_comFamMembers_del(){
+    function load_comFamMembers_del()
+    {
 
         $companyID = $this->common_data['company_data']['company_id'];
         $FamMasterID = trim($this->input->post('FamMasterID'));
@@ -670,7 +664,7 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
         $WhereFamMasterID = " AND FamMasterID = '" . $FamMasterID . "' ";
         $deleted = " AND srp_erp_ngo_com_familymaster.isDeleted = '0' ";
         $verifyDocApp = " AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'";
-        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID . $WhereFamMasterID. $deleted.$verifyDocApp;
+        $where = "srp_erp_ngo_com_communitymaster.companyID = " . $companyID . $WhereFamMasterID . $deleted . $verifyDocApp;
 
         $data['master'] = $this->db->query("SELECT *,srp_erp_ngo_com_communitymaster.SerialNo AS SerialNos,srp_erp_ngo_com_familymaster.createdDateTime,LedgerNo,srp_erp_ngo_com_familymaster.createdUserName,srp_erp_ngo_com_familymaster.modifiedDateTime,areac.stateID,areac.Description AS arDescription,divisionc.stateID,divisionc.Description AS diviDescription,srp_erp_ngo_com_maritalstatus.maritalstatusID,srp_erp_ngo_com_maritalstatus.maritalstatus FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_bloodgrouptype.BloodTypeID = srp_erp_ngo_com_communitymaster.BloodGroupID LEFT JOIN srp_erp_statemaster divisionc ON divisionc.stateID= srp_erp_ngo_com_communitymaster.GS_Division LEFT JOIN srp_erp_statemaster areac ON areac.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_maritalstatus ON srp_erp_ngo_com_maritalstatus.maritalstatusID = srp_erp_ngo_com_communitymaster.CurrentStatus WHERE $where  ")->row_array();
 
@@ -695,10 +689,9 @@ WHERE hEnr.companyID = '".$companyID."' AND (hEnr.FamHouseSt = '0' OR hEnr.FamHo
         $html = $this->load->view('system/communityNgo/ajax/load_com_dash_other_aFamMembersDel.php', $data, true);
 
         echo $html;
-
     }
 
-   //end of community relevant modal popup
+    //end of community relevant modal popup
 
 }
 
