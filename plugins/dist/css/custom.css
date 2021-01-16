@@ -388,6 +388,9 @@ table.dataTable.table-condensed thead > tr > th {
 .mb-3{
     margin-bottom: 10px !important;
 }
+.mt-2{
+    margin-top: 5px;
+}
 .font-weight-500 {
     font-weight: 500;
 }
@@ -415,4 +418,35 @@ table.dataTable.table-condensed thead > tr > th {
 }
 .bg-secondary{
     background-color: #e6e6e6;
+}
+
+/***************forms*************************/
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {  
+    padding-top: 8px !important;
+    padding-left: 5px !important;
+    height: 40px;
+    background: rgb(255, 255, 255);
+    border: solid 1px #e8e8e8 !important;
+    border-radius: 4px !important;
+}
+.set-form-style .form-control {
+    height: 40px;
+    background: rgb(255, 255, 255);
+    border: solid 1px #e8e8e8 !important;
+    border-radius: 4px !important;
+    padding-left: 15px;
+}
+.head-title h2 {
+    margin: 0;
+    font-size: 15px;
+    line-height: 14px;
+    text-transform: inherit;
+    display: inline-block;
+    padding: 0 8px 0 5px;
+    background: #fff;
+    white-space: nowrap;
+    font-weight: 600;
+}
+.skin-black-light .main-header>.navbar .navbar-custom-menu .navbar-nav>li>a, .skin-black-light .main-header>.navbar .navbar-right>li>a {
+    border-left: 1px solid transparent !important;
 }

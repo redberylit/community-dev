@@ -113,7 +113,7 @@ $countryid = $Countrys['countryCode'];
 </div>
 
 <hr>
-<div class="tab-content">
+<div class="tab-content set-form-style">
     <div id="step1" class="tab-pane active">
         <?php echo form_open('', 'role="form" id="CommunityMaster_Form"'); ?>
 

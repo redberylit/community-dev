@@ -387,11 +387,11 @@ $csrf = array(
                                                 <form method="post" name="form_dash_famDivi" id="form_dash_famDivi" class="form-horizontal">
 
                                                 <div class="col-md-12" id="">
-                                                    <div class="col-sm-8">
+                                                    <div class="col-sm-7">
                                                         <h4 class="txt-dashboard"><?php echo $this->lang->line('comNgo_dash_dashboard'); ?></h4>
                                                     </div>
 
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-5">
                                                         <div class="row">
                                                              <div class="col-sm-5">
                                                                 <label class="title"><?php echo $this->lang->line('communityngo_region'); ?><!--Area--></label>
@@ -404,7 +404,7 @@ $csrf = array(
                                                                     <?php echo form_dropdown('gsDivitnId', $comDivision, '', 'class="form-control select2 pull-right" id="gsDivitnId" multiple=""'); ?>
 
                                                             </div>
-                                                            <div class="col-sm-2">
+                                                            <div class="col-sm-2 mt-2">
                                                                 <label style="color: transparent;">lable</label>
                                                                 <button class="btn btn-primary btn-sm btn-flat hvr-underline-from-left" onclick="reload_MHdashboard();" type="button" id="getGenDel" value="" style="" data-toggle="tooltip" title="Search"><i class="fa fa-search"></i></button>
                                                             </div>

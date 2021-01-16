@@ -185,10 +185,10 @@ $csrf = array(
                 </tr>
             </table>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-3 text-center">
             &nbsp;
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <a href="#" type="button" class="btn btn-success pull-right btn-sm CA_Print_Excel_btn" onclick="excel_Export()">
                 <i class="fa fa-file-excel-o"></i> Excel
             </a>
