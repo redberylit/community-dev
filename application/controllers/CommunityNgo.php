@@ -2884,59 +2884,66 @@ WHERE  cm.isDeleted = 0 AND cm.comVerifiApproved='1' AND cm.isActive = 1 AND cm.
     function load_familyMasterView()
     {
         $companyID = $this->common_data['company_data']['company_id'];
-        $text = trim($this->input->post('femKey'));
-        $sorting = trim($this->input->post('filtervalue'));
-        $AncestryArr = $this->input->post('AncestId');
-        $GS_DivisionArr = $this->input->post('GS_Division');
-        $GenderIDArr = $this->input->post('GenderID');
-        $RegionIDArr = $this->input->post('RegionID');
-        $isDeleted = $this->input->post('isDeleted');
+  
         $convertFormat = convert_date_format_sql();
 
         $gender_filter = "";
-        if (!empty($GenderIDArr)) {
-            $gender_filter = 'AND srp_erp_ngo_com_communitymaster.GenderID IN (' . join(",", $GenderIDArr) . ' )';
-        }
-
-
         $region_filter = "";
-        if (!empty($RegionIDArr)) {
-            $region_filter = 'AND srp_erp_ngo_com_communitymaster.RegionID IN (' . join(",", $RegionIDArr) . ' )';
-        }
-
         $division_filter = "";
-        if (!empty($GS_DivisionArr)) {
-            $division_filter = 'AND srp_erp_ngo_com_communitymaster.GS_Division IN (' . join(",", $GS_DivisionArr) . ' )';
-        }
-
         $ancestory_filter = "";
-        if (!empty($AncestryArr)) {
-            $ancestory_filter = 'AND srp_erp_ngo_com_familymaster.FamAncestory IN (' . join(",", $AncestryArr) . ' )';
-        }
-
         $isDeleted_filter = "";
-        if (!empty($isDeleted)) {
-            $isDeleted_filter = 'AND srp_erp_ngo_com_familymaster.isDeleted IN (' . join(",", $isDeleted) . ' )';
+
+        $GenderID = $this->input->post('GenderID');
+        if (!empty($GenderID) && $GenderID != 'null') {
+            $GenderID = array($this->input->post('GenderID'));
+            $whereIN = "( " . join("' , '", $GenderID) . " )";
+            $gender_filter = " AND srp_erp_ngo_com_communitymaster.GenderID IN " . $whereIN;
         }
 
-
-        $filter_string = '';
-        if (isset($text) && !empty($text)) {
-            $filter_string = " AND ((FamilySystemCode Like '%" . $text . "%') OR (FamilyName Like '%" . $text . "%') OR (LedgerNo Like '%" . $text . "%') OR (CName_with_initials Like '%" . $text . "%') OR (FamilyCode Like '%" . $text . "%') OR (CONCAT(TP_home,TP_Mobile) Like '%" . $text . "%'))";
+        $RegionID = $this->input->post('RegionID');
+        if (!empty($RegionID) && $RegionID != 'null') {
+            $RegionID = array($this->input->post('RegionID'));
+            $whereIN = "( " . join("' , '", $RegionID) . " )";
+            $region_filter = " AND srp_erp_ngo_com_communitymaster.RegionID IN " . $whereIN;
         }
-        $filter_sorting = '';
-        if (isset($sorting) && $sorting != '#') {
-            $filter_sorting = " AND FamilyName Like '" . $sorting . "%'";
+
+        $GS_Division = $this->input->post('GS_Division');
+        if (!empty($GS_Division) && $GS_Division != 'null') {
+            $GS_Division = array($this->input->post('GS_Division'));
+            $whereIN = "( " . join("' , '", $GS_Division) . " )";
+            $division_filter = " AND srp_erp_ngo_com_communitymaster.GS_Division IN " . $whereIN;
+        }
+
+        $AncestId = $this->input->post('AncestId');
+        if (!empty($AncestId) && $AncestId != 'null') {
+            $AncestId = array($this->input->post('AncestId'));
+            $whereIN = "( " . join("' , '", $AncestId) . " )";
+            $ancestory_filter = " AND srp_erp_ngo_com_familymaster.FamAncestory IN " . $whereIN;
+        }
+
+        $isDeleted = $this->input->post('isDeleted');
+        if (!empty($isDeleted) && $isDeleted != 'null') {
+            $isDeleted = array($this->input->post('isDeleted'));
+            $whereIN = "( " . join("' , '", $isDeleted) . " )";
+            $ancestory_filter = " AND srp_erp_ngo_com_familymaster.isDeleted IN " . $whereIN;
         }
 
         $verifyDocApp = " AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1'";
 
-        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $filter_string . $filter_sorting . $gender_filter . $region_filter . $division_filter . $ancestory_filter . $isDeleted_filter . $verifyDocApp;
+        $where = "srp_erp_ngo_com_familymaster.companyID = " . $companyID . $gender_filter . $region_filter . $division_filter . $ancestory_filter . $isDeleted_filter . $verifyDocApp;
 
-        $data['familyMas'] = $this->db->query("SELECT srp_erp_ngo_com_familymaster.companyID,srp_erp_ngo_com_familymaster.createdUserID,srp_erp_ngo_com_familymaster.LeaderID,srp_erp_ngo_com_familymaster.FamilyCode,srp_erp_ngo_com_familymaster.FamilyName,confirmedYN,srp_erp_ngo_com_familymaster.FamMasterID,FamilySystemCode,DATE_FORMAT(FamilyAddedDate,'{$convertFormat}') AS FamilyAddedDate, LedgerNo, CName_with_initials,FamAncestory,ComEconSteID,TP_home,TP_Mobile FROM srp_erp_ngo_com_familymaster INNER JOIN srp_erp_ngo_com_communitymaster on Com_MasterID=srp_erp_ngo_com_familymaster.LeaderID  WHERE $where ORDER BY FamMasterID DESC")->result_array();
-
-
-        $this->load->view('system/communityNgo/ajax/load_com_ngo_families.php', $data);
+        $this->datatables->select("srp_erp_ngo_com_familymaster.FamMasterID AS FamMasterID,FamilyCode,srp_erp_ngo_com_familymaster.createdUserID AS createdUserID,srp_erp_ngo_com_familymaster.LeaderID,,FamilyName,confirmedYN,FamilySystemCode
+        ,DATE_FORMAT(FamilyAddedDate,'{$convertFormat}') AS FamilyAddedDate, LedgerNo, CName_with_initials,IF(FamAncestory = 0, 'Local', 'Outside') AS famAncesState,srp_erp_ngo_com_house_enrolling.hEnrollingID,srp_erp_ngo_com_familymaster.companyID AS companyID");
+        $this->datatables->join('srp_erp_ngo_com_communitymaster', '(srp_erp_ngo_com_communitymaster.Com_MasterID = srp_erp_ngo_com_familymaster.LeaderID)', 'inner');
+        $this->datatables->join('srp_erp_ngo_com_house_enrolling', '(srp_erp_ngo_com_house_enrolling.FamMasterID = srp_erp_ngo_com_familymaster.FamMasterID)', 'left');
+        $this->datatables->from('srp_erp_ngo_com_familymaster');
+        $this->datatables->add_column('FamilySystemCode', '$1', 'fetch_family_page(FamMasterID,FamilySystemCode,FamilyName)');
+        $this->datatables->add_column('memTotalStatus', '$1', 'famMembers_total_status(FamMasterID,FamilySystemCode,FamilyName,companyID)');
+        $this->datatables->add_column('houseEnrollStatus', '$1', 'famHouse_enroll_status(FamMasterID,companyID)');
+        $this->datatables->where($where);
+        $this->datatables->add_column('famStatus', '$1', 'family_confirm_status(confirmedYN)');
+        $this->datatables->add_column('editFamily', '$1', 'load_com_family_actions(FamMasterID,FamilySystemCode,FamilyName,confirmedYN,createdUserID,companyID)');
+        echo $this->datatables->generate();
     }
 
     function load_ngoFamilyHeader()

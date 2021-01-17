@@ -956,7 +956,6 @@ if (!function_exists('receivable_gl_drop')) {
     }
 }
 
-
 /*community master */
 if (!function_exists('fetch_comMaster_lead')) {
 
@@ -969,6 +968,129 @@ if (!function_exists('fetch_comMaster_lead')) {
         return $data;
     }
 }
+
+/*start of family table load */
+
+if (!function_exists('fetch_family_page')) {
+    function fetch_family_page($FamMasterID, $FamilySystemCode, $FamilyName)
+    {
+
+        $data = '<a href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyMaster_view\',' . $FamMasterID . ',\'View Family - ' . $FamilySystemCode . ' | ' . $FamilyName . '\',\'NGO\')">' . $FamilySystemCode . '</a>';
+        return $data;
+    }
+}
+
+if (!function_exists('family_confirm_status')) {
+    function family_confirm_status($confirmedYN)
+    {
+        $famStatus = '<center>';
+        if ($confirmedYN == 1) {
+            $famStatus .= '<span class="label label-success">&nbsp;</span>';
+        } else {
+            $famStatus .= '<span class="label label-danger">&nbsp;</span>';
+        }
+        $famStatus .= '</center>';
+
+        return $famStatus;
+    }
+}
+
+if (!function_exists('famMembers_total_status')) {
+    function famMembers_total_status($FamMasterID, $FamilySystemCode, $FamilyName, $companyID)
+    {
+
+        $CI = &get_instance();
+        $queryFM4 = $CI->db->query("SELECT Com_MasterID FROM srp_erp_ngo_com_familydetails WHERE FamMasterID ='" . $FamMasterID . "' AND companyID='" . $companyID . "'");
+        $rowFM4 = $queryFM4->result();
+        $totalMm = 1;
+        foreach ($rowFM4 as $resFM4) {
+            $totMm = $totalMm++;
+        }
+        if (empty($rowFM4)) {
+            $totMms = '0';
+        } else {
+            $totMms = $totMm;
+        }
+
+        $memTotalStatus = '<center>';
+
+        $memTotalStatus .= '<span data-toggle="tooltip" title="Total Members Of The Family" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyMaster_view\',' . $FamMasterID . ',\'View Family\',\'NGO\')" style="background-color: lightgrey; color: black;font-size: 11px;" class="badge"><b>' . $totMms . '</b></span>';
+
+        $memTotalStatus .= '</center>';
+
+        return $memTotalStatus;
+    }
+}
+
+if (!function_exists('famHouse_enroll_status')) {
+    function famHouse_enroll_status($FamMasterID, $companyID)
+    {
+
+        $CI = &get_instance();
+        $qmHousing = $CI->db->query("SELECT FamMasterID FROM srp_erp_ngo_com_house_enrolling WHERE FamMasterID ='" . $FamMasterID . "' AND companyID='" . $companyID . "'");
+        $datHousing = $qmHousing->row();
+
+        $houseEnrollStatus = '<center>';
+        if (!empty($datHousing)) {
+            $houseEnrollStatus .= '<a href="#" style="font-size:14px;"><span title="Enrolled" style="color: green;" rel="tooltip" class="fa fa-home" data-original-title="Enrolled"></span></a>';
+        } else {
+            $houseEnrollStatus .= '<a href="#" style="font-size:14px;"><span title="Not Enrolled" style="color: red;" rel="tooltip" class="fa fa-home" data-original-title="Not Enrolled"></span></a>';
+        }
+        $houseEnrollStatus .= '</center>';
+
+        return $houseEnrollStatus;
+    }
+}
+
+if (!function_exists('load_com_family_actions')) { /*get family action list*/
+    function load_com_family_actions($FamMasterID, $FamilySystemCode, $FamilyName, $confirmedYN, $createdUserID, $companyID)
+    {
+
+        $CI = &get_instance();
+
+        $qmEMin = $CI->db->query("SELECT Com_MasterID FROM srp_erp_ngo_com_familydetails WHERE FamMasterID='" . $FamMasterID . "' AND companyID='" . $companyID . "'");
+        $datMemIn = $qmEMin->row();
+
+        $queryFM4 = $CI->db->query("SELECT Com_MasterID FROM srp_erp_ngo_com_familydetails WHERE FamMasterID ='" . $FamMasterID . "' AND companyID='" . $companyID . "'");
+        $rowFM4 = $queryFM4->result();
+        $femMem2 = array();
+        foreach ($rowFM4 as $resFM4) {
+            $femMem2[] = $resFM4->Com_MasterID;
+        }
+
+        $in_femMem = "'" . implode("', '", $femMem2) . "'";
+
+        $qmEMOtrin = $CI->db->query("SELECT Com_MasterID FROM srp_erp_ngo_com_familydetails WHERE FamMasterID !='" . $FamMasterID . "' AND Com_MasterID IN($in_femMem) AND companyID='" . $companyID . "'");
+        $datMemOtrin = $qmEMOtrin->row();
+
+        $status = '<span>';
+
+        if ((!empty($datMemOtrin)) && $datMemIn->Com_MasterID = $datMemOtrin->Com_MasterID) {
+            
+            $status .= '<a class="CA_Alter_btn" href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyLink_view\',' . $FamMasterID . ',\'Family Relationship\',\'NGO\')">
+            <span title="Family Relationship" rel="tooltip" style="color:green;" class="glyphicon glyphicon-link fa-lg"></span></a></span>&nbsp;&nbsp;| &nbsp;&nbsp;';
+        }
+
+        $status .= '<a href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyMaster_view\',' . $FamMasterID . ',\'View Family\',\'NGO\')"><span rel="tooltip" class="glyphicon glyphicon-eye-open" data-original-title="View"></span></a></span> &nbsp;';
+
+        if ($createdUserID == trim(current_userID()) && $confirmedYN == 1) {
+
+            $status .= '| <a onclick="referback_family_creation(' . $FamMasterID . ');"><span title="Refer Back" rel="tooltip" class="glyphicon glyphicon-repeat" style="color:rgb(209, 91, 71);"></span></a> | &nbsp;&nbsp;';
+        }
+        if ($confirmedYN == 0) {
+            $status .= '| <a class="CA_Alter_btn" href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyCreate.php\',' . $FamMasterID . ',\'Edit Family\')"><span title="Edit" rel="tooltip" class="glyphicon glyphicon-pencil"></span></a> |&nbsp;
+            <a class="CA_Print_Excel_btn" onclick="print_aFamilyToPdf(' . $FamMasterID . ');"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;<a class="CA_Alter_btn" onclick="delete_family_master(' . $FamMasterID . ');"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a></span>';
+        } else {
+            $status .= '&nbsp;&nbsp;&nbsp;
+            <a class="CA_Print_Excel_btn" onclick="print_aFamilyToPdf(' . $FamMasterID . ');"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>';
+        }
+
+        $status .= '</span>';
+        return $status;
+    }
+}
+/*end of family table load */
 
 /*fetch heads of family */
 if (!function_exists('fetch_headsOf_family')) {
