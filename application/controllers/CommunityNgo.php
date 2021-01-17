@@ -215,11 +215,10 @@ class CommunityNgo extends ERP_Controller
         $this->datatables->join('srp_erp_statemaster division', '(division.stateID = srp_erp_ngo_com_communitymaster.GS_Division)', 'left');
         $this->datatables->join('srp_erp_statemaster area', '(area.stateID = srp_erp_ngo_com_communitymaster.RegionID)', 'left');
         $this->datatables->from('srp_erp_ngo_com_communitymaster');
-
         $this->datatables->edit_column('image', '$1', 'viewImage(CImage)');
         $this->datatables->add_column('CName_with_initials', '$1', 'view_detail_modal(Com_MasterID,MemberCode,CName_with_initials)');
-
         $this->datatables->where($where . $member_filter . $gender_filter . $region_filter . $division_filter . $active_filter);
+        $this->datatables->group_by('srp_erp_ngo_com_communitymaster.Com_MasterID');
         $this->datatables->add_column('status', '$1', 'member_active_status(isActive)');
         $this->datatables->add_column('edit', '$1', 'load_com_member_action(Com_MasterID,isActive,isDeleted,MemberCode,CName_with_initials)');
         echo $this->datatables->generate();
@@ -1327,9 +1326,7 @@ FROM srp_erp_ngo_com_communitymaster AS t1
             $this->db->insert('srp_erp_ngo_com_schoolmedium', $mediumData);
 
             echo json_encode(['s', 'Inserted successfully']);
-
         }
-
     }
     /*end member occupation*/
 
@@ -1898,7 +1895,7 @@ FROM srp_erp_ngo_com_communitymaster AS t1
         );
 
         $companyID = current_companyID();
-        $isSocailGrantExist = $this->db->query("SELECT * FROM srp_erp_ngo_com_membersocialgrants WHERE companyID={$companyID} AND Com_MasterID = '".$Com_MasterID."' AND SocialGrantID = '".$SocialGrantID."'");
+        $isSocailGrantExist = $this->db->query("SELECT * FROM srp_erp_ngo_com_membersocialgrants WHERE companyID={$companyID} AND Com_MasterID = '" . $Com_MasterID . "' AND SocialGrantID = '" . $SocialGrantID . "'");
         $chkSocailGrantExist = $isSocailGrantExist->row();
 
         if (empty($id)) {
@@ -2884,7 +2881,7 @@ WHERE  cm.isDeleted = 0 AND cm.comVerifiApproved='1' AND cm.isActive = 1 AND cm.
     function load_familyMasterView()
     {
         $companyID = $this->common_data['company_data']['company_id'];
-  
+
         $convertFormat = convert_date_format_sql();
 
         $gender_filter = "";
@@ -2941,6 +2938,7 @@ WHERE  cm.isDeleted = 0 AND cm.comVerifiApproved='1' AND cm.isActive = 1 AND cm.
         $this->datatables->add_column('memTotalStatus', '$1', 'famMembers_total_status(FamMasterID,FamilySystemCode,FamilyName,companyID)');
         $this->datatables->add_column('houseEnrollStatus', '$1', 'famHouse_enroll_status(FamMasterID,companyID)');
         $this->datatables->where($where);
+        $this->datatables->group_by('srp_erp_ngo_com_familymaster.FamMasterID');
         $this->datatables->add_column('famStatus', '$1', 'family_confirm_status(confirmedYN)');
         $this->datatables->add_column('editFamily', '$1', 'load_com_family_actions(FamMasterID,FamilySystemCode,FamilyName,confirmedYN,createdUserID,companyID)');
         echo $this->datatables->generate();
@@ -3763,7 +3761,6 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
                 if ($memberTypes == '-1') {
 
                     $data['memReport'] = $this->db->query("SELECT MemberCode,srp_erp_ngo_com_communitymaster.companyID,srp_erp_ngo_com_communitymaster.createdUserID,srp_erp_ngo_com_memjobs.gradeComID,srp_erp_ngo_com_memjobs.WorkingPlace,srp_erp_ngo_com_memjobs.Address,DATE_FORMAT(srp_erp_ngo_com_memjobs.DateFrom,'{$convertFormat}') AS DateFrom,srp_erp_ngo_com_memjobs.DateTo,srp_erp_ngo_com_memjobs.MemJobID,srp_erp_ngo_com_memjobs.OccTypeID,srp_erp_ngo_com_memjobs.JobCategoryID,srp_erp_ngo_com_memjobs.isPrimary, CName_with_initials,TP_home,CNIC_No,TP_Mobile,EmailID,C_Address,P_Address,HouseNo,GS_Division,GS_No,srp_erp_ngo_com_occupationtypes.OccTypeID,(srp_erp_ngo_com_occupationtypes.Description) AS OcDescription,srp_erp_gender.genderID,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,srp_erp_ngo_com_grades.gradeComID,srp_erp_ngo_com_grades.gradeComDes,srp_erp_ngo_com_jobcategories.JobCategoryID,srp_erp_ngo_com_jobcategories.JobCatDescription,srp_erp_ngo_com_schools.schoolComID,srp_erp_ngo_com_schools.schoolComDes FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_ngo_com_memjobs ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_memjobs.Com_MasterID  LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_occupationtypes.OccTypeID=srp_erp_ngo_com_memjobs.OccTypeID LEFT JOIN srp_erp_ngo_com_grades ON srp_erp_ngo_com_memjobs.gradeComID=srp_erp_ngo_com_grades.gradeComID LEFT JOIN srp_erp_ngo_com_schools ON srp_erp_ngo_com_memjobs.schoolComID=srp_erp_ngo_com_schools.schoolComID LEFT JOIN srp_erp_ngo_com_jobcategories ON srp_erp_ngo_com_jobcategories.JobCategoryID=srp_erp_ngo_com_memjobs.JobCategoryID WHERE $where " . $where_clause . " ORDER BY srp_erp_ngo_com_communitymaster.Com_MasterID DESC")->result_array();
-
                 } elseif ($memberTypes == '8') {
 
                     $data['memReport'] = $this->db->query("SELECT *,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID WHERE Com_MasterID NOT IN ($in_memPrt) AND $where ORDER BY Com_MasterID DESC ")->result_array();
@@ -6514,7 +6511,7 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $text = trim($this->input->post('familyText'));
 
         $this->load->model('CommunityNgo_model');
-        $this->CommunityNgo_model->get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus,$famHdGender,$famHdStateId,$famSocialGrantArr,$text);
+        $this->CommunityNgo_model->get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus, $famHdGender, $famHdStateId, $famSocialGrantArr, $text);
     }
 
     function get_houseEnrolling_del()
@@ -8303,7 +8300,6 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
         echo 'https://www.youtube.com/embed/' . $youtube_id;
     }
 }
-
 
 
 /**
