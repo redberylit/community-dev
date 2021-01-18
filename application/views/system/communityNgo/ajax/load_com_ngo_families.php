@@ -217,28 +217,28 @@ if (!empty($familyMas)) {
                                 <?php
                                 if ((!empty($datMemOtrin)) && $datMemIn->Com_MasterID = $datMemOtrin->Com_MasterID) { ?>
 
-                                    <a href="#" onclick="fetchPage('system/communityNgo/ngo_mo_familyLink_view','<?php echo $val['FamMasterID'] ?>','Family Relationship','NGO')"><span title="" rel="tooltip" style="color:green;" class="glyphicon glyphicon-link fa-lg" data-original-title="Family Relationship"></span></a> | &nbsp;
+                                    <a href="#" onclick="fetchPage('system/communityNgo/ngo_mo_familyLink_view','<?php echo $val['FamMasterID'] ?>','Family Relationship','NGO')"><span title="" rel="tooltip" class="glyphicon glyphicon-link fa-lg" data-original-title="Family Relationship"></span></a>
 
                                 <?php } else {
                                 }
                                 ?>
-                                <a href="#" onclick="fetchPage('system/communityNgo/ngo_mo_familyMaster_view','<?php echo $val['FamMasterID'] ?>','View Family -<?php echo $val['FamilySystemCode'] . ' | ' . $val['FamilyName'] ?>','NGO');"><span title="" rel="tooltip" class="glyphicon glyphicon-eye-open" data-original-title="View"></span></a> &nbsp;
+                                <a href="#" class="view-dt-btn hvr-pop" onclick="fetchPage('system/communityNgo/ngo_mo_familyMaster_view','<?php echo $val['FamMasterID'] ?>','View Family -<?php echo $val['FamilySystemCode'] . ' | ' . $val['FamilyName'] ?>','NGO');"><span title="" rel="tooltip" class="glyphicon glyphicon-eye-open" data-original-title="View"></span></a>
 
                                 <?php
                                 if ($val['createdUserID'] == trim(current_userID()) && $val['confirmedYN'] == 1) {
                                 ?>
-                                    | <a onclick="referback_family_creation(<?php echo $val['FamMasterID'] ?>);"><span title="Refer Back" rel="tooltip" class="glyphicon glyphicon-repeat" style="color:rgb(209, 91, 71);"></span></a> |&nbsp;&nbsp;
+                                    <a onclick="referback_family_creation(<?php echo $val['FamMasterID'] ?>);"><span title="Refer Back" rel="tooltip" class="glyphicon glyphicon-repeat" style="color:rgb(209, 91, 71);"></span></a>
                                 <?php
                                 }
                                 if ($val['confirmedYN'] == 0) {
                                 ?>
-                                    | <a class="CA_Alter_btn" href="#" onclick="fetchPage('system/communityNgo/ngo_mo_familyCreate.php','<?php echo $val['FamMasterID'] ?>','Edit Family')"><span title="Edit" rel="tooltip" class="glyphicon glyphicon-pencil"></span></a> |&nbsp;
-                                    <a class="CA_Print_Excel_btn" onclick="print_aFamilyToPdf(<?php echo $val['FamMasterID'] ?>);"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>
-                                    &nbsp;&nbsp;|&nbsp;&nbsp;<a class="CA_Alter_btn" onclick="delete_family_master(<?php echo $val['FamMasterID'] ?>);"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a></span>
+                                    <a class="CA_Alter_btn edit-dt-btn hvr-pop" href="#" onclick="fetchPage('system/communityNgo/ngo_mo_familyCreate.php','<?php echo $val['FamMasterID'] ?>','Edit Family')"><span title="Edit" rel="tooltip" class="glyphicon glyphicon-pencil"></span></a>
+                                    <a class="CA_Print_Excel_btn print-dt-btn hvr-pop" onclick="print_aFamilyToPdf(<?php echo $val['FamMasterID'] ?>);"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>
+                                    <a class="CA_Alter_btn delete-dt-btn hvr-pop" onclick="delete_family_master(<?php echo $val['FamMasterID'] ?>);"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash"></span></a></span>
                             <?php
                                 } else {
                             ?>&nbsp;&nbsp;&nbsp;
-                            <a class="CA_Print_Excel_btn" onclick="print_aFamilyToPdf(<?php echo $val['FamMasterID'] ?>);"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>
+                            <a class="CA_Print_Excel_btn print-dt-btn hvr-pop" onclick="print_aFamilyToPdf(<?php echo $val['FamMasterID'] ?>);"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>
                         <?php
                                 }
                         ?>

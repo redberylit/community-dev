@@ -66,7 +66,7 @@ thead {
 }
 
 .form-control {
-    border-radius: 0px !important;
+    border-radius: 0px;
 }
 
 .tt-dropdown-menu {
@@ -532,7 +532,7 @@ thead {
 }*/
 
 /*Overwrite some of style by Shafri to reduce spacing in the text box in the form 2017-03-13 */
-.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
+/*.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
     padding: 2px 5px !important;
     padding-top: 2px !important;
     padding-right: 5px !important;
@@ -541,3 +541,4 @@ thead {
     height: 27px !important;
 }
 
+*/

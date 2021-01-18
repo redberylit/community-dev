@@ -147,7 +147,7 @@ class Login extends CI_Controller
 
     function company_configuration()
     {
-        $data['title'] = 'Welcome Dashboard';
+        $data['title'] = 'SLMCP';
         $data['main_content'] = 'system/configuration/company_configuration';
         $data['extra'] = NULL;
         $this->load->view('include/template', $data);

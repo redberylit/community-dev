@@ -99,7 +99,7 @@ if (!function_exists('text_type')) {
 if (!function_exists('table_class')) {
     function table_class()
     {
-        return 'table table-bordered table-striped table-condensed table-row-select';
+        return 'table table-bordered table-striped table-condensed table-row-select gradient-tr';
     }
 }
 

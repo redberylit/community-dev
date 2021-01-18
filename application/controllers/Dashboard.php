@@ -42,7 +42,7 @@ class Dashboard extends ERP_Controller
         $data["dashboardTab"] = $result["dashboard"];
         /* End Dashboard */
 
-        $data['title'] = 'Welcome Dashboard';
+        $data['title'] = 'SLMCP';
         $data['main_content'] = 'system/system_dashboard';
         $data['extra'] = 'sidebar-mini';
         $this->load->view('include/template', $data);

@@ -23,11 +23,13 @@ $csrf = array(
 
     <style>
         fieldset {
-            border: 1px solid silver;
+            border: 1px solid #f5f5f5;
             border-radius: 5px;
             padding: 1%;
             padding-bottom: 15px;
             margin: 10px 15px;
+            -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+            box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
         }
 
         legend {
@@ -68,7 +70,7 @@ $csrf = array(
             height: 13px;
             width: 13px;
             left: 4px;
-            bottom: 4px;
+            bottom: 2px;
             background-color: white;
             -webkit-transition: .4s;
             transition: .4s;
@@ -107,32 +109,32 @@ $csrf = array(
 
                     <div class="form-group col-sm-12">
                         <div class="row">
-                            <div class="form-group col-sm-2">
+                            <div class="form-group col-sm-2 set-animation set-input-style-1">
                                 <label for="GS_Division"><?php echo $this->lang->line('communityngo_GS_Division'); ?>
                                     <!--GS_division--></label><br>
                                 <?php echo form_dropdown('GS_Division[]', $division_arr, '', 'class="form-control" id="GS_Division" onchange="fetch_all_member_details(\'GS_Division\')" multiple="multiple"'); ?>
                             </div>
 
-                            <div class="form-group col-sm-2">
+                            <div class="form-group col-sm-2 set-animation set-input-style-1">
                                 <label for="RegionID"><?php echo $this->lang->line('communityngo_region'); ?>
                                     <!--Area--></label><br>
                                 <?php echo form_dropdown('RegionID[]', $area_arr, '', 'class="form-control" id="RegionID" onchange="fetch_all_member_details(\'RegionID\')" multiple="multiple"'); ?>
                             </div>
 
-                            <div class="form-group col-sm-2">
+                            <div class="form-group col-sm-2 set-animation set-input-style-1">
                                 <label for="GenderID"><?php echo $this->lang->line('communityngo_gender'); ?>
                                     <!--Gender--></label><br>
                                 <?php echo form_dropdown('GenderID[]', $gender_arr, '', 'class="form-control" id="GenderID" onchange="fetch_all_member_details(\'GenderID\')" multiple="multiple"'); ?>
                             </div>
 
-                            <div class="form-group col-sm-2 col-xs-6" id="memberdrp">
+                            <div class="form-group col-sm-2 col-xs-6 set-animation set-input-style-1" id="memberdrp">
                                 <label
                                     for="Com_MasterID"><?php echo $this->lang->line('communityngo_member_name_with_int'); ?>
                                     <!--Name--></label><br>
                                 <?php echo form_dropdown('Com_MasterID[]', $member_arr, '', 'class="form-control" id="Com_MasterID" onchange="fetch_all_member_details(\'Com_MasterID\')" multiple="multiple"'); ?>
 
                             </div>
-                            <div class="form-group col-sm-2">
+                            <div class="form-group col-sm-2 set-animation set-input-style-1">
                                 <label
                                         for="isActive"><?php echo $this->lang->line('communityngo_com_member_header_Status'); ?>
                                     <!--Status--></label><br>
@@ -183,10 +185,10 @@ $csrf = array(
                 </tr>
             </table>
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-3 text-center">
             &nbsp;
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <a href="#" type="button" class="btn btn-success pull-right btn-sm CA_Print_Excel_btn" onclick="excel_Export()">
                 <i class="fa fa-file-excel-o"></i> Excel
             </a>
@@ -205,8 +207,7 @@ $csrf = array(
                 <i class="fa fa-plus"></i> <?php echo $this->lang->line('communityngo_add_new'); ?>
             </button>
 
-
-
+            
         </div>
     </div>
 
@@ -568,6 +569,11 @@ $csrf = array(
         }
 
 
+    </script>
+
+    <!-- add class for filter menu buttons - effect  --->
+    <script>
+        $(".set-animation .btn-default").addClass('hvr-shutter-in-horizontal');
     </script>
 
 

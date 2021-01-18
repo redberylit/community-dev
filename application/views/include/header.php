@@ -14,13 +14,17 @@ if ($productID == 2) {
 
 ?>
 <?php //header('Content-type: text/html; charset=utf-8');?>
-<!DOCTYPE html>
+<!DOCTYPE html>  
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?php echo $title; ?></title>
-    <link rel="icon" href="<?php echo base_url().'/favicon.ico'; ?>" type="image/x-icon"/>
+    <link rel="icon" href="<?php echo base_url().'favicon.ico'; ?>" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url().'apple-touch-icon.png'; ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url().'favicon-32x32.png'; ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url().'favicon-16x16.png'; ?>">
+    <link rel="manifest" href="<?php echo base_url().'site.webmanifest'; ?>">
     <link rel="shortcut icon" href="<?php echo base_url().'/favicon.ico'; ?>" type="image/x-icon"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="<?php echo base_url('plugins/bootstrap/css/bootstrap.min.css'); ?>">
@@ -28,6 +32,7 @@ if ($productID == 2) {
     <link rel="stylesheet" href="<?php echo base_url('plugins/jvectormap/jquery-jvectormap-1.2.2.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/AdminLTE.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/custom.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/hover.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/skins/_all-skins.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/animate/animate.css'); ?>"/>
     <link rel="stylesheet" href="<?php echo base_url('plugins/iCheck/all.css'); ?>"/>

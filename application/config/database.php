@@ -78,10 +78,10 @@ $db['db2'] = array(
  /*    'hostname' => '192.168.52.5',
     'username' => 'mubashir',
     'password' => 'Subaru123', */
-    'hostname' => '',
-    'username' => '',
-    'password' => '',
-    'database' => 'community_centraldb',
+    'hostname' => '172.17.0.1',
+	'username' => 'root',
+	'password' => 'root',
+    'database' => 'central_db',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
@@ -99,13 +99,12 @@ $db['db2'] = array(
 );
 
 
-
 $db['default'] = array(
     'dsn' => '',
-    'hostname' => '',
-    'username' => '',
-    'password' => '',
-    'database' => 'community_centraldb',
+    'hostname' => '172.17.0.1',
+	'username' => 'root',
+	'password' => 'root',
+    'database' => 'central_db',//
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
