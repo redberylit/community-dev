@@ -127,6 +127,10 @@
         color: #fff;
         border-color: #3a74d3;
 }
+.skin-black-light .main-header>.navbar .sidebar-toggle:hover {
+    color: #999;
+    background: transparent !important;
+}
 
 /*******table css***************************/
 thead tr {
@@ -405,6 +409,7 @@ table.dataTable.table-condensed thead > tr > th {
     color: #3f5c9a;
     font-size: 14px;
     display: block;
+    font-weight: 600;
 }
 .txt-dashboard{
     font-size: 3rem;
@@ -449,4 +454,7 @@ table.dataTable.table-condensed thead > tr > th {
 }
 .skin-black-light .main-header>.navbar .navbar-custom-menu .navbar-nav>li>a, .skin-black-light .main-header>.navbar .navbar-right>li>a {
     border-left: 1px solid transparent !important;
+}
+.dataTable_selectedTr {
+    background-color: #ececec !important;
 }
