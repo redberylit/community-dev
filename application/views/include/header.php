@@ -32,6 +32,7 @@ if ($productID == 2) {
     <link rel="stylesheet" href="<?php echo base_url('plugins/jvectormap/jquery-jvectormap-1.2.2.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/AdminLTE.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/custom.css'); ?>">
+    <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/hover.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/dist/css/skins/_all-skins.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('plugins/animate/animate.css'); ?>"/>

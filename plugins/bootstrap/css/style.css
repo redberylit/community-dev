@@ -222,16 +222,16 @@ thead {
 }
 
 .report-header tr th {
-    background-color: rgb(197, 215, 253);
-    border-top: 1px solid rgb(221, 221, 221);
-    border-bottom: 2px solid rgb(161, 191, 252);
+    background-color: #4c68a1 !important;
+    border-top: 1px solid transparent !important;
+    border-bottom: 2px solid transparent !important;
     position: relative;
     top: 0px;
-    padding: 0px !important;
+    color: #ffffff !important;
 }
 
 .reportHeaderColor {
-    color: #000080;
+    color: #3b5998;
 }
 
 .reportsubtotal { /* Report Sub total*/

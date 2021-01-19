@@ -1014,7 +1014,7 @@ if (!function_exists('famMembers_total_status')) {
 
         $memTotalStatus = '<center>';
 
-        $memTotalStatus .= '<span data-toggle="tooltip" title="Total Members Of The Family" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyMaster_view\',' . $FamMasterID . ',\'View Family\',\'NGO\')" style="background-color: lightgrey; color: black;font-size: 11px;" class="badge"><b>' . $totMms . '</b></span>';
+        $memTotalStatus .= '<span data-toggle="tooltip" title="Total Members Of The Family" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyMaster_view\',' . $FamMasterID . ',\'View Family\',\'NGO\')" style="background-color: #33b5e5; color: #fff;font-size: 11px;" class="badge"><b>' . $totMms . '</b></span>';
 
         $memTotalStatus .= '</center>';
 
@@ -1032,7 +1032,7 @@ if (!function_exists('famHouse_enroll_status')) {
 
         $houseEnrollStatus = '<center>';
         if (!empty($datHousing)) {
-            $houseEnrollStatus .= '<a href="#" style="font-size:14px;"><span title="Enrolled" style="color: green;" rel="tooltip" class="fa fa-home" data-original-title="Enrolled"></span></a>';
+            $houseEnrollStatus .= '<a href="#" style="font-size:14px;"><span title="Enrolled" style="color: green;" rel="tooltip" class="fa fa-home " data-original-title="Enrolled"></span></a>';
         } else {
             $houseEnrollStatus .= '<a href="#" style="font-size:14px;"><span title="Not Enrolled" style="color: red;" rel="tooltip" class="fa fa-home" data-original-title="Not Enrolled"></span></a>';
         }
@@ -1067,23 +1067,23 @@ if (!function_exists('load_com_family_actions')) { /*get family action list*/
 
         if ((!empty($datMemOtrin)) && $datMemIn->Com_MasterID = $datMemOtrin->Com_MasterID) {
             
-            $status .= '<a class="CA_Alter_btn" href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyLink_view\',' . $FamMasterID . ',\'Family Relationship\',\'NGO\')">
-            <span title="Family Relationship" rel="tooltip" style="color:green;" class="glyphicon glyphicon-link fa-lg"></span></a></span>&nbsp;&nbsp;| &nbsp;&nbsp;';
+            $status .= '<a class="CA_Alter_btn rel-dt-btn hvr-pop " href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyLink_view\',' . $FamMasterID . ',\'Family Relationship\',\'NGO\')">
+            <span title="Family Relationship" rel="tooltip" class="glyphicon glyphicon-link fa-lg"></span></a></span>';
         }
 
-        $status .= '<a href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyMaster_view\',' . $FamMasterID . ',\'View Family\',\'NGO\')"><span rel="tooltip" class="glyphicon glyphicon-eye-open" data-original-title="View"></span></a></span> &nbsp;';
+        $status .= '<a href="#" class="view-dt-btn hvr-pop" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyMaster_view\',' . $FamMasterID . ',\'View Family\',\'NGO\')"><span rel="tooltip" class="glyphicon glyphicon-eye-open" data-original-title="View"></span></a></span>';
 
         if ($createdUserID == trim(current_userID()) && $confirmedYN == 1) {
 
-            $status .= '| <a onclick="referback_family_creation(' . $FamMasterID . ');"><span title="Refer Back" rel="tooltip" class="glyphicon glyphicon-repeat" style="color:rgb(209, 91, 71);"></span></a> | &nbsp;&nbsp;';
+            $status .= '<a onclick="referback_family_creation(' . $FamMasterID . ');"><span title="Refer Back" rel="tooltip" class="glyphicon glyphicon-repeat" style="color:rgb(209, 91, 71);"></span></a>';
         }
         if ($confirmedYN == 0) {
-            $status .= '| <a class="CA_Alter_btn" href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyCreate.php\',' . $FamMasterID . ',\'Edit Family\')"><span title="Edit" rel="tooltip" class="glyphicon glyphicon-pencil"></span></a> |&nbsp;
-            <a class="CA_Print_Excel_btn" onclick="print_aFamilyToPdf(' . $FamMasterID . ');"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;<a class="CA_Alter_btn" onclick="delete_family_master(' . $FamMasterID . ');"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a></span>';
+            $status .= '<a class="CA_Alter_btn edit-dt-btn hvr-pop" href="#" onclick="fetchPage(\'system/communityNgo/ngo_mo_familyCreate.php\',' . $FamMasterID . ',\'Edit Family\')"><span title="Edit" rel="tooltip" class="glyphicon glyphicon-pencil"></span></a>
+            <a class="CA_Print_Excel_btn print-dt-btn hvr-pop" onclick="print_aFamilyToPdf(' . $FamMasterID . ');"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>
+            <a class="CA_Alter_btn delete-dt-btn hvr-pop" onclick="delete_family_master(' . $FamMasterID . ');"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash"></span></a></span>';
         } else {
             $status .= '&nbsp;&nbsp;&nbsp;
-            <a class="CA_Print_Excel_btn" onclick="print_aFamilyToPdf(' . $FamMasterID . ');"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>';
+            <a class="CA_Print_Excel_btn print-dt-btn hvr-pop" onclick="print_aFamilyToPdf(' . $FamMasterID . ');"><span title="Print" rel="tooltip" class="glyphicon glyphicon-print"></span></a>';
         }
 
         $status .= '</span>';

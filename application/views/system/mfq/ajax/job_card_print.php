@@ -3,7 +3,7 @@ $jobMasterRec = get_job_master($workProcessID);
 ?>
 <br>
 <div id="" class="row review">
-    <div class="col-md-12"><span class="no-print pull-right"> <button class="btn btn-xs" id="btn-pdf" type="button"
+    <div class="col-md-12"><span class="no-print pull-right"> <button class="btn btn-xs btn-danger" id="btn-pdf" type="button"
                                                                       onclick="generateReportPdf()"> <span
                         class="glyphicon glyphicon-print" aria-hidden="true"></span> </button> </span>
         <?php echo form_open('login/loginSubmit', ' id="frm_filter" class="form-horizontal" name="frm_filter" role="form"'); ?>

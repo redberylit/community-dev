@@ -111,7 +111,7 @@ if (!empty($familyMas)) {
                     <td class="mailbox-name" style="color: #469bda;"><?php echo $val['CName_with_initials']; ?></td>
                     <td class="mailbox-name" style="color: #469bda;"><?php echo $FamAnces; ?></td>
                     <td class="mailbox-name" style="color: #469bda;"><?php echo $val['FamilyAddedDate']; ?></td>
-                    <td class="mailbox-name"><span data-toggle="tooltip" title="Total Members Of Family" style="background-color: lightgrey; color: black;font-size: 11px;" class="badge"><b><?php echo $totMm; ?></b></span></td>
+                    <td class="mailbox-name"><span data-toggle="tooltip" title="Total Members Of Family" style="background-color: #33b5e5; color: #fff;font-size: 11px;" class="badge"><b><?php echo $totMm; ?></b></span></td>
                     <td class="mailbox-name"><a href="#">
                             <?php if(!empty($datHousing)){
                                 $totHs += 1;

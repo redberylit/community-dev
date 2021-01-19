@@ -190,7 +190,7 @@ if (!empty($detail)) { ?>
                             </div>
 
                     </td>
-                    <td class="mailbox-name" style="text-align: center;"><a href="#"><span data-toggle="tooltip" title="Total Days" style="background-color: lightgrey; color: black;font-size: 11px;" class="badge"><b><?php echo $row['estimatedDays']; ?></b></span></td>
+                    <td class="mailbox-name" style="text-align: center;"><a href="#"><span data-toggle="tooltip" title="Total Days" style="background-color: #33b5e5; color: #fff;font-size: 11px;" class="badge"><b><?php echo $row['estimatedDays']; ?></b></span></td>
 
                     <td class="mailbox-name"><a href="#"><?php
                             $companyID = $this->common_data['company_data']['company_id'];

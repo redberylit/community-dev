@@ -588,7 +588,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
             </fieldset>
         </div>
 
-        <hr style="margin: 0px;">
+       
         <div id="div_comm_memDel">
         </div>
     </div>

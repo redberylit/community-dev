@@ -22,11 +22,13 @@ $csrf = array(
 ?>
 <style>
     fieldset {
-        border: 1px solid silver;
+        border: 1px solid #f5f5f5;
         border-radius: 5px;
         padding: 1%;
         padding-bottom: 15px;
         margin: 10px 15px;
+        -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+        box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
     }
 
     legend {
@@ -227,33 +229,33 @@ $csrf = array(
 
                 <div class="form-group col-sm-12">
                     <div class="row">
-                        <div class="form-group col-sm-2">
+                        <div class="form-group col-sm-2 set-animation">
                             <label for="GS_Division"><?php echo $this->lang->line('communityngo_GS_Division'); ?>
                                 <!--GS_division-->
                             </label><br>
                             <?php echo form_dropdown('GS_Division[]', $division_arr, '', 'class="form-control" id="GS_Division" onchange="getNgoFamilyMasterTable(\'GS_Division\')" multiple="multiple"'); ?>
                         </div>
 
-                        <div class="form-group col-sm-2">
+                        <div class="form-group col-sm-2 set-animation">
                             <label for="RegionID"><?php echo $this->lang->line('communityngo_region'); ?>
                                 <!--Area-->
                             </label><br>
                             <?php echo form_dropdown('RegionID[]', $area_arr, '', 'class="form-control" id="RegionID" onchange="getNgoFamilyMasterTable(\'RegionID\')" multiple="multiple"'); ?>
                         </div>
 
-                        <div class="form-group col-sm-2">
+                        <div class="form-group col-sm-2 set-animation">
                             <label for="GenderID"><?php echo $this->lang->line('communityngo_gender'); ?>
                                 <!--Gender-->
                             </label><br>
                             <?php echo form_dropdown('GenderID[]', $gender_arr, '', 'class="form-control" id="GenderID" onchange="getNgoFamilyMasterTable(\'GenderID\')" multiple="multiple"'); ?>
                         </div>
-                        <div class="form-group col-sm-2">
+                        <div class="form-group col-sm-2 set-animation">
                             <label for="AncestId"><?php echo $this->lang->line('CommunityNgo_fam_ancestryState'); ?>
                                 <!--Status-->
                             </label><br>
                             <?php echo form_dropdown('AncestId[]', $ancestry_arr, '', 'class="form-control" id="AncestId" onchange="getNgoFamilyMasterTable(\'AncestId\')" multiple="multiple"'); ?>
                         </div>
-                        <div class="form-group col-sm-2">
+                        <div class="form-group col-sm-2 set-animation">
                             <label for="isDeleted"><?php echo $this->lang->line('communityngo_com_member_header_Status'); ?>
                                 <!--Status-->
                             </label><br>
@@ -728,6 +730,12 @@ $csrf = array(
 
     }
 </script>
+
+ <!-- add class for filter menu buttons - effect  --->
+ <script>
+        $(".set-animation .btn-default").addClass('hvr-shutter-in-horizontal');
+    </script>
+
 <?php
 /**
  * Created by PhpStorm.

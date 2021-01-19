@@ -77,7 +77,7 @@ if (!empty($comuFamilies)) { ?>
                         <td class="mailbox-name"><?php echo $val['CName_with_initials']; ?></td>
                         <td class="mailbox-name"><?php echo $FamAnces; ?></td>
                         <td class="mailbox-name"><?php echo $val['FamilyAddedDate']; ?></td>
-                        <td class="mailbox-name"><span data-toggle="tooltip" title="Total Members Of The Family" style="background-color: lightgrey; color: black;font-size: 11px;" class="badge"><b><?php echo $totMms; ?></b></span></td>
+                        <td class="mailbox-name"><span data-toggle="tooltip" title="Total Members Of The Family" style="background-color: #33b5e5; color: #fff;font-size: 11px;" class="badge"><b><?php echo $totMms; ?></b></span></td>
                         <td class="mailbox-name">
                                 <?php if(!empty($datHousing)){
 

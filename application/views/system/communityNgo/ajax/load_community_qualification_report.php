@@ -14,8 +14,8 @@ if (!empty($qualReport)) { ?>
                 <strong><?php echo current_companyName(); ?></strong></div>
             <div class="reportHeader reportHeaderColor" style="text-align: center">
                 <strong>Community Member Qualification Report</strong></div>
-            <div style="">
-                <table id="tbl_rpt_salesorder" class="borderSpace report-table-condensed" border="1" style="width: 100%;border-collapse: collapse;border: 1px solid white;">
+            <div style="padding-top:10px">
+                <table id="tbl_rpt_salesorder" class="borderSpace-no report-table-condensed table table-responsive" border="1" style="width: 100%;border-collapse: collapse;border: 1px solid white;">
                     <thead class="report-header">
                         <tr>
                             <th>#</th>

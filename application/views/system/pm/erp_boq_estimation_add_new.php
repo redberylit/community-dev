@@ -324,12 +324,12 @@ echo head_page($title, false);
 
                 <div class="pull-right">
 
-                    <button class="btn btn-pdf btn-xs" id="btn-pdf" type="button" onclick="generateReportPdf()">
+                    <button class="btn btn-danger btn-xs" id="btn-pdf" type="button" onclick="generateReportPdf()">
                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i><?php echo $this->lang->line('promana_common_pdf_for_client');?><!--PDF for client-->
                     </button>
 
 
-                    <a href="" class="btn btn-excel btn-xs" id="btn-excel" download="project.xls"
+                    <a href="" class="btn btn-success btn-xs" id="btn-excel" download="project.xls"
                        onclick="var file = tableToExcel('tablesheet', 'project'); $(this).attr('href', file);">
                         <i class="fa fa-file-excel-o" aria-hidden="true"></i><?php echo $this->lang->line('promana_common_pdf_for_excel');?><!-- Excel-->
                     </a>

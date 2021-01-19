@@ -69,10 +69,10 @@ FROM
 <div class="row">
     <div class="col-md-12">
         <div class="pull-right">
-            <button class="btn btn-pdf btn-xs" id="btn-pdf" type="button" onclick="generatePdf()">
+            <button class="btn btn-xs btn-danger" id="btn-pdf" type="button" onclick="generatePdf()">
                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF
             </button>
-            <a href="" class="btn btn-excel btn-xs" id="btn-excel" download="Asset Monthly Depreciation Report.xls"
+            <a href="" class="btn btn-success btn-xs" id="btn-excel" download="Asset Monthly Depreciation Report.xls"
                onclick="var file = tableToExcel('assetRegisterTable', 'Asset Monthly Depreciation Report'); $(this).attr('href', file);">
                 <i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel
             </a></div>

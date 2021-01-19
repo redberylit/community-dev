@@ -181,7 +181,7 @@ if (!empty($familyMas)) {
                         <td class="mailbox-name"><a href="#"><?php echo $val['CName_with_initials']; ?></a></td>
                         <td class="mailbox-name"><a href="#"><?php echo $FamAnces; ?></a></td>
                         <td class="mailbox-name"><a href="#"><?php echo $val['FamilyAddedDate']; ?></a></td>
-                        <td class="mailbox-name"><a href="#"><span data-toggle="tooltip" title="Total Members Of The Family" style="background-color: lightgrey; color: black;font-size: 11px;" class="badge" onclick="fetchPage('system/communityNgo/ngo_mo_familyMaster_view','<?php echo $val['FamMasterID'] ?>','View Family -<?php echo $val['FamilySystemCode'] . ' | ' . $val['FamilyName'] ?>','NGO');"><b><?php echo $totMms; ?></b></span></td>
+                        <td class="mailbox-name"><a href="#"><span data-toggle="tooltip" title="Total Members Of The Family" style="background-color: #33b5e5; color: #fff;font-size: 11px;" class="badge" onclick="fetchPage('system/communityNgo/ngo_mo_familyMaster_view','<?php echo $val['FamMasterID'] ?>','View Family -<?php echo $val['FamilySystemCode'] . ' | ' . $val['FamilyName'] ?>','NGO');"><b><?php echo $totMms; ?></b></span></td>
                         <td class="mailbox-name"><a href="#">
                                 <?php if (!empty($datHousing)) {
                                     $totHs += 1;
