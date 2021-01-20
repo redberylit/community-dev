@@ -6553,6 +6553,7 @@ WHERE dds.DocDesID
         $subCmtDesc = $this->input->post('subCmtDesc');
         $areaSubCmnt = $this->input->post('areaSubCmnt');
         $subCmtHead = $this->input->post('subCmtHead');
+        $hdCommtPosID = $this->input->post('hdCommtPosID');
 
         $subCmtAddedDate = $this->input->post('subCmtAddedDate');
         $subCmtExrDate = $this->input->post('subCmtExrDate');
@@ -6561,7 +6562,6 @@ WHERE dds.DocDesID
         $subCmtRemark = $this->input->post('subCmtRemark');
 
         $companyID = current_companyID();
-        $dataPos = $this->db->query("SELECT CommitteePositionID FROM srp_erp_ngo_com_committeeposition WHERE companyID='{$companyID}' AND isDeleted='0'")->row_array();
 
         $isExist = $this->db->query("SELECT * FROM srp_erp_ngo_com_committeeareawise  t1
                                      WHERE t1.companyID='" . $companyID . "' AND t1.CommitteeID='" . $CommitteeID . "' AND  t1.CommitteeAreawiseDes = '" . $subCmtDesc . "'")->result_array();
@@ -6606,7 +6606,7 @@ WHERE dds.DocDesID
                 $datm['CommitteeID'] = $CommitteeID;
                 $datm['CommitteeAreawiseID'] = $last_id;
                 $datm['Com_MasterID'] = $subCmtHead;
-                $datm['CommitteePositionID'] = $dataPos['CommitteePositionID'];
+                $datm['CommitteePositionID'] = $hdCommtPosID;
                 $datm['joinedDate'] = input_format_date($subCmtAddedDate, $date_format_policy);
                 $datm['expiryDate'] = input_format_date($subCmtExrDate, $date_format_policy);
                 $datm['isMemActive'] = '1';

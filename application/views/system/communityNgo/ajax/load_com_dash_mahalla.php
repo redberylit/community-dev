@@ -247,15 +247,15 @@ if (!empty($comMaster)) {
                                         <?php echo $maritalSt_type1['merrType1']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-light"><span style="color: transparent;">...</span> <?php echo $maritalSt_type2['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type2['merrType2'] / $maritalStCount) * 100), 0); ?> % ">
+                                <div class="bg-success"><span style="color: transparent;">...</span> <?php echo $maritalSt_type2['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type2['merrType2'] / $maritalStCount) * 100), 0); ?> % ">
                                         <?php echo $maritalSt_type2['merrType2']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-success"><span style="color: transparent;">...</span> <?php echo $maritalSt_type3['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type3['merrType3'] / $maritalStCount) * 100), 0); ?> % ">
+                                <div class="bg-warning"><span style="color: transparent;">...</span> <?php echo $maritalSt_type3['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type3['merrType3'] / $maritalStCount) * 100), 0); ?> % ">
                                         <?php echo $maritalSt_type3['merrType3']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-dark"><span style="color: transparent;">...</span> <?php echo $maritalSt_type4['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type4['merrType4'] / $maritalStCount) * 100), 0); ?> % ">
+                                <div class="bg-success"><span style="color: transparent;">...</span> <?php echo $maritalSt_type4['maritalstatus']; ?> <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type4['merrType4'] / $maritalStCount) * 100), 0); ?> % ">
                                         <?php echo $maritalSt_type4['merrType4']; ?> </span></div>
                             </li>
                             <li class="merr-item">
@@ -263,7 +263,7 @@ if (!empty($comMaster)) {
                                         <?php echo $maritalSt_type5['merrType5']; ?> </span></div>
                             </li>
                             <li class="merr-item">
-                                <div class="bg-warning" title="NaN"><span style="color: transparent;">...</span> Not Assigned <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type6['merrType6'] / $maritalStCount) * 100), 0); ?> % ">
+                                <div class="bg-success" title="NaN"><span style="color: transparent;">...</span> Not Assigned <span class="text-muted" style="float: right;margin-right:10px;font-weight:bold;" title="<?php echo round((($maritalSt_type6['merrType6'] / $maritalStCount) * 100), 0); ?> % ">
                                         <?php echo $maritalSt_type6['merrType6']; ?> </span></div>
                             </li>
                         </ul>
@@ -399,12 +399,12 @@ if (!empty($comMaster)) {
 
                 ?>
 
-                document.getElementById('occTypeDiv1').value = '<?php echo $occupation_type1['Description'] . '(%) ' . $occ1Pecrnt; ?>';
-                document.getElementById('occTypeDiv2').value = '<?php echo $occupation_type2['Description'] . '(%) ' . $occ2Pecrnt; ?>';
-                document.getElementById('occTypeDiv3').value = '<?php echo $occupation_type3['Description'] . '(%) ' . $occ3Pecrnt; ?>';
-                document.getElementById('occTypeDiv4').value = '<?php echo $occupation_type4['Description'] . '(%) ' . $occ4Pecrnt; ?>';
-                document.getElementById('occTypeDiv5').value = '<?php echo $occupation_type5['Description'] . '(%) ' . $occ5Pecrnt; ?>';
-                document.getElementById('occTypeDiv6').value = '<?php echo $occupation_type6['Description'] . '(%) ' . $occ6Pecrnt; ?>';
+                document.getElementById('occTypeDiv1').value = '<?php echo $occ1Pecrnt . '% -' . $occupation_type1['Description']; ?>';
+                document.getElementById('occTypeDiv2').value = '<?php echo $occ2Pecrnt . '% -' . $occupation_type2['Description']; ?>';
+                document.getElementById('occTypeDiv3').value = '<?php echo $occ3Pecrnt . '% -' . $occupation_type3['Description']; ?>';
+                document.getElementById('occTypeDiv4').value = '<?php echo $occ4Pecrnt . '% -' . $occupation_type4['Description']; ?>';
+                document.getElementById('occTypeDiv5').value = '<?php echo $occ5Pecrnt . '% -' . $occupation_type5['Description']; ?>';
+                document.getElementById('occTypeDiv6').value = '<?php echo $occ6Pecrnt . '% -' . $occupation_type6['Description']; ?>';
 
                 //DONUT CHART
                 var donut = new Morris.Donut({

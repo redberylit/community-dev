@@ -851,28 +851,50 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
     </div>
 </div>
 
-<div class="modal" id="language_modal" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<!--Add jType modal-->
+<div class="modal fade" id="mem_langModel" role="dialog"
+     aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <?php echo form_open('', 'role="form" id="language_form"'); ?>
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="language_modal-title"></h4>
-            </div>
+            <form role="form" id="mem_langFrm" action="<?php echo site_url('CommunityNgo/postMemLanguge_data'); ?>"
+                  method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="reset_form_Modal()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="mem_langModel-title"><?php echo $this->lang->line('communityngo_Language');?></h4>
+                </div>
+                <div class="modal-body">
+                    <table width="100%" id="add_del_btn_table">
+                        <tr>
+                            <td style="width: 70%;">
+                                <p id="range_alert_para" style="color: red;"></p>
+                            </td>
+                            <td style="text-align: right; width: 30%;">
+                                <a class="btn btn-success btn-sm" style="height:25px; padding-top:2px; font-size:12px;" id="addrowbtn">
+                                    <i class="fa fa-plus-square"></i><?php echo " "; ?><?php echo $this->lang->line('common_add_a_new_row');?><!--Add a New Row--></a>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--UI for edit-->
 
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label" for="LanguageID">
-                                <?php echo $this->lang->line('communityngo_Language'); ?>
-                                <!--Language--> <?php required_mark(); ?>
-                            </label>
-                            <div class="col-sm-7">
-                                <div class="input-group">
-                                    <select id="LanguageID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_Language'); ?>" name="LanguageID">
-                                        <option value=""></option>
-                                        <?php
+                    <!-- UI for add-->
+                    <div id="add_table_div">
+                        <table id="mem_lang_addTab" width="100%" border="1" style="border: 1px solid #ccc; margin-top: 5px;">
+                            <tr>
+                                <th style="width: 5%;"></th>
+                                <th style="text-align: center;"><?php echo $this->lang->line('communityngo_Language');?></th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 3px; text-align: center;">
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                    </div>
+                                </td>
+                                <td style="padding: 3px;">
+                                    <div class="form-group"  style="width: 100%; margin-bottom: 0px;">
+                                        <select class="form-control select2"  name="DM[0][memLang]"  id="memLang" style="width:100%;"
+                                                data-placeholder="Select Language" >
+                                            <option></option>
+                                            <?php
                                         if (!empty($language)) {
                                             foreach ($language as $val) {
                                         ?>
@@ -882,28 +904,49 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
                                             }
                                         }
                                         ?>
-                                    </select>
-                                    <span class="input-group-btn">
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hide DMrow_template" id="DMrow_template">
+                                <td style="padding: 3px; text-align: center;">
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <a class="btn btn-xs removeButton"><i class="fa fa-trash" style="color: black; font-size: 15px;"></i></a>
+                                    </div>
+                                </td>
+                                <td style="padding: 3px;">
+                                    <div class="form-group"  style="width: 100%; margin-bottom: 0px;">
+                                        <select class="form-control "  name="memLang"  id="memLang" style="width:100%;"
+                                                data-placeholder="Select Language" >
+                                            <option></option>
+                                            <?php
+                                        if (!empty($language)) {
+                                            foreach ($language as $val) {
+                                        ?>
+                                                <option value="<?php echo $val['languageID'] ?>"><?php echo $val['description'] ?></option>
+                                        <?php
+
+                                            }
+                                        }
+                                        ?>
+                                            
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="row-fluid" style="margin-top: 8px;">
+                        <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" title="Clear" rel="tooltip" onclick="clear_memLang_data()" style="height: 29px; padding: 2px 10px;"><i class="fa fa-repeat"></i></button>
                                         <button class="btn btn-default" type="button" title="Add Community Language" rel="tooltip" onclick="get_newLangAdd_modal()" style="height: 29px; padding: 2px 10px;"><i class="fa fa-plus"></i></button>
                                     </span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" id="hidden-id-lan" name="hidden-id-lan" value="0">
-                <button type="button" class="btn btn-primary btn-sm actionBtn" id="save-btn-lg" onclick="save_Language()">
-                    <?php echo $this->lang->line('common_save'); ?>
-                    <!--Save-->
-                </button>
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                    <?php echo $this->lang->line('common_Close'); ?>
-                    <!--Close-->
-                </button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="reset_form_Modal()"><?php echo $this->lang->line('common_cancel');?></button>
+                    <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('common_save');?></button>
+                </div>
             </form>
         </div>
     </div>
@@ -2036,21 +2079,204 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
     }
 
     function add_language() {
-        $('#language_form').trigger("reset");
-        $('#save-btn-lg').show();
-        $('#language_modal-title').text('<?php echo $this->lang->line('communityngo_Language'); ?>');
-        $('#language_modal').modal({
+        $('#mem_langFrm').trigger("reset");
+        $('#mem_langModel-title').text('<?php echo $this->lang->line('communityngo_Language'); ?>');
+        $('#mem_langModel').modal({
             backdrop: "static"
         });
     }
 
+
+    $(document).ready(function() {
+
+//post jType data
+var DesValidators = {
+    /*row: '.form-group',*/   // The title is placed inside a <div class="col-xs-4"> element
+    validators: {
+        notEmpty: {
+            message: '<?php echo $this->lang->line('common_description_is_required'); ?>'
+        }
+    }
+    },
+    DMIndex = 0;
+$('#mem_langFrm')
+    .bootstrapValidator({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        /*excluded: [':disabled', ':hidden', ':not(:visible)', '.group'],*/
+        fields: {
+            'DM[0][memLang]': DesValidators
+        }
+    })
+
+    // Add button click handler
+    .on('click', '#addrowbtn', function () {
+
+        DMIndex++;
+        var $template = $('#DMrow_template'),
+            $clone = $template
+                .clone()
+                .removeClass('hide')
+                .removeAttr('id')
+                .attr('data-dm-index', DMIndex)
+                .insertBefore($template);
+
+        // Update the name attributes
+        $clone
+            .find('[name="memLang"]').attr('name', 'DM[' + DMIndex + '][memLang]').end();
+
+
+        /*$('DM[' + DMIndex + '][selection]').select2();*/
+
+        // Add new fields
+        // Note that we also pass the validator rules for new field as the third parameter
+        $('#mem_langFrm')
+            .bootstrapValidator('addField', 'DM[' + DMIndex + '][memLang]', DesValidators);
+        $('[name = "' + 'DM[' + DMIndex + '][memLang]' + '"]').select2();
+
+    })
+
+    // Remove button click handler
+    .on('click', '.removeButton', function () {
+        var $row = $(this).parents('.DMrow_template'),
+            index = $row.attr('data-dm-index');
+
+        // Remove fields
+        $('#mem_langFrm')
+            .bootstrapValidator('removeField', $row.find('[name="DM[' + index + '][memLang]"]'))
+
+        // Remove element containing the fields
+        $row.remove();
+    })
+    .on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+
+        var $form = $(e.target),
+            bv = $form.data('bootstrapValidation');
+        // Use Ajax to submit form data
+        var that = $(this),
+            url = that.attr('action'),
+            type = that.attr('method'),
+            data = {};
+        var serializedData = that.serialize();
+        that.find('[name]').each(function (index, value) {
+            var that = $(this),
+                name = that.attr('name'),
+                value = that.val();
+
+            data[name] = value;
+        });
+
+        var postData = $('#mem_langFrm').serializeArray();
+        var Com_MasterID = <?php echo json_encode(trim($this->input->post('Com_MasterID'))); ?>;
+
+        postData.push({
+            'name': 'Com_MasterID',
+            'value': Com_MasterID
+        });
+
+        $.ajax({
+            url: url,
+            type: type,
+            data: postData,
+            dataType: 'json',
+            success: function (data) {
+                stopLoad();
+                myAlert(data[0], data[1]);
+
+                if (data[0] == 's') {
+                    fetch_alldetails('languageTab');
+                }
+
+                $('#mem_langModel').modal('hide');
+            },
+            error: function () {
+            }
+        });
+    });
+$('#mem_langModel')
+    .on('hidden.bs.modal', function() {
+        reset_form_Modal();
+    })
+    .on('shown.bs.modal', function (e) {
+
+    });
+});
+
+function reset_form_Modal(){
+        $('#memLang').select2("val", "");
+
+        //hide add row button
+        document.getElementById('addrowbtn').style.display = '';
+        //reset form
+        document.getElementById('mem_langFrm').reset();
+
+        $('#mem_langFrm')
+            .bootstrapValidator('disableSubmitButtons', false)
+            .bootstrapValidator('resetForm', true);
+
+        //Delete added rows in the table
+        var rowlen = document.getElementById('mem_lang_addTab').rows.length;
+        var rrowlen = rowlen-1;
+
+        for(i=2;i<rrowlen;i++){
+            document.getElementById('mem_lang_addTab').deleteRow(2);
+        }
+    }
+
     function clear_memLang_data() {
-        $('#LanguageID').val('').change();
+        $('#memLang').val('').change();
     }
 
     function get_newLangAdd_modal() {
-        $('#LanguageID').val('').change();
+        $('#memLang').val('').change();
         $('#com_memLangAdd_modal').modal('show');
+    }
+
+    function fetch_newMem_language() {
+        var memNewLanguage = $('#memNewLanguage').val();
+        var Com_MasterID = <?php echo json_encode(trim($this->input->post('Com_MasterID'))); ?>;
+
+        if (memNewLanguage) {
+            $.ajax({
+                async: true,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'Com_MasterID': Com_MasterID,
+                    'memNewLanguage': memNewLanguage
+                },
+                url: "<?php echo site_url('CommunityNgo/fetch_newMem_language'); ?>",
+                beforeSend: function() {
+                    startLoad();
+                },
+                success: function(data) {
+                    stopLoad();
+
+                   // $('#memLang').val(memNewLanguage).change();
+                   // $('#memLang').prop('readonly', true);
+                    $('#com_memLangAdd_modal').modal('hide');
+                    myAlert(data[0], data[1]);
+
+                    if (data[0] == 's') {
+                        fetch_alldetails('languageTab');
+                    }
+
+                    $('#mem_langModel').modal('hide');
+                    reset_form_Modal();
+                },
+                error: function() {
+                    alert('An Error Occurred! Please Try Again.');
+                    stopLoad();
+                }
+            });
+        }
+
     }
 
     function clear_memMedium_data() {
@@ -2110,82 +2336,6 @@ $currencyCode = $this->common_data['company_data']['company_default_currency'];
             });
         }
 
-    }
-
-    function fetch_newMem_language() {
-        var memNewLanguage = $('#memNewLanguage').val();
-        var Com_MasterID = <?php echo json_encode(trim($this->input->post('Com_MasterID'))); ?>;
-
-        if (memNewLanguage) {
-            $.ajax({
-                async: true,
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    'Com_MasterID': Com_MasterID,
-                    'memNewLanguage': memNewLanguage
-                },
-                url: "<?php echo site_url('CommunityNgo/fetch_newMem_language'); ?>",
-                beforeSend: function() {
-                    startLoad();
-                },
-                success: function(data) {
-                    stopLoad();
-
-                    $('#LanguageID').val(memNewLanguage).change();
-                    $('#LanguageID').prop('readonly', true);
-                    $('#com_memLangAdd_modal').modal('hide');
-                    myAlert(data[0], data[1]);
-
-                    if (data[0] == 's') {
-                        fetch_alldetails('languageTab');
-                    }
-
-                    $('#language_modal').modal('hide');
-
-                },
-                error: function() {
-                    alert('An Error Occurred! Please Try Again.');
-                    stopLoad();
-                }
-            });
-        }
-
-    }
-
-    function save_Language() {
-        var postData = $('#language_form').serializeArray();
-        var Com_MasterID = <?php echo json_encode(trim($this->input->post('Com_MasterID'))); ?>;
-
-        postData.push({
-            'name': 'Com_MasterID',
-            'value': Com_MasterID
-        });
-
-        $.ajax({
-            type: 'post',
-            url: '<?php echo site_url('CommunityNgo/save_Language'); ?>',
-            data: postData,
-            dataType: 'json',
-            beforeSend: function() {
-                startLoad();
-            },
-            success: function(data) {
-                stopLoad();
-                myAlert(data[0], data[1]);
-
-                if (data[0] == 's') {
-                    fetch_alldetails('languageTab');
-                }
-
-                $('#language_modal').modal('hide');
-            },
-            error: function() {
-                stopLoad();
-                myAlert('e', '<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
-                /*An Error Occurred! Please Try Again*/
-            }
-        })
     }
 
     function deleteLanguage(id) {

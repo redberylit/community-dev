@@ -1387,42 +1387,41 @@ FROM srp_erp_ngo_com_communitymaster AS t1
         }
     }
 
-    function save_Language()
+    public function postMemLanguge_data()
     {
 
-        $this->form_validation->set_rules('LanguageID', 'Language', 'required');
 
-        if ($this->form_validation->run() == FALSE) {
-            die(json_encode(['e', validation_errors()]));
-        }
+            $PostedResults = $_POST['DM'];
+            $companyID = current_companyID();
+            $Com_MasterID = $this->input->post('Com_MasterID');
 
-        $Com_MasterID = $this->input->post('Com_MasterID');
-        $LanguageID = $this->input->post('LanguageID');
+            $data = array();
 
-        $data = array(
-            'Com_MasterID' => $Com_MasterID,
-            'LanguageID' => $LanguageID,
-            'companyID' => current_companyID(),
-            'createdUserID' => current_userID(),
-            'createdPCID' => current_pc(),
-            'createdDateTime' => current_date()
-        );
+            foreach ($PostedResults as $result) {
 
-        $companyID = current_companyID();
-        $isExist = $this->db->query("SELECT MemLanguageID FROM srp_erp_ngo_com_memberlanguage WHERE companyID={$companyID} AND Com_MasterID = '$Com_MasterID' AND LanguageID = '$LanguageID' ")->row('MemLanguageID');
+                $memLang = $result['memLang'];
 
-        if (isset($isExist)) {
-            echo json_encode(['e', 'Already available']);
-        } else {
-            $int = $this->db->insert('srp_erp_ngo_com_memberlanguage', $data);
+                $query_checkExistance = $this->db->query("SELECT * FROM srp_erp_ngo_com_memberlanguage WHERE Com_MasterID='".$Com_MasterID."' AND LanguageID = '".$memLang."' AND companyID = '".$companyID."'");
+                $res_checkExistance = $query_checkExistance->result();
 
-            if ($int) {
-                echo json_encode(['s', 'Inserted successfully']);
-            } else {
-                $common_failed = $this->lang->line('common_failed');/* 'failed'*/
-                echo json_encode(['e', $common_failed]);
+                if(empty($res_checkExistance)) {
+                    $query_insert = $this->db->query("INSERT INTO srp_erp_ngo_com_memberlanguage(Com_MasterID,LanguageID,companyID,createdUserID,createdPCID,createdDateTime) VALUES ('".$Com_MasterID."','".$memLang."','" . $companyID . "','".current_userID()."','".current_pc()."','".current_date()."')");
+                    $data[] = 'Inserted';
+                }else{
+                    $data[] = 'available';
+                }
             }
+      
+
+        if (in_array('Inserted', $data)) {
+            echo json_encode(['s', 'Inserted successfully']);
+        } else if (in_array('available', $data)) {
+            echo json_encode(['e', 'Already available']);
+        }else{
+            $common_failed = $this->lang->line('common_failed');/* 'failed'*/
+            echo json_encode(['e', $common_failed]);
         }
+
     }
 
     function deleteLanguage()
@@ -5959,6 +5958,7 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $this->form_validation->set_rules('subCmtDesc[]', 'Description', 'trim|required');
         $this->form_validation->set_rules('areaSubCmnt[]', 'Area', 'trim|required');
         $this->form_validation->set_rules('subCmtHead[]', 'Committee Head', 'trim|required');
+        $this->form_validation->set_rules('hdCommtPosID[]', 'Position Of Haed', 'trim|required');
         $this->form_validation->set_rules('subCmtAddedDate[]', 'Added Date', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -5989,7 +5989,7 @@ WHERE hEnr.FamMasterID=$FamMasterID ORDER BY hEnr.hEnrollingID")->row_array();
         $this->datatables->from('srp_erp_ngo_com_committeemembers')
             ->join('srp_erp_ngo_com_committeesmaster', 'srp_erp_ngo_com_committeemembers.CommitteeID = srp_erp_ngo_com_committeesmaster.CommitteeID')
             ->join('srp_erp_ngo_com_committeeareawise', 'srp_erp_ngo_com_committeemembers.CommitteeAreawiseID = srp_erp_ngo_com_committeeareawise.CommitteeAreawiseID')
-            ->join('srp_erp_ngo_com_committeeposition', 'srp_erp_ngo_com_committeemembers.CommitteePositionID = srp_erp_ngo_com_committeeposition.CommitteePositionID')
+            ->join('srp_erp_ngo_com_committeeposition', 'srp_erp_ngo_com_committeemembers.CommitteePositionID = srp_erp_ngo_com_committeeposition.CommitteePositionID', 'left')
             ->join('srp_erp_ngo_com_communitymaster', 'srp_erp_ngo_com_committeemembers.Com_MasterID = srp_erp_ngo_com_communitymaster.Com_MasterID');
 
         $this->datatables->where('srp_erp_ngo_com_committeemembers.companyID', $companyID);
