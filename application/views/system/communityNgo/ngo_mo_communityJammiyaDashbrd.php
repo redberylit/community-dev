@@ -353,13 +353,13 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfJammiyaDashbrd');
                                 <li class="active">
                                     <a onclick="community_generalDash()" id="" data-id="0"
                                        href="#comGeneral_dashboardTemp" data-toggle="tab"
-                                       aria-expanded="true"><span><i class="fa fa-tachometer" aria-hidden="true"
+                                       aria-expanded="true"><span><i class="lni lni-world" aria-hidden="true"
                                                                      style="color: #50749f;font-size: 16px;"></i> <?php echo $this->lang->line('comNgo_dash_community'); ?></span></a>
                                 </li>
                                 <li class="">
                                     <a onclick="jammiya_find_people()" id="" data-id="0"
                                        href="#find_peopleDashbrdTemp" data-toggle="tab"
-                                       aria-expanded="true"><span><i class="glyphicon glyphicon-user" aria-hidden="true"
+                                       aria-expanded="true"><span><i class="lni lni-user" aria-hidden="true"
                                                                      style="color: #1a8b83;font-size: 16px;"></i> <?php echo $this->lang->line('comNgo_dash_family_find_people'); ?></span></a>
                                 </li>
                             </ul>
@@ -455,16 +455,18 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfJammiyaDashbrd');
                                                             <div class="numberStar" onclick="jammiyaOpen_MemberModel();" style="text-transform: uppercase;"><?php //echo $this->lang->line('comNgo_dash_members'); ?></div>
                                                         </div>
                                                     </div>-->
-                                                    <div class="box hvr-underline-from-center">
-                                                        <div class="box-body py-0">
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <div>
-                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="jammiyaOpen_MemberModel();"><?php echo $this->lang->line('comNgo_dash_members'); ?></a></h5>
-                                                                    <h2 id="total_members" class="label_count">0</h2>
-                                                                </div>
-                                                                <div style="position: relative;">
-                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/members.png">  
-                                                                    
+                                                    <div class="set-pointer" onclick="jammiyaOpen_MemberModel();">        
+                                                        <div class="box hvr-underline-from-center">
+                                                            <div class="box-body py-0">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <div>
+                                                                        <h5 class="text-fade"><a href="javascript:void(0);" onclick="jammiyaOpen_MemberModel();"><?php echo $this->lang->line('comNgo_dash_members'); ?></a></h5>
+                                                                        <h2 id="total_members" class="label_count">0</h2>
+                                                                    </div>
+                                                                    <div style="position: relative;">
+                                                                        <img src="<?php echo base_url(); ?>plugins/dist/img/members.png">  
+                                                                        
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -481,20 +483,22 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfJammiyaDashbrd');
                                                             <div class="numberStar" onclick="jammiyaOpen_FamiliesModel();" style="text-transform: uppercase;"><?php //echo $this->lang->line('comNgo_dash_families'); ?></div>
                                                         </div>
                                                     </div>-->
-                                                    <div class="box hvr-underline-from-center">
-                                                        <div class="box-body py-0">
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <div>
-                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="jammiyaOpen_FamiliesModel();"><?php echo $this->lang->line('comNgo_dash_families'); ?></a></h5>
-                                                                    <h2 id="total_families" class="label_count">0</h2>
-                                                                </div>
-                                                                <div style="position: relative;">
-                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/family.png">  
-                                                                    
+                                                    <div class="set-pointer" onclick="jammiyaOpen_FamiliesModel();">        
+                                                        <div class="box hvr-underline-from-center">
+                                                            <div class="box-body py-0">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <div>
+                                                                        <h5 class="text-fade"><a href="javascript:void(0);" onclick="jammiyaOpen_FamiliesModel();"><?php echo $this->lang->line('comNgo_dash_families'); ?></a></h5>
+                                                                        <h2 id="total_families" class="label_count">0</h2>
+                                                                    </div>
+                                                                    <div style="position: relative;">
+                                                                        <img src="<?php echo base_url(); ?>plugins/dist/img/family.png">  
+                                                                        
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>    
                                                 </div>
                                                 <div class="col-lg-3 col-xs-6">
                                                     <!--<div class="white-box">
@@ -507,16 +511,18 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfJammiyaDashbrd');
                                                             <div class="numberStar" onclick="jammiyaOpen_CommitteesModel();" style="text-transform: uppercase;"><?php //echo $this->lang->line('comNgo_dash_committees'); ?></div>
                                                         </div>
                                                     </div>-->
-                                                    <div class="box hvr-underline-from-center">
-                                                        <div class="box-body py-0">
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <div>
-                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="jammiyaOpen_CommitteesModel();"><?php echo $this->lang->line('comNgo_dash_committees'); ?></a></h5>
-                                                                    <h2 id="total_committees" class="label_count">0</h2>
-                                                                </div>
-                                                                <div style="position: relative;">
-                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/committees.png">  
-                                                                    
+                                                    <div class="set-pointer" onclick="jammiyaOpen_CommitteesModel();">        
+                                                        <div class="box hvr-underline-from-center">
+                                                            <div class="box-body py-0">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <div>
+                                                                        <h5 class="text-fade"><a href="javascript:void(0);" onclick="jammiyaOpen_CommitteesModel();"><?php echo $this->lang->line('comNgo_dash_committees'); ?></a></h5>
+                                                                        <h2 id="total_committees" class="label_count">0</h2>
+                                                                    </div>
+                                                                    <div style="position: relative;">
+                                                                        <img src="<?php echo base_url(); ?>plugins/dist/img/committees.png">  
+                                                                        
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -533,16 +539,18 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfJammiyaDashbrd');
                                                             </div>
                                                         </div>
                                                     </div>-->
-                                                    <div class="box hvr-underline-from-center">
-                                                        <div class="box-body py-0">
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <div>
-                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalHouseEn'); ?></a></h5>
-                                                                    <h2 id="noOfTotHouses" class="label_count">0</h2>
-                                                                </div>
-                                                                <div style="position: relative;">
-                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/house.png">  
-                                                                    
+                                                    <div class="set-pointer" onclick="fetch_comHousingData();">     
+                                                        <div class="box hvr-underline-from-center">
+                                                            <div class="box-body py-0">
+                                                                <div class="d-flex justify-content-between align-items-center">
+                                                                    <div>
+                                                                        <h5 class="text-fade"><a href="javascript:void(0);" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalHouseEn'); ?></a></h5>
+                                                                        <h2 id="noOfTotHouses" class="label_count">0</h2>
+                                                                    </div>
+                                                                    <div style="position: relative;">
+                                                                        <img src="<?php echo base_url(); ?>plugins/dist/img/house.png">  
+                                                                        
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -118,7 +118,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                 <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                 <div class="col-md-12" id="occuMemTypeDiv">
 
-                    <div class="form-group col-sm-3">
+                    <div class="col-sm-3">
                         <label for="memberType" class="control-label"><?php echo $this->lang->line('communityngo_occupationType'); ?></label>
                         <select id="memberType" class="form-control select2" onchange="get_commMemDetails();" name="memberType" data-placeholder="Select Occupation Type" style="height:30px;width:200px;font-size: 13px;">
                             <option value=""><?php echo $this->lang->line('communityngo_select_occupationType'); ?></option>
@@ -137,7 +137,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                             ?>
                         </select>
                     </div>
-                    <div class="form-group col-sm-3" id="jobDiv" style="display:none;margin-left: 10px !important;">
+                    <div class="col-sm-3" id="jobDiv" style="display:none;margin-left: 10px !important;">
                         <label for="JobCatId" class="control-label"><?php echo $this->lang->line('communityngo_Job_Category'); ?></label>
                         <select class="form-control select2" id="JobCatId" name="JobCatId" style="height:30px;width:200px;font-size: 13px;" data-placeholder="Select Job Category">
                             <option value=""></option>
@@ -153,7 +153,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                             ?>
                         </select>
                     </div>
-                    <div class="form-group col-sm-3" id="schlDiv" style="display:none;margin-left: 10px !important;">
+                    <div class="col-sm-3" id="schlDiv" style="display:none;margin-left: 10px !important;">
                         <label for="schlId" class="control-label"><?php echo $this->lang->line('communityngo_School'); ?></label>
                         <select class="form-control select2" id="schlId" name="schlId" style="height:30px;width:200px;font-size: 13px;" data-placeholder="Select School">
                             <option value=""></option>
@@ -168,7 +168,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                             ?>
                         </select>
                     </div>
-                    <div class="form-group col-sm-2" id="MediumDiv" style="display:none;margin-left: 10px !important;">
+                    <div class="col-sm-2" id="MediumDiv" style="display:none;margin-left: 10px !important;">
 
                         <label for="MedumId" class="control-label"><?php echo $this->lang->line('communityngo_medium'); ?></label>
                         <select class="form-control select2" id="MedumId" name="MedumId" style="height:30px;width:200px;font-size: 13px;" data-placeholder="Select Medium">
@@ -185,7 +185,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                             ?>
                         </select>
                     </div>
-                    <div class="form-group col-sm-2" id="classDiv" style="display:none;margin-left: 10px !important;">
+                    <div class="col-sm-2" id="classDiv" style="display:none;margin-left: 10px !important;">
 
                         <label for="classId" class="control-label"><?php echo $this->lang->line('communityngo_class'); ?></label>
                         <select class="form-control select2" id="classId" name="classId" style="height:30px;width:200px;font-size: 13px;" data-placeholder="Select Grade">
@@ -201,12 +201,12 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                             ?>
                         </select>
                     </div>
-                    <div class="form-group col-sm-3" id="placeDiv" style="margin-left: 10px !important;">
+                    <div class="col-sm-3" id="placeDiv" style="margin-left: 10px !important;">
                         <label for="PlaceDes" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                         <input name="PlaceDes" type="text" class="form-control input-sm" style="height:30px;width:200px;font-size: 13px;" placeholder="Search by all" id="PlaceDes">
                         <!--Search by all-->
                     </div>
-                    <div class="form-group col-sm-2" style="margin-left: 10px !important;">
+                    <div class="col-sm-2" style="margin-left: 10px !important;">
                         <button type="button" class="btn btn-primary text-center" onclick="generateReport()" name="filtersubmit" id="filtersubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                         </button>
                     </div>
@@ -222,7 +222,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                     <div class="col-md-12" id="qualMemTypeDiv">
 
-                        <div class="form-group col-sm-3" id="qualMemDiv">
+                        <div class="col-sm-3" id="qualMemDiv">
                             <label for="qualMemType" class="control-label"><?php echo $this->lang->line('communityngo_Qualification'); ?></label>
                             <select id="qualMemType" class="form-control select2" onchange="get_commMemQualDetails();" name="qualMemType" data-placeholder="Select Qualification" style="height:30px;font-size: 13px;">
                                 <option value="-4" selected> <?php echo $this->lang->line('common_all'); ?></option>
@@ -240,7 +240,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                 ?>
                             </select>
                         </div>
-                        <div class="form-group col-sm-3" id="InstituteDiv" style="margin-left: 10px;">
+                        <div class="col-sm-3" id="InstituteDiv">
                             <label for="InstituteId" class="control-label"><?php echo $this->lang->line('communityngo_University'); ?></label>
                             <select class="form-control select2" id="InstituteId" name="InstituteId" onchange="get_commMemQualDetails();" style="height:30px;font-size: 13px;" data-placeholder="Select Institute">
                                 <option value=""></option>
@@ -258,12 +258,12 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                 ?>
                             </select>
                         </div>
-                        <div class="form-group col-sm-3" id="qualSerchDiv" style="margin-left: 10px;">
+                        <div class="col-sm-3" id="qualSerchDiv">
                             <label for="qualSerch" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                             <input name="qualSerch" type="text" class="form-control input-sm" style="height:30px;width:250px;font-size: 13px;" placeholder="Search by all" id="qualSerch">
                             <!--Search by all-->
                         </div>
-                        <div class="form-group col-sm-3">
+                        <div class="col-sm-3">
                             <button type="button" class="btn btn-primary text-center" onclick="generateQualReport()" name="filterQualsubmit" id="filterQualsubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                             </button>
                         </div>
@@ -278,7 +278,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                 <form method="post" name="form_rpt_memDivi" id="form_rpt_memDivi" class="form-horizontal">
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                     <div class="col-md-12" id="diviMemTypeDiv">
-                        <div class="form-group col-sm-3" id="contrMemDiv">
+                        <div class="col-sm-3" id="contrMemDiv">
                             <label for="countryId" class="control-label"><?php echo $this->lang->line('communityngo_country'); ?>
                                 <!--Country--></label>
                             <span class="input-req" title="Required Field">
@@ -289,21 +289,21 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                     <?php } ?>
                                 </select><span class="input-req-inner"></span></span>
                         </div>
-                        <div class="form-group col-sm-3" id="proMemDiv" style="margin-left:3px;">
+                        <div class="col-sm-3" id="proMemDiv">
                             <label for="provinceID" class="control-label"><?php echo $this->lang->line('communityngo_Province'); ?>
                                 <!--Province--></label>
                             <select name="provinceID" class="form-control select2" id="provinceID" onchange="loadRcountry_District();">
                                 <option value="" selected="selected"><?php echo $this->lang->line('comNgo_dash_select_a_province'); ?></option>
                             </select>
                         </div>
-                        <div class="form-group col-sm-3" id="disMemDiv" style="margin-left:3px;">
+                        <div class="col-sm-3" id="disMemDiv">
                             <label for="districtID" class="control-label"><?php echo $this->lang->line('communityngo_District'); ?>
                                 <!--District Division--></label>
                             <select name="districtID" class="form-control select2" id="districtID" onchange="loadRcountry_districtDivision();">
                                 <option value="" selected="selected"><?php echo $this->lang->line('comNgo_dash_select_a_district'); ?></option>
                             </select>
                         </div>
-                        <div class="form-group col-sm-3" id="disDivMemDiv" style="margin-left:3px;">
+                        <div class="col-sm-3" id="disDivMemDiv">
                             <label for="districtDivisionID" class="control-label"><?php echo $this->lang->line('communityngo_DistrictDivision'); ?>
                                 <!--District Division--></label>
                             <select name="districtDivisionID" class="form-control select2" id="districtDivisionID" onchange="loadRcountry_GSDivision(this.value);loadRcountry_Division_Area(this.value)">
@@ -312,7 +312,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                         </div>
                     </div>
                     <div class="col-md-12" id="divi2MemTypeDiv">
-                        <div class="form-group col-sm-3" id="areaMemDiv">
+                        <div class="col-sm-3" id="areaMemDiv">
                             <label for="areaMemId" class="control-label"><?php echo $this->lang->line('communityngo_region_temp2'); ?>
                                 <!--Area--></label>
 
@@ -331,7 +331,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                             </select>
 
                         </div>
-                        <div class="form-group col-sm-3" id="gsDivitnDiv" style="margin-left:3px;">
+                        <div class="col-sm-3" id="gsDivitnDiv">
                             <label for="gsDivitnId" class="control-label"><?php echo $this->lang->line('communityngo_GS_Division'); ?>
                                 <!--GS Division--></label>
 
@@ -349,13 +349,13 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                 ?>
                             </select>
                         </div>
-                        <div class="form-group col-sm-3" id="divSerchDiv" style="margin-left: 10px;">
+                        <div class="col-sm-3" id="divSerchDiv">
                             <label for="divitnSerch" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                             <input name="divitnSerch" type="text" class="form-control input-sm" style="height:30px;width:220px;font-size: 13px;" placeholder="Search by all" id="divitnSerch">
                             <!--Search by all-->
                         </div>
 
-                        <div class="form-group col-sm-3">
+                        <div class="col-sm-3">
                             <button type="button" style="margin-top: 10px;" class="btn btn-primary pull-centre" onclick="generateDiviReport()" name="filterDivisubmit" id="filterDivisubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                             </button>
                         </div>
@@ -381,7 +381,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                         <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="col-md-12" id="memHelpRqTypeDiv">
 
-                            <div class="form-group col-sm-3" id="helpNeedMemDiv">
+                            <div class="col-sm-3" id="helpNeedMemDiv">
                                 <label for="helpRqType" class="control-label"><?php echo $this->lang->line('communityngo_memHelp_type'); ?></label>
                                 <select id="helpRqType" class="form-control select2" name="helpRqType" onchange="getMem_helpRqType_del();get_comMemHelpRqDetails();" data-placeholder="<?php echo $this->lang->line('communityngo_memHelp_type'); ?>" style="height:30px;width:180px;font-size: 13px;">
                                     <option value="-3" selected> <?php echo $this->lang->line('common_all'); ?></option>
@@ -390,18 +390,18 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                     <option value="3">Consultancy</option>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-3" id="InstituteDiv" style="margin-left: 5px;">
+                            <div class="col-sm-3" id="InstituteDiv" style="margin-left: 5px;">
                                 <label for="helpDelIds" class="control-label"><?php echo $this->lang->line('communityngo_memHelp_details'); ?></label>
                                 <select class="form-control select2" id="helpDelIds" name="helpDelIds" onchange="get_comMemHelpRqDetails();" style="height:30px;width: 180px;font-size: 13px;" data-placeholder="Help In Detail">
                                     <option value="" selected="selected">Select a Help Details</option>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-3" id="helpRqSerchDiv" style="margin-left: 5px;">
+                            <div class="col-sm-3" id="helpRqSerchDiv" style="margin-left: 5px;">
                                 <label for="helpRqSerch" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                                 <input name="helpRqSerch" type="text" class="form-control input-sm" style="height:30px;width:200px;font-size: 13px;" placeholder="Search by all" id="helpRqSerch">
                                 <!--Search by all-->
                             </div>
-                            <div class="form-group col-sm-2">
+                            <div class="col-sm-2">
                                 <button type="button" class="btn btn-primary pull-right" onclick="generateHelpRqReport()" name="filterHlpRqSubmit" id="filterHlpRqSubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                                 </button>
                             </div>
@@ -413,7 +413,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                         <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="col-md-12" id="memhelpWillingDiv">
 
-                            <div class="form-group col-sm-3" id="willingMemDiv">
+                            <div class="col-sm-3" id="willingMemDiv">
                                 <label for="helpCategoryID" class="control-label"><?php echo $this->lang->line('communityNgo_willing_to_help_category'); ?></label>
                                 <select id="helpCategoryID" class="form-control select2" name="helpCategoryID" onchange="get_comMemWillingHpDetails();" data-placeholder="<?php echo $this->lang->line('communityNgo_willing_to_help_category'); ?>" style="height:30px;width:180px;font-size: 13px;">
                                     <option value="-2" selected><?php echo $this->lang->line('common_all'); ?></option>
@@ -428,12 +428,12 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-3" id="helpWilSerchDiv" style="margin-left: 5px;">
+                            <div class="col-sm-3" id="helpWilSerchDiv" style="margin-left: 5px;">
                                 <label for="helpWillSerch" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                                 <input name="helpWillSerch" type="text" class="form-control input-sm" style="height:30px;width:200px;font-size: 13px;" placeholder="Search by all" id="helpWillSerch">
                                 <!--Search by all-->
                             </div>
-                            <div class="form-group col-sm-2">
+                            <div class="col-sm-2">
                                 <button type="button" class="btn btn-primary pull-right" onclick="generateHelpWillReport()" name="filterHlpWillSubmit" id="filterHlpWillSubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                                 </button>
                             </div>
@@ -444,7 +444,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                     <form method="post" name="form_rpt_memHelpBoth" id="form_rpt_memHelpBoth" class="form-horizontal">
                         <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="col-md-12" id="memHelpRqWillingDiv">
-                            <div class="form-group col-sm-3" id="bothHlpMemDiv">
+                            <div class="col-sm-3" id="bothHlpMemDiv">
                                 <label for="bothHelpRqID" class="control-label"><?php echo $this->lang->line('communityngo_name_of_members'); ?></label>
                                 <select id="bothHelpRqID" class="form-control select2" name="bothHelpRqID" onchange="get_comMemWillingHpDetails();" data-placeholder="<?php echo $this->lang->line('communityngo_select_member'); ?>" style="height:30px;width:180px;font-size: 13px;">
                                     <option value="-1" selected> <?php echo $this->lang->line('common_all'); ?></option>
@@ -459,12 +459,12 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                     ?>
                                 </select>
                             </div>
-                            <div class="form-group col-sm-3" id="bothHelpSerchDiv" style="margin-left: 5px;">
+                            <div class="col-sm-3" id="bothHelpSerchDiv" style="margin-left: 5px;">
                                 <label for="bothHelpSerch" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                                 <input name="bothHelpSerch" type="text" class="form-control input-sm" style="height:30px;width:200px;font-size: 13px;" placeholder="Search by all" id="bothHelpSerch">
                                 <!--Search by all-->
                             </div>
-                            <div class="form-group col-sm-2">
+                            <div class="col-sm-2">
                                 <button type="button" class="btn btn-primary pull-right" onclick="generateBothHelpReport()" name="filterHlpBothSubmit" id="filterHlpBothSubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                                 </button>
                             </div>
@@ -475,16 +475,13 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
         </div>
 
         <div class="tab-pane" id="otherAppTap">
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border"><?php echo $this->lang->line('common_filters'); ?>
-                    <!--Filter-->
-                </legend>
+            
 
                 <form method="post" name="form_rpt_memOtr" id="form_rpt_memOtr" class="form-horizontal">
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                     <div class="col-md-12" id="otrMemTypeDiv">
 
-                        <div class="form-group col-sm-2" id="otrMemDiv">
+                        <div class="col-sm-2" id="otrMemDiv">
                             <label for="genType" class="control-label"><?php echo $this->lang->line('common_gender'); ?></label>
                             <select id="genType" class="form-control select2" onchange="get_commMemOtrDetails();" name="genType" data-placeholder="Select Gender">
                                 <option value="-9" selected> <?php echo $this->lang->line('common_all'); ?></option>
@@ -501,7 +498,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                 ?>
                             </select>
                         </div>
-                        <div class="form-group col-sm-2" id="abroadDiv" style="margin-left:20px !important;">
+                        <div class="col-sm-2" id="abroadDiv" style="margin-left:20px !important;">
                             <label for="IsAbroad" class="control-label"><?php echo $this->lang->line('communityngo_isAbroad'); ?></label>
                             <select class="form-control select2" id="IsAbroad" name="IsAbroad" onchange="get_commMemOtrDetails();" style="font-size: 13px;" data-placeholder="Select Abroad">
                                 <option value="-7" selected><?php echo $this->lang->line('common_all'); ?></option>
@@ -510,7 +507,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
                             </select>
                         </div>
-                        <div class="form-group col-sm-2" id="convertDiv" style="margin-left:20px !important;">
+                        <div class="col-sm-2" id="convertDiv" style="margin-left:20px !important;">
                             <label for="isConvertId" class="control-label"><?php echo $this->lang->line('communityngo_isConverted'); ?></label>
                             <select class="form-control select2" id="isConvertId" name="isConvertId" onchange="get_commMemOtrDetails();" style="font-size: 13px;" data-placeholder="Select Abroad">
                                 <option value="-8" selected><?php echo $this->lang->line('common_all'); ?></option>
@@ -519,14 +516,14 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
                             </select>
                         </div>
-                        <div class="form-group col-sm-3" id="bloodDiv" style="margin-left:20px !important;">
+                        <div class="col-sm-3" id="bloodDiv" style="margin-left:20px !important;">
                             <label for="bloodGrpID" class="control-label" style="margin-right:10px !important;"><?php echo $this->lang->line('communityngo_bloodGroup'); ?>
                                 <!--Blood Group--></label>
                             <br>
                             <?php echo form_dropdown('bloodGrpID[]', fetch_BloodGrpsDes(false), '', 'multiple  class="form-control" id="bloodGrpID" required'); ?>
 
                         </div>
-                        <div class="form-group col-sm-2" id="stateDiv" style="margin-left:10px !important;">
+                        <div class="col-sm-2" id="stateDiv" style="margin-left:10px !important;">
                             <label for="stateId" class="control-label"><?php echo $this->lang->line('communityngo_status'); ?></label>
                             <select class="form-control select2" id="stateId" name="stateId" data-placeholder="Select Status">
                                 <option value="-6" selected><?php echo $this->lang->line('common_all'); ?></option>
@@ -545,14 +542,14 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                         </div>
 
                     </div>
-                    <div class="col-md-12" id="otrMemTypeDiv2">
-                        <div class="form-group col-sm-3" id="sickDiv">
+                    <div class="col-md-12 pb15" id="otrMemTypeDiv2">
+                        <div class="col-sm-3" id="sickDiv">
                             <label for="sicknessID" class="control-label"><?php echo $this->lang->line('communityngo_CPermanent_sickness'); ?></label>
                             <br>
                             <?php echo form_dropdown('sicknessID[]', fetch_permanentSicknes(false), '', 'multiple  class="form-control" id="sicknessID" required'); ?>
 
                         </div>
-                        <div class="form-group col-sm-2" id="ageOpDiv">
+                        <div class="col-sm-2" id="ageOpDiv">
                             <label for="ageOpDiv" class="control-label"><?php echo $this->lang->line('communityngo_age'); ?></label>
                             <select class="form-control select2" id="ageOps" name="ageOps" onchange="get_commMemOtrDetails();" style="" data-placeholder="Select Operator">
                                 <option value="1" selected> = - Equal to</option>
@@ -565,28 +562,27 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                                 <option value="6"> Between </option>
                             </select>
                         </div>
-                        <div class="form-group col-sm-2" id="ageFrmDiv">
+                        <div class="col-sm-2" id="ageFrmDiv">
                             <label for="ageFrmDiv" class="control-label"><?php echo $this->lang->line('communityngo_age_from'); ?></label>
                             <input name="ageFrm" type="number" class="form-control input-sm" style="font-size: 13px;" placeholder="Age" id="ageFrm">
                             <!--Search by ageFrm-->
                         </div>
-                        <div class="form-group col-sm-2" id="ageToDiv" style="display:none;">
+                        <div class="col-sm-2" id="ageToDiv" style="display:none;">
                             <label for="ageToDiv" class="control-label"><?php echo $this->lang->line('communityngo_age_to'); ?></label>
                             <input name="ageTo" type="number" class="form-control input-sm" style="font-size: 13px;" placeholder="Age" id="ageTo">
                             <!--Search by ageTo-->
                         </div>
-                        <div class="form-group col-sm-2" id="placeComDiv" style="margin-left: 10px;">
+                        <div class="col-sm-2" id="placeComDiv">
                             <label for="PlaceComDes" class="control-label"><?php echo $this->lang->line('common_search'); ?></label>
                             <input name="PlaceComDes" type="text" class="form-control input-sm" style="height:30px;width:100%;font-size: 13px;" placeholder="Search by all" id="PlaceComDes">
                             <!--Search by all-->
                         </div>
-                        <div class="form-group col-sm-2" style="float: right;">
+                        <div class="col-sm-2" style="float: right;">
                             <button type="button" style="float: right;" class="btn btn-primary pull-right" onclick="generateOtrReport()" name="filterOtrSubmit" id="filterOtrSubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                             </button>
                         </div>
                     </div>
                 </form>
-            </fieldset>
         </div>
 
        

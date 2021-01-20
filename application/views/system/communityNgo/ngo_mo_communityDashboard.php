@@ -364,16 +364,16 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                     <div class="panel-heading">
                         <ul class="nav nav-tabs mainpanel">
                             <li class="active">
-                                <a onclick="community_generalDash()" id="" data-id="0" href="#comGeneral_dashboardTemp" data-toggle="tab" aria-expanded="true"><span><i class="fa fa-tachometer" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_community'); ?></span></a>
+                                <a onclick="community_generalDash()" id="" data-id="0" href="#comGeneral_dashboardTemp" data-toggle="tab" aria-expanded="true"><span><i class="lni lni-world" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_community'); ?></span></a>
                             </li>
                             <li class="">
-                                <a onclick="mahalla_fees_dash()" id="" data-id="0" href="#payments_dashboardTemp" data-toggle="tab" aria-expanded="true"><span><i class="fa fa-money" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_payments'); ?></span></a>
+                                <a onclick="mahalla_fees_dash()" id="" data-id="0" href="#payments_dashboardTemp" data-toggle="tab" aria-expanded="true"><span><i class="lni lni-wallet" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_payments'); ?></span></a>
                             </li>
                             <li class="">
-                                <a onclick="mahalla_other_dash()" id="" data-id="0" href="#commOther_dashboardTemp" data-toggle="tab" aria-expanded="true"><span><i class="fa fa-align-justify" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_rentals_and_other'); ?></span></a>
+                                <a onclick="mahalla_other_dash()" id="" data-id="0" href="#commOther_dashboardTemp" data-toggle="tab" aria-expanded="true"><span><i class="lni lni-credit-cards" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_rentals_and_other'); ?></span></a>
                             </li>
                             <li class="">
-                                <a onclick="community_find_people()" id="" data-id="0" href="#commFindPeople_dashbrdTemp" data-toggle="tab" aria-expanded="true"><span><i class="glyphicon glyphicon-user" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_family_find_people'); ?></span></a>
+                                <a onclick="community_find_people()" id="" data-id="0" href="#commFindPeople_dashbrdTemp" data-toggle="tab" aria-expanded="true"><span><i class="lni lni-user" aria-hidden="true" style="color: #2098D1;font-size: 16px;margin-right:5px"></i> <?php echo $this->lang->line('comNgo_dash_family_find_people'); ?></span></a>
                             </li>
                         </ul>
                     </div>
@@ -465,16 +465,18 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                                                                                                                         ?></div>
                                                         </div>
                                                     </div>-->
-                                                <div class="box hvr-underline-from-center">
-                                                    <div class="box-body py-0">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comMemberModel();"><?php echo $this->lang->line('comNgo_dash_members'); ?></a></h5>
-                                                                <h2 id="total_members" class="label_count">0</h2>
-                                                            </div>
-                                                            <div style="position: relative;">
-                                                                <img src="<?php echo base_url(); ?>plugins/dist/img/members.png">
+                                                <div class="set-pointer" onclick="open_comMemberModel();">    
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comMemberModel();"><?php echo $this->lang->line('comNgo_dash_members'); ?></a></h5>
+                                                                    <h2 id="total_members" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/members.png">
 
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -492,20 +494,22 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                                                                                                                             ?></div>
                                                         </div>
                                                     </div>-->
-                                                <div class="box hvr-underline-from-center">
-                                                    <div class="box-body py-0">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comFamiliesModel();"><?php echo $this->lang->line('comNgo_dash_families'); ?></a></h5>
-                                                                <h2 id="total_families" class="label_count">0</h2>
-                                                            </div>
-                                                            <div style="position: relative;">
-                                                                <img src="<?php echo base_url(); ?>plugins/dist/img/family.png">
+                                                <div class="set-pointer" onclick="open_comFamiliesModel();">        
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comFamiliesModel();"><?php echo $this->lang->line('comNgo_dash_families'); ?></a></h5>
+                                                                    <h2 id="total_families" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/family.png">
 
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>    
 
                                             </div>
                                             <div class="col-lg-3 col-xs-6">
@@ -520,20 +524,22 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                                                                                                                             ?></div>
                                                         </div>
                                                     </div>-->
-                                                <div class="box hvr-underline-from-center">
-                                                    <div class="box-body py-0">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comCommitteesModel();"><?php echo $this->lang->line('comNgo_dash_committees'); ?></a></h5>
-                                                                <h2 id="total_committees" class="label_count">0</h2>
-                                                            </div>
-                                                            <div style="position: relative;">
-                                                                <img src="<?php echo base_url(); ?>plugins/dist/img/committees.png">
+                                                <div class="set-pointer" onclick="open_comCommitteesModel();">        
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="open_comCommitteesModel();"><?php echo $this->lang->line('comNgo_dash_committees'); ?></a></h5>
+                                                                    <h2 id="total_committees" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/committees.png">
 
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>    
                                             </div>
                                             <div class="col-lg-3 col-xs-6">
                                                 <!--<div class="white-box">
@@ -547,16 +553,18 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                             </div>                                                           
                                                         </div>
                                                     </div>-->
-                                                <div class="box hvr-underline-from-center">
-                                                    <div class="box-body py-0">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <h5 class="text-fade"><a href="javascript:void(0);" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalHouseEn'); ?></a></h5>
-                                                                <h2 id="noOfTotHouses" class="label_count">0</h2>
-                                                            </div>
-                                                            <div style="position: relative;">
-                                                                <img src="<?php echo base_url(); ?>plugins/dist/img/house.png">
+                                                <div class="set-pointer" onclick="fetch_comHousingData();">     
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalHouseEn'); ?></a></h5>
+                                                                    <h2 id="noOfTotHouses" class="label_count">0</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="<?php echo base_url(); ?>plugins/dist/img/house.png">
 
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

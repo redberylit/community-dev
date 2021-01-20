@@ -483,7 +483,9 @@ if (!empty($comMaster)) {
             title: {
                 text: '<?php echo $this->lang->line('comNgo_dash_jammiya_economic_status'); ?>',
                 style: {
-                    color: 'black'
+                    color: '#444',
+                    fontSize: '18px',
+                    fontFamily: 'Source Sans Pro'
                 }
             },
             xAxis: {

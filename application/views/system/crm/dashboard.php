@@ -390,19 +390,19 @@ $start_date = convert_date_format($startdate);
                             <li class="active">
                                 <a onclick="dashboardclick()" id="" data-id="0"
                                    href="#17erp_ajax_load_dashboard_template1" data-toggle="tab"
-                                   aria-expanded="true"><span><i class="fa fa-tachometer" aria-hidden="true"
+                                   aria-expanded="true"><span><i class="lni lni-world" aria-hidden="true"
                                                                  style="color: #ffbe00;font-size: 16px;"></i> Dashboard</span></a>
                             </li>
                             <li class="">
                                 <a onclick="dashboard_new_click()" id="" data-id="0"
                                    href="#crm_dashboard2" data-toggle="tab"
-                                   aria-expanded="true"><span><i class="fa fa-tachometer" aria-hidden="true"
+                                   aria-expanded="true"><span><i class="lni lni-user" aria-hidden="true"
                                                                  style="color: #F44336;font-size: 16px;"></i> Dashboard 2</span></a>
                             </li>
                             <li class="">
                                 <a id="" data-id="0"
                                    href="#17erp_ajax_load_dashboard_template2" data-toggle="tab"
-                                   aria-expanded="true"><span><i class="fa fa-calendar" aria-hidden="true"
+                                   aria-expanded="true"><span><i class="lni lni-calendar" aria-hidden="true"
                                                                  style="color: #E74C3C;font-size: 16px;"></i>&nbspCalendar</span></a>
                             </li>
                         </ul>

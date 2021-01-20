@@ -102,12 +102,12 @@
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#section-bar-1" data-toggle="tab" aria-expanded="true"><span><i class="fa fa-tachometer"></i> Dashboard</span>
+                    <a href="#section-bar-1" data-toggle="tab" aria-expanded="true"><span><i class="lni lni-world"></i> Dashboard</span>
                     </a>
                 </li>
                 <li class="">
                     <a href="#section-bar-2" onclick="loadGantt()" data-toggle="tab"
-                       aria-expanded="true"><span> <i class="fa fa-calendar"></i> Production Calendar</span>
+                       aria-expanded="true"><span> <i class="lni lni-calendar"></i> Production Calendar</span>
                     </a>
                 </li>
                 <li class="">
