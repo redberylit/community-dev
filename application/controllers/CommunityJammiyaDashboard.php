@@ -85,7 +85,7 @@ class CommunityJammiyaDashboard extends ERP_Controller
 
         $data['loadBloodCount'] = $this->db->query("SELECT COUNT(*) AS `NoOfGrpMem`,BloodDescription FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_ngo_com_communitymaster.BloodGroupID=srp_erp_bloodgrouptype.BloodTypeID WHERE srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND BloodGroupID IN ($BloodTypeID) $areaMemIdS  " . " $gsDivitnIdS GROUP BY BloodGroupID
         UNION SELECT COUNT(*) AS `NoOfGrpMem`,BloodDescription FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_bloodgrouptype ON srp_erp_ngo_com_communitymaster.BloodGroupID=srp_erp_bloodgrouptype.BloodTypeID WHERE srp_erp_ngo_com_communitymaster.isDeleted='0' AND srp_erp_ngo_com_communitymaster.isActive='1' AND comVerifiApproved='1' AND BloodGroupID NOT IN ($BloodTypeID) $areaMemIdS  " . " $gsDivitnIdS ")->result_array();
-    
+
         //end of blood group counts
 
         //get Marital Status
@@ -128,7 +128,7 @@ class CommunityJammiyaDashboard extends ERP_Controller
         $data['loadEconState'] = $this->db->query("SELECT * FROM srp_erp_ngo_com_familyeconomicstatemaster WHERE EconStateID IN ($EconStateIDS) ORDER BY EconStateID DESC")->result_array();
         // column Chart //
 
-        $data['loadEconSte'] = $this->db->query("SELECT COUNT(*) AS `countEconSte` FROM srp_erp_ngo_com_familymaster LEFT JOIN srp_erp_ngo_com_familyeconomicstatemaster ON srp_erp_ngo_com_familymaster.ComEconSteID=srp_erp_ngo_com_familyeconomicstatemaster.EconStateID LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_familymaster.LeaderID=srp_erp_ngo_com_communitymaster.Com_MasterID WHERE srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' AND srp_erp_ngo_com_familymaster.ComEconSteID IN ($EconStateIDS) $where_clsDsh " . " $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_familymaster.ComEconSteID ORDER BY srp_erp_ngo_com_familymaster.ComEconSteID ASC")->result_array();
+        $data['loadEconSte'] = $this->db->query("SELECT COUNT(*) AS `countEconSte`,EconStateDes FROM srp_erp_ngo_com_familymaster LEFT JOIN srp_erp_ngo_com_familyeconomicstatemaster ON srp_erp_ngo_com_familymaster.ComEconSteID=srp_erp_ngo_com_familyeconomicstatemaster.EconStateID LEFT JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_familymaster.LeaderID=srp_erp_ngo_com_communitymaster.Com_MasterID WHERE srp_erp_ngo_com_familymaster.isDeleted='0' AND srp_erp_ngo_com_familymaster.isVerifyDocApproved='1' AND srp_erp_ngo_com_familymaster.ComEconSteID IN ($EconStateIDS) $where_clsDsh " . " $areaMemIdS  " . " $gsDivitnIdS GROUP BY srp_erp_ngo_com_familymaster.ComEconSteID ORDER BY srp_erp_ngo_com_familymaster.ComEconSteID ASC")->result_array();
 
         //end of  Econ State
 

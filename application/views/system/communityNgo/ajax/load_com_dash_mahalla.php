@@ -486,12 +486,9 @@ if (!empty($comMaster)) {
             },
             xAxis: {
                 categories: [
-                    'Very Poor',
-                    'Poor',
-                    'Middle Class',
-                    'Rich',
-                    'Very Rich'
-
+                    <?php foreach ($loadPerEconState as $val) {
+                        echo "'" . $val['EconStateDes'] . "',";
+                    } ?>
                 ],
                 crosshair: true
             },
