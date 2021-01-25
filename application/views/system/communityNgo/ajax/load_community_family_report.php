@@ -13,7 +13,7 @@ if (!empty($familyReport)) { ?>
         <div class="col-md-12 " id="communityRprt">
             <div class="reportHeaderColor" style="text-align: center">
                 <strong><?php echo current_companyName(); ?></strong></div>
-            <div class="reportHeader reportHeaderColor" style="text-align: center;">
+            <div class="reportHeader reportHeaderColor mb-4" style="text-align: center;">
                 <strong>Community Family Report</strong></div>
             <?php
             if ($familyReport) {
@@ -22,7 +22,7 @@ if (!empty($familyReport)) { ?>
             foreach ($familyReport as $valMas) {
 
             ?>
-                <div style="border: 1px solid #628bbe; border-collapse: collapse;">
+                <div class="outer-shadow-1">
             <div class="row">
                 <div class="col-sm-9">
                     <table class="table table-striped" id="profileInfoTable"

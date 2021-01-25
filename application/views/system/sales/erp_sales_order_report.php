@@ -24,8 +24,7 @@ if($this->session->userdata("companyType") == 1){
 <div id="filter-panel" class="collapse filter-panel">
 </div>
 <div>
-    <fieldset class="scheduler-border">
-        <legend class="scheduler-border"><?php echo $this->lang->line('common_filters'); ?><!--Filter--></legend>
+    
         <?php echo form_open('login/loginSubmit', ' name="frm_rpt_sales_order" id="frm_rpt_sales_order" class="form-horizontal" role="form"'); ?>
             <div class="col-md-12">
                 <label for="inputData" class="col-md-1 control-label">
@@ -44,7 +43,7 @@ if($this->session->userdata("companyType") == 1){
 
             </div>
         <?php echo form_close(); ?>
-    </fieldset>
+   
 </div>
 <hr style="margin: 0px;">
 <div id="div_sales_order">

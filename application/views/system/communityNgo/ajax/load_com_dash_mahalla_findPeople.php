@@ -18,7 +18,7 @@ $companyID = $this->common_data['company_data']['company_id'];
         <div class="col-md-12 col-sm-12 col-xs-12" style="padding:0px;">
 
             <div class="" role="group" aria-label="...">
-                <form id="form_ofBloodDonors" name="form_ofBloodDonors">
+                <form id="form_ofBloodDonors" class="set-form-style" name="form_ofBloodDonors">
                     <div class="row" style="margin-top: 10px;">
                         <div class="form-group col-sm-5">
                             <div class="box-tools">

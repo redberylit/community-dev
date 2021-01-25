@@ -79,8 +79,8 @@ $csrf = array(
 <div id="filter-panel" class="collapse filter-panel">
 </div>
 
-<div class="nav-tabs-custom" style="margin-bottom: 0px; box-shadow: none;">
-    <ul class="nav nav-tabs" style="border: 1px solid rgba(112, 107, 107, 0.21);">
+<div class="nav-tabs-custom set-tab-custom" style="margin-bottom: 0px; box-shadow: none;">
+    <ul class="nav nav-tabs tab-line-1">
         <li class="active">
             <a href="#familyAppTap" data-toggle="tab" aria-expanded="true" onclick="switchComMemFamRprt();"><?php echo $titleTabFam; ?></a>
         </li>
@@ -88,39 +88,36 @@ $csrf = array(
             <a href="#committeesAppTap" data-toggle="tab" aria-expanded="false" onclick="switchComMemCommRprt();"><?php echo $titleTabComt; ?></a>
         </li>
     </ul>
-    <div class="tab-content" style="border: 1px solid rgba(112, 107, 107, 0.21)">
+    <div class="tab-content">
 
         <input type="text" name="switchControlId" id="switchControlId" value="4" style="display:none;">
 
         <div class="tab-pane active disabled" id="familyAppTap">
 
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border"><?php echo $this->lang->line('common_filters'); ?>
-                    <!--Filter-->
-                </legend>
+           
 
-                <form method="post" name="form_rpt_ngoFamily" id="form_rpt_ngoFamily" class="form-horizontal">
+                <form method="post" name="form_rpt_ngoFamily" id="form_rpt_ngoFamily" class="form-horizontal set-form-style">
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
 
                     <div class="col-md-12">
-                        <div class="form-group col-sm-3" style="margin-left:5px;margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="control-label" for="GS_Division"><?php echo $this->lang->line('communityngo_GS_Division'); ?></label>
                             <br>
                             <?php echo form_dropdown('GS_Division[]', $division_arr, '', 'onchange="get_familyOfGSdivision();"  class="form-control" id="GS_Division" multiple="multiple"'); ?>
                         </div>
-                        <div class="form-group col-sm-3" style="margin-left:5px;margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="control-label" for="RegionID"><?php echo $this->lang->line('communityngo_region'); ?></label>
                             <br>
                             <?php echo form_dropdown('RegionID[]', $area_arr, '', 'onchange="get_familyOfGSdivision();"  class="form-control"" id="RegionID" multiple="multiple"'); ?>
                         </div>
-                        <div class="form-group col-sm-3" style="margin-left:5px;margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="control-label" for="FamMasterID"><?php echo $this->lang->line('comNgo_dash_families'); ?></label>
                             <br>
                             <div id="famMasIddrp">
                                 <?php echo form_dropdown('FamMasterID[]', fetch_familyMaster(false), '', 'multiple  class="form-control" id="FamMasterID" required'); ?>
                             </div>
                         </div>
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px;float: right;">
+                        <div class="col-sm-3" style="margin-bottom: 0px;float: right;">
                             <?php
                             $totHouses = load_totHouses();
                             if (!empty($totHouses)) {
@@ -129,51 +126,58 @@ $csrf = array(
                                 $houseTal = 0;
                             }
                             ?>
-                            <div class="control-label infoComm-box" style="width: 70%;">
-                                <span class="infoComm-box-icon bg-aqua"><i class="fa fa-home" title="Houses"></i></span>
 
-                                <div class="infoComm-box-content">
-                                    <span class="infoComm-box-text" style="color: #0099CC;text-align: center;" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalEn'); ?></span>
-                                    <label class="infoComm-box-number" style="text-align: center;"><span class="badge" style="background-color: lightgrey;color: #006f00;font-size:14px;" id="notRntHosId" title="Total Houses"><?php echo $houseTal; ?></span></label>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
+
+                                                    <div class="box hvr-underline-from-center">
+                                                        <div class="box-body py-0">
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <div>
+                                                                    <h5 class="text-fade"><a href="javascript:void(0);" onclick="fetch_comHousingData();"><?php echo $this->lang->line('comNgo_dash_totalEn'); ?></a></h5>
+                                                                    <h2 id="noOfTotHouses" class="label_count">74</h2>
+                                                                </div>
+                                                                <div style="position: relative;">
+                                                                    <img src="/community-dev/plugins/dist/img/house.png">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                          
 
                         </div>
 
                     </div>
 
                     <div class="col-md-12">
-                        <div class="form-group col-sm-1" style="margin-bottom: 0px;">
-                        </div>
-                        <div class="form-group col-sm-2" style="margin-bottom: 0px">
+                       
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="control-label" for="houseOwnshp"><?php echo $this->lang->line('communityngo_famOwnType'); ?></label>
                             <br>
                             <?php echo form_dropdown('houseOwnshp', $house_fam, '', 'class="form-control select2" id="houseOwnshp" style="height:30px;width: 180px;font-size: 13px;" required '); ?>
                         </div>
-                        <div class="form-group col-sm-2" style="margin-left:5px;margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="control-label" for="houseType"><?php echo $this->lang->line('communityngo_famHouseType'); ?></label>
                             <br>
                             <?php echo form_dropdown('houseType', $house_type, '', 'class="form-control select2" id="houseType" style="height:30px;width: 180px;font-size: 13px;" required '); ?>
                         </div>
-                        <div class="form-group col-sm-2" style="margin-left:5px;margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="control-label" for="famEconStatus"><?php echo $this->lang->line('CommunityNgo_fam_econState'); ?></label>
                             <br>
                             <?php echo form_dropdown('famEconStatus', $fam_econStatus, '', 'class="form-control select2" id="famEconStatus" style="height:30px;width: 180px;font-size: 13px;" required '); ?>
                         </div>
-                        <div class="form-group col-sm-3" id="placeComDiv" style="margin-left: 10px;">
+                        <div class="col-sm-3" id="placeComDiv" style="">
                             <label class="control-label" for="familyText"><?php echo $this->lang->line('common_search'); ?></label>
                             <br>
                             <input name="familyText" type="text" class="form-control input-sm" style="height:30px;width:100%;font-size: 13px;" placeholder="Search by all" id="familyText">
                             <!--Search by all-->
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 pb15">
 
-                        <div class="form-group col-sm-2" style="margin-top:20px;margin-left: 10px;">
+                        <div class="col-sm-2" style="margin-top:20px;">
                             <?php echo $this->lang->line('CommunityNgo_leaderOf'); ?> :
                         </div>
-                        <div class="form-group col-sm-2" style="margin-bottom: 0px">
+                        <div class="col-sm-2" style="margin-bottom: 0px">
                             <label class="control-label" for="famHdGender"><?php echo $this->lang->line('common_gender'); ?></label>
                             <br>
                             <select id="famHdGender" class="form-control select2" name="famHdGender" data-placeholder="Select Gender">
@@ -191,7 +195,7 @@ $csrf = array(
                                 ?>
                             </select>
                         </div>
-                        <div class="form-group col-sm-2" style="margin-left:5px;margin-bottom: 0px">
+                        <div class="col-sm-2" style="margin-bottom: 0px">
                             <label class="control-label" for="famHdStateId"><?php echo $this->lang->line('communityngo_status'); ?></label>
                             <br>
                             <select class="form-control select2" id="famHdStateId" name="famHdStateId" data-placeholder="Select Status">
@@ -209,41 +213,36 @@ $csrf = array(
                                 ?>
                             </select>
                         </div>
-                        <div class="form-group col-sm-2" style="margin-left:5px;margin-bottom: 0px">
+                        <div class="col-sm-2" style="margin-bottom: 0px">
                             <label class="control-label" for="famSocialGrant"><?php echo $this->lang->line('communityNgo_socialGrant'); ?></label>
                             <br>
                             <?php echo form_dropdown('famSocialGrant[]', fetch_socialGrantData(false), '', 'multiple  class="form-control" id="famSocialGrant" required'); ?>
                         </div>
 
-                        <div class="form-group col-sm-3" style="margin-bottom:0px;">
+                        <div class="col-sm-3" style="margin-bottom:0px;">
                             <br>
                             <button type="button" class="btn btn-primary pull-right" onclick="generateFamilyReport()" name="filterDivisubmit" id="filterDivisubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                             </button>
                         </div>
                     </div>
                 </form>
-
-            </fieldset>
         </div>
 
         <div class="tab-pane" id="committeesAppTap">
 
-            <fieldset class="scheduler-border">
-                <legend class="scheduler-border"><?php echo $this->lang->line('common_filters'); ?>
-                    <!--Filter-->
-                </legend>
+            
 
-                <form method="post" name="form_rpt_ngoCommittee" id="form_rpt_ngoCommittee" class="form-horizontal">
+                <form method="post" name="form_rpt_ngoCommittee" id="form_rpt_ngoCommittee" class="form-horizontal set-form-style">
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
-                    <div class="col-md-12">
+                    <div class="col-md-12 pb15">
 
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="col-md-4 control-label text-left" for="employeeID"><?php echo $this->lang->line('communityngo_Committees'); ?></label>
                             <div class="form-group col-md-8">
                                 <?php echo form_dropdown('CommitteeID[]', fetch_committeesMaster(false), '', 'multiple  class="form-control" id="CommitteeID" required'); ?>
                             </div>
                         </div>
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="col-md-6 control-label text-left" for="employeeID"><?php echo $this->lang->line('communityngo_region'); ?></label>
 
                             <div class="form-group col-md-6">
@@ -252,7 +251,7 @@ $csrf = array(
 
                             </div>
                         </div>
-                        <div class="form-group col-sm-3" style="margin-bottom: 0px">
+                        <div class="col-sm-3" style="margin-bottom: 0px">
                             <label class="col-md-4 control-label text-left" for="employeeID"><?php echo $this->lang->line('communityngo_CommitteesHead'); ?></label>
 
                             <div class="form-group col-md-8">
@@ -260,24 +259,23 @@ $csrf = array(
 
                             </div>
                         </div>
-                        <div class="form-group col-sm-2" id="placeComDiv" style="margin-left: 10px;">
+                        <div class="col-sm-2" id="placeComDiv">
                             <label class="col-md-4 control-label text-left" for="committeeText"><?php echo $this->lang->line('common_search'); ?></label>
                             <div class="form-group col-md-8">
                                 <input name="committeeText" type="text" class="form-control input-sm" style="font-size: 13px;width: 200px;" placeholder="Search by all" id="committeeText">
                                 <!--Search by all-->
                             </div>
                         </div>
-                        <div class="form-group col-sm-1" style="margin-bottom: 0px;float: right;">
+                        <div class="col-sm-2" style="margin-top: 15px;float: right;">
                             <button type="button" class="btn btn-primary pull-left" onclick="generateCommitteeReport()" name="filterCommitsubmit" id="filterCommitsubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                             </button>
                         </div>
                     </div>
 
                 </form>
-            </fieldset>
         </div>
 
-        <hr style="margin: 0px;">
+       
         <div id="div_comm_contents">
         </div>
     </div>
@@ -292,7 +290,7 @@ $csrf = array(
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="houseEnr_title"><?php echo $this->lang->line('comNgo_dash_community_housing_details'); ?></h4>
             </div>
-            <form class="form-horizontal" id="housing_femDiv_form">
+            <form class="form-horizontal set-form-style" id="housing_femDiv_form">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-12">

@@ -85,8 +85,8 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 <div id="filter-panel" class="collapse filter-panel">
 </div>
 
-<div class="nav-tabs-custom" style="margin-bottom: 0px; box-shadow: none;">
-    <ul class="nav nav-tabs" style="border: 1px solid rgba(112, 107, 107, 0.21);">
+<div class="nav-tabs-custom set-tab-custom" style="margin-bottom: 0px; box-shadow: none;">
+    <ul class="nav nav-tabs tab-line-1">
         <li class="active">
             <a href="#approvelTab" data-toggle="tab" aria-expanded="true" onclick="switchComMemOccRprt();"><?php echo $title; ?> </a>
         </li>
@@ -103,7 +103,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
             <a href="#otherAppTap" data-toggle="tab" aria-expanded="false" onclick="switchComMemOthrRprt();"><?php echo $titleTab3; ?></a>
         </li>
     </ul>
-    <div class="tab-content" style="border: 1px solid rgba(112, 107, 107, 0.21)">
+    <div class="tab-content set-form-style">
 
         <input type="text" name="switchControlId" id="switchControlId" value="1" style="display:none;">
         <input type="text" name="switchHelpId" id="switchHelpId" value="" style="display:none;">
@@ -368,11 +368,11 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
 
             <div class="table-responsive">
                 <div class="row-fluid" id="applyDiv">
-                    <div class="form-group contactDiv" style="border-color:#a6a6a6;">
-                        <label class="checkbox-inline" style="font-weight: bold;color: #4c75a5;"> <input class="icheckbox_minimal-blue helpingDelCls" type="checkbox" name="stateHr" id="stateHr" value="Hr"><?php echo $this->lang->line('communityngo_memHelp_require'); ?></label>
-                        <label class="checkbox-inline" style="font-weight: bold;color: #4c75a5;"> <input class="icheckbox_minimal-blue helpingDelCls" type="checkbox" name="stateWh" id="stateWh" value="Wh"><?php echo $this->lang->line('communityNgo_willing_to_help'); ?></label>
+                    <div class="form-group contactDiv set-label-1" style="border-color:#a6a6a6;">
+                        <label class="checkbox-inline" > <input class="icheckbox_minimal-blue helpingDelCls" type="checkbox" name="stateHr" id="stateHr" value="Hr"><?php echo $this->lang->line('communityngo_memHelp_require'); ?></label>
+                        <label class="checkbox-inline" > <input class="icheckbox_minimal-blue helpingDelCls" type="checkbox" name="stateWh" id="stateWh" value="Wh"><?php echo $this->lang->line('communityNgo_willing_to_help'); ?></label>
 
-                        <label class="checkbox-inline" style="font-weight: bold;color: #4c75a5;"> <input class="icheckbox_minimal-blue helpingDelCls" type="checkbox" name="stateHW" id="stateHW" value="HW"><?php echo $this->lang->line('communityNgo_both'); ?></label>
+                        <label class="checkbox-inline" > <input class="icheckbox_minimal-blue helpingDelCls" type="checkbox" name="stateHW" id="stateHW" value="HW"><?php echo $this->lang->line('communityNgo_both'); ?></label>
                     </div>
                 </div>
                 <div style="display: none" id="memHelpReqDiv">
@@ -540,7 +540,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                         </div>
 
                     </div>
-                    <div class="col-md-12 pb15" id="otrMemTypeDiv2">
+                    <div class="col-md-12 mt-4 mb-4" id="otrMemTypeDiv2">
                         <div class="col-sm-3" id="sickDiv">
                             <label for="sicknessID" class="control-label"><?php echo $this->lang->line('communityngo_CPermanent_sickness'); ?></label>
                             <br>
@@ -575,7 +575,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                             <input name="PlaceComDes" type="text" class="form-control input-sm" style="height:30px;width:100%;font-size: 13px;" placeholder="Search by all" id="PlaceComDes">
                             <!--Search by all-->
                         </div>
-                        <div class="col-sm-2" style="float: right;">
+                        <div class="col-sm-2 mt-2" style="float: right;">
                             <button type="button" style="float: right;" class="btn btn-primary pull-right" onclick="generateOtrReport()" name="filterOtrSubmit" id="filterOtrSubmit"><i class="fa fa-plus"></i> <?php echo $this->lang->line('common_generate'); ?>
                             </button>
                         </div>

@@ -21,7 +21,7 @@ $start_date = convert_date_format($startdate);
 </ul>
 <div class="tab-content">
     <div class="tab-pane active" id="display">
-        <?php echo form_open('', 'role="form" id="buyback_productionReport_form"'); ?>
+        <?php echo form_open('', 'role="form" class="set-form-style" id="buyback_productionReport_form"'); ?>
         <div class="row">
             <div class="col-md-12 animated zoomIn">
                 <fieldset class="scheduler-border">

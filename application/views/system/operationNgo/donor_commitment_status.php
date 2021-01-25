@@ -13,8 +13,7 @@ $date_format_policy = date_format_policy();
 <div id="filter-panel" class="collapse filter-panel">
 </div>
 <div>
-    <fieldset class="scheduler-border">
-        <legend class="scheduler-border"><?php echo $this->lang->line('common_filters'); ?><!--Filter--></legend>
+   
         <?php echo form_open('login/loginSubmit', ' name="frm_rpt_sales_order" id="frm_rpt_sales_order" class="form-horizontal" role="form"'); ?>
             <div class="col-md-12">
                 <div class="form-group col-sm-4" style="margin-bottom: 0px">
@@ -32,7 +31,7 @@ $date_format_policy = date_format_policy();
                         </div>
                     </div>
                 </div>
-                <div class="form-group col-sm-4" style="margin-bottom: 0px">
+                <div class="form-group col-sm-3" style="margin-bottom: 0px">
                     <label class="col-md-4 control-label text-left"
                            for="employeeID">Donors</label>
                     <div class="form-group col-md-8">
@@ -46,13 +45,13 @@ $date_format_policy = date_format_policy();
                         <?php echo form_dropdown('reportType', array("" => "Select",1 => "Summary",2 => "Detail"), "1", 'class="form-control" id="reportType" disabled');  ?>
                     </div>
                 </div>
-                <div class="form-group col-sm-1" style="margin-bottom: 0px;">
+                <div class="form-group col-sm-2" style="margin-bottom: 0px;">
                     <button type="button" class="btn btn-primary pull-left" onclick="generateReport()" name="filtersubmit" id="filtersubmit"><i class="fa fa-plus"></i> Generate
                     </button>
                 </div>
             </div>
         <?php echo form_close(); ?>
-    </fieldset>
+ 
 </div>
 <hr style="margin: 0px;">
 <div id="div_sales_order">

@@ -542,7 +542,7 @@ $titleTab5 = $this->lang->line('communityNgo_helping');
                         </div>
 
                     </div>
-                    <div class="col-md-12 pb15" id="otrMemTypeDiv2">
+                    <div class="col-md-12 mt-4" id="otrMemTypeDiv2">
                         <div class="col-sm-3" id="sickDiv">
                             <label for="sicknessID" class="control-label"><?php echo $this->lang->line('communityngo_CPermanent_sickness'); ?></label>
                             <br>
