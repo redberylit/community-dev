@@ -22,10 +22,6 @@
         border-spacing: 0;
     }
 
-    .flex {
-        display:
-    }
-
     .bottom20 {
         margin-bottom: 20px;
     }
@@ -33,6 +29,10 @@
     section.block-pipeline {
         margin-top: 10px;
         margin-bottom: 20px
+    }
+
+    .datepicker table {
+        background-color: #fff;
     }
 </style>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url('plugins/community_ngo/css/commtNgo_style.css'); ?>">
@@ -54,16 +54,15 @@ $com_positn = fetch_committee_postitn();
 $CommitteeAreawiseID = $committeeMas['CommitteeAreawiseID'];
 $CommitteeID = $committeeMas['CommitteeID'];
 $isMemActive =  $committeeMas['isMemActive'];
-if($isMemActive == 1){
-    $memState ='';
+if ($isMemActive == 1) {
+    $memState = '';
+} else {
+    $memState = 'Inactive Member';
 }
-else{
-    $memState ='Inactive Member';
-}
-$subCom2 =  $committeeMas['CommitteeAreawiseDes'].'  '.'&nbsp;';
-$subCom2 .=  '<lable style="color: red;">'.$memState.'</lable>';
+$subCom2 =  $committeeMas['CommitteeAreawiseDes'] . '  ' . '&nbsp;';
+$subCom2 .=  '<lable style="color: red;">' . $memState . '</lable>';
 
-echo head_page($subCom2 , false);
+echo head_page($subCom2, false);
 
 $subCom =  $committeeMas['CommitteeAreawiseDes'];
 $CommitteeMemID =  $committeeMas['CommitteeMemID'];
@@ -84,7 +83,8 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                     <div id="toolbar">
                         <div class="toolbar-title">
                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i> Member Services
-                        </div><!--Member Services-->
+                        </div>
+                        <!--Member Services-->
                         <div class="btn-toolbar btn-toolbar-small pull-right">
 
                         </div>
@@ -98,7 +98,7 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
 
                                 <div class="further-link">
                                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                    <a onclick="redirect_cmtMemPage(1,<?php echo $CommitteeAreawiseID; ?>,<?php echo $CommitteeID; ?>)"><strong> <?php echo $subCom .' : '.$ComtMemName; ?> </strong></a>
+                                    <a onclick="redirect_cmtMemPage(1,<?php echo $CommitteeAreawiseID; ?>,<?php echo $CommitteeID; ?>)"><strong> <?php echo $subCom . ' : ' . $ComtMemName; ?> </strong></a>
                                 </div>
 
 
@@ -113,42 +113,42 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
 
                                         <table id="fetchCmteCondent" class="table ">
                                             <thead>
-                                            <tr>
-                                                <th>#</th>
+                                                <tr>
+                                                    <th>#</th>
 
-                                                <th><?php echo $this->lang->line('communityngo_ComitMemService');?> </th><!--Member Service-->
-                                                <th><?php echo $this->lang->line('common_date');?> </th><!--Date-->
+                                                    <th><?php echo $this->lang->line('communityngo_ComitMemService'); ?> </th>
+                                                    <!--Member Service-->
+                                                    <th><?php echo $this->lang->line('common_date'); ?> </th>
+                                                    <!--Date-->
 
-                                                <th></th>
-                                            </tr>
+                                                    <th></th>
+                                                </tr>
                                             </thead>
                                             <tbody>
                                             </tbody>
-                                           <?php if($isMemActive == 1){ ?>
-                                            <tfoot>
-                                            <tr>
-                                                <td></td>
-                                                <td>
-                                                    <input type="hidden" value="<?php echo $CommitteeMemID ?>"
-                                                           name="masterID">
-                                                    <input class="text" id="CmtMemService" name="CmtMemService"
-                                                           placeholder="Member Service" type="text" value=""></td><!--Member Service-->
-                                                <td>
-                                                    <div class="input-group datepic">
-                                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input onchange="$('#ServiceDate').val(this.value);" type="text" name="ServiceDate"
-                                                               data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                                               value="<?php echo $current_date; ?>" id="ServiceDate" class="form-control" required>
-                                                    </div>
-                                                </td>
+                                            <?php if ($isMemActive == 1) { ?>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <input type="hidden" value="<?php echo $CommitteeMemID ?>" name="masterID">
+                                                            <input class="text" id="CmtMemService" name="CmtMemService" placeholder="Member Service" type="text" value="">
+                                                        </td>
+                                                        <!--Member Service-->
+                                                        <td>
+                                                            <div class="input-group datepic">
+                                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                                <input onchange="$('#ServiceDate').val(this.value);" type="text" name="ServiceDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="<?php echo $current_date; ?>" id="ServiceDate" class="form-control" required>
+                                                            </div>
+                                                        </td>
 
 
-                                                <td colspan=""><a onclick="submitMemService();" id="AddNewPipeline"
-                                                                  class="btn btn-primary btn-xs CA_Alter_btn"><?php echo $this->lang->line('common_save'); ?> </a></td><!--Save Service-->
-                                            </tr>
+                                                        <td colspan=""><a onclick="submitMemService();" id="AddNewPipeline" class="btn btn-primary btn-xs CA_Alter_btn"><?php echo $this->lang->line('common_save'); ?> </a></td>
+                                                        <!--Save Service-->
+                                                    </tr>
 
-                                            </tfoot>
-                                         <?php } ?>
+                                                </tfoot>
+                                            <?php } ?>
                                         </table>
                                     </form>
 
@@ -165,14 +165,13 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
     </div>
 
     <script>
-
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             control_staff_access(0, 'system/communityNgo/ngo_mo_committeesMaster', 0);
 
-            $('.headerclose').click(function () {
+            $('.headerclose').click(function() {
 
-                redirect_cmtMemPage(1, ($('#editCommitteeAreawiseID').val()),($('#editCommitteeID').val()));
+                redirect_cmtMemPage(1, ($('#editCommitteeAreawiseID').val()), ($('#editCommitteeID').val()));
             });
 
             var date_format_policy = '<?php echo strtoupper($date_format_policy) ?>';
@@ -180,11 +179,10 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
             $('.datepic').datetimepicker({
                 useCurrent: false,
                 format: date_format_policy,
-            }).on('dp.change', function (ev) {
-            });
+            }).on('dp.change', function(ev) {});
 
         });
-        
+
         fetch_cmtMemService();
 
         function fetch_cmtMemService() {
@@ -196,11 +194,13 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                 "bDestroy": true,
                 "bStateSave": true,
                 "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_comiteMem_service'); ?>",
-                "aaSorting": [[0, 'asc']],
-                "fnInitComplete": function () {
+                "aaSorting": [
+                    [0, 'asc']
+                ],
+                "fnInitComplete": function() {
 
                 },
-                "fnDrawCallback": function (oSettings) {
+                "fnDrawCallback": function(oSettings) {
                     $("[rel=tooltip]").tooltip();
                     /*  if (oSettings.bSorted || oSettings.bFiltered) {
                      for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
@@ -210,18 +210,31 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                 },
                 "columnDefs": [
 
-                    {"width": "2%", "targets": 3}
+                    {
+                        "width": "2%",
+                        "targets": 3
+                    }
 
                 ],
-                "aoColumns": [
-                    {"mData": "sortOrder"},
-                    {"mData": "CmtMemService"},
-                    {"mData": "ServiceDate"},
-                    {"mData": "edit"}
+                "aoColumns": [{
+                        "mData": "sortOrder"
+                    },
+                    {
+                        "mData": "CmtMemService"
+                    },
+                    {
+                        "mData": "ServiceDate"
+                    },
+                    {
+                        "mData": "edit"
+                    }
 
                 ],
-                "fnServerData": function (sSource, aoData, fnCallback) {
-                    aoData.push({"name": "masterID", "value": <?php echo $CommitteeMemID ?>});
+                "fnServerData": function(sSource, aoData, fnCallback) {
+                    aoData.push({
+                        "name": "masterID",
+                        "value": <?php echo $CommitteeMemID ?>
+                    });
                     $.ajax({
                         'dataType': 'json',
                         'type': 'POST',
@@ -242,17 +255,17 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    masterID:<?php echo $CommitteeMemID ?>,
+                    masterID: <?php echo $CommitteeMemID ?>,
                     CmtMemServiceID: CmtMemServiceID,
                     CmtMemService: $('#cmtmemservice_' + CmtMemServiceID).val(),
                     ServiceDate: $('#servicedate_' + CmtMemServiceID).val(),
                     sortOrder: sortOrderID,
                 },
                 url: "<?php echo site_url('CommunityNgo/save_comiteMemService'); ?>",
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         $('#cmtmemservice_' + CmtMemServiceID).val('');
@@ -262,11 +275,12 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                     fetch_cmtMemService();
                     stopLoad();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     myAlert('e', '<br>Message: ' + errorThrown);
                 }
             });
         }
+
         function submitMemService() {
 
             var data = $('#form_cmtMemServices').serializeArray();
@@ -276,10 +290,10 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                 dataType: 'json',
                 data: data,
                 url: "<?php echo site_url('CommunityNgo/save_comiteMemService'); ?>",
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         $('#CmtMemService').val('');
@@ -289,7 +303,7 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                     fetch_cmtMemService();
                     stopLoad();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     myAlert('e', '<br>Message: ' + errorThrown);
                 }
             });
@@ -319,43 +333,48 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
 
         function delete_memService(CmtMemServiceID) {
             swal({
-                    title: "<?php echo $this->lang->line('common_are_you_sure');?>",/*Are you sure?*/
-                    text: "<?php echo $this->lang->line('common_you_want_to_delete');?>",/*You want to delete this record!*/
+                    title: "<?php echo $this->lang->line('common_are_you_sure'); ?>",
+                    /*Are you sure?*/
+                    text: "<?php echo $this->lang->line('common_you_want_to_delete'); ?>",
+                    /*You want to delete this record!*/
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "<?php echo $this->lang->line('common_delete');?>",/*Delete*/
-                    cancelButtonText: "<?php echo $this->lang->line('common_cancel');?>"
+                    confirmButtonText: "<?php echo $this->lang->line('common_delete'); ?>",
+                    /*Delete*/
+                    cancelButtonText: "<?php echo $this->lang->line('common_cancel'); ?>"
                 },
-                function () {
+                function() {
                     $.ajax({
                         async: true,
                         type: 'post',
                         dataType: 'json',
-                        data: {'CmtMemServiceID': CmtMemServiceID},
+                        data: {
+                            'CmtMemServiceID': CmtMemServiceID
+                        },
                         url: "<?php echo site_url('CommunityNgo/delete_comiteMemService'); ?>",
-                        beforeSend: function () {
+                        beforeSend: function() {
                             startLoad();
                         },
-                        success: function (data) {
+                        success: function(data) {
                             refreshNotifications(true);
                             stopLoad();
                             myAlert('s', 'Deleted Successfully');
                             fetch_cmtMemService();
 
-                        }, error: function () {
+                        },
+                        error: function() {
                             swal("Cancelled", "Your file is safe :)", "error");
                         }
                     });
                 });
         }
-
     </script>
 
-<?php
-/**
- * Created by PhpStorm.
- * User: Moufiya
- * Date: 4/23/2018
- * Time: 12:21 PM
- */
+    <?php
+    /**
+     * Created by PhpStorm.
+     * User: Moufiya
+     * Date: 4/23/2018
+     * Time: 12:21 PM
+     */

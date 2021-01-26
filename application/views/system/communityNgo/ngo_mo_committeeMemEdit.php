@@ -22,10 +22,6 @@
         border-spacing: 0;
     }
 
-    .flex {
-        display:
-    }
-
     .bottom20 {
         margin-bottom: 20px;
     }
@@ -55,7 +51,7 @@ $CommitteeAreawiseID = $committeeMas['CommitteeAreawiseID'];
 $CommitteeID = $committeeMas['CommitteeID'];
 $subCom =  $committeeMas['CommitteeAreawiseDes'];
 
-echo head_page( $subCom , false);
+echo head_page($subCom, false);
 
 $CommitteeMemID =  $committeeMas['CommitteeMemID'];
 $ComtMemName =  $committeeMas['CName_with_initials'];
@@ -89,10 +85,10 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
 
                                 <div class="further-link">
                                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                    <a onclick="redirect_cmtMemPage(1,<?php echo $CommitteeAreawiseID; ?>,<?php echo $CommitteeID; ?>)"><strong> <?php echo $subCom .' :'. $ComtMemName; ?> </strong></a>
+                                    <a onclick="redirect_cmtMemPage(1,<?php echo $CommitteeAreawiseID; ?>,<?php echo $CommitteeID; ?>)"><strong> <?php echo $subCom . ' :' . $ComtMemName; ?> </strong></a>
                                 </div>
 
-<br>
+                                <br>
                                 <div id="settingsContainer">
                                     <form id="form_editComtMem">
                                         <input name="editCommitteeMemID" id="editCommitteeMemID" type="hidden" value="<?php echo $CommitteeMemID; ?>">
@@ -102,19 +98,20 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group col-sm-4" style="">
-                                                    <label><?php echo $this->lang->line('communityngo_CommitteeMem');?><!--Committee Mem--> <?php required_mark(); ?></label>
+                                                    <label><?php echo $this->lang->line('communityngo_CommitteeMem'); ?>
+                                                        <!--Committee Mem--> <?php required_mark(); ?>
+                                                    </label>
                                                     <select id="editCom_MasterID" class="form-control select2" name="editCom_MasterID">
-                                                        <option data-currency=""
-                                                                value="">Select Member</option>
+                                                        <option data-currency="" value="">Select Member</option>
                                                         <?php
 
-                                                        $query= $this->db->query("SELECT srp_erp_ngo_com_committeemembers.Com_MasterID,CName_with_initials FROM srp_erp_ngo_com_committeemembers INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_committeemembers.Com_MasterID WHERE srp_erp_ngo_com_committeemembers.companyID='".$companyID."' AND srp_erp_ngo_com_committeemembers.CommitteeMemID ='".$CommitteeMemID."'");
+                                                        $query = $this->db->query("SELECT srp_erp_ngo_com_committeemembers.Com_MasterID,CName_with_initials FROM srp_erp_ngo_com_committeemembers INNER JOIN srp_erp_ngo_com_communitymaster ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_committeemembers.Com_MasterID WHERE srp_erp_ngo_com_committeemembers.companyID='" . $companyID . "' AND srp_erp_ngo_com_committeemembers.CommitteeMemID ='" . $CommitteeMemID . "'");
                                                         $com_masters = $query->result();
                                                         if (!empty($com_masters)) {
                                                             foreach ($com_masters as $val) {
-                                                                ?>
+                                                        ?>
                                                                 <option value="<?php echo $val->Com_MasterID; ?>" selected><?php echo $val->CName_with_initials; ?></option>
-                                                                <?php
+                                                        <?php
 
                                                             }
                                                         }
@@ -122,27 +119,27 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-sm-4" style="">
-                                                    <label><?php echo $this->lang->line('communityngo_CommitPosition');?><!--Position--> <?php required_mark(); ?></label>
+                                                    <label><?php echo $this->lang->line('communityngo_CommitPosition'); ?>
+                                                        <!--Position--> <?php required_mark(); ?>
+                                                    </label>
                                                     <select id="editCommtPosID" class="form-control select2" name="editCommtPosID">
-                                                        <option data-currency=""
-                                                                value="">Select Position</option>
+                                                        <option data-currency="" value="">Select Position</option>
                                                         <?php
                                                         if (!empty($com_positn)) {
                                                             foreach ($com_positn as $val) {
 
                                                                 if ($val['CommitteePositionID'] == $CommitteePositionID) {
-                                                                    ?>
+                                                        ?>
                                                                     <option value="<?php echo $val['CommitteePositionID'] ?>" selected="selected"><?php echo $val['CommitteePositionDes'] ?></option>
 
-                                                                    <?php
+                                                                <?php
 
-                                                                }
-                                                                else {
-                                                                    ?>
+                                                                } else {
+                                                                ?>
 
                                                                     <option value="<?php echo $val['CommitteePositionID'] ?>"><?php echo $val['CommitteePositionDes'] ?></option>
 
-                                                                    <?php
+                                                        <?php
                                                                 }
                                                             }
                                                         }
@@ -150,51 +147,55 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-sm-4" style="">
-                                                    <label for=""><?php echo $this->lang->line('communityngo_CommitJoinDate');?> <!--Joined Date--> <?php required_mark(); ?></label>
+                                                    <label for=""><?php echo $this->lang->line('communityngo_CommitJoinDate'); ?>
+                                                        <!--Joined Date--> <?php required_mark(); ?>
+                                                    </label>
                                                     <div class="input-group datepic">
                                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input onchange="$('#editjoinedDate').val(this.value);" type="text" name="editjoinedDate"
-                                                               data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                                               value="<?php echo $joinedDatet; ?>" id="editjoinedDate" class="form-control" required>
+                                                        <input onchange="$('#editjoinedDate').val(this.value);" type="text" name="editjoinedDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="<?php echo $joinedDatet; ?>" id="editjoinedDate" class="form-control" required>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group col-sm-4">
-                                                    <label for=""><?php echo $this->lang->line('communityngo_ExpiryDate');?><!--Expiry Date--> <?php required_mark(); ?></label>
+                                                    <label for=""><?php echo $this->lang->line('communityngo_ExpiryDate'); ?>
+                                                        <!--Expiry Date--> <?php required_mark(); ?>
+                                                    </label>
                                                     <div class="input-group datepic">
                                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input onchange="$('#editExpDate').val(this.value);" type="text" name="editExpDate"
-                                                               data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                                               value="<?php echo $expDatet; ?>" id="editExpDate" class="form-control" required>
+                                                        <input onchange="$('#editExpDate').val(this.value);" type="text" name="editExpDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="<?php echo $expDatet; ?>" id="editExpDate" class="form-control" required>
                                                     </div>
 
                                                 </div>
                                                 <div class="form-group col-sm-2">
-                                                    <label for=""><?php echo $this->lang->line('communityngo_com_member_header_Status');?> <!--Status--></label>
+                                                    <label for=""><?php echo $this->lang->line('communityngo_com_member_header_Status'); ?>
+                                                        <!--Status-->
+                                                    </label>
                                                     <br>
-                                                    <input name="editMemActive" id="editMemActive" type="hidden" value="<?php echo $isMemActive;?>">
-                                                    <?php if($isMemActive == '1'){?>
-                                                        <input class="" id="editMemAct" name="editMemAct" type="checkbox" onchange="isMemAct_edit(this);" value="<?php echo $isMemActive;?>" checked>
-                                                    <?php } else{?>
+                                                    <input name="editMemActive" id="editMemActive" type="hidden" value="<?php echo $isMemActive; ?>">
+                                                    <?php if ($isMemActive == '1') { ?>
+                                                        <input class="" id="editMemAct" name="editMemAct" type="checkbox" onchange="isMemAct_edit(this);" value="<?php echo $isMemActive; ?>" checked>
+                                                    <?php } else { ?>
 
-                                                        <input class="" id="editMemAct" name="editMemAct" type="checkbox" onchange="isMemAct_edit(this);" value="<?php echo $isMemActive;?>" >
+                                                        <input class="" id="editMemAct" name="editMemAct" type="checkbox" onchange="isMemAct_edit(this);" value="<?php echo $isMemActive; ?>">
 
                                                     <?php } ?>
 
                                                 </div>
                                                 <div class="form-group col-sm-6">
-                                                    <label for=""><?php echo $this->lang->line('communityngo_Remarks');?> <!--Remarks--></label>
-                                                    <input type="text" step="any" class="form-control" id="memRemarks"
-                                                           name="memRemarks" value="<?php echo $committeeMemRemark; ?>">
+                                                    <label for=""><?php echo $this->lang->line('communityngo_Remarks'); ?>
+                                                        <!--Remarks-->
+                                                    </label>
+                                                    <input type="text" step="any" class="form-control" id="memRemarks" name="memRemarks" value="<?php echo $committeeMemRemark; ?>">
 
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group col-sm-8">
-                                                    </div>
+                                                </div>
                                                 <div class="form-group col-sm-4" style="float: right;">
-                                                    <a onclick="submitEditMem();" style="float: right;" id="Save" class="btn btn-primary btn-xs"><?php echo $this->lang->line('common_save');?></a><!--Save-->
+                                                    <a onclick="submitEditMem();" style="float: right;" id="Save" class="btn btn-primary btn-xs"><?php echo $this->lang->line('common_save'); ?></a>
+                                                    <!--Save-->
 
                                                 </div>
                                             </div>
@@ -215,12 +216,11 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
     </div>
 
     <script>
+        $(document).ready(function() {
 
-        $(document).ready(function () {
+            $('.headerclose').click(function() {
 
-            $('.headerclose').click(function () {
-
-                redirect_cmtMemPage(1, ($('#editCommitteeAreawiseID').val()),($('#editCommitteeID').val()));
+                redirect_cmtMemPage(1, ($('#editCommitteeAreawiseID').val()), ($('#editCommitteeID').val()));
             });
 
             var date_format_policy = '<?php echo strtoupper($date_format_policy) ?>';
@@ -228,20 +228,20 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
             $('.datepic').datetimepicker({
                 useCurrent: false,
                 format: date_format_policy,
-            }).on('dp.change', function (ev) {
-            });
+            }).on('dp.change', function(ev) {});
 
         });
 
-        function isMemAct_edit(y){
-            var yid= y.id;
-            var vid= yid.replace(/[^\d.]/g, '');
+        function isMemAct_edit(y) {
+            var yid = y.id;
+            var vid = yid.replace(/[^\d.]/g, '');
 
-            var f=document.getElementById('editMemAct').checked;
+            var f = document.getElementById('editMemAct').checked;
 
-            if(f==true) {
+            if (f == true) {
                 document.getElementById('editMemActive').value = 1;
-            }if(f==false){
+            }
+            if (f == false) {
                 document.getElementById('editMemActive').value = 0;
             }
         }
@@ -255,10 +255,10 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                 dataType: 'json',
                 data: data,
                 url: "<?php echo site_url('CommunityNgo/save_cmteMembrEdit'); ?>",
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     myAlert(data[0], data[1]);
                     if (data[0] == 's') {
                         $('#editCom_MasterID').val('').change();
@@ -266,22 +266,21 @@ $committeeMemRemark =  $committeeMas['committeeMemRemark'];
                         $('#editjoinedDate').val('').change();
                         $('#editExpDate').val('').change();
                         $('#editMemActive').attr('checked', true);
-                        redirect_cmtMemPage(1, ($('#editCommitteeAreawiseID').val()),($('#editCommitteeID').val()));
+                        redirect_cmtMemPage(1, ($('#editCommitteeAreawiseID').val()), ($('#editCommitteeID').val()));
                     }
 
                     stopLoad();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     myAlert('e', '<br>Message: ' + errorThrown);
                 }
             });
         }
-
     </script>
-<?php
-/**
- * Created by PhpStorm.
- * User: Moufiya
- * Date: 4/23/2018
- * Time: 11:56 AM
- */
+    <?php
+    /**
+     * Created by PhpStorm.
+     * User: Moufiya
+     * Date: 4/23/2018
+     * Time: 11:56 AM
+     */
