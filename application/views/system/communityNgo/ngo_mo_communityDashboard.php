@@ -397,14 +397,14 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                                     <!--Area-->
                                                                 </label>
 
-                                                                <?php echo form_dropdown('areaMemId', $com_area, '', 'class="form-control select2 pull-right" id="areaMemId" multiple=""'); ?>
+                                                                <?php echo form_dropdown('areaMemId', $com_area, '', 'class="form-control pull-right" id="areaMemId" multiple=""'); ?>
                                                             </div>
                                                             <div class="col-sm-5 mb-3">
                                                                 <label class="title"><?php echo $this->lang->line('communityngo_GS_Division'); ?>
                                                                     <!--GS Division-->
                                                                 </label>
 
-                                                                <?php echo form_dropdown('gsDivitnId', $comDivision, '', 'class="form-control select2 pull-right" id="gsDivitnId" multiple=""'); ?>
+                                                                <?php echo form_dropdown('gsDivitnId', $comDivision, '', 'class="form-control pull-right" id="gsDivitnId" multiple=""'); ?>
 
                                                             </div>
                                                             <div class="col-sm-2 mt-2">
@@ -465,7 +465,7 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                                                                                                                         ?></div>
                                                         </div>
                                                     </div>-->
-                                                <div class="set-pointer" onclick="open_comMemberModel();">    
+                                                <div class="set-pointer" onclick="open_comMemberModel();">
                                                     <div class="box hvr-underline-from-center">
                                                         <div class="box-body py-0">
                                                             <div class="d-flex justify-content-between align-items-center">
@@ -494,7 +494,7 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                                                                                                                             ?></div>
                                                         </div>
                                                     </div>-->
-                                                <div class="set-pointer" onclick="open_comFamiliesModel();">        
+                                                <div class="set-pointer" onclick="open_comFamiliesModel();">
                                                     <div class="box hvr-underline-from-center">
                                                         <div class="box-body py-0">
                                                             <div class="d-flex justify-content-between align-items-center">
@@ -509,7 +509,7 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>    
+                                                </div>
 
                                             </div>
                                             <div class="col-lg-3 col-xs-6">
@@ -524,7 +524,7 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                                                                                                                             ?></div>
                                                         </div>
                                                     </div>-->
-                                                <div class="set-pointer" onclick="open_comCommitteesModel();">        
+                                                <div class="set-pointer" onclick="open_comCommitteesModel();">
                                                     <div class="box hvr-underline-from-center">
                                                         <div class="box-body py-0">
                                                             <div class="d-flex justify-content-between align-items-center">
@@ -539,7 +539,7 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>    
+                                                </div>
                                             </div>
                                             <div class="col-lg-3 col-xs-6">
                                                 <!--<div class="white-box">
@@ -553,7 +553,7 @@ $this->load->view('system/communityNgo/ngo_mo_modalPopupsOfDashboard');
                                                             </div>                                                           
                                                         </div>
                                                     </div>-->
-                                                <div class="set-pointer" onclick="fetch_comHousingData();">     
+                                                <div class="set-pointer" onclick="fetch_comHousingData();">
                                                     <div class="box hvr-underline-from-center">
                                                         <div class="box-body py-0">
                                                             <div class="d-flex justify-content-between align-items-center">

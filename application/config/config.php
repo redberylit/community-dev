@@ -446,7 +446,7 @@ $config['global_xss_filtering'] = FALSE;
 if (strpos($_SERVER["REQUEST_URI"], 'Mobile/call_api/Mobile_api') == true) {
 	$config['csrf_protection'] = FALSE;
 } else {
-	$config['csrf_protection'] = TRUE;
+	$config['csrf_protection'] = FALSE;
 }
 
 $config['csrf_token_name'] = 'csrf_token';

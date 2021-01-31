@@ -32,18 +32,17 @@ class Dashboard extends ERP_Controller
 
     public function index()
     {
-        //echo '<pre>'. current_companyID(); die();
-        /*echo '<pre> frr'; print_r($this->session->all_userdata());
-        echo '<pre> com data: '; print_r($this->common_data['company_data']);
-        die();*/
-        /* Dashboard */
-        $this->load->model('Finance_dashboard_model');
-        $result = $this->Finance_dashboard_model->getAssignedDashboard();
-        $data["dashboardTab"] = $result["dashboard"];
-        /* End Dashboard */
-
+    
         $data['title'] = 'SLMCP';
-        $data['main_content'] = 'system/system_dashboard';
+        $companyID = $this->common_data['company_data']['company_id'];
+
+        if($companyID == 473){
+            $data['main_content'] = 'system/communityNgo/ngo_mo_communityJammiyaDashbrd';
+        }
+        else{
+            $data['main_content'] = 'system/communityNgo/ngo_mo_communityDashboard';
+
+        }
         $data['extra'] = 'sidebar-mini';
         $this->load->view('include/template', $data);
     }
