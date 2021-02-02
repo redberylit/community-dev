@@ -10,7 +10,7 @@ class ERP_Controller extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $CI =& get_instance();
+        $CI = &get_instance();
         $this->controllerName = $CI->uri->segment(1);
 
         /** POST URLS  LIST */
@@ -104,7 +104,7 @@ class ERP_Controller extends CI_Controller
             case "Pos_general_report":
                 $this->getURL[] = 'Pos_general_report/load_item_wise_sales_report_admin';
                 $this->getURL[] = 'Pos_general_report/load_gpos_PaymentSalesReportAdmin';
-                $this->getURL[] = 'Pos_general_report/load_gpos_detail_sales_report' ;
+                $this->getURL[] = 'Pos_general_report/load_gpos_detail_sales_report';
                 break;
             case "ExpenseClaim":
                 $this->getURL[] = 'ExpenseClaim/fetch_expanse_claim_approval';
@@ -983,6 +983,30 @@ class ERP_Controller extends CI_Controller
                 $this->getURL[] = 'CommunityNgo/send_request_email';
 
                 break;
+            case "CommunityNgoDashboard":
+                $this->getURL[] = 'CommunityNgoDashboard/communityDashSum_Count';
+                $this->getURL[] = 'CommunityNgoDashboard/commPopulation_Count';
+                $this->getURL[] = 'CommunityNgoDashboard/commPayments_summery';
+                $this->getURL[] = 'CommunityNgoDashboard/commGeneral_getData';
+                $this->getURL[] = 'CommunityNgoDashboard/comMahalla_findPeople';
+                $this->getURL[] = 'CommunityNgoDashboard/load_houseEnrolling_del';
+                $this->getURL[] = 'CommunityNgoDashboard/load_houseEnrolling_del_pdf';
+                $this->getURL[] = 'CommunityNgoDashboard/load_comMembers_del_pdf';
+
+                break;
+            case "CommunityJammiyaDashboard":
+                $this->getURL[] = 'CommunityJammiyaDashboard/comJammiya_findPeople';
+                $this->getURL[] = 'CommunityJammiyaDashboard/communityDashSum_Count';
+                $this->getURL[] = 'CommunityJammiyaDashboard/commPopulation_Count';
+                $this->getURL[] = 'CommunityJammiyaDashboard/load_houseEnrolling_del';
+                $this->getURL[] = 'CommunityJammiyaDashboard/load_houseEnrolling_del_pdf';
+                $this->getURL[] = 'CommunityJammiyaDashboard/fetch_provinceBased_countryDropdown';
+                $this->getURL[] = 'CommunityJammiyaDashboard/fetch_provinceBased_districtDropdown';
+                $this->getURL[] = 'CommunityJammiyaDashboard/fetch_district_divisionDropdown';
+                $this->getURL[] = 'CommunityJammiyaDashboard/fetch_division_based_GSDropdown';
+                $this->getURL[] = 'CommunityJammiyaDashboard/fetch_distric_diviBase_Area_Dropdown';
+
+                break;
             case "OperationNgo":
                 $this->getURL[] = 'OperationNgo/load_project_proposal_master_view';
                 $this->getURL[] = 'OperationNgo/load_project_proposal_to_project';
@@ -1410,12 +1434,12 @@ class ERP_Controller extends CI_Controller
         $CI->encryption->initialize(array('driver' => 'mcrypt'));
         $this->common_data['status'] = FALSE;
         if (!$CI->session->has_userdata('status')) {
-            if($this->input->is_ajax_request() ){ /*Only for ajax request this function will work*/
+            if ($this->input->is_ajax_request()) { /*Only for ajax request this function will work*/
                 echo '<script type="text/javascript">check_session_status();</script>';
                 die();
             }
             return (site_url('/gears'));
-        }else {
+        } else {
 
 
             $CI->db->select('*');
@@ -1451,12 +1475,12 @@ class ERP_Controller extends CI_Controller
                 $company_detail = $CI->Session_model->fetch_company_detail($company_id, trim($CI->session->userdata("branchID")));
                 $company_policy = $CI->Session_model->fetch_company_policy($company_id);
             } else {
-                if($isGroupUser==0) {
+                if ($isGroupUser == 0) {
                     $company_policy = $CI->Session_model->fetch_group_policy($company_id);
                     $company_detail = $CI->Session_model->fetch_group_detail($company_id, trim($CI->session->userdata("branchID")));
                 }
             }
-            if($isGroupUser==1){
+            if ($isGroupUser == 1) {
                 $db2 = $CI->load->database('db2', TRUE);
 
                 $db2->select('*');
@@ -1486,8 +1510,6 @@ class ERP_Controller extends CI_Controller
                 echo '<br/> sd'. $CI->db->database;
                 echo '<pre> '; print_r($company_detail) ;exit;*/
                 $company_policy = $CI->Session_model->fetch_company_policy($company_id);
-
-
             }
 
             /**
