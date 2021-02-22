@@ -175,7 +175,6 @@ class CommunityJammiyaNgo extends ERP_Controller
                 if ($memberTypes == '-1') {
 
                     $data['memReport'] = $this->db->query("SELECT MemberCode,srp_erp_ngo_com_communitymaster.createdUserID,srp_erp_ngo_com_memjobs.gradeComID,srp_erp_ngo_com_memjobs.WorkingPlace,srp_erp_ngo_com_memjobs.Address,DATE_FORMAT(srp_erp_ngo_com_memjobs.DateFrom,'{$convertFormat}') AS DateFrom,srp_erp_ngo_com_memjobs.DateTo,srp_erp_ngo_com_memjobs.MemJobID,srp_erp_ngo_com_memjobs.OccTypeID,srp_erp_ngo_com_memjobs.JobCategoryID,srp_erp_ngo_com_memjobs.isPrimary,CName_with_initials,TP_home,CNIC_No,TP_Mobile,EmailID,C_Address,P_Address,HouseNo,GS_Division,GS_No,srp_erp_ngo_com_occupationtypes.OccTypeID,(srp_erp_ngo_com_occupationtypes.Description) AS OcDescription,srp_erp_gender.genderID,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,srp_erp_ngo_com_grades.gradeComID,srp_erp_ngo_com_grades.gradeComDes,srp_erp_ngo_com_jobcategories.JobCategoryID,srp_erp_ngo_com_jobcategories.JobCatDescription,srp_erp_ngo_com_schools.schoolComID,srp_erp_ngo_com_schools.schoolComDes FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_ngo_com_memjobs ON srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_memjobs.Com_MasterID  LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_occupationtypes ON srp_erp_ngo_com_occupationtypes.OccTypeID=srp_erp_ngo_com_memjobs.OccTypeID LEFT JOIN srp_erp_ngo_com_grades ON srp_erp_ngo_com_memjobs.gradeComID=srp_erp_ngo_com_grades.gradeComID LEFT JOIN srp_erp_ngo_com_schools ON srp_erp_ngo_com_memjobs.schoolComID=srp_erp_ngo_com_schools.schoolComID LEFT JOIN srp_erp_ngo_com_jobcategories ON srp_erp_ngo_com_jobcategories.JobCategoryID=srp_erp_ngo_com_memjobs.JobCategoryID WHERE $where " . $where_clause . " ORDER BY srp_erp_ngo_com_communitymaster.Com_MasterID DESC")->result_array();
-
                 } elseif ($memberTypes == '8') {
 
                     $data['memReport'] = $this->db->query("SELECT *,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber FROM srp_erp_ngo_com_communitymaster LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID WHERE Com_MasterID NOT IN ($in_memPrt) AND $where ORDER BY Com_MasterID DESC ")->result_array();
@@ -336,7 +335,7 @@ class CommunityJammiyaNgo extends ERP_Controller
                 } else {
                     $qualType = $qualMemType;
 
-                    $data['qualReport'] = $this->db->query("SELECT srp_erp_ngo_com_qualifications.createdUserID,srp_erp_ngo_com_qualifications.UniversityID,srp_erp_ngo_com_qualifications.DegreeID,srp_erp_ngo_com_qualifications.CurrentlyReading,srp_erp_ngo_com_qualifications.Year,srp_erp_ngo_com_qualifications.Remarks, CName_with_initials,TP_home,CNIC_No,TP_Mobile,EmailID,C_Address,P_Address,HouseNo,GS_Division,GS_No,srp_erp_gender.genderID,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,srp_erp_ngo_com_universities.UniversityID,srp_erp_ngo_com_universities.UniversityDescription,srp_erp_ngo_com_degreecategories.DegreeID,srp_erp_ngo_com_degreecategories.DegreeDescription FROM srp_erp_ngo_com_qualifications INNER JOIN srp_erp_ngo_com_communitymaster on srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_qualifications.Com_MasterID  LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_universities ON srp_erp_ngo_com_qualifications.UniversityID=srp_erp_ngo_com_universities.UniversityID LEFT JOIN srp_erp_ngo_com_degreecategories ON srp_erp_ngo_com_degreecategories.DegreeID=srp_erp_ngo_com_qualifications.DegreeID WHERE srp_erp_ngo_com_qualifications.DegreeID='" . $qualType . "' AND $where " . $where_clauseq . " ORDER BY srp_erp_ngo_com_qualifications.Com_MasterID DESC")->result_array();
+                    $data['qualReport'] = $this->db->query("SELECT srp_erp_ngo_com_qualifications.createdUserID,srp_erp_ngo_com_qualifications.UniversityID,srp_erp_ngo_com_qualifications.DegreeID,srp_erp_ngo_com_qualifications.CurrentlyReading,srp_erp_ngo_com_qualifications.Year,srp_erp_ngo_com_qualifications.Remarks,MemberCode,CName_with_initials,TP_home,CNIC_No,TP_Mobile,EmailID,C_Address,P_Address,HouseNo,GS_Division,GS_No,srp_erp_gender.genderID,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,srp_erp_ngo_com_universities.UniversityID,srp_erp_ngo_com_universities.UniversityDescription,srp_erp_ngo_com_degreecategories.DegreeID,srp_erp_ngo_com_degreecategories.DegreeDescription FROM srp_erp_ngo_com_qualifications INNER JOIN srp_erp_ngo_com_communitymaster on srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_qualifications.Com_MasterID  LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_universities ON srp_erp_ngo_com_qualifications.UniversityID=srp_erp_ngo_com_universities.UniversityID LEFT JOIN srp_erp_ngo_com_degreecategories ON srp_erp_ngo_com_degreecategories.DegreeID=srp_erp_ngo_com_qualifications.DegreeID WHERE srp_erp_ngo_com_qualifications.DegreeID='" . $qualType . "' AND $where " . $where_clauseq . " ORDER BY srp_erp_ngo_com_qualifications.Com_MasterID DESC")->result_array();
                 }
             }
 
@@ -406,7 +405,7 @@ class CommunityJammiyaNgo extends ERP_Controller
                 } else {
                     $qualType = $qualMemType;
 
-                    $data['qualReport'] = $this->db->query("SELECT srp_erp_ngo_com_qualifications.createdUserID,srp_erp_ngo_com_qualifications.UniversityID,srp_erp_ngo_com_qualifications.DegreeID,srp_erp_ngo_com_qualifications.CurrentlyReading,srp_erp_ngo_com_qualifications.Year,srp_erp_ngo_com_qualifications.Remarks, CName_with_initials,TP_home,CNIC_No,TP_Mobile,EmailID,C_Address,P_Address,HouseNo,GS_Division,GS_No,srp_erp_gender.genderID,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,srp_erp_ngo_com_universities.UniversityID,srp_erp_ngo_com_universities.UniversityDescription,srp_erp_ngo_com_degreecategories.DegreeID,srp_erp_ngo_com_degreecategories.DegreeDescription FROM srp_erp_ngo_com_qualifications INNER JOIN srp_erp_ngo_com_communitymaster on srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_qualifications.Com_MasterID  LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_universities ON srp_erp_ngo_com_qualifications.UniversityID=srp_erp_ngo_com_universities.UniversityID LEFT JOIN srp_erp_ngo_com_degreecategories ON srp_erp_ngo_com_degreecategories.DegreeID=srp_erp_ngo_com_qualifications.DegreeID WHERE srp_erp_ngo_com_qualifications.DegreeID='" . $qualType . "' AND $where " . $where_clauseq . " ORDER BY srp_erp_ngo_com_qualifications.Com_MasterID DESC")->result_array();
+                    $data['qualReport'] = $this->db->query("SELECT srp_erp_ngo_com_qualifications.createdUserID,srp_erp_ngo_com_qualifications.UniversityID,srp_erp_ngo_com_qualifications.DegreeID,srp_erp_ngo_com_qualifications.CurrentlyReading,srp_erp_ngo_com_qualifications.Year,srp_erp_ngo_com_qualifications.Remarks,MemberCode,CName_with_initials,TP_home,CNIC_No,TP_Mobile,EmailID,C_Address,P_Address,HouseNo,GS_Division,GS_No,srp_erp_gender.genderID,srp_erp_gender.name AS Gender,CONCAT(TP_Mobile,' | ',TP_home) AS PrimaryNumber,srp_erp_ngo_com_universities.UniversityID,srp_erp_ngo_com_universities.UniversityDescription,srp_erp_ngo_com_degreecategories.DegreeID,srp_erp_ngo_com_degreecategories.DegreeDescription FROM srp_erp_ngo_com_qualifications INNER JOIN srp_erp_ngo_com_communitymaster on srp_erp_ngo_com_communitymaster.Com_MasterID=srp_erp_ngo_com_qualifications.Com_MasterID  LEFT JOIN srp_erp_gender ON srp_erp_gender.genderID = srp_erp_ngo_com_communitymaster.GenderID LEFT JOIN srp_erp_statemaster ON srp_erp_statemaster.stateID = srp_erp_ngo_com_communitymaster.RegionID LEFT JOIN srp_erp_ngo_com_universities ON srp_erp_ngo_com_qualifications.UniversityID=srp_erp_ngo_com_universities.UniversityID LEFT JOIN srp_erp_ngo_com_degreecategories ON srp_erp_ngo_com_degreecategories.DegreeID=srp_erp_ngo_com_qualifications.DegreeID WHERE srp_erp_ngo_com_qualifications.DegreeID='" . $qualType . "' AND $where " . $where_clauseq . " ORDER BY srp_erp_ngo_com_qualifications.Com_MasterID DESC")->result_array();
                 }
             }
 
@@ -1042,6 +1041,46 @@ class CommunityJammiyaNgo extends ERP_Controller
             $html = $this->load->view('system/communityNgo/ajax/load_comMem_helpWillingAndReq_report', $data, true);
             $this->load->library('pdf');
             $pdf = $this->pdf->printed($html, 'A4');
+        }
+    }
+
+    function fetch_helpType_delDropdown()
+    {
+        $memHelpType = $this->input->post('memHelpType');
+
+        if ($memHelpType) {
+            if ($memHelpType == 1) {
+                $govHelp = $this->db->query("SELECT helpRequireID,helpRequireDesc FROM srp_erp_ngo_com_helprequirements WHERE helpRequireType = 'GOV' ")->result_array();
+
+                echo '<option value="">Select a Help Des.</option>';
+                foreach ($govHelp as $row) {
+                    echo '<option value="' . trim($row['helpRequireID']) . '">' . trim($row['helpRequireDesc']) . '</option>';
+                }
+            }
+            if ($memHelpType == 2) {
+                $prvHelp = $this->db->query("SELECT helpRequireID,helpRequireDesc FROM srp_erp_ngo_com_helprequirements WHERE helpRequireType = 'PVT' ")->result_array();
+
+                echo '<option value="">Select a Help Des.</option>';
+                foreach ($prvHelp as $row) {
+                    echo '<option value="' . trim($row['helpRequireID']) . '">' . trim($row['helpRequireDesc']) . '</option>';
+                }
+            }
+            if ($memHelpType == 3) {
+                $consHelp = $this->db->query("SELECT helpRequireID,helpRequireDesc FROM srp_erp_ngo_com_helprequirements WHERE helpRequireType = 'CONS' ")->result_array();
+
+                echo '<option value="">Select a Help Des.</option>';
+                foreach ($consHelp as $row) {
+                    echo '<option value="' . trim($row['helpRequireID']) . '">' . trim($row['helpRequireDesc']) . '</option>';
+                }
+            }
+            if ($memHelpType == 4) {
+                $consHelp = $this->db->query("SELECT helpRequireID,helpRequireDesc FROM srp_erp_ngo_com_helprequirements WHERE helpRequireType = 'OTHER' ")->result_array();
+
+                echo '<option value="">Select a Help Des.</option>';
+                foreach ($consHelp as $row) {
+                    echo '<option value="' . trim($row['helpRequireID']) . '">' . trim($row['helpRequireDesc']) . '</option>';
+                }
+            }
         }
     }
 
