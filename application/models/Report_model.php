@@ -64,9 +64,9 @@ class Report_model extends CI_Model
                 $i++;
             }
         }
-        $docID='';
-        $docIDs='';
-        if(!empty($documentID)){
+        $docID = '';
+        $docIDs = '';
+        if (!empty($documentID)) {
             $docIDs = "AND il.documentID IN ($documentID)";
         }
         $itmesOR .= ' ) ';
@@ -101,10 +101,8 @@ class Report_model extends CI_Model
             foreach ($fieldNameChk as $val) {
                 if ($val == "wareHouseLocation") {
                     $feildsra[] = "srp_erp_warehousemaster.wareHouseLocation as wareHouseLocation";
-
                 } else if ($val == "segmentCode") {
                     $feildsra[] = "srp_erp_segment.description as segmentCode";
-
                 } else {
                     $feildsra[] = 'il.' . $val;
                 }
@@ -137,7 +135,6 @@ class Report_model extends CI_Model
                 $feilds3 .= ",SUM(il.companyReportingAmount) as rptCostAsset";
                 $feilds3 .= ",CR.DecimalPlaces as companyReportingWacAmountDecimalPlaces";
                 $feilds3 .= ",(SUM(il.companyReportingAmount) / SUM(il.transactionQTY/il.convertionRate)) as avgCompanyReportingAmount";
-
             }
         }
         $result = $this->db->query("SELECT $feilds2, a.documentAutoID,a.salesPrice,a.itemDescription,a.itemSystemCode,a.transactionUOM,a.mainCategory,a.subCategory,a.subsubCategory,a.companyLocalCurrencyDecimalPlaces,a.companyReportingCurrencyDecimalPlaces FROM ((SELECT $feilds,il.documentAutoID,il.salesPrice,il.itemDescription,il.itemSystemCode,il.transactionUOM,ic1.description as mainCategory,ic2.description as subCategory,IFNULL(ic3.description,'uncategorized') AS subsubCategory,il.companyLocalCurrencyDecimalPlaces,il.companyReportingCurrencyDecimalPlaces
@@ -258,10 +255,8 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
             foreach ($fieldNameChk as $val) {
                 if ($val == "wareHouseLocation") {
                     $feildsra[] = "whm.wareHouseLocation as wareHouseLocation";
-
                 } else if ($val == "segmentCode") {
                     $feildsra[] = "gseg.description as segmentCode";
-
                 } else {
                     $feildsra[] = 'il.' . $val;
                 }
@@ -296,7 +291,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
                 $feilds3 .= ",SUM(il.companyReportingAmount) as rptCostAsset";
                 $feilds3 .= ",CR.DecimalPlaces as companyReportingWacAmountDecimalPlaces";
                 $feilds3 .= ",(SUM(il.companyReportingAmount) / SUM(il.transactionQTY/il.convertionRate)) as avgCompanyReportingAmount";
-
             }
         }
         $result = $this->db->query("SELECT $feilds2, a.documentAutoID,a.salesPrice,a.itemDescription,a.itemSystemCode,a.transactionUOM,a.mainCategory,a.subCategory,a.companyLocalCurrencyDecimalPlaces,a.companyReportingCurrencyDecimalPlaces FROM 
@@ -701,14 +695,14 @@ WHERE $itmesOR AND il.documentDate <= '" . format_date($this->input->post("from"
         $limit = ""; /*limit the record according to selected report type*/
         $segment = $this->input->post("segment");
         $documentID = $this->input->post("documentID");
-        $segmentfltr='';
-        if(!empty($segment)){
+        $segmentfltr = '';
+        if (!empty($segment)) {
             $segmentfltr = "AND segmentID IN(" . join(',', $segment) . ")";
         }
-        $docIDs='';
-        if(!empty($documentID)){
-            $docIDs = "AND documentCode IN(".$documentID.")";
-        }else{
+        $docIDs = '';
+        if (!empty($documentID)) {
+            $docIDs = "AND documentCode IN(" . $documentID . ")";
+        } else {
             $docIDs = "AND documentCode IN('CINV','RV','POS')";
         }
         if ($this->input->post("rptType") == 2) {
@@ -730,7 +724,6 @@ WHERE $itmesOR AND il.documentDate <= '" . format_date($this->input->post("from"
                     $feilds .= "SUM(((il.transactionQTY/convertionRate)*-1) * il.salesPrice/il.companyReportingExchangeRate) as " . $val . ",";
                     $feilds .= "CR.DecimalPlaces as " . $val . "DecimalPlaces,";
                 }
-
             }
         }
         $result = $this->db->query("SELECT $feilds im.defaultUnitOfMeasure as UOM,im.itemDescription,SUM(il.transactionQTY/convertionRate)*-1 as transactionQTY,im.itemSystemCode,im.currentStock,ic1.description as mainCategory,ic2.description as subCategory,IFNULL(ic3.description,'uncategorized') AS subsubCategory
@@ -1160,14 +1153,14 @@ LEFT JOIN (
 ) ca2 ON (
 	ca2.GLAutoID = coa.masterAutoID
 )
-INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(".join(',',$segment).")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
+INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(" . join(',', $segment) . ")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
 LEFT JOIN (SELECT $feilds2 srp_erp_budgetdetail.GLAutoID FROM srp_erp_budgetdetail INNER JOIN srp_erp_budgetmaster ON srp_erp_budgetdetail.budgetAutoID = srp_erp_budgetmaster.budgetAutoID 
- INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(".join(',',$segment).")) seg ON srp_erp_budgetdetail.segmentID = seg.segmentID
- WHERE srp_erp_budgetdetail.companyID IN (".join(',',$company).") AND CONCAT(budgetYear,'-',LPAD(budgetMonth,2,0)) BETWEEN '" . $dmfrom . "' AND '" . $dmto . "' GROUP BY GLAutoID) bd ON (bd.GLAutoID = srp_erp_generalledger.GLAutoID)
+ INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(" . join(',', $segment) . ")) seg ON srp_erp_budgetdetail.segmentID = seg.segmentID
+ WHERE srp_erp_budgetdetail.companyID IN (" . join(',', $company) . ") AND CONCAT(budgetYear,'-',LPAD(budgetMonth,2,0)) BETWEEN '" . $dmfrom . "' AND '" . $dmto . "' GROUP BY GLAutoID) bd ON (bd.GLAutoID = srp_erp_generalledger.GLAutoID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
 WHERE
-	srp_erp_generalledger.documentDate BETWEEN '" . format_date($this->input->post("from")) . "' AND '" . format_date($this->input->post("to")) . "' AND srp_erp_generalledger.companyID IN (".join(',',$company).")
+	srp_erp_generalledger.documentDate BETWEEN '" . format_date($this->input->post("from")) . "' AND '" . format_date($this->input->post("to")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ")
 GROUP BY
 	coa.masterAutoID,
 	ca2.GLDescription,
@@ -1231,12 +1224,12 @@ LEFT JOIN (
 ) ca2 ON (
 	ca2.GLAutoID = coa.masterAutoID
 )
-INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(".join(',',$segment).")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
-LEFT JOIN (SELECT $feilds2 srp_erp_budgetdetail.GLAutoID FROM srp_erp_budgetdetail INNER JOIN srp_erp_budgetmaster ON srp_erp_budgetdetail.budgetAutoID = srp_erp_budgetmaster.budgetAutoID  INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(".join(',',$segment).")) seg ON srp_erp_budgetdetail.segmentID = seg.segmentID WHERE srp_erp_budgetdetail.companyID IN (".join(',',$company).")  AND CONCAT(budgetYear,'-',budgetMonth) BETWEEN '" . $dmfrom . "' AND '" . $dmto . "' GROUP BY GLAutoID) bd ON (bd.GLAutoID = srp_erp_generalledger.GLAutoID)
+INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(" . join(',', $segment) . ")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
+LEFT JOIN (SELECT $feilds2 srp_erp_budgetdetail.GLAutoID FROM srp_erp_budgetdetail INNER JOIN srp_erp_budgetmaster ON srp_erp_budgetdetail.budgetAutoID = srp_erp_budgetmaster.budgetAutoID  INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(" . join(',', $segment) . ")) seg ON srp_erp_budgetdetail.segmentID = seg.segmentID WHERE srp_erp_budgetdetail.companyID IN (" . join(',', $company) . ")  AND CONCAT(budgetYear,'-',budgetMonth) BETWEEN '" . $dmfrom . "' AND '" . $dmto . "' GROUP BY GLAutoID) bd ON (bd.GLAutoID = srp_erp_generalledger.GLAutoID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
 WHERE
-	srp_erp_generalledger.documentDate BETWEEN '" . format_date($this->input->post("from")) . "' AND '" . format_date($this->input->post("to")) . "' AND srp_erp_generalledger.companyID IN (".join(',',$company).")
+	srp_erp_generalledger.documentDate BETWEEN '" . format_date($this->input->post("from")) . "' AND '" . format_date($this->input->post("to")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ")
 GROUP BY
 	coa.masterAutoID,
 	ca2.GLDescription,
@@ -1519,7 +1512,7 @@ LEFT JOIN (
             LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
 WHERE
-	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',',$company) . ")
+	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ")
 GROUP BY
 	coa.masterAutoID,
 	ca2.GLDescription,
@@ -1541,7 +1534,7 @@ INNER JOIN ( SELECT GLAutoID,chartofAccountID,GLSecondaryCode,GLDescription,acco
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
 WHERE
-	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',',$company) . "))) as a GROUP BY
+	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . "))) as a GROUP BY
 	a.mainCategory,a.subCategory,a.subsubCategory,a.GLDescription HAVING (" . join(' OR ', $having) . ") ORDER BY a.sortOrder,a.mainCategory")->result_array();
                 //echo $this->db->last_query();
                 return $result;
@@ -1606,7 +1599,7 @@ LEFT JOIN (
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
 WHERE
-	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',',$company) . ")
+	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ")
 GROUP BY
 	coa.masterAutoID,
 	ca2.GLDescription,
@@ -1628,7 +1621,7 @@ INNER JOIN ( SELECT GLAutoID,chartofAccountID,GLSecondaryCode,GLDescription,acco
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
 WHERE
-	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',',$company) . "))) as a GROUP BY
+	srp_erp_generalledger.documentDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . "))) as a GROUP BY
 	a.mainCategory,a.subCategory,a.subsubCategory,a.GLDescription HAVING (" . join(' AND ', $having) . ") ORDER BY a.mainCategory,a.sortOrder DESC;";
                 $result = $this->db->query($sql)->result_array();
                 //echo $this->db->last_query();
@@ -1663,8 +1656,8 @@ WHERE
             }
         }
         $segmentOR .= ' ) ';*/
-        $docIDs='';
-        if(!empty($documentID)){
+        $docIDs = '';
+        if (!empty($documentID)) {
             $docIDs = "AND srp_erp_generalledger.documentCode IN ($documentID)";
         }
         $feilds = "";
@@ -1707,7 +1700,6 @@ WHERE
                 } else {
                     $feilds3[] = "'-' as " . $val;
                 }
-
             }
         }
         $feilds = join(',', $feilds);
@@ -1803,7 +1795,6 @@ WHERE
                 } else {
                     $feilds3[] = "'-' as " . $val;
                 }
-
             }
         }
         $feilds = join(',', $feilds);
@@ -1813,20 +1804,20 @@ WHERE
   $feilds,srp_erp_generalledger.documentCode,srp_erp_generalledger.documentMasterAutoID,coa.GLDescription,coa.masterCategory,srp_erp_generalledger.GLAutoID
  FROM srp_erp_generalledger 
  INNER JOIN ( SELECT chartofAccountID,GLSecondaryCode,GLDescription,masterCategory FROM srp_erp_groupchartofaccounts INNER JOIN srp_erp_groupchartofaccountdetails ON srp_erp_groupchartofaccounts.GLAutoID = srp_erp_groupchartofaccountdetails.groupChartofAccountMasterID AND groupID = " . current_companyID() . " WHERE srp_erp_groupchartofaccounts.GLAutoID IN(" . join(',', $glcode) . ")) coa ON srp_erp_generalledger.GLAutoID = coa.chartofAccountID
- INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(".join(',',$segment).")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
+ INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(" . join(',', $segment) . ")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
  LEFT JOIN ( SELECT groupCustomerAutoID,groupCustomerName,customerMasterID,groupcustomerSystemCode FROM srp_erp_groupcustomermaster INNER JOIN srp_erp_groupcustomerdetails ON srp_erp_groupcustomermaster.groupCustomerAutoID = srp_erp_groupcustomerdetails.groupCustomerMasterID WHERE srp_erp_groupcustomerdetails.companygroupID = " . current_companyID() . ") cust  ON srp_erp_generalledger.partyAutoID = cust.customerMasterID AND srp_erp_generalledger.partyType = 'CUS'
  LEFT JOIN (SELECT groupSupplierAutoID,groupSupplierName,SupplierMasterID,groupSupplierSystemCode FROM srp_erp_groupsuppliermaster INNER JOIN srp_erp_groupsupplierdetails ON srp_erp_groupsuppliermaster.groupSupplierAutoID = srp_erp_groupsupplierdetails.groupSupplierMasterID WHERE srp_erp_groupsupplierdetails.companygroupID = " . current_companyID() . ") supp ON srp_erp_generalledger.partyAutoID = supp.SupplierMasterID AND srp_erp_generalledger.partyType = 'SUP'
- LEFT JOIN (SELECT document,documentID FROM srp_erp_documentcodemaster WHERE companyID IN (".join(',',$company).") GROUP BY documentID) dc ON (dc.documentID = srp_erp_generalledger.documentCode)
+ LEFT JOIN (SELECT document,documentID FROM srp_erp_documentcodemaster WHERE companyID IN (" . join(',', $company) . ") GROUP BY documentID) dc ON (dc.documentID = srp_erp_generalledger.documentCode)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
- WHERE srp_erp_generalledger.documentDate BETWEEN '" . format_date($this->input->post("from")) . "' AND '" . format_date($this->input->post("to")) . "' AND srp_erp_generalledger.companyID IN (".join(',',$company).")
+ WHERE srp_erp_generalledger.documentDate BETWEEN '" . format_date($this->input->post("from")) . "' AND '" . format_date($this->input->post("to")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ")
  ORDER BY srp_erp_generalledger.documentType,srp_erp_generalledger.documentDate ASC) UNION ALL
  (SELECT $feilds3,srp_erp_generalledger.documentCode,srp_erp_generalledger.documentMasterAutoID,coa.GLDescription,coa.masterCategory,coa.GLAutoID FROM srp_erp_generalledger 
  INNER JOIN ( SELECT chartofAccountID,GLSecondaryCode,GLDescription,masterCategory,GLAutoID FROM srp_erp_groupchartofaccounts INNER JOIN srp_erp_groupchartofaccountdetails ON srp_erp_groupchartofaccounts.GLAutoID = srp_erp_groupchartofaccountdetails.groupChartofAccountMasterID AND groupID = " . current_companyID() . " WHERE srp_erp_groupchartofaccounts.GLAutoID IN(" . join(',', $glcode) . ")) coa ON srp_erp_generalledger.GLAutoID = coa.chartofAccountID
- INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(".join(',',$segment).")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
+ INNER JOIN ( SELECT srp_erp_groupsegmentdetails.segmentID,description,segmentCode FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID AND groupID = " . current_companyID() . " WHERE srp_erp_groupsegment.segmentID IN(" . join(',', $segment) . ")) seg ON srp_erp_generalledger.segmentID = seg.segmentID
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID)
- WHERE coa.masterCategory = 'BS' AND srp_erp_generalledger.documentDate < '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (".join(',',$company).") GROUP BY coa.GLAutoID )) as a ORDER BY documentDateSort asc";
+ WHERE coa.masterCategory = 'BS' AND srp_erp_generalledger.documentDate < '" . format_date($this->input->post("from")) . "' AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ") GROUP BY coa.GLAutoID )) as a ORDER BY documentDateSort asc";
         $result = $this->db->query($sql)->result_array();
         //echo $this->db->last_query();
         return $result;
@@ -2291,7 +2282,7 @@ GROUP BY srp_erp_paysupplierinvoicedetail.grvAutoID) psi ON (b.grvAutoID = psi.g
     WHERE $vendorOR AND srp_erp_generalledger.documentDate < '" . format_date($this->input->post("from")) . "'  AND srp_erp_generalledger.companyID = " . $this->common_data['company_data']['company_id'] . " 
     GROUP BY srp_erp_generalledger.GLAutoID,srp_erp_suppliermaster.supplierAutoID)) AS a
       ORDER BY  a.documentDate")->result_array();
-	 // echo $this->db->last_query();
+        // echo $this->db->last_query();
         return $result;
     }
 
@@ -2408,7 +2399,6 @@ GROUP BY srp_erp_paysupplierinvoicedetail.grvAutoID) psi ON (b.grvAutoID = psi.g
                     $fields8 .= 'srp_erp_stockreturnmaster.transactionCurrency as ' . $val . 'currency,';
                     $fields8 .= 'TC.DecimalPlaces as ' . $val . 'DecimalPlaces,';
                     $fields8 .= '(SUM(srd.totval) - IFNULL(pvd.' . $val . ',0)) as ' . $val . ',';
-
                 } else if ($val == 'companyReportingAmount') {
                     $fields .= 'srp_erp_paysupplierinvoicemaster.companyReportingCurrency as ' . $val . 'currency,';
                     $fields .= 'CR.DecimalPlaces as ' . $val . 'DecimalPlaces,';
@@ -2421,7 +2411,6 @@ GROUP BY srp_erp_paysupplierinvoicedetail.grvAutoID) psi ON (b.grvAutoID = psi.g
                     $fields8 .= 'srp_erp_stockreturnmaster.companyReportingCurrency as ' . $val . 'currency,';
                     $fields8 .= 'CR.DecimalPlaces as ' . $val . 'DecimalPlaces,';
                     $fields8 .= '(SUM(srd.totval/srp_erp_stockreturnmaster.companyReportingExchangeRate) - IFNULL(pvd.' . $val . ',0)) as ' . $val . ',';
-
                 } else if ($val == 'companyLocalAmount') {
                     $fields .= 'srp_erp_paysupplierinvoicemaster.companyLocalCurrency as ' . $val . 'currency,';
                     $fields .= 'CL.DecimalPlaces as ' . $val . 'DecimalPlaces,';
@@ -2434,7 +2423,6 @@ GROUP BY srp_erp_paysupplierinvoicedetail.grvAutoID) psi ON (b.grvAutoID = psi.g
                     $fields8 .= 'srp_erp_stockreturnmaster.companyLocalCurrency as ' . $val . 'currency,';
                     $fields8 .= 'CL.DecimalPlaces as ' . $val . 'DecimalPlaces,';
                     $fields8 .= '(SUM(srd.totval/srp_erp_stockreturnmaster.companyLocalExchangeRate) - IFNULL(pvd.' . $val . ',0)) as ' . $val . ',';
-
                 }
                 $fields .= '(SUM(srp_erp_paysupplierinvoicemaster.' . $val . ') - (IFNULL(SUM(pvd.' . $val . '),0)+IFNULL(SUM(dnd.' . $val . '),0)+IFNULL(SUM(pva.' . $val . '),0))) * -1  as ' . $val . ',';
                 $fields2 .= '(SUM(srp_erp_paymentvoucherdetail.' . $val . ') - IFNULL(SUM(avd.' . $val . '),0)) as ' . $val . ',';
@@ -2454,7 +2442,7 @@ GROUP BY srp_erp_paysupplierinvoicedetail.grvAutoID) psi ON (b.grvAutoID = psi.g
         }
 
         $result = $this->db->query("SELECT $fields3  a.InvoiceAutoID,a.supplierName,a.supplierSystemCode,a.comments,a.documentID,DATE_FORMAT(a.bookingDate,'" . $this->format . "') as bookingDate,a.GLSecondaryCode,a.GLDescription,a.bookingInvCode,DATE_FORMAT(a.invoiceDueDate,'" . $this->format . "') as invoiceDueDate FROM 
-((SELECT $fields srp_erp_paysupplierinvoicemaster.InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_paysupplierinvoicemaster.documentID,srp_erp_paysupplierinvoicemaster.bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_paysupplierinvoicemaster.bookingInvCode,srp_erp_paysupplierinvoicemaster.invoiceDueDate FROM `srp_erp_paysupplierinvoicemaster` 
+((SELECT $fields srp_erp_paysupplierinvoicemaster.InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_paysupplierinvoicemaster.documentID,srp_erp_paysupplierinvoicemaster.bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_paysupplierinvoicemaster.bookingInvCode,srp_erp_paysupplierinvoicemaster.invoiceDueDate FROM `srp_erp_paysupplierinvoicemaster` 
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paysupplierinvoicemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN 
 (
@@ -2491,14 +2479,14 @@ LEFT JOIN
 ) pva ON (
 	pva.`InvoiceAutoID` = `srp_erp_paysupplierinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paysupplierinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paysupplierinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paysupplierinvoicemaster.transactionCurrencyID) 
 WHERE $vendorOR AND `srp_erp_paysupplierinvoicemaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND srp_erp_paysupplierinvoicemaster.$columnCheck <= '" . format_date($this->input->post("from")) . "'  AND `srp_erp_paysupplierinvoicemaster`.`approvedYN` = 1 
 GROUP BY `srp_erp_paysupplierinvoicemaster`.`InvoiceAutoID` HAVING (" . join(' AND ', $having) . ")) 
 UNION ALL
-(SELECT $fields2 srp_erp_paymentvouchermaster.payVoucherAutoID as InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_paymentvouchermaster.documentID,srp_erp_paymentvouchermaster.PVDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_paymentvouchermaster.PVcode as bookingInvCode,'-' as invoiceDueDate  FROM srp_erp_paymentvouchermaster 
+(SELECT $fields2 srp_erp_paymentvouchermaster.payVoucherAutoID as InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_paymentvouchermaster.documentID,srp_erp_paymentvouchermaster.PVDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_paymentvouchermaster.PVcode as bookingInvCode,'-' as invoiceDueDate  FROM srp_erp_paymentvouchermaster 
 INNER JOIN `srp_erp_paymentvoucherdetail` ON `srp_erp_paymentvoucherdetail`.`payVoucherAutoID` = `srp_erp_paymentvouchermaster`.`payVoucherAutoID` AND `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND  srp_erp_paymentvoucherdetail.type='Advance'
 LEFT JOIN (SELECT $fields6 srp_erp_pvadvancematchdetails.payVoucherAutoId 
 		FROM srp_erp_pvadvancematchdetails 
@@ -2506,36 +2494,36 @@ LEFT JOIN (SELECT $fields6 srp_erp_pvadvancematchdetails.payVoucherAutoId
 		WHERE `srp_erp_pvadvancematch`.`matchDate` <= '" . format_date($this->input->post("from")) . "' GROUP BY srp_erp_pvadvancematchdetails.payVoucherAutoID
 		) avd ON (avd.payVoucherAutoID = `srp_erp_paymentvoucherdetail`.`payVoucherAutoID`)
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paymentvouchermaster`.`partyID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paymentvouchermaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paymentvouchermaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paymentvouchermaster.transactionCurrencyID) 
 WHERE $vendorOR AND `srp_erp_paymentvouchermaster`.`approvedYN` = 1 AND srp_erp_paymentvouchermaster.PVDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_paymentvoucherdetail.InvoiceAutoID IS NULL GROUP BY `srp_erp_paymentvouchermaster`.`payVoucherAutoID`)
 UNION ALL
-(SELECT $fields7 srp_erp_debitnotemaster.debitNoteMasterAutoID as InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_debitnotemaster.documentID,srp_erp_debitnotemaster.debitNoteDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_debitnotemaster.debitNoteCode as bookingInvCode,'-' as invoiceDueDate  FROM srp_erp_debitnotemaster 
+(SELECT $fields7 srp_erp_debitnotemaster.debitNoteMasterAutoID as InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_debitnotemaster.documentID,srp_erp_debitnotemaster.debitNoteDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_debitnotemaster.debitNoteCode as bookingInvCode,'-' as invoiceDueDate  FROM srp_erp_debitnotemaster 
 LEFT JOIN ( SELECT SUM(srp_erp_debitnotedetail.transactionAmount) AS totval,debitNoteMasterAutoID FROM`srp_erp_debitnotedetail` WHERE `srp_erp_debitnotedetail`.`InvoiceAutoID` IS NULL AND `srp_erp_debitnotedetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " GROUP BY debitNoteMasterAutoID) dnd ON dnd.`debitNoteMasterAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`
 LEFT JOIN (SELECT $fields4 debitNoteAutoID FROM `srp_erp_paymentvoucherdetail` WHERE `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='debitnote' GROUP BY debitNoteAutoID) pvd ON pvd.`debitNoteAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_debitnotemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_debitnotemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_debitnotemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_debitnotemaster.transactionCurrencyID) 
 WHERE $vendorOR AND `srp_erp_debitnotemaster`.`approvedYN` = 1 AND srp_erp_debitnotemaster.debitNoteDate <= '" . format_date($this->input->post("from")) . "' AND `srp_erp_debitnotemaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " GROUP BY `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`)
 
 UNION ALL
-(SELECT $fields8 srp_erp_stockreturnmaster.stockReturnAutoID as InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_stockreturnmaster.`comment` as comments,srp_erp_stockreturnmaster.documentID,srp_erp_stockreturnmaster.returnDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_stockreturnmaster.stockReturnCode as bookingInvCode,'-' as invoiceDueDate  FROM srp_erp_stockreturnmaster
+(SELECT $fields8 srp_erp_stockreturnmaster.stockReturnAutoID as InvoiceAutoID,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_stockreturnmaster.`comment` as comments,srp_erp_stockreturnmaster.documentID,srp_erp_stockreturnmaster.returnDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_stockreturnmaster.stockReturnCode as bookingInvCode,'-' as invoiceDueDate  FROM srp_erp_stockreturnmaster
 LEFT JOIN ( SELECT SUM(srp_erp_stockreturndetails.totalValue) AS totval,stockReturnAutoID FROM `srp_erp_stockreturndetails` GROUP BY stockReturnAutoID) srd ON srd.`stockReturnAutoID` = `srp_erp_stockreturnmaster`.`stockReturnAutoID`
 LEFT JOIN (SELECT $fields4 debitNoteAutoID FROM `srp_erp_paymentvoucherdetail` WHERE `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='SR' GROUP BY debitNoteAutoID) pvd ON pvd.`debitNoteAutoID` = `srp_erp_stockreturnmaster`.`stockReturnAutoID`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_stockreturnmaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_stockreturnmaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_stockreturnmaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_stockreturnmaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_stockreturnmaster.companyLocalCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_stockreturnmaster.transactionCurrencyID)
 WHERE $vendorOR AND `srp_erp_stockreturnmaster`.`approvedYN` = 1 AND srp_erp_stockreturnmaster.returnDate <= '" . format_date($this->input->post("from")) . "' AND `srp_erp_stockreturnmaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " GROUP BY `srp_erp_stockreturnmaster`.`stockReturnAutoID`)
 
 ) as a $where")->result_array();
-//echo $this->db->last_query();    
-    return $result;
+        //echo $this->db->last_query();    
+        return $result;
     }
 
     function get_accounts_payable_vendor_statement_group_report($overdue = false)
@@ -2712,7 +2700,6 @@ WHERE $vendorOR AND `srp_erp_debitnotemaster`.`approvedYN` = 1 AND srp_erp_debit
                     $aging[] = ($i + 1) . "-" . ($i + $interval);
                     $i += $interval;
                 }
-
             }
         }
         $aging[] = "> " . ($through);
@@ -2748,7 +2735,6 @@ WHERE $vendorOR AND `srp_erp_debitnotemaster`.`approvedYN` = 1 AND srp_erp_debit
                     $fields10 .= 'srp_erp_stockreturnmaster.companyReportingCurrency as ' . $val . 'currency,';
                     $fields10 .= 'CR.DecimalPlaces as ' . $val . 'DecimalPlaces,';
                     $fields10 .= '(SUM(srd.totval/srp_erp_stockreturnmaster.companyReportingExchangeRate) - IFNULL(SUM(pvd.' . $val . '),0)) * -1 as ' . $val . ',';
-
                 } else if ($val == 'companyLocalAmount') {
                     $fields .= 'srp_erp_paysupplierinvoicemaster.companyLocalCurrency as ' . $val . 'currency,';
                     $fields .= 'CL.DecimalPlaces as ' . $val . 'DecimalPlaces,';
@@ -2826,7 +2812,7 @@ WHERE $vendorOR AND `srp_erp_debitnotemaster`.`approvedYN` = 1 AND srp_erp_debit
         }
 
         $result = $this->db->query("SELECT $fields3 a.supplierName,a.supplierSystemCode,a.comments,a.documentID,a.bookingDate,a.GLSecondaryCode,a.GLDescription,a.bookingInvCode,a.supplierID FROM 
-((SELECT $fields srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_paysupplierinvoicemaster.documentID,srp_erp_paysupplierinvoicemaster.bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_paysupplierinvoicemaster.bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paysupplierinvoicemaster.`bookingDate`) as age,`srp_erp_paysupplierinvoicemaster`.`supplierID` as supplierID FROM `srp_erp_paysupplierinvoicemaster`
+((SELECT $fields srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_paysupplierinvoicemaster.documentID,srp_erp_paysupplierinvoicemaster.bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_paysupplierinvoicemaster.bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paysupplierinvoicemaster.`bookingDate`) as age,`srp_erp_paysupplierinvoicemaster`.`supplierID` as supplierID FROM `srp_erp_paysupplierinvoicemaster`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paysupplierinvoicemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN 
 (
@@ -2862,13 +2848,13 @@ LEFT JOIN
 ) pva ON (
 	pva.`InvoiceAutoID` = `srp_erp_paysupplierinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paysupplierinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paysupplierinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paysupplierinvoicemaster.transactionCurrencyID) 
 WHERE $vendorOR AND `srp_erp_paysupplierinvoicemaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND srp_erp_paysupplierinvoicemaster.`bookingDate` <= '" . format_date($this->input->post("from")) . "' AND `srp_erp_paysupplierinvoicemaster`.`approvedYN` = 1 GROUP BY `srp_erp_paysupplierinvoicemaster`.`supplierID`,srp_erp_paysupplierinvoicemaster.`bookingDate` HAVING $fields7)
 UNION ALL
-(SELECT $fields2 srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_paymentvouchermaster.documentID,srp_erp_paymentvouchermaster.PVDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_paymentvouchermaster.PVcode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paymentvouchermaster.`PVdate`) as age,`srp_erp_paymentvouchermaster`.`partyID` as supplierID
+(SELECT $fields2 srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_paymentvouchermaster.documentID,srp_erp_paymentvouchermaster.PVDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_paymentvouchermaster.PVcode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paymentvouchermaster.`PVdate`) as age,`srp_erp_paymentvouchermaster`.`partyID` as supplierID
 FROM srp_erp_paymentvouchermaster 
 INNER JOIN `srp_erp_paymentvoucherdetail` ON `srp_erp_paymentvoucherdetail`.`payVoucherAutoID` = `srp_erp_paymentvouchermaster`.`payVoucherAutoID` AND `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND srp_erp_paymentvoucherdetail.type='Advance'
 LEFT JOIN (SELECT $fields6 srp_erp_pvadvancematchdetails.payVoucherAutoId 
@@ -2877,28 +2863,28 @@ LEFT JOIN (SELECT $fields6 srp_erp_pvadvancematchdetails.payVoucherAutoId
 		WHERE `srp_erp_pvadvancematch`.`matchDate` <= '" . format_date($this->input->post("from")) . "' GROUP BY srp_erp_pvadvancematchdetails.payVoucherAutoID
 		) avd ON (avd.payVoucherAutoID = `srp_erp_paymentvoucherdetail`.`payVoucherAutoID`)
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paymentvouchermaster`.`partyID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paymentvouchermaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paymentvouchermaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paymentvouchermaster.transactionCurrencyID) 
 WHERE $vendorOR AND `srp_erp_paymentvouchermaster`.`approvedYN` = 1 AND srp_erp_paymentvouchermaster.PVDate <= '" . format_date($this->input->post("from")) . "' GROUP BY `srp_erp_paymentvouchermaster`.`partyID`,srp_erp_paymentvouchermaster.`PVdate` HAVING (" . join(' AND ', $having) . "))
   UNION ALL
-(SELECT $fields8 srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_debitnotemaster.documentID,srp_erp_debitnotemaster.debitNoteDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_debitnotemaster.debitNoteCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_debitnotemaster.`debitNoteDate`) as age,`srp_erp_debitnotemaster`.`supplierID` as supplierID  FROM srp_erp_debitnotemaster 
+(SELECT $fields8 srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_debitnotemaster.documentID,srp_erp_debitnotemaster.debitNoteDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_debitnotemaster.debitNoteCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_debitnotemaster.`debitNoteDate`) as age,`srp_erp_debitnotemaster`.`supplierID` as supplierID  FROM srp_erp_debitnotemaster 
 LEFT JOIN ( SELECT SUM(srp_erp_debitnotedetail.transactionAmount) AS totval,debitNoteMasterAutoID FROM `srp_erp_debitnotedetail` WHERE `srp_erp_debitnotedetail`.`InvoiceAutoID` IS NULL AND `srp_erp_debitnotedetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . "  GROUP BY debitNoteMasterAutoID) dnd ON dnd.`debitNoteMasterAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`
 LEFT JOIN (SELECT $fields9 debitNoteAutoID FROM `srp_erp_paymentvoucherdetail` WHERE `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='debitnote' GROUP BY debitNoteAutoID) pvd ON pvd.`debitNoteAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_debitnotemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_debitnotemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_debitnotemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_debitnotemaster.transactionCurrencyID) 
 WHERE $vendorOR AND `srp_erp_debitnotemaster`.`approvedYN` = 1 AND srp_erp_debitnotemaster.debitNoteDate <= '" . format_date($this->input->post("from")) . "' AND `srp_erp_debitnotemaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " GROUP BY `srp_erp_debitnotemaster`.`supplierID`,`srp_erp_debitnotemaster`.`debitNoteDate` HAVING (" . join(' AND ', $having) . "))
 
 UNION ALL
-(SELECT $fields10 srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_stockreturnmaster.`comment` as comments,srp_erp_stockreturnmaster.documentID,srp_erp_stockreturnmaster.returnDate AS bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_stockreturnmaster.stockReturnCode AS bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_stockreturnmaster.`returnDate`) as age,`srp_erp_stockreturnmaster`.`supplierID` as supplierID  FROM srp_erp_stockreturnmaster
+(SELECT $fields10 srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_stockreturnmaster.`comment` as comments,srp_erp_stockreturnmaster.documentID,srp_erp_stockreturnmaster.returnDate AS bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_stockreturnmaster.stockReturnCode AS bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_stockreturnmaster.`returnDate`) as age,`srp_erp_stockreturnmaster`.`supplierID` as supplierID  FROM srp_erp_stockreturnmaster
 LEFT JOIN ( SELECT SUM(srp_erp_stockreturndetails.totalValue) AS totval,stockReturnAutoID FROM `srp_erp_stockreturndetails` GROUP BY stockReturnAutoID) srd ON srd.`stockReturnAutoID` = `srp_erp_stockreturnmaster`.`stockReturnAutoID`
 LEFT JOIN (SELECT $fields9 debitNoteAutoID FROM `srp_erp_paymentvoucherdetail` WHERE `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='SR' GROUP BY debitNoteAutoID) pvd ON pvd.`debitNoteAutoID` = `srp_erp_stockreturnmaster`.`stockReturnAutoID`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_stockreturnmaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_stockreturnmaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_stockreturnmaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_stockreturnmaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_stockreturnmaster.companyLocalCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_stockreturnmaster.transactionCurrencyID)
@@ -2939,7 +2925,6 @@ WHERE $vendorOR AND `srp_erp_stockreturnmaster`.`approvedYN` = 1 AND srp_erp_sto
                     $aging[] = ($i + 1) . "-" . ($i + $interval);
                     $i += $interval;
                 }
-
             }
         }
         $aging[] = "> " . ($through);
@@ -3040,7 +3025,7 @@ WHERE $vendorOR AND `srp_erp_stockreturnmaster`.`approvedYN` = 1 AND srp_erp_sto
 
 
         $result = $this->db->query("SELECT $fields3 a.invoiceAutoID,a.supplierInvoiceNo,DATE_FORMAT(a.documentDate,'" . $this->format . "') as documentDate,a.documentCode,a.documentID,a.supplierName,a.supplierSystemCode,a.comments,a.GLSecondaryCode,a.GLDescription FROM 
-((SELECT $fields srp_erp_paysupplierinvoicemaster.invoiceAutoID,srp_erp_paysupplierinvoicemaster.supplierInvoiceNo as supplierInvoiceNo,srp_erp_paysupplierinvoicemaster.documentID as documentID,srp_erp_paysupplierinvoicemaster.bookingInvCode as documentCode,srp_erp_paysupplierinvoicemaster.bookingDate as documentDate, srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paysupplierinvoicemaster.`bookingDate`) as age FROM `srp_erp_paysupplierinvoicemaster`
+((SELECT $fields srp_erp_paysupplierinvoicemaster.invoiceAutoID,srp_erp_paysupplierinvoicemaster.supplierInvoiceNo as supplierInvoiceNo,srp_erp_paysupplierinvoicemaster.documentID as documentID,srp_erp_paysupplierinvoicemaster.bookingInvCode as documentCode,srp_erp_paysupplierinvoicemaster.bookingDate as documentDate, srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paysupplierinvoicemaster.`bookingDate`) as age FROM `srp_erp_paysupplierinvoicemaster`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paysupplierinvoicemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN 
 (
@@ -3076,7 +3061,7 @@ LEFT JOIN
 ) pva ON (
 	pva.`InvoiceAutoID` = `srp_erp_paysupplierinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paysupplierinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paysupplierinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paysupplierinvoicemaster.transactionCurrencyID) 
@@ -3084,7 +3069,7 @@ WHERE $vendorOR AND `srp_erp_paysupplierinvoicemaster`.`companyID` = " . $this->
 UNION ALL
 (SELECT $fields2 srp_erp_paymentvouchermaster.payVoucherAutoID as invoiceAutoID,'-' as supplierInvoiceNo,srp_erp_paymentvouchermaster.documentID AS documentID,
 srp_erp_paymentvouchermaster.PVcode AS documentCode,
-					srp_erp_paymentvouchermaster.PVDate AS documentDate,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paymentvouchermaster.`PVdate`) as age
+					srp_erp_paymentvouchermaster.PVDate AS documentDate,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paymentvouchermaster.`PVdate`) as age
 FROM srp_erp_paymentvouchermaster 
 INNER JOIN `srp_erp_paymentvoucherdetail` ON `srp_erp_paymentvoucherdetail`.`payVoucherAutoID` = `srp_erp_paymentvouchermaster`.`payVoucherAutoID` AND `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND srp_erp_paymentvoucherdetail.type='Advance'
 LEFT JOIN (SELECT $fields6 srp_erp_pvadvancematchdetails.payVoucherAutoId 
@@ -3093,7 +3078,7 @@ LEFT JOIN (SELECT $fields6 srp_erp_pvadvancematchdetails.payVoucherAutoId
 		WHERE `srp_erp_pvadvancematch`.`matchDate` <= '" . format_date($this->input->post("from")) . "' GROUP BY srp_erp_pvadvancematchdetails.payVoucherAutoID
 		) avd ON (avd.payVoucherAutoID = `srp_erp_paymentvoucherdetail`.`payVoucherAutoID`)
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paymentvouchermaster`.`partyID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paymentvouchermaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paymentvouchermaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paymentvouchermaster.transactionCurrencyID) 
@@ -3103,12 +3088,12 @@ UNION ALL
 SELECT $fields8 
 `srp_erp_debitnotemaster`.`debitNoteMasterAutoID` as invoiceAutoID,'-' as supplierInvoiceNo,srp_erp_debitnotemaster.documentID AS documentID,
 srp_erp_debitnotemaster.debitNoteCode AS documentCode,
-					srp_erp_debitnotemaster.debitNoteDate AS documentDate,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_debitnotemaster.debitNoteDate) as age
+					srp_erp_debitnotemaster.debitNoteDate AS documentDate,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_debitnotemaster.debitNoteDate) as age
   FROM srp_erp_debitnotemaster 
 LEFT JOIN ( SELECT SUM(srp_erp_debitnotedetail.transactionAmount) AS totval,debitNoteMasterAutoID FROM `srp_erp_debitnotedetail` WHERE `srp_erp_debitnotedetail`.`InvoiceAutoID` IS NULL AND `srp_erp_debitnotedetail`.`companyID` = 13  GROUP BY debitNoteMasterAutoID) dnd ON dnd.`debitNoteMasterAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`
 LEFT JOIN (SELECT $fields9 debitNoteAutoID FROM `srp_erp_paymentvoucherdetail` WHERE `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='debitnote' GROUP BY debitNoteAutoID) pvd ON pvd.`debitNoteAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_debitnotemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_debitnotemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_debitnotemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_debitnotemaster.transactionCurrencyID) 
@@ -3119,12 +3104,12 @@ UNION ALL
 (
 SELECT $fields10
 `srp_erp_stockreturnmaster`.`stockReturnAutoID` as invoiceAutoID,'-' as supplierInvoiceNo,srp_erp_stockreturnmaster.documentID AS documentID,
-srp_erp_stockreturnmaster.stockReturnCode AS documentCode,srp_erp_stockreturnmaster.returnDate AS documentDate,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_stockreturnmaster.`comment` as comments,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_stockreturnmaster.returnDate) as age
+srp_erp_stockreturnmaster.stockReturnCode AS documentCode,srp_erp_stockreturnmaster.returnDate AS documentDate,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_stockreturnmaster.`comment` as comments,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_stockreturnmaster.returnDate) as age
   FROM srp_erp_stockreturnmaster
 LEFT JOIN ( SELECT SUM(srp_erp_stockreturndetails.totalValue) AS totval,stockReturnAutoID FROM `srp_erp_stockreturndetails` GROUP BY stockReturnAutoID) srd ON srd.`stockReturnAutoID` = `srp_erp_stockreturnmaster`.`stockReturnAutoID`
 LEFT JOIN (SELECT $fields9 debitNoteAutoID FROM `srp_erp_paymentvoucherdetail` WHERE `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='SR' GROUP BY debitNoteAutoID) pvd ON pvd.`debitNoteAutoID` = `srp_erp_stockreturnmaster`.`stockReturnAutoID`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_stockreturnmaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_stockreturnmaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_stockreturnmaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_stockreturnmaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_stockreturnmaster.companyLocalCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_stockreturnmaster.transactionCurrencyID)
@@ -3197,7 +3182,7 @@ WHERE $vendorOR AND `srp_erp_stockreturnmaster`.`approvedYN` = 1 AND srp_erp_sto
     WHERE $customerOR AND srp_erp_generalledger.documentDate < '" . format_date($this->input->post("from")) . "'  AND srp_erp_generalledger.companyID = " . $this->common_data['company_data']['company_id'] . " 
     GROUP BY srp_erp_generalledger.GLAutoID,srp_erp_customermaster.customerAutoID)) AS a
       $feilds3")->result_array();
-     //   echo $this->db->last_query();
+        //   echo $this->db->last_query();
         return $result;
     }
 
@@ -3315,7 +3300,6 @@ WHERE $vendorOR AND `srp_erp_stockreturnmaster`.`approvedYN` = 1 AND srp_erp_sto
                     $fields8 .= 'srp_erp_creditnotemaster.transactionCurrency as ' . $val . 'currency,';
                     $fields8 .= 'TC.DecimalPlaces as ' . $val . 'DecimalPlaces,';
                     $fields9 .= 'SUM(srp_erp_salesreturndetails.totalValue) AS ' . $val . ',';
-
                 } else if ($val == 'companyReportingAmount') {
                     $fields .= 'srp_erp_customerinvoicemaster.companyReportingCurrency as ' . $val . 'currency,';
                     $fields2 .= 'srp_erp_customerreceiptmaster.companyReportingCurrency as ' . $val . 'currency,';
@@ -3347,7 +3331,7 @@ WHERE $vendorOR AND `srp_erp_stockreturnmaster`.`approvedYN` = 1 AND srp_erp_sto
         }
 
         $result = $this->db->query("SELECT $fields3 a.invoiceAutoID,a.document,a.age,DATE_FORMAT(a.invoiceDueDate,'" . $this->format . "') as invoiceDueDate,a.customerAddress,a.customerName,a.customerSystemCode,a.comments,a.documentID,DATE_FORMAT(a.bookingDate,'" . $this->format . "') as bookingDate,a.GLSecondaryCode,a.GLDescription,a.bookingInvCode,a.customerID FROM
-((SELECT $fields srp_erp_customerinvoicemaster.invoiceAutoID,srp_erp_documentcodemaster.document,srp_erp_customermaster.customerAddress1 as customerAddress,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_customerinvoicemaster.documentID,srp_erp_customerinvoicemaster.invoiceDueDate as invoiceDueDate,srp_erp_customerinvoicemaster.invoiceDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_customerinvoicemaster.invoiceCode as bookingInvCode,`srp_erp_customerinvoicemaster`.`customerID` as customerID,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDueDate`) as age
+((SELECT $fields srp_erp_customerinvoicemaster.invoiceAutoID,srp_erp_documentcodemaster.document,srp_erp_customermaster.customerAddress1 as customerAddress,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_customerinvoicemaster.documentID,srp_erp_customerinvoicemaster.invoiceDueDate as invoiceDueDate,srp_erp_customerinvoicemaster.invoiceDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_customerinvoicemaster.invoiceCode as bookingInvCode,`srp_erp_customerinvoicemaster`.`customerID` as customerID,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDueDate`) as age
 FROM `srp_erp_customerinvoicemaster`
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_customerinvoicemaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN srp_erp_documentcodemaster ON srp_erp_documentcodemaster.documentID = srp_erp_customerinvoicemaster.documentID  AND srp_erp_documentcodemaster.companyID = " . $this->common_data['company_data']['company_id'] . "
@@ -3408,7 +3392,7 @@ $fields6 srp_erp_rvadvancematchdetails.InvoiceAutoID,srp_erp_rvadvancematchdetai
 	ca ON (
 	ca.`InvoiceAutoID` = `srp_erp_customerinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_customerinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_customerinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_customerinvoicemaster.transactionCurrencyID) 
@@ -3423,8 +3407,8 @@ WHERE $customerOR AND `srp_erp_customerinvoicemaster`.`companyID` = " . $this->c
  srp_erp_customerreceiptmaster.documentID,
  '-' as invoiceDueDate,
  srp_erp_customerreceiptmaster.RVDate as bookingDate,
- srp_erp_chartofAccounts.GLSecondaryCode,
- srp_erp_chartofAccounts.GLDescription,
+ srp_erp_chartofaccounts.GLSecondaryCode,
+ srp_erp_chartofaccounts.GLDescription,
  srp_erp_customerreceiptmaster.RVCode as bookingInvCode,
  `srp_erp_customerreceiptmaster`.`customerID` as customerID,
  DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerreceiptmaster.`RVDate`) as age  
@@ -3436,7 +3420,7 @@ LEFT JOIN (SELECT $fields6 srp_erp_rvadvancematchdetails.receiptVoucherAutoID
 		WHERE `srp_erp_rvadvancematch`.`matchDate` <= '" . format_date($this->input->post("from")) . "' GROUP BY srp_erp_rvadvancematchdetails.receiptVoucherAutoID
 		) avd ON (avd.receiptVoucherAutoID = `srp_erp_customerreceiptdetail`.`receiptVoucherAutoID`)
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_customerreceiptmaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_customerreceiptmaster.customerreceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_customerreceiptmaster.customerreceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN srp_erp_documentcodemaster ON srp_erp_documentcodemaster.documentID = srp_erp_customerreceiptmaster.documentID  AND srp_erp_documentcodemaster.companyID = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_customerreceiptmaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_customerreceiptmaster.companyLocalCurrencyID) 
@@ -3453,8 +3437,8 @@ srp_erp_creditnotemaster.comments,
 srp_erp_creditnotemaster.documentID,
 '-' as invoiceDueDate,
 srp_erp_creditnotemaster.creditNoteDate AS bookingDate,
-srp_erp_chartofAccounts.GLSecondaryCode,
-srp_erp_chartofAccounts.GLDescription,
+srp_erp_chartofaccounts.GLSecondaryCode,
+srp_erp_chartofaccounts.GLDescription,
 srp_erp_creditnotemaster.creditNoteCode AS bookingInvCode,
 `srp_erp_creditnotemaster`.customerID as customerID,
 DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_creditnotemaster.creditNoteDate) as age
@@ -3466,8 +3450,8 @@ FROM
 	LEFT JOIN ( SELECT $fields4 creditNoteAutoID FROM `srp_erp_customerreceiptdetail` WHERE `srp_erp_customerreceiptdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type = 'creditnote' GROUP BY creditNoteAutoID ) cvd ON cvd.`creditNoteAutoID` = `srp_erp_creditnotemaster`.`creditNoteMasterAutoID`
 	LEFT JOIN `srp_erp_customermaster` ON `srp_erp_creditnotemaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` 
 	AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
-	LEFT JOIN srp_erp_chartofAccounts ON srp_erp_creditnotemaster.customerreceivableAutoID = srp_erp_chartofAccounts.GLAutoID 
-	AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+	LEFT JOIN srp_erp_chartofaccounts ON srp_erp_creditnotemaster.customerreceivableAutoID = srp_erp_chartofaccounts.GLAutoID 
+	AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 	LEFT JOIN ( SELECT DecimalPlaces, currencyID FROM srp_erp_currencymaster ) CR ON ( CR.currencyID = srp_erp_creditnotemaster.companyReportingCurrencyID )
 	LEFT JOIN ( SELECT DecimalPlaces, currencyID FROM srp_erp_currencymaster ) CL ON ( CL.currencyID = srp_erp_creditnotemaster.companyLocalCurrencyID )
 	LEFT JOIN ( SELECT DecimalPlaces, currencyID FROM srp_erp_currencymaster ) TC ON ( TC.currencyID = srp_erp_creditnotemaster.transactionCurrencyID ) 
@@ -3643,7 +3627,6 @@ WHERE `srp_erp_customerreceiptmaster`.`approvedYN` = 1 AND srp_erp_customerrecei
                     $aging[] = ($i + 1) . "-" . ($i + $interval);
                     $i += $interval;
                 }
-
             }
         }
         $aging[] = "> " . ($through);
@@ -3740,7 +3723,7 @@ WHERE `srp_erp_customerreceiptmaster`.`approvedYN` = 1 AND srp_erp_customerrecei
         }
 
         $result = $this->db->query("SELECT $fields3 a.customerName,a.customerSystemCode,a.comments,a.documentID,a.bookingDate,a.GLSecondaryCode,a.GLDescription,a.bookingInvCode,a.customerID FROM 
-((SELECT $fields srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_customerinvoicemaster.documentID,srp_erp_customerinvoicemaster.invoiceDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_customerinvoicemaster.invoiceCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDate`) as age,`srp_erp_customerinvoicemaster`.`customerID` as customerID FROM `srp_erp_customerinvoicemaster`
+((SELECT $fields srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_customerinvoicemaster.documentID,srp_erp_customerinvoicemaster.invoiceDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_customerinvoicemaster.invoiceCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDate`) as age,`srp_erp_customerinvoicemaster`.`customerID` as customerID FROM `srp_erp_customerinvoicemaster`
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_customerinvoicemaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN 
 (
@@ -3792,13 +3775,13 @@ $fields6 srp_erp_rvadvancematchdetails.InvoiceAutoID,srp_erp_rvadvancematchdetai
 	ca ON (
 	ca.`InvoiceAutoID` = `srp_erp_customerinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_customerinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_customerinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_customerinvoicemaster.transactionCurrencyID) 
 WHERE $customerOR AND `srp_erp_customerinvoicemaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND srp_erp_customerinvoicemaster.`invoiceDate` <= '" . format_date($this->input->post("from")) . "' AND `srp_erp_customerinvoicemaster`.`approvedYN` = 1 GROUP BY `srp_erp_customerinvoicemaster`.`customerID`,`srp_erp_customerinvoicemaster`.`invoiceDate` HAVING $fields7)
 UNION ALL (
- SELECT $fields2 srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,'Advance' as comments,srp_erp_customerreceiptmaster.documentID,srp_erp_customerreceiptmaster.RVDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_customerreceiptmaster.RVCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerreceiptmaster.`RVDate`) as age,`srp_erp_customerreceiptmaster`.`customerID` as customerID 
+ SELECT $fields2 srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,'Advance' as comments,srp_erp_customerreceiptmaster.documentID,srp_erp_customerreceiptmaster.RVDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_customerreceiptmaster.RVCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerreceiptmaster.`RVDate`) as age,`srp_erp_customerreceiptmaster`.`customerID` as customerID 
  FROM srp_erp_customerreceiptmaster 
 INNER JOIN `srp_erp_customerreceiptdetail` ON `srp_erp_customerreceiptdetail`.`receiptVoucherAutoId` = `srp_erp_customerreceiptmaster`.`receiptVoucherAutoId` AND `srp_erp_customerreceiptdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND  srp_erp_customerreceiptdetail.type='Advance'
 LEFT JOIN (SELECT $fields6 srp_erp_rvadvancematchdetails.receiptVoucherAutoID 
@@ -3807,7 +3790,7 @@ LEFT JOIN (SELECT $fields6 srp_erp_rvadvancematchdetails.receiptVoucherAutoID
 		WHERE `srp_erp_rvadvancematch`.`matchDate` <= '" . format_date($this->input->post("from")) . "' GROUP BY srp_erp_rvadvancematchdetails.receiptVoucherAutoID
 		) avd ON (avd.receiptVoucherAutoID = `srp_erp_customerreceiptdetail`.`receiptVoucherAutoID`)
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_customerreceiptmaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_customerreceiptmaster.customerreceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_customerreceiptmaster.customerreceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN srp_erp_documentcodemaster ON srp_erp_documentcodemaster.documentID = srp_erp_customerreceiptmaster.documentID  AND srp_erp_documentcodemaster.companyID = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_customerreceiptmaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_customerreceiptmaster.companyLocalCurrencyID) 
@@ -3822,8 +3805,8 @@ WHERE $customerOR AND `srp_erp_customerreceiptmaster`.`approvedYN` = 1 AND srp_e
 			srp_erp_creditnotemaster.comments,
 			srp_erp_creditnotemaster.documentID,
 			srp_erp_creditnotemaster.creditNoteDate AS bookingDate,
-			srp_erp_chartofAccounts.GLSecondaryCode,
-			srp_erp_chartofAccounts.GLDescription,
+			srp_erp_chartofaccounts.GLSecondaryCode,
+			srp_erp_chartofaccounts.GLDescription,
 			srp_erp_creditnotemaster.creditNoteCode AS bookingInvCode,
 			DATEDIFF(
 				'" . format_date($this->input->post("from")) . "',
@@ -3848,8 +3831,8 @@ WHERE $customerOR AND `srp_erp_customerreceiptmaster`.`approvedYN` = 1 AND srp_e
 		) rvd ON rvd.`creditNoteAutoID` = `srp_erp_creditnotemaster`.`creditNoteMasterAutoID`
 		LEFT JOIN `srp_erp_customermaster` ON `srp_erp_creditnotemaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID`
 		AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
-		LEFT JOIN srp_erp_chartofAccounts ON srp_erp_creditnotemaster.customerReceivableAutoID = srp_erp_chartofAccounts.GLAutoID
-		AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+		LEFT JOIN srp_erp_chartofaccounts ON srp_erp_creditnotemaster.customerReceivableAutoID = srp_erp_chartofaccounts.GLAutoID
+		AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 		LEFT JOIN (
 			SELECT
 				DecimalPlaces,
@@ -3896,7 +3879,6 @@ GROUP BY
  ")->result_array();
         //echo $this->db->last_query();
         return $result;
-
     }
 
     function get_accounts_receivable_customer_aging_detail_report()
@@ -3929,7 +3911,6 @@ GROUP BY
                     $aging[] = ($i + 1) . "-" . ($i + $interval);
                     $i += $interval;
                 }
-
             }
         }
         $aging[] = "> " . ($through);
@@ -4014,7 +3995,7 @@ GROUP BY
         }
 
         $result = $this->db->query("SELECT $fields3 a.invoiceAutoID,DATE_FORMAT(a.documentDate,'" . $this->format . "') as documentDate,a.documentCode,a.documentID,a.customerName,a.customerSystemCode,a.comments,a.GLSecondaryCode,a.GLDescription FROM 
-((SELECT $fields srp_erp_customerinvoicemaster.invoiceAutoID,srp_erp_customerinvoicemaster.documentID as documentID,srp_erp_customerinvoicemaster.invoiceCode as documentCode,srp_erp_customerinvoicemaster.invoiceDate as documentDate,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDate`) as age FROM `srp_erp_customerinvoicemaster`
+((SELECT $fields srp_erp_customerinvoicemaster.invoiceAutoID,srp_erp_customerinvoicemaster.documentID as documentID,srp_erp_customerinvoicemaster.invoiceCode as documentCode,srp_erp_customerinvoicemaster.invoiceDate as documentDate,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDate`) as age FROM `srp_erp_customerinvoicemaster`
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_customerinvoicemaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN 
 (
@@ -4066,13 +4047,13 @@ $fields6 srp_erp_rvadvancematchdetails.InvoiceAutoID,srp_erp_rvadvancematchdetai
 	ca ON (
 	ca.`InvoiceAutoID` = `srp_erp_customerinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_customerinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_customerinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_customerinvoicemaster.transactionCurrencyID) 
 WHERE $customerOR AND `srp_erp_customerinvoicemaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND srp_erp_customerinvoicemaster.`invoiceDate` <= '" . format_date($this->input->post("from")) . "' AND `srp_erp_customerinvoicemaster`.`approvedYN` = 1 GROUP BY `srp_erp_customerinvoicemaster`.`invoiceAutoID`,`srp_erp_customerinvoicemaster`.`invoiceDate` HAVING $fields7)
 UNION ALL (
- SELECT $fields2 srp_erp_customerreceiptmaster.receiptVoucherAutoId as invoiceAutoID,srp_erp_customerreceiptmaster.documentID as documentID,srp_erp_customerreceiptmaster.RVCode as documentCode,srp_erp_customerreceiptmaster.RVDate as documentDate,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,'Advance' as comments,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerreceiptmaster.`RVDate`) as age
+ SELECT $fields2 srp_erp_customerreceiptmaster.receiptVoucherAutoId as invoiceAutoID,srp_erp_customerreceiptmaster.documentID as documentID,srp_erp_customerreceiptmaster.RVCode as documentCode,srp_erp_customerreceiptmaster.RVDate as documentDate,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,'Advance' as comments,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerreceiptmaster.`RVDate`) as age
  FROM srp_erp_customerreceiptmaster 
 INNER JOIN `srp_erp_customerreceiptdetail` ON `srp_erp_customerreceiptdetail`.`receiptVoucherAutoId` = `srp_erp_customerreceiptmaster`.`receiptVoucherAutoId` AND `srp_erp_customerreceiptdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND  srp_erp_customerreceiptdetail.type='Advance'
 LEFT JOIN (SELECT $fields6 srp_erp_rvadvancematchdetails.receiptVoucherAutoID 
@@ -4081,7 +4062,7 @@ LEFT JOIN (SELECT $fields6 srp_erp_rvadvancematchdetails.receiptVoucherAutoID
 		WHERE `srp_erp_rvadvancematch`.`matchDate` <= '" . format_date($this->input->post("from")) . "' GROUP BY srp_erp_rvadvancematchdetails.receiptVoucherAutoID
 		) avd ON (avd.receiptVoucherAutoID = `srp_erp_customerreceiptdetail`.`receiptVoucherAutoID`)
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_customerreceiptmaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_customerreceiptmaster.customerreceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_customerreceiptmaster.customerreceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN srp_erp_documentcodemaster ON srp_erp_documentcodemaster.documentID = srp_erp_customerreceiptmaster.documentID  AND srp_erp_documentcodemaster.companyID = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_customerreceiptmaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_customerreceiptmaster.companyLocalCurrencyID) 
@@ -4093,12 +4074,12 @@ UNION ALL (
 SELECT $fields8
 `srp_erp_creditnotemaster`.`creditNoteMasterAutoID` as invoiceAutoID,srp_erp_creditnotemaster.documentID AS documentID,
 srp_erp_creditnotemaster.creditNoteCode AS documentCode,
-					srp_erp_creditnotemaster.creditNoteDate AS documentDate,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_creditnotemaster.comments,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_creditnotemaster.creditNoteDate) as age
+					srp_erp_creditnotemaster.creditNoteDate AS documentDate,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_creditnotemaster.comments,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_creditnotemaster.creditNoteDate) as age
   FROM srp_erp_creditnotemaster
 INNER JOIN `srp_erp_creditnotedetail` ON `srp_erp_creditnotedetail`.`creditNoteMasterAutoID` = `srp_erp_creditnotemaster`.`creditNoteMasterAutoID` AND `srp_erp_creditnotedetail`.`InvoiceAutoID` IS NULL AND `srp_erp_creditnotedetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT $fields9 receiptVoucherAutoId,creditNoteAutoID FROM `srp_erp_customerreceiptdetail` WHERE `srp_erp_customerreceiptdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='creditnote' GROUP BY receiptVoucherAutoId) rvd ON rvd.`creditNoteAutoID` = `srp_erp_creditnotemaster`.`creditNoteMasterAutoID`
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_creditnotemaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_creditnotemaster.customerReceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_creditnotemaster.customerReceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_creditnotemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_creditnotemaster.companyLocalCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_creditnotemaster.transactionCurrencyID)
@@ -4107,7 +4088,6 @@ WHERE $customerOR AND `srp_erp_creditnotemaster`.`approvedYN` = 1 AND srp_erp_cr
 ")->result_array();
         //echo $this->db->last_query();
         return $result;
-
     }
 
     function get_finance_report_drilldown($fromTo = false, $segment = false, $financialBeginingDate)
@@ -4277,10 +4257,10 @@ WHERE $customerOR AND `srp_erp_creditnotemaster`.`approvedYN` = 1 AND srp_erp_cr
  LEFT JOIN (SELECT srp_erp_groupsegment.*,srp_erp_groupsegmentdetails.segmentID as groupSegmentID FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID WHERE groupID = " . current_companyID() . " $segmentQuery) seg ON srp_erp_generalledger.segmentID = seg.groupSegmentID
  LEFT JOIN (SELECT groupCustomerAutoID,groupCustomerName,customerMasterID,groupcustomerSystemCode FROM srp_erp_groupcustomermaster INNER JOIN srp_erp_groupcustomerdetails ON srp_erp_groupcustomermaster.groupCustomerAutoID = srp_erp_groupcustomerdetails.groupCustomerMasterID WHERE srp_erp_groupcustomerdetails.companygroupID = " . current_companyID() . " GROUP BY customerMasterID) cust ON srp_erp_generalledger.partyAutoID = cust.customerMasterID AND srp_erp_generalledger.partyType = 'CUS'
  LEFT JOIN (SELECT groupSupplierAutoID,groupSupplierName,SupplierMasterID,groupSupplierSystemCode FROM srp_erp_groupsuppliermaster INNER JOIN srp_erp_groupsupplierdetails ON srp_erp_groupsuppliermaster.groupSupplierAutoID = srp_erp_groupsupplierdetails.groupSupplierMasterID WHERE srp_erp_groupsupplierdetails.companygroupID = " . current_companyID() . " GROUP BY SupplierMasterID) supp ON srp_erp_generalledger.partyAutoID = supp.SupplierMasterID AND srp_erp_generalledger.partyType = 'SUP'
- LEFT JOIN (SELECT document,documentID FROM srp_erp_documentcodemaster WHERE companyID IN (" .join(',',$company) . ") GROUP BY documentID) dc ON (dc.documentID = srp_erp_generalledger.documentCode)
+ LEFT JOIN (SELECT document,documentID FROM srp_erp_documentcodemaster WHERE companyID IN (" . join(',', $company) . ") GROUP BY documentID) dc ON (dc.documentID = srp_erp_generalledger.documentCode)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID) 
- WHERE srp_erp_generalledger.GLAutoID IN(".join(',',$glcode).") AND $dateQuery AND srp_erp_generalledger.companyID IN (" .join(',',$company) . ")
+ WHERE srp_erp_generalledger.GLAutoID IN(" . join(',', $glcode) . ") AND $dateQuery AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ")
  ORDER BY srp_erp_generalledger.documentType,srp_erp_generalledger.documentDate ASC) 
  UNION ALL
  (SELECT $feilds3,srp_erp_generalledger.documentCode,srp_erp_generalledger.documentMasterAutoID,'-' as approvedbyEmpName,'-' as documentSystemCode,'-' as documentDate,'CF Balance' as documentNarration,'-' AS document,'-' AS GLSecondaryCode,'-' AS partySystemCode,'-' AS  segmentID,coa.GLDescription,coa.masterCategory,srp_erp_generalledger.GLAutoID
@@ -4289,7 +4269,7 @@ INNER JOIN ( SELECT chartofAccountID,GLSecondaryCode,GLDescription,masterCategor
 LEFT JOIN (SELECT srp_erp_groupsegment.*,srp_erp_groupsegmentdetails.segmentID as groupSegmentID FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID WHERE groupID = " . current_companyID() . " $segmentQuery) seg ON srp_erp_generalledger.segmentID = seg.groupSegmentID
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID) 
- WHERE srp_erp_generalledger.GLAutoID IN(".join(',',$glcode).") AND $dateQuery2 AND srp_erp_generalledger.companyID IN (" .join(',',$company) . ") GROUP BY coa.GLAutoID )) as a ORDER BY documentDate,GLDescription DESC";
+ WHERE srp_erp_generalledger.GLAutoID IN(" . join(',', $glcode) . ") AND $dateQuery2 AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ") GROUP BY coa.GLAutoID )) as a ORDER BY documentDate,GLDescription DESC";
         } elseif ($this->input->post("masterCategory") == "PL") {
             if (is_null($this->input->post("month")) || empty($this->input->post("month"))) {
                 if ($fromTo) {
@@ -4311,10 +4291,10 @@ LEFT JOIN (SELECT srp_erp_groupsegment.*,srp_erp_groupsegmentdetails.segmentID a
  LEFT JOIN (SELECT srp_erp_groupsegment.*,srp_erp_groupsegmentdetails.segmentID as groupSegmentID FROM srp_erp_groupsegment INNER JOIN srp_erp_groupsegmentdetails ON srp_erp_groupsegment.segmentID = srp_erp_groupsegmentdetails.groupSegmentID WHERE groupID = " . current_companyID() . " $segmentQuery) seg ON srp_erp_generalledger.segmentID = seg.groupSegmentID
  LEFT JOIN (SELECT groupCustomerAutoID,groupCustomerName,customerMasterID,groupcustomerSystemCode FROM srp_erp_groupcustomermaster INNER JOIN srp_erp_groupcustomerdetails ON srp_erp_groupcustomermaster.groupCustomerAutoID = srp_erp_groupcustomerdetails.groupCustomerMasterID WHERE srp_erp_groupcustomerdetails.companygroupID = " . current_companyID() . " GROUP BY customerMasterID) cust ON srp_erp_generalledger.partyAutoID = cust.customerMasterID AND srp_erp_generalledger.partyType = 'CUS'
  LEFT JOIN (SELECT groupSupplierAutoID,groupSupplierName,SupplierMasterID,groupSupplierSystemCode FROM srp_erp_groupsuppliermaster INNER JOIN srp_erp_groupsupplierdetails ON srp_erp_groupsuppliermaster.groupSupplierAutoID = srp_erp_groupsupplierdetails.groupSupplierMasterID WHERE srp_erp_groupsupplierdetails.companygroupID = " . current_companyID() . " GROUP BY SupplierMasterID) supp ON srp_erp_generalledger.partyAutoID = supp.SupplierMasterID AND srp_erp_generalledger.partyType = 'SUP'
- LEFT JOIN (SELECT document,documentID FROM srp_erp_documentcodemaster WHERE companyID IN (" .join(',',$company) . ") GROUP BY documentID) dc ON (dc.documentID = srp_erp_generalledger.documentCode)
+ LEFT JOIN (SELECT document,documentID FROM srp_erp_documentcodemaster WHERE companyID IN (" . join(',', $company) . ") GROUP BY documentID) dc ON (dc.documentID = srp_erp_generalledger.documentCode)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
  LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID) 
- WHERE srp_erp_generalledger.GLAutoID IN(".join(',',$glcode).") AND $dateQuery AND srp_erp_generalledger.companyID IN (" .join(',',$company) . ")
+ WHERE srp_erp_generalledger.GLAutoID IN(" . join(',', $glcode) . ") AND $dateQuery AND srp_erp_generalledger.companyID IN (" . join(',', $company) . ")
  ORDER BY srp_erp_generalledger.documentType,srp_erp_generalledger.documentDate ASC)) as a ORDER BY documentDate,GLDescription";
         }
         $result = $this->db->query($sql)->result_array();
@@ -4392,7 +4372,7 @@ LEFT JOIN (SELECT srp_erp_groupsegment.*,srp_erp_groupsegmentdetails.segmentID a
         }
 
         $result = $this->db->query("SELECT $fields3 a.InvoiceAutoID,a.supplierInvoiceNo,a.supplierName,a.supplierSystemCode,a.comments,a.documentID,DATE_FORMAT(a.bookingDate,'" . $this->format . "') as bookingDate,a.GLSecondaryCode,a.GLDescription,a.bookingInvCode,a.age FROM 
-((SELECT $fields srp_erp_paysupplierinvoicemaster.InvoiceAutoID,srp_erp_paysupplierinvoicemaster.supplierInvoiceNo as supplierInvoiceNo,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_paysupplierinvoicemaster.documentID,srp_erp_paysupplierinvoicemaster.bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_paysupplierinvoicemaster.bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paysupplierinvoicemaster.`invoiceDueDate`) as age FROM `srp_erp_paysupplierinvoicemaster` 
+((SELECT $fields srp_erp_paysupplierinvoicemaster.InvoiceAutoID,srp_erp_paysupplierinvoicemaster.supplierInvoiceNo as supplierInvoiceNo,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_paysupplierinvoicemaster.comments,srp_erp_paysupplierinvoicemaster.documentID,srp_erp_paysupplierinvoicemaster.bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_paysupplierinvoicemaster.bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paysupplierinvoicemaster.`invoiceDueDate`) as age FROM `srp_erp_paysupplierinvoicemaster` 
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paysupplierinvoicemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN 
 (
@@ -4418,27 +4398,27 @@ LEFT JOIN
 ) dnd ON (
 	dnd.`InvoiceAutoID` = `srp_erp_paysupplierinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paysupplierinvoicemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paysupplierinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paysupplierinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paysupplierinvoicemaster.transactionCurrencyID) 
 WHERE srp_erp_suppliermaster.supplierAutoID = $vendor AND `srp_erp_paysupplierinvoicemaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND srp_erp_paysupplierinvoicemaster.`bookingDate` <= '" . format_date($this->input->post("from")) . "'  AND `srp_erp_paysupplierinvoicemaster`.`approvedYN` = 1 GROUP BY `srp_erp_paysupplierinvoicemaster`.`InvoiceAutoID` HAVING (" . join(' AND ', $having) . ")) 
 UNION ALL
-(SELECT $fields2 srp_erp_paymentvouchermaster.payVoucherAutoID as InvoiceAutoID,'-' as supplierInvoiceNo,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_paymentvouchermaster.documentID,srp_erp_paymentvouchermaster.PVDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_paymentvouchermaster.PVcode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paymentvouchermaster.`PVdate`) as age  FROM srp_erp_paymentvouchermaster 
+(SELECT $fields2 srp_erp_paymentvouchermaster.payVoucherAutoID as InvoiceAutoID,'-' as supplierInvoiceNo,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,'Advance' as comments,srp_erp_paymentvouchermaster.documentID,srp_erp_paymentvouchermaster.PVDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_paymentvouchermaster.PVcode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_paymentvouchermaster.`PVdate`) as age  FROM srp_erp_paymentvouchermaster 
 INNER JOIN `srp_erp_paymentvoucherdetail` ON `srp_erp_paymentvoucherdetail`.`payVoucherAutoID` = `srp_erp_paymentvouchermaster`.`payVoucherAutoID` AND `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND  srp_erp_paymentvoucherdetail.type='Advance'
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_paymentvouchermaster`.`partyID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_paymentvouchermaster.partyGLAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_paymentvouchermaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_paymentvouchermaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_paymentvouchermaster.transactionCurrencyID) 
 WHERE srp_erp_suppliermaster.supplierAutoID = $vendor AND `srp_erp_paymentvouchermaster`.`approvedYN` = 1 AND srp_erp_paymentvouchermaster.PVDate <= '" . format_date($this->input->post("from")) . "' AND srp_erp_paymentvoucherdetail.InvoiceAutoID IS NULL GROUP BY `srp_erp_paymentvouchermaster`.`payVoucherAutoID`)
 UNION ALL
 (SELECT $fields7 
-srp_erp_debitnotemaster.debitNoteMasterAutoID as InvoiceAutoID,'-' as supplierInvoiceNo,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_debitnotemaster.documentID,srp_erp_debitnotemaster.debitNoteDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_debitnotemaster.debitNoteCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_debitnotemaster.debitNoteDate) as age FROM srp_erp_debitnotemaster 
+srp_erp_debitnotemaster.debitNoteMasterAutoID as InvoiceAutoID,'-' as supplierInvoiceNo,srp_erp_suppliermaster.supplierName,srp_erp_suppliermaster.supplierSystemCode,srp_erp_debitnotemaster.comments,srp_erp_debitnotemaster.documentID,srp_erp_debitnotemaster.debitNoteDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_debitnotemaster.debitNoteCode as bookingInvCode,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_debitnotemaster.debitNoteDate) as age FROM srp_erp_debitnotemaster 
 INNER JOIN `srp_erp_debitnotedetail` ON `srp_erp_debitnotedetail`.`debitNoteMasterAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID` AND `srp_erp_debitnotedetail`.`InvoiceAutoID` IS NULL AND `srp_erp_debitnotedetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT $fields4 debitNoteAutoID FROM `srp_erp_paymentvoucherdetail` WHERE `srp_erp_paymentvoucherdetail`.`companyID` = " . $this->common_data['company_data']['company_id'] . " AND type='debitnote' GROUP BY debitNoteAutoID) pvd ON pvd.`debitNoteAutoID` = `srp_erp_debitnotemaster`.`debitNoteMasterAutoID`
 LEFT JOIN `srp_erp_suppliermaster` ON `srp_erp_debitnotemaster`.`supplierID` = `srp_erp_suppliermaster`.`supplierAutoID` AND `srp_erp_suppliermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_debitnotemaster.supplierliabilityAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_debitnotemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_debitnotemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_debitnotemaster.transactionCurrencyID) 
@@ -4498,7 +4478,7 @@ WHERE srp_erp_suppliermaster.supplierAutoID = $vendor AND `srp_erp_debitnotemast
         }
 
         $result = $this->db->query("SELECT $fields3 a.invoiceAutoID,a.customerName,a.customerSystemCode,a.comments,a.documentID,DATE_FORMAT(a.bookingDate,'" . $this->format . "') as bookingDate,a.GLSecondaryCode,a.GLDescription,a.bookingInvCode,a.customerID,a.age FROM 
-((SELECT $fields srp_erp_customerinvoicemaster.invoiceAutoID,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_customerinvoicemaster.documentID,srp_erp_customerinvoicemaster.invoiceDate as bookingDate,srp_erp_chartofAccounts.GLSecondaryCode,srp_erp_chartofAccounts.GLDescription,srp_erp_customerinvoicemaster.invoiceCode as bookingInvCode,`srp_erp_customerinvoicemaster`.`customerID` as customerID,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDueDate`) as age
+((SELECT $fields srp_erp_customerinvoicemaster.invoiceAutoID,srp_erp_customermaster.customerName,srp_erp_customermaster.customerSystemCode,srp_erp_customerinvoicemaster.invoiceNarration as comments,srp_erp_customerinvoicemaster.documentID,srp_erp_customerinvoicemaster.invoiceDate as bookingDate,srp_erp_chartofaccounts.GLSecondaryCode,srp_erp_chartofaccounts.GLDescription,srp_erp_customerinvoicemaster.invoiceCode as bookingInvCode,`srp_erp_customerinvoicemaster`.`customerID` as customerID,DATEDIFF('" . format_date($this->input->post("from")) . "',srp_erp_customerinvoicemaster.`invoiceDueDate`) as age
 FROM `srp_erp_customerinvoicemaster`
 LEFT JOIN `srp_erp_customermaster` ON `srp_erp_customerinvoicemaster`.`customerID` = `srp_erp_customermaster`.`customerAutoID` AND `srp_erp_customermaster`.`companyID` = " . $this->common_data['company_data']['company_id'] . " 
 LEFT JOIN 
@@ -4538,7 +4518,7 @@ $fields6 srp_erp_rvadvancematchdetails.InvoiceAutoID,srp_erp_rvadvancematchdetai
 	ca ON (
 	ca.`InvoiceAutoID` = `srp_erp_customerinvoicemaster`.`InvoiceAutoID`
 )
-LEFT JOIN srp_erp_chartofAccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofAccounts.GLAutoID AND `srp_erp_chartofAccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
+LEFT JOIN srp_erp_chartofaccounts ON srp_erp_customerinvoicemaster.customerReceivableAutoID = srp_erp_chartofaccounts.GLAutoID AND `srp_erp_chartofaccounts`.`companyID` = " . $this->common_data['company_data']['company_id'] . "
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_customerinvoicemaster.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_customerinvoicemaster.companyLocalCurrencyID) 
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) TC ON (TC.currencyID = srp_erp_customerinvoicemaster.transactionCurrencyID) 
@@ -4637,7 +4617,7 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
         INNER JOIN ( SELECT chartofAccountID,GLSecondaryCode,GLDescription FROM srp_erp_groupchartofaccounts INNER JOIN srp_erp_groupchartofaccountdetails ON srp_erp_groupchartofaccounts.GLAutoID = srp_erp_groupchartofaccountdetails.groupChartofAccountMasterID WHERE groupID = " . current_companyID() . " AND masterCategory = 'BS') coa ON srp_erp_generalledger.GLAutoID = coa.chartofAccountID
         LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CR ON (CR.currencyID = srp_erp_generalledger.companyReportingCurrencyID)
 LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (CL.currencyID = srp_erp_generalledger.companyLocalCurrencyID) 
-        WHERE documentDate < '" . $financialBeginingDate["beginingDate"] . "' AND srp_erp_generalledger.companyID IN(" . join(',',$company). "))")->row_array();
+        WHERE documentDate < '" . $financialBeginingDate["beginingDate"] . "' AND srp_erp_generalledger.companyID IN(" . join(',', $company) . "))")->row_array();
         //echo $this->db->last_query();
         return $result;
     }
@@ -4880,7 +4860,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
             $this->db->trans_commit();
             return array('s', 'Record saved successfully');
         }
-
     }
 
     function save_employeeLevelReportDetails($fields_arr)
@@ -4902,25 +4881,25 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
         $m = 0;
 
         foreach ($fields_arr as $key => $rowField) {
-            $empids=array();
+            $empids = array();
             $columnName = $this->input->post($rowField['inputName']);
             $reportID = $rowField['id'];
 
             $whereIn .= ($m > 0) ? ', ' . $reportID : $reportID;
-            $i=0;
+            $i = 0;
             foreach ($empID_arr as $keyEmp => $empID) {
                 $post_lastName = $this->input->post('lastName');
                 $post_initials = $this->input->post('initials');
                 $post_memNumber = $this->input->post('memNumber');
-                if(empty($post_lastName[$keyEmp])||empty($post_initials[$keyEmp])||empty($post_memNumber[$keyEmp])){
+                if (empty($post_lastName[$keyEmp]) || empty($post_initials[$keyEmp]) || empty($post_memNumber[$keyEmp])) {
                     $i++;
-                }else{
-                    array_push($empids,$empID);
+                } else {
+                    array_push($empids, $empID);
                 }
             }
-            if(!empty($empids)){
+            if (!empty($empids)) {
                 foreach ($empID_arr as $keyEmp => $empID) {
-                    if (in_array($empID, $empids)){
+                    if (in_array($empID, $empids)) {
                         $data[$m]['masterID'] = $masterID;
                         $data[$m]['reportID'] = $reportID;
                         $data[$m]['empID'] = $empID;
@@ -4936,7 +4915,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
                     }
                 }
             }
-
         }
 
         $whereIn .= ')';
@@ -4954,7 +4932,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
             $this->db->trans_commit();
             return array('s', 'Record saved successfully');
         }
-
     }
 
 
@@ -5000,7 +4977,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
             $this->db->trans_commit();
             return array('s', 'Record saved successfully');
         }
-
     }
 
     function save_epfReportMaster()
@@ -5077,7 +5053,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
         $result = $this->db->where($where)->get();
 
         return $result->result_array();
-
     }
 
     function save_empEmployeeAsTemporary()
@@ -5119,7 +5094,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
                 }
 
                 return array('e', $errorMsg);
-
             } else {
 
                 $data = array();
@@ -5134,7 +5108,6 @@ LEFT JOIN (SELECT DecimalPlaces,currencyID FROM srp_erp_currencymaster) CL ON (C
                     $data[$key]['createdUserGroup'] = $userGroup;
                     $data[$key]['createdUserName'] = $userName;
                     $data[$key]['createdDateTime'] = $time;
-
                 }
 
                 $this->db->trans_start();
@@ -5870,11 +5843,10 @@ ORDER BY
         $output = $this->db->query($qry)->result_array();
         //$this->db->query($qry)->result_array();
         return $output;
-
     }
     function customer_name()
     {
-        $customer =$this->input->post('customerID');
+        $customer = $this->input->post('customerID');
         $this->db->select('customerName');
         $this->db->from('srp_erp_customermaster');
         $this->db->where('customerAutoID', $customer);
@@ -5882,89 +5854,95 @@ ORDER BY
         return $data;
     }
 
-    function group_customer_linked(){
+    function group_customer_linked()
+    {
 
         $companies = getallsubGroupCompanies();
-        $masterGroupID=getParentgroupMasterID();
+        $masterGroupID = getParentgroupMasterID();
 
         //$company = $this->get_group_company();
         $qry = "SELECT
 	CONCAT(customerSystemCode,' - ',customerName) as description
 FROM
 	srp_erp_customermaster
-WHERE NOT EXISTS (SELECT * FROM srp_erp_groupcustomerdetails WHERE srp_erp_groupcustomerdetails.customerMasterID = srp_erp_customermaster.customerAutoID AND companyGroupID = ".$masterGroupID.")
+WHERE NOT EXISTS (SELECT * FROM srp_erp_groupcustomerdetails WHERE srp_erp_groupcustomerdetails.customerMasterID = srp_erp_customermaster.customerAutoID AND companyGroupID = " . $masterGroupID . ")
 	AND srp_erp_customermaster.companyID IN (" . join(',', $companies) . ")";
         $output = $this->db->query($qry)->result_array();
         return array_column($output, 'description');
     }
 
-    function group_supplier_linked(){
+    function group_supplier_linked()
+    {
 
         $companies = getallsubGroupCompanies();
-        $masterGroupID=getParentgroupMasterID();
+        $masterGroupID = getParentgroupMasterID();
         //$company = $this->get_group_company();
         $qry = "SELECT
 	CONCAT(supplierSystemCode,' - ',supplierName) as description
 FROM
 	srp_erp_suppliermaster
-WHERE NOT EXISTS (SELECT * FROM srp_erp_groupsupplierdetails WHERE srp_erp_groupsupplierdetails.SupplierMasterID = srp_erp_suppliermaster.supplierAutoID AND companyGroupID = ".$masterGroupID.")
+WHERE NOT EXISTS (SELECT * FROM srp_erp_groupsupplierdetails WHERE srp_erp_groupsupplierdetails.SupplierMasterID = srp_erp_suppliermaster.supplierAutoID AND companyGroupID = " . $masterGroupID . ")
 	AND srp_erp_suppliermaster.companyID IN (" . join(',', $companies) . ")";
         $output = $this->db->query($qry)->result_array();
         return array_column($output, 'description');
     }
 
-    function group_chartofaccount_linked(){
+    function group_chartofaccount_linked()
+    {
         $company = $this->get_group_company();
         $companies = getallsubGroupCompanies();
-        $masterGroupID=getParentgroupMasterID();
+        $masterGroupID = getParentgroupMasterID();
         $qry = "SELECT
 	CONCAT(systemAccountCode,' - ',GLDescription) as description
 FROM
 	srp_erp_chartofaccounts
-WHERE NOT EXISTS (SELECT * FROM srp_erp_groupchartofaccountdetails WHERE srp_erp_groupchartofaccountdetails.chartofAccountID = srp_erp_chartofaccounts.GLAutoID AND companyGroupID = ".$masterGroupID." AND masterAccountYN = 0)
+WHERE NOT EXISTS (SELECT * FROM srp_erp_groupchartofaccountdetails WHERE srp_erp_groupchartofaccountdetails.chartofAccountID = srp_erp_chartofaccounts.GLAutoID AND companyGroupID = " . $masterGroupID . " AND masterAccountYN = 0)
 	AND masterAccountYN = 0 AND srp_erp_chartofaccounts.companyID IN (" . join(',', $companies) . ")";
         $output = $this->db->query($qry)->result_array();
         return array_column($output, 'description');
     }
 
-    function group_segment_linked(){
+    function group_segment_linked()
+    {
         $companies = getallsubGroupCompanies();
-        $masterGroupID=getParentgroupMasterID();
+        $masterGroupID = getParentgroupMasterID();
         $company = $this->get_group_company();
-         $qry = "SELECT
+        $qry = "SELECT
 	CONCAT(company_name ,' - ',segmentCode,' - ',description) as description
 FROM
 	srp_erp_segment
 	inner join srp_erp_company	ON srp_erp_segment.companyID=srp_erp_company.company_id
-WHERE NOT EXISTS (SELECT * FROM srp_erp_groupsegmentdetails WHERE srp_erp_groupsegmentdetails.segmentID = srp_erp_segment.segmentID AND companyGroupID = ".$masterGroupID.")
+WHERE NOT EXISTS (SELECT * FROM srp_erp_groupsegmentdetails WHERE srp_erp_groupsegmentdetails.segmentID = srp_erp_segment.segmentID AND companyGroupID = " . $masterGroupID . ")
 	AND srp_erp_segment.companyID IN (" . join(',', $companies) . ")";
         $output = $this->db->query($qry)->result_array();
         return array_column($output, 'description');
     }
 
-    function group_item_linked(){
+    function group_item_linked()
+    {
         $companies = getallsubGroupCompanies();
-        $masterGroupID=getParentgroupMasterID();
+        $masterGroupID = getParentgroupMasterID();
         $company = $this->get_group_company();
         $qry = "SELECT
 	CONCAT(itemSystemCode,' - ',itemDescription) as description
 FROM
 	srp_erp_itemmaster
-WHERE NOT EXISTS (SELECT * FROM srp_erp_groupitemmasterdetails WHERE srp_erp_groupitemmasterdetails.ItemAutoID = srp_erp_itemmaster.itemAutoID AND companyGroupID = ".$masterGroupID.")
+WHERE NOT EXISTS (SELECT * FROM srp_erp_groupitemmasterdetails WHERE srp_erp_groupitemmasterdetails.ItemAutoID = srp_erp_itemmaster.itemAutoID AND companyGroupID = " . $masterGroupID . ")
 	AND srp_erp_itemmaster.companyID IN (" . join(',', $companies) . ")";
         $output = $this->db->query($qry)->result_array();
         return array_column($output, 'description');
     }
 
-    function group_warehouse_linked(){
+    function group_warehouse_linked()
+    {
         $companies = getallsubGroupCompanies();
-        $masterGroupID=getParentgroupMasterID();
+        $masterGroupID = getParentgroupMasterID();
         $company = $this->get_group_company();
         $qry = "SELECT
 	CONCAT(wareHouseCode,' - ',wareHouseDescription) as description
 FROM
 	srp_erp_warehousemaster
-WHERE NOT EXISTS (SELECT * FROM srp_erp_groupwarehousedetails WHERE srp_erp_groupwarehousedetails.warehosueMasterID = srp_erp_warehousemaster.wareHouseAutoID AND companyGroupID = ".$masterGroupID.")
+WHERE NOT EXISTS (SELECT * FROM srp_erp_groupwarehousedetails WHERE srp_erp_groupwarehousedetails.warehosueMasterID = srp_erp_warehousemaster.wareHouseAutoID AND companyGroupID = " . $masterGroupID . ")
 	AND srp_erp_warehousemaster.companyID IN (" . join(',', $companies) . ")";
         $output = $this->db->query($qry)->result_array();
         return array_column($output, 'description');
@@ -5976,13 +5954,13 @@ WHERE NOT EXISTS (SELECT * FROM srp_erp_groupwarehousedetails WHERE srp_erp_grou
         $currency = $this->input->post('currency');
         $companyID = current_companyID();
 
-        $currencygroup='';
-        if($currency==2){
-            $currencygroup='a.transactionCurrency';
+        $currencygroup = '';
+        if ($currency == 2) {
+            $currencygroup = 'a.transactionCurrency';
         }
 
-if($currency==2){
-    $qry = "SELECT
+        if ($currency == 2) {
+            $qry = "SELECT
   srp_erp_chartofaccounts.systemAccountCode as systemGLCode,
   srp_erp_chartofaccounts.GLDescription,
   srp_erp_customermaster.customerName,
@@ -6007,8 +5985,8 @@ srp_erp_generalledger.partyAutoID IN (" . join(',', $customerID) . ")
 AND `subLedgerType` = '3'
 and documentDate<='$datearr'
 group by srp_erp_customermaster.customerAutoID,transactionCurrencyID,srp_erp_chartofaccounts.GLAutoID";
-}else{
-    $qry = "SELECT
+        } else {
+            $qry = "SELECT
   srp_erp_chartofaccounts.systemAccountCode as systemGLCode,
   srp_erp_chartofaccounts.GLDescription,
   srp_erp_customermaster.customerName,
@@ -6033,7 +6011,7 @@ srp_erp_generalledger.partyAutoID IN (" . join(',', $customerID) . ")
 AND `subLedgerType` = '3'
 and documentDate<='$datearr'
 group by srp_erp_customermaster.customerAutoID,srp_erp_chartofaccounts.GLAutoID";
-}
+        }
 
 
         $output = $this->db->query($qry)->result_array();
@@ -6046,12 +6024,12 @@ group by srp_erp_customermaster.customerAutoID,srp_erp_chartofaccounts.GLAutoID"
         $currency = $this->input->post('currency');
         $companyID = current_companyID();
 
-        $currencygroup='';
-        if($currency==2){
-            $currencygroup='a.transactionCurrency';
+        $currencygroup = '';
+        if ($currency == 2) {
+            $currencygroup = 'a.transactionCurrency';
         }
 
-        if($currency==2){
+        if ($currency == 2) {
             $qry = "SELECT
   srp_erp_chartofaccounts.systemAccountCode as systemGLCode,
   srp_erp_chartofaccounts.GLDescription,
@@ -6077,7 +6055,7 @@ srp_erp_generalledger.partyAutoID IN (" . join(',', $supplierID) . ")
 AND `subLedgerType` = '2'
 and documentDate<='$datearr'
 group by partyAutoID,transactionCurrencyID,srp_erp_chartofaccounts.GLAutoID";
-        }else{
+        } else {
             $qry = "SELECT
   srp_erp_chartofaccounts.systemAccountCode as systemGLCode,
   srp_erp_chartofaccounts.GLDescription,
