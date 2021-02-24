@@ -22,8 +22,8 @@
         border-spacing: 0;
     }
 
-    .flex {
-        display:
+    .datepicker table {
+        background-color: #fff;
     }
 </style>
 <?php
@@ -31,12 +31,12 @@ $primaryLanguage = getPrimaryLanguage();
 $this->lang->load('communityngo', $primaryLanguage);
 $this->lang->load('common', $primaryLanguage);
 $FamMasterID = $famLogMas['FamMasterID'];
-$famLogConfigDes = $famLogMas['FamilyName'].' '.'&nbsp;';
-$famLogConfigDes .= '<a target="_blank" href="'. site_url('CommunityNgo/load_community_family_confirmation/') . '/' . $FamMasterID .'"  ><span title="Print" style="color:#70adff;height:8px;width:8px;" rel="tooltip" class="glyphicon glyphicon-print"></span></a>';
+$famLogConfigDes = $famLogMas['FamilyName'] . ' ' . '&nbsp;';
+$famLogConfigDes .= '<a target="_blank" href="' . site_url('CommunityNgo/load_community_family_confirmation/') . '/' . $FamMasterID . '"  ><span title="Print" style="color:#70adff;height:8px;width:8px;" rel="tooltip" class="glyphicon glyphicon-print"></span></a>';
 
 $LeaderID = $famLogMas['LeaderID'];
 
-echo head_page( $famLogConfigDes , false);
+echo head_page($famLogConfigDes, false);
 
 $famLogConfigDes2 = $famLogMas['FamilySystemCode'];
 $RegionID = $famLogMas['RegionID'];
@@ -63,21 +63,22 @@ $companyID = current_companyID();
             <div class="posts-holder settings">
                 <div class="past-info">
                     <div class="arrow-steps clearfix">
-                        <div class="step" style="font-size:9px;"><span style="font-weight: bold;"><?php echo $this->lang->line('communityngo_region') .': '; ?></span><span><?php echo $stDescription; ?></span></div>
+                        <div class="step" style="font-size:9px;"><span style="font-weight: bold;"><?php echo $this->lang->line('communityngo_region') . ': '; ?></span><span><?php echo $stDescription; ?></span></div>
                         <div class="step" style="font-size:9px;"><span style="font-weight: bold;"><?php echo 'Head : '; ?></span><span><?php echo $CName_with_initials; ?></span></div>
-                        <div class="step" style="font-size:9px;"><span style="font-weight: bold;"><?php echo $this->lang->line('CommunityNgo_famAddedDate') .': '; ?></span><span><?php echo $FamilyAddedDt; ?></span></div>
+                        <div class="step" style="font-size:9px;"><span style="font-weight: bold;"><?php echo $this->lang->line('CommunityNgo_famAddedDate') . ': '; ?></span><span><?php echo $FamilyAddedDt; ?></span></div>
                     </div>
                     <br>
 
                     <div id="toolbar">
                         <div class="toolbar-title">
-                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <?php echo $famLogConfigDes2 .': '. $this->lang->line('communityngo_famLoginConf');?>
-                        </div><!--Committees Area Wise-->
+                            <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <?php echo $famLogConfigDes2 . ': ' . $this->lang->line('communityngo_famLoginConf'); ?>
+                        </div>
+                        <!--Committees Area Wise-->
                         <div class="btn-toolbar btn-toolbar-small pull-right">
 
                         </div>
                     </div>
-                    <?php if(!empty($RegionID) && !empty($LeaderID)){ ?>
+                    <?php if (!empty($RegionID) && !empty($LeaderID)) { ?>
                         <div class="post-area">
                             <article class="page-content">
 
@@ -85,48 +86,52 @@ $companyID = current_companyID();
                                     <form id="form_pipeline">
                                         <table id="fetchCmteCondent" class="table ">
                                             <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th><?php echo $this->lang->line('communityngo_famLogUsername');?> </th><!--Username-->
-                                                <th><?php echo $this->lang->line('communityngo_famLogPassword');?></th><!--Password-->
-                                                <th><?php echo $this->lang->line('communityngo_CreatedDate');?> </th><!--Created Date-->
-                                                <th><?php echo $this->lang->line('communityngo_famLoginActive');?> </th><!--Login Active-->
-                                                <th></th>
-                                            </tr>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th><?php echo $this->lang->line('communityngo_famLogUsername'); ?> </th>
+                                                    <!--Username-->
+                                                    <th><?php echo $this->lang->line('communityngo_famLogPassword'); ?></th>
+                                                    <!--Password-->
+                                                    <th><?php echo $this->lang->line('communityngo_CreatedDate'); ?> </th>
+                                                    <!--Created Date-->
+                                                    <th><?php echo $this->lang->line('communityngo_famLoginActive'); ?> </th>
+                                                    <!--Login Active-->
+                                                    <th></th>
+                                                </tr>
                                             </thead>
                                             <tbody>
                                             </tbody>
                                             <tfoot>
 
 
-                                            <input name="LeaderID" type="hidden" value="<?php echo $LeaderID; ?>">
-                                            <input name="FamMasterID" id="FamMasterID" type="hidden" value="<?php echo $FamMasterID; ?>">
-                                            <?php if(!empty($FamMasterID) && empty($FamUsername)){ ?>
-                                            <tr>
-                                                <td></td>
-                                                <td colspan="">
-                                                    <input class="text" id="FamUsername" name="FamUsername" type="text" value="<?php echo $TP_Mobile; ?>">
-                                                   </td>
-                                                <td style="text-align: center">
-                                                    <input class="text" id="FamPassword" name="FamPassword"
-                                                           placeholder="<?php echo $this->lang->line('communityngo_famLogPassword');?>" type="text" value="">
+                                                <input name="LeaderID" type="hidden" value="<?php echo $LeaderID; ?>">
+                                                <input name="FamMasterID" id="FamMasterID" type="hidden" value="<?php echo $FamMasterID; ?>">
+                                                <?php if (!empty($FamMasterID) && empty($FamUsername)) { ?>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="">
+                                                            <input class="text" id="FamUsername" name="FamUsername" type="text" value="<?php echo $TP_Mobile; ?>">
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            <input class="text" id="FamPassword" name="FamPassword" placeholder="<?php echo $this->lang->line('communityngo_famLogPassword'); ?>" type="text" value="">
 
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <div class="input-group datepic">
-                                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                        <input onchange="$('#FamLogCreatedDate').val(this.value);" type="text" name="FamLogCreatedDate"
-                                                               data-inputmask="'alias': '<?php echo $date_format_policy ?>'"
-                                                               value="<?php echo $current_date; ?>" id="FamLogCreatedDate" class="form-control" required>
-                                                    </div>
-                                                </td>
-                                                <td style="text-align: center"><input name="isLoginActive" type="hidden" value="0"> <input class="" id="isLoginActive" name="isLoginActive" type="checkbox" value="1" checked>
-                                                </td>
-                                                <td colspan=""><a onclick="submitFamLogDel();" id="AddNewPipeline" class="btn btn-primary btn-xs CA_Submit_btn"><?php echo $this->lang->line('communityngo_famLogSubmit');?></a></td><!--Submit Log-->
-                                            </tr>
-                                            <?php } else{ ?>
-                                                <tr><td colspan="6"></td></tr>
-                                            <?php }  ?>
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            <div class="input-group datepic">
+                                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                                                <input onchange="$('#FamLogCreatedDate').val(this.value);" type="text" name="FamLogCreatedDate" data-inputmask="'alias': '<?php echo $date_format_policy ?>'" value="<?php echo $current_date; ?>" id="FamLogCreatedDate" class="form-control" required>
+                                                            </div>
+                                                        </td>
+                                                        <td style="text-align: center"><input name="isLoginActive" type="hidden" value="0"> <input class="" id="isLoginActive" name="isLoginActive" type="checkbox" value="1" checked>
+                                                        </td>
+                                                        <td colspan=""><a onclick="submitFamLogDel();" id="AddNewPipeline" class="btn btn-primary btn-xs CA_Submit_btn"><?php echo $this->lang->line('communityngo_famLogSubmit'); ?></a></td>
+                                                        <!--Submit Log-->
+                                                    </tr>
+                                                <?php } else { ?>
+                                                    <tr>
+                                                        <td colspan="6"></td>
+                                                    </tr>
+                                                <?php }  ?>
                                             </tfoot>
 
                                         </table>
@@ -134,14 +139,14 @@ $companyID = current_companyID();
                                 </div>
                             </article>
                         </div>
-                    <?php } else{?>
+                    <?php } else { ?>
                         <div class="post-area">
                             <article class="page-content">
 
                                 <div class="system-settings">
-                                    <?php if(!empty($RegionID) && empty($LeaderID)){ ?>
+                                    <?php if (!empty($RegionID) && empty($LeaderID)) { ?>
                                         <span style="color: red;font-size: 13px;">Can not add the members until assign the head of the committee for <?php echo $famLogConfigDes2; ?> </span>
-                                    <?php } else{ ?>
+                                    <?php } else { ?>
                                         <span style="color: red;font-size: 13px;">Can not add the members until assign the area and head of the committee for <?php echo $famLogConfigDes2; ?> </span>
                                     <?php } ?>
                                 </div>
@@ -154,28 +159,26 @@ $companyID = current_companyID();
     </div>
 
     <script>
-
-        $(document).ready(function () {
+        $(document).ready(function() {
             cmt_id = <?php echo json_encode(trim($this->input->post('page_id'))); ?>;
             if (cmt_id) {
                 FamMasterID = cmt_id;
 
             }
 
-            $('.headerclose').click(function () {
-            });
+            $('.headerclose').click(function() {});
 
             var date_format_policy = '<?php echo strtoupper($date_format_policy) ?>';
 
             $('.datepic').datetimepicker({
                 useCurrent: false,
                 format: date_format_policy,
-            }).on('dp.change', function (ev) {
-            });
+            }).on('dp.change', function(ev) {});
 
         });
 
         fetch_famLogDel();
+
         function fetch_famLogDel() {
             var Otable = $('#fetchCmteCondent').DataTable({
                 "bProcessing": true,
@@ -183,11 +186,13 @@ $companyID = current_companyID();
                 "bDestroy": true,
                 "bStateSave": true,
                 "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_famLog_del'); ?>",
-                "aaSorting": [[1, 'desc']],
-                "fnInitComplete": function () {
+                "aaSorting": [
+                    [1, 'desc']
+                ],
+                "fnInitComplete": function() {
 
                 },
-                "fnDrawCallback": function (oSettings) {
+                "fnDrawCallback": function(oSettings) {
                     $("[rel=tooltip]").tooltip();
                     if (oSettings.bSorted || oSettings.bFiltered) {
                         for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
@@ -198,22 +203,39 @@ $companyID = current_companyID();
 
                 "columnDefs": [
 
-                    {"width": "10%", "targets": 5}
+                    {
+                        "width": "10%",
+                        "targets": 5
+                    }
                 ],
-                "aoColumns": [
-                    {"mData": "FamMasterID"},
-                    {"mData": "FamUsername"},
-                    {"mData": "FamPassword"},
-                    {"mData": "FamLogCreatedDate"},
-                    {"mData": "isLoginActive"},
-                    {"mData": "edit"}
+                "aoColumns": [{
+                        "mData": "FamMasterID"
+                    },
+                    {
+                        "mData": "FamUsername"
+                    },
+                    {
+                        "mData": "FamPassword"
+                    },
+                    {
+                        "mData": "FamLogCreatedDate"
+                    },
+                    {
+                        "mData": "isLoginActive"
+                    },
+                    {
+                        "mData": "edit"
+                    }
 
                 ],
                 //"columnDefs": [{"targets": [2], "orderable": false}],
-                "fnServerData": function (sSource, aoData, fnCallback) {
+                "fnServerData": function(sSource, aoData, fnCallback) {
                     //aoData.push({ "name": "filter","value": $(".pr_Filter:checked").val()});
 
-                    aoData.push({ "name": "FamMasterID","value": $("#FamMasterID").val()});
+                    aoData.push({
+                        "name": "FamMasterID",
+                        "value": $("#FamMasterID").val()
+                    });
 
                     $.ajax({
                         'dataType': 'json',
@@ -225,6 +247,7 @@ $companyID = current_companyID();
                 }
             });
         }
+
         function submitFamLogDel() {
 
             var data = $('#form_pipeline').serializeArray();
@@ -234,10 +257,10 @@ $companyID = current_companyID();
                 dataType: 'json',
                 data: data,
                 url: "<?php echo site_url('CommunityNgo/save_famLogDel'); ?>",
-                beforeSend: function () {
+                beforeSend: function() {
                     startLoad();
                 },
-                success: function (data) {
+                success: function(data) {
                     myAlert(data[0], data[1]);
                     $('#FamUsername').val('').change();
                     $('#FamPassword').val('').change();
@@ -247,7 +270,7 @@ $companyID = current_companyID();
                     fetch_famLogDel();
                     stopLoad();
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     myAlert('e', '<br>Message: ' + errorThrown);
                 }
             });
@@ -256,44 +279,49 @@ $companyID = current_companyID();
         function delete_famLogDel(FamMasterID) {
 
             swal({
-                    title: "<?php echo $this->lang->line('common_are_you_sure');?>",/*Are you sure?*/
-                    text: "<?php echo $this->lang->line('common_you_want_to_delete');?>",/*You want to delete this record!*/
+                    title: "<?php echo $this->lang->line('common_are_you_sure'); ?>",
+                    /*Are you sure?*/
+                    text: "<?php echo $this->lang->line('common_you_want_to_delete'); ?>",
+                    /*You want to delete this record!*/
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "<?php echo $this->lang->line('common_delete');?>",/*Delete*/
-                    cancelButtonText: "<?php echo $this->lang->line('common_cancel');?>"
+                    confirmButtonText: "<?php echo $this->lang->line('common_delete'); ?>",
+                    /*Delete*/
+                    cancelButtonText: "<?php echo $this->lang->line('common_cancel'); ?>"
                 },
-                function () {
+                function() {
                     $.ajax({
                         async: true,
                         type: 'post',
                         dataType: 'json',
-                        data: {'FamMasterID': FamMasterID},
+                        data: {
+                            'FamMasterID': FamMasterID
+                        },
                         url: "<?php echo site_url('CommunityNgo/delete_famLogDel'); ?>",
-                        beforeSend: function () {
+                        beforeSend: function() {
                             startLoad();
                         },
-                        success: function (data) {
+                        success: function(data) {
                             refreshNotifications(true);
                             stopLoad();
                             myAlert('s', 'Deleted Successfully');
                             fetch_famLogDel();
 
-                        }, error: function () {
+                        },
+                        error: function() {
                             swal("Cancelled", "Your file is safe :)", "error");
                         }
                     });
                 });
         }
-
     </script>
 
 
-<?php
-/**
- * Created by PhpStorm.
- * User: Moufiya
- * Date: 5/10/2018
- * Time: 1:18 PM
- */
+    <?php
+    /**
+     * Created by PhpStorm.
+     * User: Moufiya
+     * Date: 5/10/2018
+     * Time: 1:18 PM
+     */
