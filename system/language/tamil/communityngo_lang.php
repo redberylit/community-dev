@@ -138,6 +138,7 @@ $lang['communityngo_helpr_edit'] = 'மாற்று | உதவி தேவ�
 $lang['communityngo_Job'] = 'தொழில்';
 $lang['communityngo_occupationType'] = 'தொழில் வகை';
 $lang['communityngo_select_occupationType'] = 'தொழில் வகையைத் தேர்ந்தெடுக்கவும்';
+$lang['communityngo_Job_add'] = 'சேர்க்கவும் | தொழில்';
 $lang['communityngo_Job_edit'] = 'மாற்று | தொழில்';
 $lang['communityngo_Job_Address'] = 'முகவரி';//Address
 $lang['communityngo_Job_WorkingPlace'] = 'பணியகம்';//Working Place
@@ -604,6 +605,8 @@ $lang['communityngo_adExpire_in_days'] = 'நாட்களில் கால�
 $lang['communityngo_adIs_public'] = 'பொதுவானதா';//Is Public
 $lang['communityngo_adPublished_date'] = 'வெளியிடப்பட்ட திகதி';//Published Date
 $lang['communityngo_approval_status'] = 'ஒப்புதல் நிலை';//Approval Status
+$lang['communityngo_system_masters'] = 'பொது முதுநிலை';//System Masters
+$lang['communityngo_system_masters_allowingStatus'] = 'கீழேயுள்ள ஒவ்வொரு வகைகளுக்கும் இயல்புநிலை கணினி தரவுகளைச் சேர்க்க கணினி மாஸ்டர் உங்களை அனுமதிக்கிறது.';//System Master allows you to add default system datas for each below types.
 
 /* end of Community Dashboard */
 

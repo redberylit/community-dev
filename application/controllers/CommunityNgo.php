@@ -8298,6 +8298,80 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
         }
         echo 'https://www.youtube.com/embed/' . $youtube_id;
     }
+
+
+    /* community system masters */
+    function comSystem_masters()
+    {
+        $sys = $this->input->post('sys');
+        $data['masterID'] = $this->input->post('masterID');
+        $url = '';
+        switch (trim($sys)) {
+            case 'occupation':
+                $url = 'system/communityNgo/ngo_mo_occupationsMaster';
+                break;
+            case 'qualification':
+                $url = 'system/crm/lead_status_management';
+                break;
+            case 'comSchool':
+                $url = 'system/crm/lead_status_management';
+                break;
+            case 'comGrade':
+                $url = 'system/crm/lead_status_management';
+                break;
+            case 'comMedium':
+                $url = 'system/crm/lead_status_management';
+                break;
+            case 'comProperty':
+                $url = 'system/crm/lead_status_management';
+                break;
+            case 'comVehicle':
+                $url = 'system/crm/lead_status_management';
+                break;
+            case 'comHelpType':
+                $url = 'system/crm/lead_status_management';
+                break;
+            default:
+                $url = '';
+        }
+
+        $this->load->view($url, $data);
+    }
+
+    //occupation
+    function save_comOccupation()
+    {
+        $this->form_validation->set_rules('comOccupation', 'Occupation', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityOccupation());
+        }
+    }
+
+    function fetch_comOccupation()
+    {
+
+        $this->datatables->select("JobCategoryID,JobCatDescription");
+        $this->datatables->from('srp_erp_ngo_com_jobcategories');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcomOccupation($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecomOccupation($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'JobCategoryID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_comOccupation()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommOccupation());
+    }
+
+    function delete_comOccupation()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommOccupation());
+    }
+    // end of occupation
+
+    /* end of community system masters */
 }
 
 

@@ -6953,7 +6953,7 @@ WHERE dds.DocDesID
 
     /*End of Committee Master */
     /*family Report */
-    function get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus,$famHdGender,$famHdStateId,$famSocialGrantArr,$text)
+    function get_totalFamHousing($FamMasterID, $houseOwnshp, $houseType, $GS_DivisionArr, $RegionIDArr, $famEconStatus, $famHdGender, $famHdStateId, $famSocialGrantArr, $text)
     {
 
         $companyID = $this->common_data['company_data']['company_id'];
@@ -9202,7 +9202,6 @@ WHERE dds.DocDesID
     function save_addApproval_del()
     {
 
-        $companyID = current_companyID();
         $date_format_policy = date_format_policy();
 
         $is_approved =  trim($this->input->post('is_approved'));
@@ -9247,6 +9246,85 @@ WHERE dds.DocDesID
             }
         }
     }
+
+    /* community system masters */
+    //occupation
+
+    function save_communityOccupation()
+    {
+        $this->db->trans_start();
+        $JobCategoryID = $this->input->post('JobCategoryID');
+        $JobCatDescription = $this->input->post('comOccupation');
+
+        $data['JobCatDescription'] = $JobCatDescription;
+
+        if (!empty($JobCategoryID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_jobcategories WHERE JobCategoryID != {$JobCategoryID} AND JobCatDescription ='" . $JobCatDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('JobCategoryID', $JobCategoryID);
+                $this->db->update('srp_erp_ngo_com_jobcategories', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Occupation Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Occupation Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Occupation is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_jobcategories WHERE JobCatDescription ='" . $JobCatDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $this->db->insert('srp_erp_ngo_com_jobcategories', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Occupation save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Occupation saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Occupation is already available !');
+            }
+        }
+    }
+
+    function editCommOccupation()
+    {
+
+        $EDITid = $this->input->post('JobCategoryID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_jobcategories` WHERE JobCategoryID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommOccupation()
+    {
+
+        $JobCategoryID = $this->input->post('JobCategoryID');
+
+        $isExist = $this->db->query("SELECT MemJobID FROM srp_erp_ngo_com_memjobs WHERE JobCategoryID = '$JobCategoryID' ")->row('MemJobID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_jobcategories', array('JobCategoryID' => trim($JobCategoryID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of occupation
+
+
+    /* end of community system masters */
 
     /* end of Mowfi */
 }

@@ -138,6 +138,7 @@ $lang['communityngo_helpr_edit'] = 'Edit | Help Requirements';
 $lang['communityngo_Job'] = 'Occupation';
 $lang['communityngo_occupationType'] = 'Occupation Type';
 $lang['communityngo_select_occupationType'] = 'Select Occupation Type';
+$lang['communityngo_Job_add'] = 'Add Occupation';
 $lang['communityngo_Job_edit'] = 'Edit | Occupation';
 $lang['communityngo_Job_Address'] = 'Address';
 $lang['communityngo_Job_WorkingPlace'] = 'Working Place';
@@ -604,6 +605,8 @@ $lang['communityngo_adExpire_in_days'] = 'Expire In Days';
 $lang['communityngo_adIs_public'] = 'Is Public';
 $lang['communityngo_adPublished_date'] = 'Published Date';
 $lang['communityngo_approval_status'] = 'Approval Status';
+$lang['communityngo_system_masters'] = 'System Masters';
+$lang['communityngo_system_masters_allowingStatus'] = 'System Master allows you to add default system datas for each below types.';
 
 /* end of Community Dashboard */
 
