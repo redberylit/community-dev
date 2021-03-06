@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'form_validation', 'session','datatables','ERP_Form_validation','encryption','encryption_url');//'Lib_log',
+$autoload['libraries'] = array('database', 'form_validation', 'session', 'datatables', 'ERP_Form_validation', 'encryption', 'encryption_url'); //'Lib_log',
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'file','form','configuration','policy','mfq','pos', 'fund_management');
+$autoload['helper'] = array('url', 'file', 'form', 'configuration', 'policy', 'mfq', 'pos', 'fund_management', 'comm_api_configuration');
 
 /*
 | -------------------------------------------------------------------
@@ -103,7 +103,7 @@ $autoload['helper'] = array('url', 'file','form','configuration','policy','mfq',
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('env');
 
 /*
 | -------------------------------------------------------------------

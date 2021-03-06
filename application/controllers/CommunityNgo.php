@@ -958,6 +958,18 @@ WHERE $where ")->row_array();
         }
     }
 
+    function save_communityMemberCredential()
+    {
+        $this->form_validation->set_rules('memberUserName', 'Member UserName', 'trim|required');
+        $this->form_validation->set_rules('memberPassword', 'Member Password', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityMemberCredential());
+        }
+    }
+
     function save_communityMemberStatus()
     {
         $this->form_validation->set_rules('DeactivatedFor', 'Reason', 'trim|required');

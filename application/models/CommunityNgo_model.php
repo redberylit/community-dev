@@ -224,6 +224,8 @@ class CommunityNgo_model extends ERP_Model
 
         $this->db->trans_start();
 
+        $community_register_url = $this->config->item('community_verify_url') . '/register';
+
         $date_format_policy = date_format_policy();
 
         $default_data = load_default_data();
@@ -244,10 +246,14 @@ class CommunityNgo_model extends ERP_Model
             $defsDistrictDivision = $default_data['DDivisionCode'];
         }
 
+        $CName_with_initials = trim($this->input->post('CName_with_initials'));
+        $OtherName = trim($this->input->post('OtherName'));
+        $TP_Mobile = trim($this->input->post('TP_Mobile'));
+
         $data['TitleID'] = trim($this->input->post('TitleID'));
         $data['CFullName'] = trim($this->input->post('CFullName'));
-        $data['CName_with_initials'] = trim($this->input->post('CName_with_initials'));
-        $data['OtherName'] = trim($this->input->post('OtherName'));
+        $data['CName_with_initials'] = $CName_with_initials;
+        $data['OtherName'] = $OtherName;
         $data['CmWasakamaName'] = trim($this->input->post('CmWasakamaName'));
         if ($this->input->post('CNIC_No')) {
             $data['IsNIC_NoYes'] = 1;
@@ -286,7 +292,7 @@ class CommunityNgo_model extends ERP_Model
         $data['C_Address'] = trim($this->input->post('C_Address'));
         $data['C_Latitude'] = trim($this->input->post('C_Latitude'));
         $data['C_Longitude'] = trim($this->input->post('C_Longitude'));
-        $data['TP_Mobile'] = trim($this->input->post('TP_Mobile'));
+        $data['TP_Mobile'] = $TP_Mobile;
         $data['CountryCodePrimary'] = trim($this->input->post('CountryCodePrimary'));
         $data['AreaCodePrimary'] = trim($this->input->post('AreaCodePrimary'));
         $data['TP_home'] = trim($this->input->post('TP_home'));
@@ -321,6 +327,21 @@ class CommunityNgo_model extends ERP_Model
 
         if ($Com_MasterID) {
 
+            $isComIdentityExist = $this->db->query('SELECT MemUsername,MemPassword FROM srp_erp_ngo_com_communitymaster WHERE Com_MasterID = "' . $Com_MasterID . '" AND companyID="' . $companyID . '"');
+            $resComIdeExist = $isComIdentityExist->row();
+            if (empty($resComIdeExist->MemUsername)) {
+                $data['MemUsername'] = $ComMailId;
+                $MemUserName = $ComMailId;
+            } else {
+                $MemUserName = $resComIdeExist->MemUsername;
+            }
+            if (empty($resComIdeExist->MemPassword)) {
+                $data['MemPassword'] = $TP_Mobile;
+                $MemPassWord = $TP_Mobile;
+            } else {
+                $MemPassWord = $resComIdeExist->MemPassword;
+            }
+
             $data['modifiedPCID'] = $this->common_data['current_pc'];
             $data['modifiedUserID'] = $this->common_data['current_userID'];
             $data['modifiedUserName'] = $this->common_data['current_user'];
@@ -330,7 +351,7 @@ class CommunityNgo_model extends ERP_Model
 
             $db = $this->load->database('db2', true);
 
-            $isComLogExist = $db->query('SELECT LeaderID FROM ngo_family  WHERE companyID="' . $companyID . '" AND LeaderID = "' . $Com_MasterID . '" ');
+            $isComLogExist = $db->query('SELECT LeaderID FROM ngo_family WHERE companyID="' . $companyID . '" AND LeaderID = "' . $Com_MasterID . '" ');
             $resComLogExist = $isComLogExist->row();
 
             if (!empty($resComLogExist->LeaderID)) {
@@ -345,6 +366,9 @@ class CommunityNgo_model extends ERP_Model
 
                     return array('e', 'Member Update Failed ');
                 } else {
+
+                    com_registerWithApi($community_register_url, $CName_with_initials, $OtherName, $MemUserName, $TP_Mobile, $MemPassWord, $MemPassWord);
+
                     $this->db->trans_commit();
 
                     return array('s', 'Member Updated Successfully.', $Com_MasterID);
@@ -363,6 +387,8 @@ class CommunityNgo_model extends ERP_Model
             $data['SerialNo'] = $serial['SerialNo'];
             $data['MemberCode'] = ($defsProvince . '/' . $defsDistrict . '/' . $defsDistrictDivision . '/' . $company_code . '/' . 'MEM' . str_pad($data['SerialNo'], 6, '0', STR_PAD_LEFT));
 
+            $data['MemUsername'] = $ComMailId;
+            $data['MemPassword'] = $TP_Mobile;
             $data['companyID'] = $companyID;
             $data['createdPCID'] = $this->common_data['current_pc'];
             $data['createdUserID'] = $this->common_data['current_userID'];
@@ -376,6 +402,9 @@ class CommunityNgo_model extends ERP_Model
 
                 return array('e', 'Member Save Failed ', $last_id);
             } else {
+
+                com_registerWithApi($community_register_url, $CName_with_initials, $OtherName, $ComMailId, $TP_Mobile, $TP_Mobile, $TP_Mobile);
+
                 $this->db->trans_commit();
 
                 return array('s', 'Member Saved Successfully.', $last_id);
@@ -695,7 +724,7 @@ class CommunityNgo_model extends ERP_Model
 
     function save_memGrtMotherParents()
     {
-        $companyID = $this->common_data['company_data']['company_id'];
+
         $Com_MasterID = trim($this->input->post('Com_MasterID'));
 
         $this->db->trans_start();
@@ -770,10 +799,60 @@ class CommunityNgo_model extends ERP_Model
         }
     }
 
+    function save_communityMemberCredential()
+    {
+
+        $companyID = $this->common_data['company_data']['company_id'];
+
+        $Com_MasterID = trim($this->input->post('Com_MasterID'));
+
+        $this->db->trans_start();
+
+        $community_register_url = $this->config->item('community_verify_url') . '/register';
+
+        $data['MemUsername'] = trim($this->input->post('memberUserName'));
+        $data['MemPassword'] = trim($this->input->post('memberPassword'));
+
+        if ($Com_MasterID) {
+
+            $isComIdentityGet = $this->db->query('SELECT CName_with_initials,OtherName,TP_Mobile FROM srp_erp_ngo_com_communitymaster WHERE Com_MasterID = "' . $Com_MasterID . '" AND companyID="' . $companyID . '"');
+            $rowComIdentityGet = $isComIdentityGet->row();
+
+            $CName_with_initials = $rowComIdentityGet->CName_with_initials;
+            $OtherName = $rowComIdentityGet->OtherName;
+            $TP_Mobile = $rowComIdentityGet->TP_Mobile;
+            $MemUserName = trim($this->input->post('memberUserName'));
+            $MemPassWord = trim($this->input->post('memberPassword'));
+
+            $data['modifiedPCID'] = $this->common_data['current_pc'];
+            $data['modifiedUserID'] = $this->common_data['current_userID'];
+            $data['modifiedUserName'] = $this->common_data['current_user'];
+            $data['modifiedDateTime'] = $this->common_data['current_date'];
+            $this->db->where('Com_MasterID', trim($this->input->post('Com_MasterID')));
+            $update = $this->db->update('srp_erp_ngo_com_communitymaster', $data);
+            if ($update) {
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+
+                    return array('e', 'Credential Upatate Is Failed');
+                } else {
+
+                    com_registerWithApi($community_register_url, $CName_with_initials, $OtherName, $MemUserName, $TP_Mobile, $MemPassWord, $MemPassWord);
+
+                    $this->db->trans_commit();
+
+                    return array('s', 'Successfully Member Credentail Is Updated.', $Com_MasterID);
+                }
+            }
+        } else {
+        }
+    }
+
     //member status
     function save_communityMemberStatus()
     {
-        $companyID = $this->common_data['company_data']['company_id'];
+
         $Com_MasterID = trim($this->input->post('Com_MasterID'));
 
         $this->db->trans_start();

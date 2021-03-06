@@ -7,6 +7,7 @@ $lang['CommunityNgo_step_three'] = 'Step 3';
 $lang['CommunityNgo_step_four'] = 'Step 4';
 $lang['CommunityNgo_step_five'] = 'Step 5';
 $lang['CommunityNgo_step_six'] = 'Step 6';
+$lang['CommunityNgo_step_seven'] = 'Step 7';
 $lang['communityngo_searchmembers'] = 'Search...';
 $lang['CommunityNgo_status'] = 'Select Status';
 $lang['CommunityNgo_Is_Active'] = 'Is Active';
@@ -23,6 +24,7 @@ $lang['communityngo_motherSide_grandparent'] = '(Maternal) Mother\'s Side Grandp
 $lang['communityngo_com_mem_header_great-grandparent'] = 'Great-Grandparents Details';
 $lang['communityngo_fatherSideGrt_grandparent'] = '(Paternal) Father\'s Side Great-Grandparents Details';
 $lang['communityngo_motherSideGrt_grandparent'] = '(Maternal) Mother\'s Side Great-Grandparents Details';
+$lang['communityngo_com_member_header_credential'] = 'Credential';
 $lang['communityngo_com_member_header_Status'] = 'Status';
 $lang['communityngo_members'] = 'Community Members';
 $lang['communityngo_add_new_member'] = 'Add New Member';
@@ -609,4 +611,3 @@ $lang['communityngo_system_masters'] = 'System Masters';
 $lang['communityngo_system_masters_allowingStatus'] = 'System Master allows you to add default system datas for each below types.';
 
 /* end of Community Dashboard */
-

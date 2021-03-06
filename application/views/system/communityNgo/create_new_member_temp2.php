@@ -79,9 +79,15 @@ $countryid = $Countrys['countryCode'];
         <?php echo $this->lang->line('communityngo_com_mem_header_great-grandparent'); ?>
         <!--Other-->
     </a>
-    <a class="btn btn-default btn-wizard" href="#step6" onclick="load_memberStatusDetails();load_memberStatus_attachments();" data-toggle="tab">
+    <a class="btn btn-default btn-wizard" href="#step6" onclick="load_memberCredentialDetails();" data-toggle="tab">
         <?php echo $this->lang->line('CommunityNgo_step_six'); ?>
         <!--Step 6--> -
+        <?php echo $this->lang->line('communityngo_com_member_header_credential'); ?>
+        <!--Credential-->
+    </a>
+    <a class="btn btn-default btn-wizard" href="#step7" onclick="load_memberStatusDetails();load_memberStatus_attachments();" data-toggle="tab">
+        <?php echo $this->lang->line('CommunityNgo_step_seven'); ?>
+        <!--Step 7--> -
         <?php echo $this->lang->line('communityngo_com_member_header_Status'); ?>
         <!--Status-->
     </a>
@@ -975,6 +981,48 @@ $countryid = $Countrys['countryCode'];
     </div>
 
     <div id="step6" class="tab-pane">
+        <?php echo form_open('', 'role="form" id="MemberCredential_Form"'); ?>
+        <div id="CredentialDetails">
+            <div class="row">
+                <div class="col-sm-4 col-xs-4">
+                    <div class="form-group">
+                        <label for="memberUserName">
+                            <?php echo $this->lang->line('common_user_name'); ?>
+                            <!--username-->
+                        </label>
+                        <input type="text" name="memberUserName" id="memberUserName" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-4">
+                    <div class="form-group">
+                        <label for="memberPassword">
+                            <?php echo $this->lang->line('common_password'); ?>
+                            <!--Password-->
+                        </label>
+                        <input type="text" name="memberPassword" id="memberPassword" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </form>
+        <div class="text-right m-t-xs">
+            <button class="btn btn-default prev">
+                <?php echo $this->lang->line('common_previous'); ?>
+                <!--Previous-->
+            </button>
+            <button class="btn btn-default next" style="margin-left: 1%;" id="nxtBtn">
+                <?php echo $this->lang->line('common_next'); ?>
+                <!--Next-->
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="save_btn_credential" class="btn btn-primary pull-right CA_Submit_btn" type="submit" onclick="save_memberCredential()">
+                <?php echo $this->lang->line('common_update'); ?>
+                <!--Save-->
+            </button>
+        </div>
+    </div>
+
+    <div id="step7" class="tab-pane">
         <?php echo form_open('', 'role="form" id="MemberStatus_Form"'); ?>
         <div id="StatusDetails">
 
@@ -1197,6 +1245,7 @@ $countryid = $Countrys['countryCode'];
             load_memParentDetails();
             load_grandParentDetails();
             load_grt_grandParentDetails();
+            load_memberCredentialDetails();
             load_memberStatusDetails();
             $('.btn-wizard').removeClass('disabled');
         } else {
@@ -1652,6 +1701,86 @@ $countryid = $Countrys['countryCode'];
 
     }
 
+    function load_memberCredentialDetails() {
+        if (Com_MasterID) {
+            $.ajax({
+                async: true,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'Com_MasterID': Com_MasterID
+                },
+                url: "<?php echo site_url('CommunityNgo/load_member'); ?>",
+                beforeSend: function() {
+                    startLoad();
+                },
+                success: function(data) {
+                    if (!jQuery.isEmptyObject(data)) {
+
+                        $('#memberUserName').val(data['MemUsername']);
+                        $('#memberPassword').val(data['MemPassword']);
+                        document.getElementById('nxtBtn').style.display = 'block';
+
+                    }
+                    stopLoad();
+                    refreshNotifications(true);
+                },
+                error: function() {
+                    alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
+                    /*An Error Occurred! Please Try Again*/
+                    stopLoad();
+                    refreshNotifications(true);
+                }
+            });
+        }
+    }
+
+    function save_memberCredential() {
+
+        swal({
+                title: "Are you sure?",
+                text: "You want to update the member credential !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Update"
+            },
+            function() {
+
+                var postData = $('#MemberCredential_Form').serializeArray();
+                postData.push({
+                    'name': 'Com_MasterID',
+                    'value': Com_MasterID
+                });
+
+                $.ajax({
+                    async: true,
+                    type: 'post',
+                    dataType: 'json',
+                    data: postData,
+                    url: "<?php echo site_url('CommunityNgo/save_communityMemberCredential'); ?>",
+                    beforeSend: function() {
+                        startLoad();
+                    },
+                    success: function(data) {
+                        stopLoad();
+                        myAlert(data[0], data[1]);
+                        if (data[0] == 's') {
+                            Com_MasterID = data[2];
+                            load_memberCredentialDetails();
+                        } else {}
+                    },
+                    error: function() {
+                        alert('<?php echo $this->lang->line('common_an_error_occurred_Please_try_again'); ?>.');
+                        /*An Error Occurred! Please Try Again*/
+                        stopLoad();
+                        refreshNotifications(true);
+                    }
+                });
+            }
+        );
+    }
+
     function load_memberStatusDetails() {
         if (Com_MasterID) {
             $.ajax({
@@ -1675,8 +1804,6 @@ $countryid = $Countrys['countryCode'];
                         $('#deactivatedDate').val(data['deactivatedDate']);
                         $('#deactivatedComment').val(data['deactivatedComment']);
                         $("#DeactivatedFor").val(data['DeactivatedFor']).change();
-
-                        document.getElementById('nxtBtn').style.display = 'block';
 
                     }
                     stopLoad();
