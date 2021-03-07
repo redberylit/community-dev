@@ -9401,7 +9401,163 @@ WHERE dds.DocDesID
         }
     }
     // end of occupation
+    //qualification
 
+    function save_communityQualification()
+    {
+        $this->db->trans_start();
+        $DegreeID = $this->input->post('DegreeID');
+        $DegreeDescription = $this->input->post('comQualification');
+
+        $data['DegreeDescription'] = $DegreeDescription;
+
+        if (!empty($DegreeID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_degreecategories WHERE DegreeID != {$DegreeID} AND DegreeDescription ='" . $DegreeDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('DegreeID', $DegreeID);
+                $this->db->update('srp_erp_ngo_com_degreecategories', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Qualification Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Qualification Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Qualification is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_degreecategories WHERE DegreeDescription ='" . $DegreeDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $this->db->insert('srp_erp_ngo_com_degreecategories', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Qualification save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Qualification saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Qualification is already available !');
+            }
+        }
+    }
+
+    function editCommQualification()
+    {
+
+        $EDITid = $this->input->post('DegreeID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_degreecategories` WHERE DegreeID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommQualification()
+    {
+
+        $DegreeID = $this->input->post('DegreeID');
+
+        $isExist = $this->db->query("SELECT QualificationID FROM srp_erp_ngo_com_qualifications WHERE DegreeID = '$DegreeID' AND isDeleted='0'")->row('QualificationID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_degreecategories', array('DegreeID' => trim($DegreeID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of qualification
+
+      //Institute
+
+      function save_communityInstitute()
+      {
+          $this->db->trans_start();
+          $UniversityID = $this->input->post('UniversityID');
+          $UniversityDescription = $this->input->post('comInstitute');
+          $comInsAddress = $this->input->post('comInsAddress');
+          $comInsMail = $this->input->post('comInsMail');
+          $comInsPhone = $this->input->post('comInsPhone');
+          $comInsWebSite = $this->input->post('comInsWebSite');
+  
+          $data['UniversityDescription'] = $UniversityDescription;
+          $data['address'] = $comInsAddress;
+          $data['email'] = $comInsMail;
+          $data['telephoneNo'] = $comInsPhone;
+          $data['website'] = $comInsWebSite;
+  
+          if (!empty($UniversityID)) {
+  
+              $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_universities WHERE UniversityID != {$UniversityID} AND UniversityDescription ='" . $UniversityDescription . "' ");
+              $rowExitMas = $chkExitMas->row();
+  
+              if (empty($rowExitMas)) {
+                  $this->db->where('UniversityID', $UniversityID);
+                  $this->db->update('srp_erp_ngo_com_universities', $data);
+                  $this->db->trans_complete();
+                  if ($this->db->trans_status() === FALSE) {
+                      $this->db->trans_rollback();
+                      return array('e', 'Institute Update Failed.');
+                  } else {
+                      $this->db->trans_commit();
+                      return array('s', 'Institute Updated Successfully.');
+                  }
+              } else {
+                  return array('e', 'Institute is already available !');
+              }
+          } else {
+  
+              $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_universities WHERE UniversityDescription ='" . $UniversityDescription . "' ");
+              $rowExitMas = $chkExitMas->row();
+  
+              if (empty($rowExitMas)) {
+  
+                  $this->db->insert('srp_erp_ngo_com_universities', $data);
+                  if ($this->db->trans_status() === FALSE) {
+                      $this->db->trans_rollback();
+                      return array('e', 'Institute save failed ' . $this->db->_error_message());
+                  } else {
+                      $this->db->trans_commit();
+                      return array('s', 'Institute saved successfully.');
+                  }
+              } else {
+  
+                  return array('e', 'Institute is already available !');
+              }
+          }
+      }
+  
+      function editCommInstitute()
+      {
+  
+          $EDITid = $this->input->post('UniversityID');
+          $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_universities` WHERE UniversityID = '{$EDITid}'")->row_array();
+          return $data;
+      }
+  
+      function deleteCommInstitute()
+      {
+  
+          $UniversityID = $this->input->post('UniversityID');
+  
+          $isExist = $this->db->query("SELECT QualificationID FROM srp_erp_ngo_com_qualifications WHERE UniversityID = '$UniversityID' AND isDeleted='0'")->row('QualificationID');
+  
+          if (empty($isExist)) {
+              $this->db->delete('srp_erp_ngo_com_universities', array('UniversityID' => trim($UniversityID)));
+              return 'haveDeleted';
+          } else {
+              return 'alreadyExist';
+          }
+      }
+      // end of Institute
 
     /* end of community system masters */
 

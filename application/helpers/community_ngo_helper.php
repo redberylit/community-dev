@@ -119,7 +119,6 @@ if (!function_exists('load_degree')) {
     function load_degree()
     {
         $CI = &get_instance();
-        $companyID = $CI->common_data['company_data']['company_id'];
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_degreecategories")->result_array();
         return $data;
     }
@@ -130,7 +129,6 @@ if (!function_exists('load_university')) {
     function load_university()
     {
         $CI = &get_instance();
-        $companyID = $CI->common_data['company_data']['company_id'];
         $data = $CI->db->query("SELECT * FROM srp_erp_ngo_com_universities")->result_array();
         return $data;
     }

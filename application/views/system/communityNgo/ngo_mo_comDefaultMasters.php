@@ -308,15 +308,16 @@ $date_format_policy = date_format_policy();
                 <ul id="list" class="nav nav-list left-sidenav">
                     <li class="occupation"><a onclick="configCom_masterPage('occupation')"><?php echo $this->lang->line('communityngo_occupationType'); ?> <i class="fa fa-chevron-right pull-right"></i></a></li>
                     <!--Occupation Type-->
-
-                    <li class="qualification"><a onclick="configCom_masterPage('qualification')"><?php echo $this->lang->line('communityngo_QualificationType'); ?><i class="fa fa-chevron-right pull-right"></i></a></li>
-                    <!--Qualification Type-->
                     <li class="comSchool"><a onclick="configCom_masterPage('comSchool')"><?php echo $this->lang->line('communityngo_School'); ?> <i class="fa fa-chevron-right pull-right"></i></a></li>
                     <!--School-->
                     <li class="comGrade"><a onclick="configCom_masterPage('comGrade')" href="#"> <i class="fa fa-chevron-right pull-right"></i><?php echo $this->lang->line('communityngo_SchoolGrade'); ?> </a></li>
                     <!--Grade-->
                     <li class="comMedium"><a onclick="configCom_masterPage('comMedium')" href="#"> <i class="fa fa-chevron-right pull-right"></i><?php echo $this->lang->line('communityngo_medium'); ?> </a></li>
                     <!--Medium-->
+                    <li class="qualification"><a onclick="configCom_masterPage('qualification')"><?php echo $this->lang->line('communityngo_QualificationType'); ?><i class="fa fa-chevron-right pull-right"></i></a></li>
+                    <!--Qualification Type-->
+                    <li class="cmInstitute"><a onclick="configCom_masterPage('cmInstitute')"><?php echo $this->lang->line('communityngo_University'); ?> <i class="fa fa-chevron-right pull-right"></i></a></li>
+                    <!--Institute-->
                     <li class="comProperty"><a onclick="configCom_masterPage('comProperty')" href="#"> <i class="fa fa-chevron-right pull-right"></i><?php echo $this->lang->line('communityngo_property_type'); ?> </a></li>
                     <!--Property Type-->
                     <li class="comVehicle"><a onclick="configCom_masterPage('comVehicle')" href="#"> <i class="fa fa-chevron-right pull-right"></i> <?php echo $this->lang->line('communityngo_vehicle_details'); ?> </a></li>
@@ -353,13 +354,7 @@ $date_format_policy = date_format_policy();
                                                     <!--Occupation Type-->
                                                 </div>
                                                 <div class="system-settings-item">
-                                                    <a onclick="configCom_masterPage('qualification')"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                                        <?php echo $this->lang->line('communityngo_QualificationType'); ?> </a>
-                                                    <!--Qualification Type-->
-                                                </div>
-
-                                                <div class="system-settings-item">
-                                                    <a onclick="configCom_masterPage('comSchool')"> <i class="fa fa-university" aria-hidden="true"></i>
+                                                    <a onclick="configCom_masterPage('comSchool')"> <i class="glyphicon glyphicon-blackboard" style="color:#000;font-size:18px;" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;
                                                         <?php echo $this->lang->line('communityngo_School'); ?> </a>
                                                     <!--School-->
                                                 </div>
@@ -374,6 +369,16 @@ $date_format_policy = date_format_policy();
                                                         <?php echo $this->lang->line('communityngo_medium'); ?> </a>
                                                     <!--Medium-->
 
+                                                </div>
+                                                <div class="system-settings-item">
+                                                    <a onclick="configCom_masterPage('qualification')"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                        <?php echo $this->lang->line('communityngo_QualificationType'); ?> </a>
+                                                    <!--Qualification Type-->
+                                                </div>
+                                                <div class="system-settings-item">
+                                                    <a onclick="configCom_masterPage('cmInstitute')"> <i class="fa fa-university" aria-hidden="true"></i>
+                                                        <?php echo $this->lang->line('communityngo_University'); ?> </a>
+                                                    <!--Institute-->
                                                 </div>
                                                 <div class="system-settings-item">
                                                     <a onclick="configCom_masterPage('comProperty')" href="#"><i class="fa fa-paypal" aria-hidden="true"></i>

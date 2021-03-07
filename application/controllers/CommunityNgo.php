@@ -8322,17 +8322,20 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
             case 'occupation':
                 $url = 'system/communityNgo/ngo_mo_occupationsMaster';
                 break;
-            case 'qualification':
-                $url = 'system/crm/lead_status_management';
-                break;
             case 'comSchool':
-                $url = 'system/crm/lead_status_management';
+                $url = 'system/communityNgo/ngo_mo_schoolsMaster';
                 break;
             case 'comGrade':
                 $url = 'system/crm/lead_status_management';
                 break;
             case 'comMedium':
                 $url = 'system/crm/lead_status_management';
+                break;
+            case 'qualification':
+                $url = 'system/communityNgo/ngo_mo_qualificationsMaster';
+                break;
+            case 'cmInstitute':
+                $url = 'system/communityNgo/ngo_mo_institutesMaster';
                 break;
             case 'comProperty':
                 $url = 'system/crm/lead_status_management';
@@ -8382,6 +8385,72 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
         echo json_encode($this->CommunityNgo_model->deleteCommOccupation());
     }
     // end of occupation
+
+    //qualification
+    function save_comQualification()
+    {
+        $this->form_validation->set_rules('comQualification', 'Qualification', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityQualification());
+        }
+    }
+
+    function fetch_comQualification()
+    {
+
+        $this->datatables->select("DegreeID,DegreeDescription");
+        $this->datatables->from('srp_erp_ngo_com_degreecategories');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcomQualification($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecomQualification($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'DegreeID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_comQualification()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommQualification());
+    }
+
+    function delete_comQualification()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommQualification());
+    }
+    // end of qualification
+
+    //Institute
+    function save_comInstitute()
+    {
+        $this->form_validation->set_rules('comInstitute', 'Institute', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityInstitute());
+        }
+    }
+
+    function fetch_comInstitute()
+    {
+
+        $this->datatables->select("UniversityID,UniversityDescription,address,email,telephoneNo,website");
+        $this->datatables->from('srp_erp_ngo_com_universities');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcomInstitute($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecomInstitute($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'UniversityID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_comInstitute()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommInstitute());
+    }
+
+    function delete_comInstitute()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommInstitute());
+    }
+    // end of Institute
 
     /* end of community system masters */
 }
