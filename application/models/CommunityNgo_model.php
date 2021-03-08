@@ -9559,6 +9559,94 @@ WHERE dds.DocDesID
       }
       // end of Institute
 
+         //school
+
+    function save_communitySchool()
+    {
+        $this->db->trans_start();
+        $schoolComID = $this->input->post('schoolComID');
+        $schoolComDes = $this->input->post('comSchool');
+        $comSchlAddress = $this->input->post('comSchlAddress');
+        $comSchlMail = $this->input->post('comSchlMail');
+        $comSchlPhone = $this->input->post('comSchlPhone');
+        $comSchlTypeID = $this->input->post('comSchlTypeID');
+        $comSchlWebSite = $this->input->post('comSchlWebSite');
+
+        $data['schoolComDes'] = $schoolComDes;
+        $data['address'] = $comSchlAddress;
+        $data['email'] = $comSchlMail;
+        $data['telephoneNo'] = $comSchlPhone;
+        $data['type'] = $comSchlTypeID;
+        $data['website'] = $comSchlWebSite;
+
+        if (!empty($schoolComID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_schools WHERE schoolComID != {$schoolComID} AND schoolComDes ='" . $schoolComDes . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('schoolComID', $schoolComID);
+                $this->db->update('srp_erp_ngo_com_schools', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'School Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'School Updated Successfully.');
+                }
+            } else {
+                return array('e', 'School is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_schools WHERE schoolComDes ='" . $schoolComDes . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $qrySchoolMx = $this->db->query("select IF ( isnull(MAX(SortOrder)), 1, (MAX(SortOrder) + 1) ) AS SortOrder FROM `srp_erp_ngo_com_schools`")->row_array();
+                $data['SortOrder'] = $qrySchoolMx['SortOrder'];
+
+                $this->db->insert('srp_erp_ngo_com_schools', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'School save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'School saved successfully.');
+                }
+            } else {
+
+                return array('e', 'School is already available !');
+            }
+        }
+    }
+
+    function editCommSchool()
+    {
+
+        $EDITid = $this->input->post('schoolComID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_schools` WHERE schoolComID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommSchool()
+    {
+
+        $schoolComID = $this->input->post('schoolComID');
+
+        $isExist = $this->db->query("SELECT MemJobID FROM srp_erp_ngo_com_memjobs WHERE schoolComID = '$schoolComID' ")->row('MemJobID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_schools', array('schoolComID' => trim($schoolComID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of school
+
     /* end of community system masters */
 
     /* end of Mowfi */

@@ -26,6 +26,10 @@
 $primaryLanguage = getPrimaryLanguage();
 $this->lang->load('communityngo', $primaryLanguage);
 $this->lang->load('common', $primaryLanguage);
+
+$this->load->helper('community_ngo_helper');
+$schoolTypes = load_schoolTypes();
+
 ?>
 
 <div class="row">
@@ -35,13 +39,13 @@ $this->lang->load('common', $primaryLanguage);
                 <div class="past-info">
                     <div id="toolbar">
                         <div class="toolbar-title">
-                            <i class="fa fa-university" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_University'); ?>
+                            <i class="glyphicon glyphicon-blackboard" style="color:#000;font-size:18px;" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_School'); ?>
                         </div>
                         <div class="btn-toolbar btn-toolbar-small pull-right">
-                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForInstitute();"><?php echo $this->lang->line('communityngo_institute_add'); ?>
+                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForSchool();"><?php echo $this->lang->line('communityngo_School_add'); ?>
                             </button>
                         </div>
-                        <!--Institute-->
+                        <!--School-->
                         <div class="btn-toolbar btn-toolbar-small pull-right">
 
                         </div>
@@ -51,14 +55,15 @@ $this->lang->load('common', $primaryLanguage);
 
                             <div class="system-settings">
 
-                                <table id="InstitutesTable" class="table ">
+                                <table id="schoolsTable" class="table ">
                                     <thead>
                                         <tr>
                                             <th style="width:5%;">#</th>
-                                            <th style="width:35%;"><?php echo $this->lang->line('common_description'); ?> </th>
-                                            <th style="width:20%;"><?php echo $this->lang->line('common_address'); ?> </th>
+                                            <th style="width:30%;"><?php echo $this->lang->line('common_description'); ?> </th>
+                                            <th style="width:15%;"><?php echo $this->lang->line('common_address'); ?> </th>
                                             <th style="width:10%;"><?php echo $this->lang->line('common_email'); ?> </th>
                                             <th style="width:10%;"><?php echo $this->lang->line('common_telephone'); ?> </th>
+                                            <th style="width:10%;"><?php echo $this->lang->line('communityngo_SchoolType'); ?> </th>
                                             <th style="width:10%;"><?php echo $this->lang->line('common_web'); ?> </th>
                                             <th style="width:10%;"></th>
                                         </tr>
@@ -73,24 +78,24 @@ $this->lang->load('common', $primaryLanguage);
         </section>
     </div>
 
-    <div id="add-comInstitute-modal" class="modal fade" role="dialog">
+    <div id="add-comSchool-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="comInstitutetitle"> <?php echo $this->lang->line('communityngo_University'); ?></h4>
+                    <h4 class="modal-title" id="comSchooltitle"> <?php echo $this->lang->line('communityngo_School'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" id="mo_comInstitute">
-                        <input type="hidden" class="form-control " id="UniversityID" name="UniversityID">
+                    <form class="form-horizontal" id="mo_comSchool">
+                        <input type="hidden" class="form-control " id="schoolComID" name="schoolComID">
                         <div class="row" style="margin-top: 10px;">
                             <div class="form-group col-sm-4 col-md-offset-1">
-                                <label class="title"> <?php echo $this->lang->line('communityngo_University'); ?></label>
+                                <label class="title"> <?php echo $this->lang->line('communityngo_School'); ?></label>
                             </div>
                             <div class="form-group col-sm-6">
                                 <span class="input-req" title="Required Field">
-                                    <input type="text" class="form-control " id="comInstitute" name="comInstitute" placeholder="<?php echo $this->lang->line('communityngo_University'); ?>">
+                                    <input type="text" class="form-control " id="comSchool" name="comSchool" placeholder="<?php echo $this->lang->line('communityngo_School'); ?>">
                                     <span class="input-req-inner"></span>
                                 </span>
                             </div>
@@ -101,7 +106,7 @@ $this->lang->load('common', $primaryLanguage);
                             </div>
                             <div class="form-group col-sm-6">
                                 <span class="input-req" title="Required Field">
-                                    <input type="text" class="form-control " id="comInsAddress" name="comInsAddress" placeholder="<?php echo $this->lang->line('common_address'); ?>">
+                                    <input type="text" class="form-control " id="comSchlAddress" name="comSchlAddress" placeholder="<?php echo $this->lang->line('common_address'); ?>">
                                     <span class="input-req-inner"></span>
                                 </span>
                             </div>
@@ -111,7 +116,7 @@ $this->lang->load('common', $primaryLanguage);
                                 <label class="title"> <?php echo $this->lang->line('common_email'); ?></label>
                             </div>
                             <div class="form-group col-sm-6">
-                                    <input type="email" class="form-control " id="comInsMail" name="comInsMail" placeholder="<?php echo $this->lang->line('common_email'); ?>">
+                                <input type="email" class="form-control " id="comSchlMail" name="comSchlMail" placeholder="<?php echo $this->lang->line('common_email'); ?>">
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px;">
@@ -119,7 +124,26 @@ $this->lang->load('common', $primaryLanguage);
                                 <label class="title"> <?php echo $this->lang->line('common_telephone'); ?></label>
                             </div>
                             <div class="form-group col-sm-6">
-                                    <input type="number" class="form-control " id="comInsPhone" name="comInsPhone" placeholder="<?php echo $this->lang->line('common_telephone'); ?>">
+                                <input type="number" class="form-control " id="comSchlPhone" name="comSchlPhone" placeholder="<?php echo $this->lang->line('common_telephone'); ?>">
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="form-group col-sm-4 col-md-offset-1">
+                                <label class="title"> <?php echo $this->lang->line('communityngo_SchoolType'); ?></label>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <select id="comSchlTypeID" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_SchoolType'); ?>" name="comSchlTypeID">
+                                    <option value=""></option>
+                                    <?php
+                                    if (!empty($schoolTypes)) {
+                                        foreach ($schoolTypes as $val) {
+                                    ?>
+                                            <option value="<?php echo $val['schoolTypeID'] ?>"><?php echo $val['schoolTypeDes'] ?></option>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px;">
@@ -127,13 +151,13 @@ $this->lang->load('common', $primaryLanguage);
                                 <label class="title"> <?php echo $this->lang->line('common_web'); ?></label>
                             </div>
                             <div class="form-group col-sm-6">
-                                    <input type="text" class="form-control " id="comInsWebSite" name="comInsWebSite" placeholder="<?php echo $this->lang->line('common_web'); ?>">
+                                <input type="text" class="form-control " id="comSchlWebSite" name="comSchlWebSite" placeholder="<?php echo $this->lang->line('common_web'); ?>">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcomInstitute();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
+                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcommSchool();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
                     </button>
                 </div>
             </div>
@@ -142,22 +166,29 @@ $this->lang->load('common', $primaryLanguage);
     </div>
 
     <script>
-        fetch_Institutes();
+        fetch_schools();
 
-        function get_popupForInstitute() {
-            $('#mo_comInstitute')[0].reset();
-            $('#mo_comInstitute').bootstrapValidator('resetForm', true);
-            $('#comInstitutetitle').text('<?php echo $this->lang->line('communityngo_institute_add'); ?>');
-            $('#comInstitute').val('');
-            $('#UniversityID').val('');
-            $('#comInsAddress').val('');
-            $('#comInsMail').val('');
-            $('#comInsPhone').val('');
-            $('#comInsWebSite').val('');
-            $('#add-comInstitute-modal').modal('show');
+        $(document).ready(function() {
+
+            $('.select2').select2();
+
+        });
+
+        function get_popupForSchool() {
+            $('#mo_comSchool')[0].reset();
+            $('#mo_comSchool').bootstrapValidator('resetForm', true);
+            $('#comSchooltitle').text('<?php echo $this->lang->line('communityngo_School_add'); ?>');
+            $('#comSchool').val('');
+            $('#schoolComID').val('');
+            $('#comSchlAddress').val('');
+            $('#comSchlMail').val('');
+            $('#comSchlPhone').val('');
+            $('#comSchlTypeID').val('').change();
+            $('#comSchlWebSite').val('');
+            $('#add-comSchool-modal').modal('show');
         }
 
-        function deletecomInstitute(UniversityID) {
+        function deletecommSchool(schoolComID) {
             swal({
                     title: "<?php echo $this->lang->line('common_are_you_sure'); ?>",
                     /*Are you sure?*/
@@ -176,9 +207,9 @@ $this->lang->load('common', $primaryLanguage);
                         type: 'post',
                         dataType: 'json',
                         data: {
-                            'UniversityID': UniversityID
+                            'schoolComID': schoolComID
                         },
-                        url: "<?php echo site_url('CommunityNgo/delete_comInstitute'); ?>",
+                        url: "<?php echo site_url('CommunityNgo/delete_commSchool'); ?>",
                         beforeSend: function() {
                             startLoad();
                         },
@@ -189,9 +220,9 @@ $this->lang->load('common', $primaryLanguage);
                                 myAlert('s', 'Deleted Successfully');
                             }
                             if (data == "alreadyExist") {
-                                myAlert('e', 'Can not delete! Institute already exists with member details.');
+                                myAlert('e', 'Can not delete! School already exists in member job.');
                             }
-                            fetch_Institutes();
+                            fetch_schools();
 
                         },
                         error: function() {
@@ -201,13 +232,13 @@ $this->lang->load('common', $primaryLanguage);
                 });
         }
 
-        function fetch_Institutes() {
-            var Otable = $('#InstitutesTable').DataTable({
+        function fetch_schools() {
+            var Otable = $('#schoolsTable').DataTable({
                 "bProcessing": true,
                 "bServerSide": true,
                 "bDestroy": true,
                 "bStateSave": true,
-                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_comInstitute'); ?>",
+                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_commSchool'); ?>",
                 "aaSorting": [
                     [1, 'desc']
                 ],
@@ -230,11 +261,11 @@ $this->lang->load('common', $primaryLanguage);
                         "targets": 0
                     },
                     {
-                        "width": "7%",
+                        "width": "5%",
                         "targets": 1
                     },
                     {
-                        "width": "3%",
+                        "width": "2%",
                         "targets": 2
                     },
                     {
@@ -253,12 +284,16 @@ $this->lang->load('common', $primaryLanguage);
                         "width": "1%",
                         "targets": 6
                     },
+                    {
+                        "width": "1%",
+                        "targets": 7
+                    },
                 ],
                 "aoColumns": [{
-                        "mData": "UniversityID"
+                        "mData": "schoolComID"
                     },
                     {
-                        "mData": "UniversityDescription"
+                        "mData": "schoolComDes"
                     },
                     {
                         "mData": "address"
@@ -268,6 +303,9 @@ $this->lang->load('common', $primaryLanguage);
                     },
                     {
                         "mData": "telephoneNo"
+                    },
+                    {
+                        "mData": "schoolType"
                     },
                     {
                         "mData": "website"
@@ -293,14 +331,14 @@ $this->lang->load('common', $primaryLanguage);
         }
 
 
-        function submitcomInstitute() {
-            var data = $('#mo_comInstitute').serializeArray();
+        function submitcommSchool() {
+            var data = $('#mo_comSchool').serializeArray();
             $.ajax({
                 async: true,
                 type: 'post',
                 dataType: 'json',
                 data: data,
-                url: "<?php echo site_url('CommunityNgo/save_comInstitute'); ?>",
+                url: "<?php echo site_url('CommunityNgo/save_commSchool'); ?>",
                 beforeSend: function() {
                     startLoad();
                 },
@@ -309,13 +347,14 @@ $this->lang->load('common', $primaryLanguage);
                     stopLoad();
 
                     if (data[0] == 's') {
-                        $('#comInstitute').val('');
-                        $('#comInsAddress').val('');
-                        $('#comInsMail').val('');
-                        $('#comInsPhone').val('');
-                        $('#comInsWebSite').val('');
-                        fetch_Institutes();
-                        $('#add-comInstitute-modal').modal('hide');
+                        $('#comSchool').val('');
+                        $('#comSchlAddress').val('');
+                        $('#comSchlMail').val('');
+                        $('#comSchlPhone').val('');
+                        $('#comSchlTypeID').val('').change();
+                        $('#comSchlWebSite').val('');
+                        fetch_schools();
+                        $('#add-comSchool-modal').modal('hide');
                     }
 
 
@@ -326,29 +365,30 @@ $this->lang->load('common', $primaryLanguage);
             });
         }
 
-        function editcomInstitute(UniversityID) {
+        function editcommSchool(schoolComID) {
             $.ajax({
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    UniversityID: UniversityID
+                    schoolComID: schoolComID
                 },
-                url: "<?php echo site_url('CommunityNgo/edit_comInstitute'); ?>",
+                url: "<?php echo site_url('CommunityNgo/edit_commSchool'); ?>",
                 beforeSend: function() {
                     startLoad();
-                    $('#comInstitutetitle').text('<?php echo $this->lang->line('communityngo_institute_edit'); ?>');
+                    $('#comSchooltitle').text('<?php echo $this->lang->line('communityngo_School_edit'); ?>');
                 },
                 success: function(data) {
                     stopLoad();
                     if (!jQuery.isEmptyObject(data)) {
-                        $('#mo_comInstitute').bootstrapValidator('resetForm', true);
-                        $('#comInstitute').val(data['UniversityDescription']);
-                        $('#UniversityID').val(data['UniversityID']);
-                        $('#comInsAddress').val(data['address']);
-                        $('#comInsMail').val(data['email']);
-                        $('#comInsPhone').val(data['telephoneNo']);
-                        $('#comInsWebSite').val(data['website']);
-                        $('#add-comInstitute-modal').modal('show');
+                        $('#mo_comSchool').bootstrapValidator('resetForm', true);
+                        $('#comSchool').val(data['schoolComDes']);
+                        $('#schoolComID').val(data['schoolComID']);
+                        $('#comSchlAddress').val(data['address']);
+                        $('#comSchlMail').val(data['email']);
+                        $('#comSchlPhone').val(data['telephoneNo']);
+                        $('#comSchlTypeID').val(data['type']).change();
+                        $('#comSchlWebSite').val(data['website']);
+                        $('#add-comSchool-modal').modal('show');
                     }
                 },
                 error: function() {

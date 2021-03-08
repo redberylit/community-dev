@@ -8323,10 +8323,10 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
                 $url = 'system/communityNgo/ngo_mo_occupationsMaster';
                 break;
             case 'comSchool':
-                $url = 'system/communityNgo/ngo_mo_schoolsMaster';
+                $url = 'system/communityNgo/ngo_mo_comSchoolsMaster';
                 break;
             case 'comGrade':
-                $url = 'system/crm/lead_status_management';
+                $url = 'system/communityNgo/ngo_mo_schoolGradesMaster';
                 break;
             case 'comMedium':
                 $url = 'system/crm/lead_status_management';
@@ -8451,6 +8451,38 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
         echo json_encode($this->CommunityNgo_model->deleteCommInstitute());
     }
     // end of Institute
+    //school
+    function save_commSchool()
+    {
+        $this->form_validation->set_rules('comSchool', 'School', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communitySchool());
+        }
+    }
+
+    function fetch_commSchool()
+    {
+
+        $this->datatables->select("schoolComID,schoolComDes,address,email,telephoneNo,website,IF(type = 1, 'International School', 'Government School') AS schoolType");
+        $this->datatables->from('srp_erp_ngo_com_schools');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcommSchool($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecommSchool($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'schoolComID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_commSchool()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommSchool());
+    }
+
+    function delete_commSchool()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommSchool());
+    }
+    // end of School
 
     /* end of community system masters */
 }
