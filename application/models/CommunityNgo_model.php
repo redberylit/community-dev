@@ -904,7 +904,7 @@ class CommunityNgo_model extends ERP_Model
         $Com_MasterID = $this->input->post('Com_MasterID');
         $DegreeID = $this->input->post('DegreeID');
         $UniversityID = $this->input->post('UniversityID');
-        $gradeComID = $this->input->post('gradeComID');
+        $grdQualComID = $this->input->post('grdQualComID');
         $CurrentlyReading = $this->input->post('CurrentlyReading');
         $Year = $this->input->post('Year');
         $Remarks = $this->input->post('Remarks');
@@ -913,7 +913,7 @@ class CommunityNgo_model extends ERP_Model
             'Com_MasterID' => $Com_MasterID,
             'DegreeID' => $DegreeID,
             'UniversityID' => $UniversityID,
-            'gradeComID' => $gradeComID,
+            'gradeComID' => $grdQualComID,
             'Remarks' => $Remarks,
             'CurrentlyReading' => $CurrentlyReading,
             'Year' => $Year,
@@ -937,7 +937,7 @@ class CommunityNgo_model extends ERP_Model
         $hidden_id = $this->input->post('hidden-id');
         $DegreeID = $this->input->post('DegreeID');
         $UniversityID = $this->input->post('UniversityID');
-        $gradeComID = $this->input->post('gradeComID');
+        $grdQualComID = $this->input->post('grdQualComID');
         $CurrentlyReading = $this->input->post('CurrentlyReading');
         $Year = $this->input->post('Year');
         $Remarks = $this->input->post('Remarks');
@@ -945,7 +945,7 @@ class CommunityNgo_model extends ERP_Model
         $data = array(
             'DegreeID' => $DegreeID,
             'UniversityID' => $UniversityID,
-            'gradeComID' => $gradeComID,
+            'gradeComID' => $grdQualComID,
             'Remarks' => $Remarks,
             'CurrentlyReading' => $CurrentlyReading,
             'Year' => $Year,
@@ -9327,8 +9327,8 @@ WHERE dds.DocDesID
     }
 
     /* community system masters */
-    //occupation
 
+    //occupation
     function save_communityOccupation()
     {
         $this->db->trans_start();
@@ -9401,8 +9401,8 @@ WHERE dds.DocDesID
         }
     }
     // end of occupation
-    //qualification
 
+    //qualification
     function save_communityQualification()
     {
         $this->db->trans_start();
@@ -9476,90 +9476,90 @@ WHERE dds.DocDesID
     }
     // end of qualification
 
-      //Institute
+    //Institute
 
-      function save_communityInstitute()
-      {
-          $this->db->trans_start();
-          $UniversityID = $this->input->post('UniversityID');
-          $UniversityDescription = $this->input->post('comInstitute');
-          $comInsAddress = $this->input->post('comInsAddress');
-          $comInsMail = $this->input->post('comInsMail');
-          $comInsPhone = $this->input->post('comInsPhone');
-          $comInsWebSite = $this->input->post('comInsWebSite');
-  
-          $data['UniversityDescription'] = $UniversityDescription;
-          $data['address'] = $comInsAddress;
-          $data['email'] = $comInsMail;
-          $data['telephoneNo'] = $comInsPhone;
-          $data['website'] = $comInsWebSite;
-  
-          if (!empty($UniversityID)) {
-  
-              $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_universities WHERE UniversityID != {$UniversityID} AND UniversityDescription ='" . $UniversityDescription . "' ");
-              $rowExitMas = $chkExitMas->row();
-  
-              if (empty($rowExitMas)) {
-                  $this->db->where('UniversityID', $UniversityID);
-                  $this->db->update('srp_erp_ngo_com_universities', $data);
-                  $this->db->trans_complete();
-                  if ($this->db->trans_status() === FALSE) {
-                      $this->db->trans_rollback();
-                      return array('e', 'Institute Update Failed.');
-                  } else {
-                      $this->db->trans_commit();
-                      return array('s', 'Institute Updated Successfully.');
-                  }
-              } else {
-                  return array('e', 'Institute is already available !');
-              }
-          } else {
-  
-              $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_universities WHERE UniversityDescription ='" . $UniversityDescription . "' ");
-              $rowExitMas = $chkExitMas->row();
-  
-              if (empty($rowExitMas)) {
-  
-                  $this->db->insert('srp_erp_ngo_com_universities', $data);
-                  if ($this->db->trans_status() === FALSE) {
-                      $this->db->trans_rollback();
-                      return array('e', 'Institute save failed ' . $this->db->_error_message());
-                  } else {
-                      $this->db->trans_commit();
-                      return array('s', 'Institute saved successfully.');
-                  }
-              } else {
-  
-                  return array('e', 'Institute is already available !');
-              }
-          }
-      }
-  
-      function editCommInstitute()
-      {
-  
-          $EDITid = $this->input->post('UniversityID');
-          $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_universities` WHERE UniversityID = '{$EDITid}'")->row_array();
-          return $data;
-      }
-  
-      function deleteCommInstitute()
-      {
-  
-          $UniversityID = $this->input->post('UniversityID');
-  
-          $isExist = $this->db->query("SELECT QualificationID FROM srp_erp_ngo_com_qualifications WHERE UniversityID = '$UniversityID' AND isDeleted='0'")->row('QualificationID');
-  
-          if (empty($isExist)) {
-              $this->db->delete('srp_erp_ngo_com_universities', array('UniversityID' => trim($UniversityID)));
-              return 'haveDeleted';
-          } else {
-              return 'alreadyExist';
-          }
-      }
-      // end of Institute
+    function save_communityInstitute()
+    {
+        $this->db->trans_start();
+        $UniversityID = $this->input->post('UniversityID');
+        $UniversityDescription = $this->input->post('comInstitute');
+        $comInsAddress = $this->input->post('comInsAddress');
+        $comInsMail = $this->input->post('comInsMail');
+        $comInsPhone = $this->input->post('comInsPhone');
+        $comInsWebSite = $this->input->post('comInsWebSite');
 
-         //school
+        $data['UniversityDescription'] = $UniversityDescription;
+        $data['address'] = $comInsAddress;
+        $data['email'] = $comInsMail;
+        $data['telephoneNo'] = $comInsPhone;
+        $data['website'] = $comInsWebSite;
+
+        if (!empty($UniversityID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_universities WHERE UniversityID != {$UniversityID} AND UniversityDescription ='" . $UniversityDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('UniversityID', $UniversityID);
+                $this->db->update('srp_erp_ngo_com_universities', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Institute Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Institute Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Institute is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_universities WHERE UniversityDescription ='" . $UniversityDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $this->db->insert('srp_erp_ngo_com_universities', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Institute save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Institute saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Institute is already available !');
+            }
+        }
+    }
+
+    function editCommInstitute()
+    {
+
+        $EDITid = $this->input->post('UniversityID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_universities` WHERE UniversityID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommInstitute()
+    {
+
+        $UniversityID = $this->input->post('UniversityID');
+
+        $isExist = $this->db->query("SELECT QualificationID FROM srp_erp_ngo_com_qualifications WHERE UniversityID = '$UniversityID' AND isDeleted='0'")->row('QualificationID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_universities', array('UniversityID' => trim($UniversityID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of Institute
+
+    //school
 
     function save_communitySchool()
     {
@@ -9645,7 +9645,436 @@ WHERE dds.DocDesID
             return 'alreadyExist';
         }
     }
+
+    function get_schoolMediumsData($schoolComID)
+    {
+
+        $primaryLanguage = getPrimaryLanguage();
+        $this->lang->load('communityngo', $primaryLanguage);
+        $this->lang->load('common', $primaryLanguage);
+
+        $getSchl = $this->db->query('SELECT srp_erp_ngo_com_schools.schoolComDes FROM srp_erp_ngo_com_schools WHERE srp_erp_ngo_com_schools.schoolComID = "' . $schoolComID . '" ');
+        $rowSchl = $getSchl->row();
+
+        $selatt = $this->db->query('SELECT srp_erp_ngo_com_schoolmedium.schMediumID,srp_erp_lang_languages.description FROM srp_erp_ngo_com_schoolmedium INNER JOIN srp_erp_ngo_com_schools ON srp_erp_ngo_com_schoolmedium.schoolComID = srp_erp_ngo_com_schools.schoolComID INNER JOIN srp_erp_lang_languages ON srp_erp_lang_languages.languageID = srp_erp_ngo_com_schoolmedium.LanguageID WHERE srp_erp_ngo_com_schoolmedium.schoolComID = "' . $schoolComID . '" ');
+        $res = $selatt->result();
+
+        echo '<h5>' . $this->lang->line('communityngo_School') . ' : <b>' . $rowSchl->schoolComDes . '</b></h4><table cellspacing="0" width="100%"  border="1" style="border: 1px solid #bcb9d9; border-collapse: collapse;">
+        <thead><tr style="font-size:13px;"><th style="text-align:center;">#</th><th style="text-align:center;">' . $this->lang->line('communityngo_medium') . '</th>
+        <th></th></tr></thead><tbody>';
+        $a = 1;
+        if (!empty($res)) {
+            foreach ($res as $rowat) {
+                echo '<tr id="' . $rowat->schMediumID . '" style="text-align: center;"><td>';
+                echo $a;
+                echo '</td><td>';
+                echo $rowat->description;
+                echo '</td><td style="widows: :8%;">';
+                echo '<a class="btn btn-default btn-xxs tool editBtn" id="editBtn' . $rowat->schMediumID . '" style="font-size:11px;margin:2px; float:;" data-toggle="tooltip" title="' . $this->lang->line('common_edit') . '" onclick="edit_schlMedium(this);"><i class="fa fa-pencil-square-o fa-sm"></i></a>';
+
+                echo ' <a class="btn btn-danger btn-xxs" id="deleteSchMedium' . $rowat->schMediumID . '" href="#" onclick="delete_schlMedium(this);" ><i class="fa fa-trash-o"></i></a>';
+                echo '</td></tr>';
+
+                $a++;
+            }
+        } else {
+            echo '<tr><td colspan="3" style="text-align: center;">' . $this->lang->line('common_no_data_available_in_table') . '</td></tr>';
+        }
+        echo '</tbody></table>';
+    }
+
+    function post_schlMedium()
+    {
+        $edit_id = $this->input->post('schMediumID');
+        $schoolComIDs = $this->input->post('schoolComIDs');
+        $schlComMedium = $this->input->post('schlComMedium');
+
+        $posted_dataInset = array(
+            "schoolComID" => $schoolComIDs,
+            "LanguageID" => $schlComMedium,
+
+        );
+        $posted_dataUpdate = array(
+            "schoolComID" => $schoolComIDs,
+            "LanguageID" => $schlComMedium,
+        );
+
+        if ($edit_id == "" || $edit_id == NULL) {
+            $query = $this->db->query("SELECT * FROM srp_erp_ngo_com_schoolmedium WHERE schoolComID='" . $schoolComIDs . "' AND LanguageID='" . $schlComMedium . "'");
+            $res = $query->row();
+            if (!empty($res)) {
+                echo 'available';
+            } else if (empty($res_checkExistance)) {
+                $this->db->insert('srp_erp_ngo_com_schoolmedium', $posted_dataInset);
+                echo 'inserted';
+            }
+        } else {
+            $query = $this->db->query("SELECT * FROM srp_erp_ngo_com_schoolmedium WHERE schMediumID !='" . $edit_id . "' AND schoolComID='" . $schoolComIDs . "' AND LanguageID='" . $schlComMedium . "'");
+            $resEdit = $query->row();
+
+            $qryExist = $this->db->query("SELECT srp_erp_ngo_com_schoolmedium.schMediumID FROM srp_erp_ngo_com_schoolmedium INNER JOIN srp_erp_ngo_com_memjobs schoolCom ON schoolCom.schoolComID =srp_erp_ngo_com_schoolmedium.schoolComID INNER JOIN srp_erp_ngo_com_memjobs schoolLang ON schoolLang.LanguageID =srp_erp_ngo_com_schoolmedium.LanguageID WHERE srp_erp_ngo_com_schoolmedium.schMediumID = '$edit_id' ");
+            $isExist = $qryExist->result();
+            if (!empty($resEdit)) {
+                echo 'available';
+            } elseif (!empty($isExist)) {
+                echo 'exitInMemsJob';
+            } else {
+                $this->db->where('schMediumID', $edit_id);
+                $this->db->update('srp_erp_ngo_com_schoolmedium', $posted_dataUpdate);
+                echo 'Updated';
+            }
+        }
+    }
+
+    public function edit_schlMedium($id)
+    {
+        $query = $this->db->query("SELECT LanguageID FROM  srp_erp_ngo_com_schoolmedium WHERE schMediumID = '" . $id . "'");
+        $res = $query->result();
+        foreach ($res as $row) {
+            echo json_encode(
+                array(
+
+                    "schlComMedium" => $row->LanguageID,
+
+                )
+            );
+        }
+        return $res;
+    }
+
+
+    function delete_schlMedium($del)
+    {
+
+        $qryExist = $this->db->query("SELECT srp_erp_ngo_com_schoolmedium.schMediumID FROM srp_erp_ngo_com_schoolmedium INNER JOIN srp_erp_ngo_com_memjobs schoolCom ON schoolCom.schoolComID =srp_erp_ngo_com_schoolmedium.schoolComID INNER JOIN srp_erp_ngo_com_memjobs schoolLang ON schoolLang.LanguageID =srp_erp_ngo_com_schoolmedium.LanguageID WHERE srp_erp_ngo_com_schoolmedium.schMediumID = '$del' ");
+        $isExist = $qryExist->result();
+        if (empty($isExist)) {
+            $this->db->query('DELETE FROM srp_erp_ngo_com_schoolmedium WHERE schMediumID="' . $del . '"');
+            $dat = 'Deleted';
+        } else {
+            $dat = 'exitInMemJob';
+        }
+
+        echo $dat;
+    }
     // end of school
+
+    //school grade
+    function save_communitySchlGrade()
+    {
+        $this->db->trans_start();
+        $gradeComID = $this->input->post('gradeComID');
+        $gradeComDes = $this->input->post('comSchlGrade');
+
+        $data['gradeComDes'] = $gradeComDes;
+
+        if (!empty($gradeComID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_grades WHERE gradeComID != {$gradeComID} AND gradeComDes ='" . $gradeComDes . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('gradeComID', $gradeComID);
+                $this->db->update('srp_erp_ngo_com_grades', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Grade Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Grade Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Grade is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_grades WHERE gradeComDes ='" . $gradeComDes . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $qrySchlGrdMx = $this->db->query("select IF ( isnull(MAX(SortOrder)), 1, (MAX(SortOrder) + 1) ) AS SortOrder FROM `srp_erp_ngo_com_grades`")->row_array();
+                $data['SortOrder'] = $qrySchlGrdMx['SortOrder'];
+
+                $this->db->insert('srp_erp_ngo_com_grades', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Grade save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Grade saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Grade is already available !');
+            }
+        }
+    }
+
+    function editCommSchlGrade()
+    {
+
+        $EDITid = $this->input->post('gradeComID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_grades` WHERE gradeComID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommSchlGrade()
+    {
+
+        $gradeComID = $this->input->post('gradeComID');
+
+        $isExist = $this->db->query("SELECT MemJobID FROM srp_erp_ngo_com_memjobs WHERE gradeComID = '$gradeComID' ")->row('MemJobID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_grades', array('gradeComID' => trim($gradeComID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of school grade
+
+    //com language
+    function save_communityLanguge()
+    {
+        $this->db->trans_start();
+        $languageID = $this->input->post('languageID');
+        $systemDescription = $this->input->post('comLanguage');
+
+        $data['description'] = $systemDescription;
+        $data['systemDescription'] = strtolower($systemDescription);
+
+        if (!empty($languageID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_lang_languages WHERE languageID != {$languageID} AND systemDescription ='" . $systemDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('languageID', $languageID);
+                $this->db->update('srp_erp_lang_languages', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Language Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Language Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Language is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_lang_languages WHERE systemDescription ='" . $systemDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $data['isActive'] = 1;
+
+                $this->db->insert('srp_erp_lang_languages', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Language save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Language saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Language is already available !');
+            }
+        }
+    }
+
+    function editCommunityLanguge()
+    {
+
+        $EDITid = $this->input->post('languageID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_lang_languages` WHERE languageID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommunityLanguge()
+    {
+
+        $languageID = $this->input->post('languageID');
+
+        $isExist1 = $this->db->query("SELECT MemLanguageID FROM srp_erp_ngo_com_memberlanguage WHERE LanguageID = '$languageID' ")->row('MemLanguageID');
+        $isExist2 = $this->db->query("SELECT schMediumID FROM srp_erp_ngo_com_schoolmedium WHERE LanguageID = '$languageID' ")->row('schMediumID');
+        $isExist3 = $this->db->query("SELECT MemJobID FROM srp_erp_ngo_com_memjobs WHERE LanguageID = '$languageID' ")->row('MemJobID');
+
+        if ((empty($isExist1)) && (empty($isExist2)) && (empty($isExist3))) {
+            $this->db->delete('srp_erp_lang_languages', array('languageID' => trim($languageID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of com language
+
+    //Vehicle
+    function save_communityVehicle()
+    {
+        $this->db->trans_start();
+        $vehicleAutoID = $this->input->post('vehicleAutoID');
+        $vehicleDescription = $this->input->post('comVehicle');
+
+        $data['vehicleDescription'] = $vehicleDescription;
+
+        if (!empty($vehicleAutoID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_vehicles_master WHERE vehicleAutoID != {$vehicleAutoID} AND vehicleDescription ='" . $vehicleDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('vehicleAutoID', $vehicleAutoID);
+                $this->db->update('srp_erp_ngo_com_vehicles_master', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Vehicle Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Vehicle Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Vehicle is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_vehicles_master WHERE vehicleDescription ='" . $vehicleDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $this->db->insert('srp_erp_ngo_com_vehicles_master', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Vehicle save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Vehicle saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Vehicle is already available !');
+            }
+        }
+    }
+
+    function editCommVehicle()
+    {
+
+        $EDITid = $this->input->post('vehicleAutoID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_vehicles_master` WHERE vehicleAutoID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommVehicle()
+    {
+
+        $vehicleAutoID = $this->input->post('vehicleAutoID');
+
+        $isExist = $this->db->query("SELECT memVehicleID FROM srp_erp_ngo_com_membervehicles WHERE vehicleAutoID = '$vehicleAutoID' ")->row('memVehicleID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_vehicles_master', array('vehicleAutoID' => trim($vehicleAutoID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of Vehicle
+
+    //help Details
+    function save_communityHelpDetail()
+    {
+        $this->db->trans_start();
+        $helpRequireID = $this->input->post('helpRequireID');
+        $helpRequireDesc = $this->input->post('comHelpDetail');
+        $helpRequireType = $this->input->post('helpRequireType');
+
+        $data['helpRequireDesc'] = $helpRequireDesc;
+        $data['helpRequireType'] = $helpRequireType;
+
+        if (!empty($helpRequireID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_helprequirements WHERE helpRequireID != {$helpRequireID} AND helpRequireDesc ='" . $helpRequireDesc . "' AND helpRequireType ='" . $helpRequireType . "'");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $data['modifiedPCID'] = $this->common_data['current_pc'];
+                $data['modifiedUserID'] = $this->common_data['current_userID'];
+                $data['modifiedUserName'] = $this->common_data['current_user'];
+                $data['modifiedDateTime'] = $this->common_data['current_date'];
+
+                $this->db->where('helpRequireID', $helpRequireID);
+                $this->db->update('srp_erp_ngo_com_helprequirements', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Help Detail Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Help Detail Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Help Detail is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_helprequirements WHERE helpRequireDesc ='" . $helpRequireDesc . "' AND helpRequireType ='" . $helpRequireType . "'");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $data['createdPCID'] = $this->common_data['current_pc'];
+                $data['createdUserID'] = $this->common_data['current_userID'];
+                $data['createdUserName'] = $this->common_data['current_user'];
+                $data['createdDateTime'] = $this->common_data['current_date'];
+
+                $this->db->insert('srp_erp_ngo_com_helprequirements', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Help Detail save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Help Detail saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Help Detail is already available !');
+            }
+        }
+    }
+
+    function editCommHelpDetail()
+    {
+
+        $EDITid = $this->input->post('helpRequireID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_helprequirements` WHERE helpRequireID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommHelpDetail()
+    {
+
+        $helpRequireID = $this->input->post('helpRequireID');
+
+        $isExist = $this->db->query("SELECT memHelprID FROM srp_erp_ngo_com_memberhelprequirements WHERE helpRequireID = '$helpRequireID' ")->row('memHelprID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_helprequirements', array('helpRequireID' => trim($helpRequireID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of help Details
 
     /* end of community system masters */
 

@@ -35,13 +35,13 @@ $this->lang->load('common', $primaryLanguage);
                 <div class="past-info">
                     <div id="toolbar">
                         <div class="toolbar-title">
-                            <i class="fa fa-google-plus" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>
+                            <i class="fa fa-language" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_Language'); ?>
                         </div>
                         <div class="btn-toolbar btn-toolbar-small pull-right">
-                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForSchlGrade();"><?php echo $this->lang->line('communityngo_schoolGrade_add'); ?>
+                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForComLanguage();"><?php echo $this->lang->line('communityngo_addLanguage'); ?>
                             </button>
                         </div>
-                        <!--Schl Grade-->
+                        <!--ComLanguage-->
                         <div class="btn-toolbar btn-toolbar-small pull-right">
 
                         </div>
@@ -51,7 +51,7 @@ $this->lang->load('common', $primaryLanguage);
 
                             <div class="system-settings">
 
-                                <table id="SchlGradesTable" class="table ">
+                                <table id="ComLanguagesTable" class="table ">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -70,24 +70,24 @@ $this->lang->load('common', $primaryLanguage);
         </section>
     </div>
 
-    <div id="add-comSchlGrade-modal" class="modal fade" role="dialog">
+    <div id="add-comLanguage-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="comSchlGradetitle"> <?php echo $this->lang->line('communityngo_SchoolGrade'); ?></h4>
+                    <h4 class="modal-title" id="comLanguagetitle"> <?php echo $this->lang->line('communityngo_Language'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" id="mo_comSchlGrade">
-                        <input type="hidden" class="form-control " id="gradeComID" name="gradeComID">
+                    <form class="form-horizontal" id="mo_comLanguage">
+                        <input type="hidden" class="form-control " id="languageID" name="languageID">
                         <div class="row" style="margin-top: 10px;">
                             <div class="form-group col-sm-4 col-md-offset-1">
-                                <label class="title"> <?php echo $this->lang->line('communityngo_SchoolGrade'); ?></label>
+                                <label class="title"> <?php echo $this->lang->line('communityngo_Language'); ?></label>
                             </div>
                             <div class="form-group col-sm-6">
                                 <span class="input-req" title="Required Field">
-                                    <input type="text" class="form-control " id="comSchlGrade" name="comSchlGrade" placeholder="<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>">
+                                    <input type="text" class="form-control " id="comLanguage" name="comLanguage" placeholder="<?php echo $this->lang->line('communityngo_Language'); ?>">
                                     <span class="input-req-inner"></span>
                                 </span>
                             </div>
@@ -95,7 +95,7 @@ $this->lang->load('common', $primaryLanguage);
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcomSchlGrade();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
+                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcomLanguage();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
                     </button>
                 </div>
             </div>
@@ -104,18 +104,18 @@ $this->lang->load('common', $primaryLanguage);
     </div>
 
     <script>
-        fetch_SchlGrades();
+        fetch_ComLanguages();
 
-        function get_popupForSchlGrade() {
-            $('#mo_comSchlGrade')[0].reset();
-            $('#mo_comSchlGrade').bootstrapValidator('resetForm', true);
-            $('#comSchlGradetitle').text('<?php echo $this->lang->line('communityngo_schoolGrade_add'); ?>');
-            $('#comSchlGrade').val('');
-            $('#gradeComID').val('');
-            $('#add-comSchlGrade-modal').modal('show');
+        function get_popupForComLanguage() {
+            $('#mo_comLanguage')[0].reset();
+            $('#mo_comLanguage').bootstrapValidator('resetForm', true);
+            $('#comLanguagetitle').text('<?php echo $this->lang->line('communityngo_addLanguage'); ?>');
+            $('#comLanguage').val('');
+            $('#languageID').val('');
+            $('#add-comLanguage-modal').modal('show');
         }
 
-        function deleteComSchlGrade(gradeComID) {
+        function deletecomLanguage(languageID) {
             swal({
                     title: "<?php echo $this->lang->line('common_are_you_sure'); ?>",
                     /*Are you sure?*/
@@ -134,9 +134,9 @@ $this->lang->load('common', $primaryLanguage);
                         type: 'post',
                         dataType: 'json',
                         data: {
-                            'gradeComID': gradeComID
+                            'languageID': languageID
                         },
-                        url: "<?php echo site_url('CommunityNgo/delete_comSchlGrade'); ?>",
+                        url: "<?php echo site_url('CommunityNgo/delete_communityLanguge'); ?>",
                         beforeSend: function() {
                             startLoad();
                         },
@@ -147,9 +147,9 @@ $this->lang->load('common', $primaryLanguage);
                                 myAlert('s', 'Deleted Successfully');
                             }
                             if (data == "alreadyExist") {
-                                myAlert('e', 'Can not delete! Grade already exists in member job.');
+                                myAlert('e', 'Can not delete! Language already exists in community.');
                             }
-                            fetch_SchlGrades();
+                            fetch_ComLanguages();
 
                         },
                         error: function() {
@@ -159,13 +159,13 @@ $this->lang->load('common', $primaryLanguage);
                 });
         }
 
-        function fetch_SchlGrades() {
-            var Otable = $('#SchlGradesTable').DataTable({
+        function fetch_ComLanguages() {
+            var Otable = $('#ComLanguagesTable').DataTable({
                 "bProcessing": true,
                 "bServerSide": true,
                 "bDestroy": true,
                 "bStateSave": true,
-                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_comSchlGrade'); ?>",
+                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_communityLanguge'); ?>",
                 "aaSorting": [
                     [1, 'desc']
                 ],
@@ -197,10 +197,10 @@ $this->lang->load('common', $primaryLanguage);
                     },
                 ],
                 "aoColumns": [{
-                        "mData": "gradeComID"
+                        "mData": "languageID"
                     },
                     {
-                        "mData": "gradeComDes"
+                        "mData": "description"
                     },
                     {
                         "mData": "edit"
@@ -223,14 +223,14 @@ $this->lang->load('common', $primaryLanguage);
         }
 
 
-        function submitcomSchlGrade() {
-            var data = $('#mo_comSchlGrade').serializeArray();
+        function submitcomLanguage() {
+            var data = $('#mo_comLanguage').serializeArray();
             $.ajax({
                 async: true,
                 type: 'post',
                 dataType: 'json',
                 data: data,
-                url: "<?php echo site_url('CommunityNgo/save_comSchlGrade'); ?>",
+                url: "<?php echo site_url('CommunityNgo/save_communityLanguge'); ?>",
                 beforeSend: function() {
                     startLoad();
                 },
@@ -239,9 +239,9 @@ $this->lang->load('common', $primaryLanguage);
                     stopLoad();
 
                     if (data[0] == 's') {
-                        $('#comSchlGrade').val('');
-                        fetch_SchlGrades();
-                        $('#add-comSchlGrade-modal').modal('hide');
+                        $('#comLanguage').val('');
+                        fetch_ComLanguages();
+                        $('#add-comLanguage-modal').modal('hide');
                     }
 
 
@@ -252,25 +252,25 @@ $this->lang->load('common', $primaryLanguage);
             });
         }
 
-        function editcomSchlGrade(gradeComID) {
+        function editcomLanguage(languageID) {
             $.ajax({
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    gradeComID: gradeComID
+                    languageID: languageID
                 },
-                url: "<?php echo site_url('CommunityNgo/edit_comSchlGrade'); ?>",
+                url: "<?php echo site_url('CommunityNgo/edit_communityLanguge'); ?>",
                 beforeSend: function() {
                     startLoad();
-                    $('#comSchlGradetitle').text('<?php echo $this->lang->line('communityngo_schoolGrade_edit'); ?>');
+                    $('#comLanguagetitle').text('<?php echo $this->lang->line('communityngo_Language_edit'); ?>');
                 },
                 success: function(data) {
                     stopLoad();
                     if (!jQuery.isEmptyObject(data)) {
-                        $('#mo_comSchlGrade').bootstrapValidator('resetForm', true);
-                        $('#comSchlGrade').val(data['gradeComDes']);
-                        $('#gradeComID').val(data['gradeComID']);
-                        $('#add-comSchlGrade-modal').modal('show');
+                        $('#mo_comLanguage').bootstrapValidator('resetForm', true);
+                        $('#comLanguage').val(data['description']);
+                        $('#languageID').val(data['languageID']);
+                        $('#add-comLanguage-modal').modal('show');
                     }
                 },
                 error: function() {

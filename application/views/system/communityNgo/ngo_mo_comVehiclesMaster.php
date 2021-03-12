@@ -35,13 +35,13 @@ $this->lang->load('common', $primaryLanguage);
                 <div class="past-info">
                     <div id="toolbar">
                         <div class="toolbar-title">
-                            <i class="fa fa-google-plus" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>
+                            <i class="fa fa-bus" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_vehicle_details'); ?>
                         </div>
                         <div class="btn-toolbar btn-toolbar-small pull-right">
-                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForSchlGrade();"><?php echo $this->lang->line('communityngo_schoolGrade_add'); ?>
+                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForVehicle();"><?php echo $this->lang->line('communityngo_vehicle_details_add'); ?>
                             </button>
                         </div>
-                        <!--Schl Grade-->
+                        <!--Vehicle-->
                         <div class="btn-toolbar btn-toolbar-small pull-right">
 
                         </div>
@@ -51,7 +51,7 @@ $this->lang->load('common', $primaryLanguage);
 
                             <div class="system-settings">
 
-                                <table id="SchlGradesTable" class="table ">
+                                <table id="VehiclesTable" class="table ">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -70,24 +70,24 @@ $this->lang->load('common', $primaryLanguage);
         </section>
     </div>
 
-    <div id="add-comSchlGrade-modal" class="modal fade" role="dialog">
+    <div id="add-comVehicle-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="comSchlGradetitle"> <?php echo $this->lang->line('communityngo_SchoolGrade'); ?></h4>
+                    <h4 class="modal-title" id="comVehicletitle"> <?php echo $this->lang->line('communityngo_vehicle'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" id="mo_comSchlGrade">
-                        <input type="hidden" class="form-control " id="gradeComID" name="gradeComID">
+                    <form class="form-horizontal" id="mo_comVehicle">
+                        <input type="hidden" class="form-control " id="vehicleAutoID" name="vehicleAutoID">
                         <div class="row" style="margin-top: 10px;">
                             <div class="form-group col-sm-4 col-md-offset-1">
-                                <label class="title"> <?php echo $this->lang->line('communityngo_SchoolGrade'); ?></label>
+                                <label class="title"> <?php echo $this->lang->line('communityngo_vehicle'); ?></label>
                             </div>
                             <div class="form-group col-sm-6">
                                 <span class="input-req" title="Required Field">
-                                    <input type="text" class="form-control " id="comSchlGrade" name="comSchlGrade" placeholder="<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>">
+                                    <input type="text" class="form-control " id="comVehicle" name="comVehicle" placeholder="<?php echo $this->lang->line('communityngo_vehicle'); ?>">
                                     <span class="input-req-inner"></span>
                                 </span>
                             </div>
@@ -95,7 +95,7 @@ $this->lang->load('common', $primaryLanguage);
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcomSchlGrade();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
+                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcomVehicle();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
                     </button>
                 </div>
             </div>
@@ -104,18 +104,18 @@ $this->lang->load('common', $primaryLanguage);
     </div>
 
     <script>
-        fetch_SchlGrades();
+        fetch_Vehicles();
 
-        function get_popupForSchlGrade() {
-            $('#mo_comSchlGrade')[0].reset();
-            $('#mo_comSchlGrade').bootstrapValidator('resetForm', true);
-            $('#comSchlGradetitle').text('<?php echo $this->lang->line('communityngo_schoolGrade_add'); ?>');
-            $('#comSchlGrade').val('');
-            $('#gradeComID').val('');
-            $('#add-comSchlGrade-modal').modal('show');
+        function get_popupForVehicle() {
+            $('#mo_comVehicle')[0].reset();
+            $('#mo_comVehicle').bootstrapValidator('resetForm', true);
+            $('#comVehicletitle').text('<?php echo $this->lang->line('communityngo_vehicle_details_add'); ?>');
+            $('#comVehicle').val('');
+            $('#vehicleAutoID').val('');
+            $('#add-comVehicle-modal').modal('show');
         }
 
-        function deleteComSchlGrade(gradeComID) {
+        function deletecomVehicle(vehicleAutoID) {
             swal({
                     title: "<?php echo $this->lang->line('common_are_you_sure'); ?>",
                     /*Are you sure?*/
@@ -134,9 +134,9 @@ $this->lang->load('common', $primaryLanguage);
                         type: 'post',
                         dataType: 'json',
                         data: {
-                            'gradeComID': gradeComID
+                            'vehicleAutoID': vehicleAutoID
                         },
-                        url: "<?php echo site_url('CommunityNgo/delete_comSchlGrade'); ?>",
+                        url: "<?php echo site_url('CommunityNgo/delete_comVehicle'); ?>",
                         beforeSend: function() {
                             startLoad();
                         },
@@ -147,9 +147,9 @@ $this->lang->load('common', $primaryLanguage);
                                 myAlert('s', 'Deleted Successfully');
                             }
                             if (data == "alreadyExist") {
-                                myAlert('e', 'Can not delete! Grade already exists in member job.');
+                                myAlert('e', 'Can not delete! Vehicle already exists in member property.');
                             }
-                            fetch_SchlGrades();
+                            fetch_Vehicles();
 
                         },
                         error: function() {
@@ -159,13 +159,13 @@ $this->lang->load('common', $primaryLanguage);
                 });
         }
 
-        function fetch_SchlGrades() {
-            var Otable = $('#SchlGradesTable').DataTable({
+        function fetch_Vehicles() {
+            var Otable = $('#VehiclesTable').DataTable({
                 "bProcessing": true,
                 "bServerSide": true,
                 "bDestroy": true,
                 "bStateSave": true,
-                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_comSchlGrade'); ?>",
+                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_comVehicle'); ?>",
                 "aaSorting": [
                     [1, 'desc']
                 ],
@@ -197,10 +197,10 @@ $this->lang->load('common', $primaryLanguage);
                     },
                 ],
                 "aoColumns": [{
-                        "mData": "gradeComID"
+                        "mData": "vehicleAutoID"
                     },
                     {
-                        "mData": "gradeComDes"
+                        "mData": "vehicleDescription"
                     },
                     {
                         "mData": "edit"
@@ -223,14 +223,14 @@ $this->lang->load('common', $primaryLanguage);
         }
 
 
-        function submitcomSchlGrade() {
-            var data = $('#mo_comSchlGrade').serializeArray();
+        function submitcomVehicle() {
+            var data = $('#mo_comVehicle').serializeArray();
             $.ajax({
                 async: true,
                 type: 'post',
                 dataType: 'json',
                 data: data,
-                url: "<?php echo site_url('CommunityNgo/save_comSchlGrade'); ?>",
+                url: "<?php echo site_url('CommunityNgo/save_comVehicle'); ?>",
                 beforeSend: function() {
                     startLoad();
                 },
@@ -239,9 +239,9 @@ $this->lang->load('common', $primaryLanguage);
                     stopLoad();
 
                     if (data[0] == 's') {
-                        $('#comSchlGrade').val('');
-                        fetch_SchlGrades();
-                        $('#add-comSchlGrade-modal').modal('hide');
+                        $('#comVehicle').val('');
+                        fetch_Vehicles();
+                        $('#add-comVehicle-modal').modal('hide');
                     }
 
 
@@ -252,25 +252,25 @@ $this->lang->load('common', $primaryLanguage);
             });
         }
 
-        function editcomSchlGrade(gradeComID) {
+        function editcomVehicle(vehicleAutoID) {
             $.ajax({
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    gradeComID: gradeComID
+                    vehicleAutoID: vehicleAutoID
                 },
-                url: "<?php echo site_url('CommunityNgo/edit_comSchlGrade'); ?>",
+                url: "<?php echo site_url('CommunityNgo/edit_comVehicle'); ?>",
                 beforeSend: function() {
                     startLoad();
-                    $('#comSchlGradetitle').text('<?php echo $this->lang->line('communityngo_schoolGrade_edit'); ?>');
+                    $('#comVehicletitle').text('<?php echo $this->lang->line('communityngo_vehicle_details_edit'); ?>');
                 },
                 success: function(data) {
                     stopLoad();
                     if (!jQuery.isEmptyObject(data)) {
-                        $('#mo_comSchlGrade').bootstrapValidator('resetForm', true);
-                        $('#comSchlGrade').val(data['gradeComDes']);
-                        $('#gradeComID').val(data['gradeComID']);
-                        $('#add-comSchlGrade-modal').modal('show');
+                        $('#mo_comVehicle').bootstrapValidator('resetForm', true);
+                        $('#comVehicle').val(data['vehicleDescription']);
+                        $('#vehicleAutoID').val(data['vehicleAutoID']);
+                        $('#add-comVehicle-modal').modal('show');
                     }
                 },
                 error: function() {

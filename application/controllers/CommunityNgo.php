@@ -8328,23 +8328,20 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
             case 'comGrade':
                 $url = 'system/communityNgo/ngo_mo_schoolGradesMaster';
                 break;
-            case 'comMedium':
-                $url = 'system/crm/lead_status_management';
-                break;
             case 'qualification':
                 $url = 'system/communityNgo/ngo_mo_qualificationsMaster';
                 break;
             case 'cmInstitute':
                 $url = 'system/communityNgo/ngo_mo_institutesMaster';
                 break;
-            case 'comProperty':
-                $url = 'system/crm/lead_status_management';
-                break;
             case 'comVehicle':
-                $url = 'system/crm/lead_status_management';
+                $url = 'system/communityNgo/ngo_mo_comVehiclesMaster';
                 break;
             case 'comHelpType':
-                $url = 'system/crm/lead_status_management';
+                $url = 'system/communityNgo/ngo_mo_comHelpDetialsMaster';
+                break;
+            case 'comLanguage':
+                $url = 'system/communityNgo/ngo_mo_comLanguagesMaster';
                 break;
             default:
                 $url = '';
@@ -8451,6 +8448,7 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
         echo json_encode($this->CommunityNgo_model->deleteCommInstitute());
     }
     // end of Institute
+
     //school
     function save_commSchool()
     {
@@ -8469,7 +8467,9 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
         $this->datatables->select("schoolComID,schoolComDes,address,email,telephoneNo,website,IF(type = 1, 'International School', 'Government School') AS schoolType");
         $this->datatables->from('srp_erp_ngo_com_schools');
 
-        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcommSchool($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecommSchool($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'schoolComID');
+        $this->datatables->add_column('edit', '<span class="pull-right"><a onclick="get_schoolMedium($1)"><span title="School Mediums" rel="tooltip" class="fa fa-language" style="font-size:15px;color:green;"></span></a>&nbsp;&nbsp;
+         |&nbsp;&nbsp;<a href="#" onclick="editcommSchool($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a>
+         |&nbsp;&nbsp;<a onclick="deletecommSchool($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'schoolComID');
         echo $this->datatables->generate();
     }
 
@@ -8482,7 +8482,168 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
     {
         echo json_encode($this->CommunityNgo_model->deleteCommSchool());
     }
+
+    public function get_schoolMediumsData()
+    {
+        $schoolComID = $_POST['schoolComID'];
+        $this->load->model('CommunityNgo_model');
+        $this->CommunityNgo_model->get_schoolMediumsData($schoolComID);
+    }
+
+    public function post_schlMedium()
+    {
+        $this->load->model('CommunityNgo_model');
+        $this->CommunityNgo_model->post_schlMedium();
+    }
+
+    public function edit_schlMedium()
+    {
+        $de = $_POST['id'];
+        $id = $de[0];
+        $this->load->model('CommunityNgo_model');
+        $this->CommunityNgo_model->edit_schlMedium($id);
+    }
+
+    public function delete_schlMedium()
+    {
+        $delid = $_POST['delid'];
+        $del = $delid[0];
+        $this->load->model('CommunityNgo_model');
+        $this->CommunityNgo_model->delete_schlMedium($del);
+    }
     // end of School
+
+    //school grade
+    function save_comSchlGrade()
+    {
+        $this->form_validation->set_rules('comSchlGrade', 'Grade', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communitySchlGrade());
+        }
+    }
+
+    function fetch_comSchlGrade()
+    {
+
+        $this->datatables->select("gradeComID,gradeComDes");
+        $this->datatables->from('srp_erp_ngo_com_grades');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcomSchlGrade($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deleteComSchlGrade($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'gradeComID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_comSchlGrade()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommSchlGrade());
+    }
+
+    function delete_comSchlGrade()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommSchlGrade());
+    }
+    // end of school grade
+
+    //com language
+    function save_communityLanguge()
+    {
+        $this->form_validation->set_rules('comLanguage', 'Language', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityLanguge());
+        }
+    }
+
+    function fetch_communityLanguge()
+    {
+
+        $this->datatables->select("languageID,description");
+        $this->datatables->from('srp_erp_lang_languages');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcomLanguage($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecomLanguage($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'languageID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_communityLanguge()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommunityLanguge());
+    }
+
+    function delete_communityLanguge()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommunityLanguge());
+    }
+    // end of com language
+
+    //Vehicle
+    function save_comVehicle()
+    {
+        $this->form_validation->set_rules('comVehicle', 'Vehicle', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityVehicle());
+        }
+    }
+
+    function fetch_comVehicle()
+    {
+
+        $this->datatables->select("vehicleAutoID,vehicleDescription");
+        $this->datatables->from('srp_erp_ngo_com_vehicles_master');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcomVehicle($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecomVehicle($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'vehicleAutoID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_comVehicle()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommVehicle());
+    }
+
+    function delete_comVehicle()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommVehicle());
+    }
+    // end of Vehicle
+
+    //help Details
+    function save_commHelpDetail()
+    {
+        $this->form_validation->set_rules('comHelpDetail', 'Help Detail', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityHelpDetail());
+        }
+    }
+
+    function fetch_commHelpDetail()
+    {
+
+        $this->datatables->select("helpRequireID,helpRequireDesc,CASE WHEN helpRequireType = 'GOV' THEN 'Government Help' WHEN helpRequireType = 'PVT' THEN 'Private Help' WHEN helpRequireType = 'CONS' THEN 'Consultancy' ELSE 'Other (Specify)' END AS HelpDetailType");
+        $this->datatables->from('srp_erp_ngo_com_helprequirements');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcommHelpDetail($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecommHelpDetail($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'helpRequireID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_commHelpDetail()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommHelpDetail());
+    }
+
+    function delete_commHelpDetail()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommHelpDetail());
+    }
+    // end of help Details
 
     /* end of community system masters */
 }

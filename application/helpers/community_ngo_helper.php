@@ -1804,9 +1804,9 @@ if (!function_exists('fetch_permanentSickness')) {
 }
 
 /* Vehicle Master */
-if (!function_exists('fetch_vehicleMaster')) {
+if (!function_exists('fetch_vehiclesMaster')) {
 
-    function fetch_vehicleMaster($status = true)
+    function fetch_vehiclesMaster($status = true)
     {
         $CI = &get_instance();
         $CI->db->SELECT("vehicleAutoID,vehicleDescription");

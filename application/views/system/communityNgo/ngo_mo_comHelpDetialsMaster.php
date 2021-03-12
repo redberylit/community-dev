@@ -35,13 +35,13 @@ $this->lang->load('common', $primaryLanguage);
                 <div class="past-info">
                     <div id="toolbar">
                         <div class="toolbar-title">
-                            <i class="fa fa-google-plus" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>
+                            <i class="fa fa-list" aria-hidden="true"></i> &nbsp;<?php echo $this->lang->line('communityngo_memHelp_details'); ?>
                         </div>
                         <div class="btn-toolbar btn-toolbar-small pull-right">
-                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForSchlGrade();"><?php echo $this->lang->line('communityngo_schoolGrade_add'); ?>
+                            <button class="btn btn-primary btn-xs bottom10" data-toggle="modal" onclick="get_popupForHelpDetail();"><?php echo $this->lang->line('communityngo_memHelp_detail_add'); ?>
                             </button>
                         </div>
-                        <!--Schl Grade-->
+                        <!--HelpDetail-->
                         <div class="btn-toolbar btn-toolbar-small pull-right">
 
                         </div>
@@ -51,13 +51,13 @@ $this->lang->load('common', $primaryLanguage);
 
                             <div class="system-settings">
 
-                                <table id="SchlGradesTable" class="table ">
+                                <table id="HelpDetailsTable" class="table ">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th><?php echo $this->lang->line('common_description'); ?> </th>
-                                            <!--Description-->
-                                            <th></th>
+                                            <th style="width:8%;">#</th>
+                                            <th style="width:50%;"><?php echo $this->lang->line('common_description'); ?> </th>
+                                            <th style="width:32%;"><?php echo $this->lang->line('communityngo_memHelp_type'); ?> </th>
+                                            <th style="width:10%;"></th>
                                         </tr>
                                     </thead>
 
@@ -70,32 +70,46 @@ $this->lang->load('common', $primaryLanguage);
         </section>
     </div>
 
-    <div id="add-comSchlGrade-modal" class="modal fade" role="dialog">
+    <div id="add-comHelpDetail-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="comSchlGradetitle"> <?php echo $this->lang->line('communityngo_SchoolGrade'); ?></h4>
+                    <h4 class="modal-title" id="comHelpDetailtitle"> <?php echo $this->lang->line('communityngo_memHelp_details'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" id="mo_comSchlGrade">
-                        <input type="hidden" class="form-control " id="gradeComID" name="gradeComID">
+                    <form class="form-horizontal" id="mo_comHelpDetail">
+                        <input type="hidden" class="form-control " id="helpRequireID" name="helpRequireID">
                         <div class="row" style="margin-top: 10px;">
                             <div class="form-group col-sm-4 col-md-offset-1">
-                                <label class="title"> <?php echo $this->lang->line('communityngo_SchoolGrade'); ?></label>
+                                <label class="title"> <?php echo $this->lang->line('communityngo_memHelp_details'); ?></label>
                             </div>
                             <div class="form-group col-sm-6">
                                 <span class="input-req" title="Required Field">
-                                    <input type="text" class="form-control " id="comSchlGrade" name="comSchlGrade" placeholder="<?php echo $this->lang->line('communityngo_SchoolGrade'); ?>">
+                                    <input type="text" class="form-control " id="comHelpDetail" name="comHelpDetail" placeholder="<?php echo $this->lang->line('communityngo_memHelp_details'); ?>">
                                     <span class="input-req-inner"></span>
                                 </span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="form-group col-sm-4 col-md-offset-1">
+                                <label class="title"> <?php echo $this->lang->line('communityngo_memHelp_type'); ?></label>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <select id="helpRequireType" class="form-control select2" data-placeholder="<?php echo $this->lang->line('communityngo_memHelp_type'); ?>" name="helpRequireType">
+                                    <option value=""></option>
+                                    <option value="GOV">Government Help</option>
+                                    <option value="PVT">Private Help</option>
+                                    <option value="CONS">Consultancy</option>
+                                    <option value="OTHER">Other (Specify)</option>
+                                </select>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcomSchlGrade();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
+                    <button type="submit" class="btn btn-sm btn-primary" onclick="submitcommHelpDetail();"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> <?php echo $this->lang->line('common_save'); ?>
                     </button>
                 </div>
             </div>
@@ -104,18 +118,25 @@ $this->lang->load('common', $primaryLanguage);
     </div>
 
     <script>
-        fetch_SchlGrades();
+        fetch_HelpDetails();
 
-        function get_popupForSchlGrade() {
-            $('#mo_comSchlGrade')[0].reset();
-            $('#mo_comSchlGrade').bootstrapValidator('resetForm', true);
-            $('#comSchlGradetitle').text('<?php echo $this->lang->line('communityngo_schoolGrade_add'); ?>');
-            $('#comSchlGrade').val('');
-            $('#gradeComID').val('');
-            $('#add-comSchlGrade-modal').modal('show');
+        $(document).ready(function() {
+
+            $('.select2').select2();
+
+        });
+
+        function get_popupForHelpDetail() {
+            $('#mo_comHelpDetail')[0].reset();
+            $('#mo_comHelpDetail').bootstrapValidator('resetForm', true);
+            $('#comHelpDetailtitle').text('<?php echo $this->lang->line('communityngo_memHelp_detail_add'); ?>');
+            $('#comHelpDetail').val('');
+            $('#helpRequireID').val('');
+            $('#helpRequireType').val('').change();
+            $('#add-comHelpDetail-modal').modal('show');
         }
 
-        function deleteComSchlGrade(gradeComID) {
+        function deletecommHelpDetail(helpRequireID) {
             swal({
                     title: "<?php echo $this->lang->line('common_are_you_sure'); ?>",
                     /*Are you sure?*/
@@ -134,9 +155,9 @@ $this->lang->load('common', $primaryLanguage);
                         type: 'post',
                         dataType: 'json',
                         data: {
-                            'gradeComID': gradeComID
+                            'helpRequireID': helpRequireID
                         },
-                        url: "<?php echo site_url('CommunityNgo/delete_comSchlGrade'); ?>",
+                        url: "<?php echo site_url('CommunityNgo/delete_commHelpDetail'); ?>",
                         beforeSend: function() {
                             startLoad();
                         },
@@ -147,9 +168,9 @@ $this->lang->load('common', $primaryLanguage);
                                 myAlert('s', 'Deleted Successfully');
                             }
                             if (data == "alreadyExist") {
-                                myAlert('e', 'Can not delete! Grade already exists in member job.');
+                                myAlert('e', 'Can not delete! Help Detail already exists in member help requirement.');
                             }
-                            fetch_SchlGrades();
+                            fetch_HelpDetails();
 
                         },
                         error: function() {
@@ -159,13 +180,13 @@ $this->lang->load('common', $primaryLanguage);
                 });
         }
 
-        function fetch_SchlGrades() {
-            var Otable = $('#SchlGradesTable').DataTable({
+        function fetch_HelpDetails() {
+            var Otable = $('#HelpDetailsTable').DataTable({
                 "bProcessing": true,
                 "bServerSide": true,
                 "bDestroy": true,
                 "bStateSave": true,
-                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_comSchlGrade'); ?>",
+                "sAjaxSource": "<?php echo site_url('CommunityNgo/fetch_commHelpDetail'); ?>",
                 "aaSorting": [
                     [1, 'desc']
                 ],
@@ -188,19 +209,26 @@ $this->lang->load('common', $primaryLanguage);
                         "targets": 0
                     },
                     {
-                        "width": "7%",
+                        "width": "5%",
                         "targets": 1
                     },
                     {
-                        "width": "1%",
+                        "width": "2%",
                         "targets": 2
+                    },
+                    {
+                        "width": "1%",
+                        "targets": 3
                     },
                 ],
                 "aoColumns": [{
-                        "mData": "gradeComID"
+                        "mData": "helpRequireID"
                     },
                     {
-                        "mData": "gradeComDes"
+                        "mData": "helpRequireDesc"
+                    },
+                    {
+                        "mData": "HelpDetailType"
                     },
                     {
                         "mData": "edit"
@@ -223,14 +251,14 @@ $this->lang->load('common', $primaryLanguage);
         }
 
 
-        function submitcomSchlGrade() {
-            var data = $('#mo_comSchlGrade').serializeArray();
+        function submitcommHelpDetail() {
+            var data = $('#mo_comHelpDetail').serializeArray();
             $.ajax({
                 async: true,
                 type: 'post',
                 dataType: 'json',
                 data: data,
-                url: "<?php echo site_url('CommunityNgo/save_comSchlGrade'); ?>",
+                url: "<?php echo site_url('CommunityNgo/save_commHelpDetail'); ?>",
                 beforeSend: function() {
                     startLoad();
                 },
@@ -239,9 +267,10 @@ $this->lang->load('common', $primaryLanguage);
                     stopLoad();
 
                     if (data[0] == 's') {
-                        $('#comSchlGrade').val('');
-                        fetch_SchlGrades();
-                        $('#add-comSchlGrade-modal').modal('hide');
+                        $('#comHelpDetail').val('');
+                        $('#helpRequireType').val('').change();
+                        fetch_HelpDetails();
+                        $('#add-comHelpDetail-modal').modal('hide');
                     }
 
 
@@ -252,25 +281,26 @@ $this->lang->load('common', $primaryLanguage);
             });
         }
 
-        function editcomSchlGrade(gradeComID) {
+        function editcommHelpDetail(helpRequireID) {
             $.ajax({
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    gradeComID: gradeComID
+                    helpRequireID: helpRequireID
                 },
-                url: "<?php echo site_url('CommunityNgo/edit_comSchlGrade'); ?>",
+                url: "<?php echo site_url('CommunityNgo/edit_commHelpDetail'); ?>",
                 beforeSend: function() {
                     startLoad();
-                    $('#comSchlGradetitle').text('<?php echo $this->lang->line('communityngo_schoolGrade_edit'); ?>');
+                    $('#comHelpDetailtitle').text('<?php echo $this->lang->line('communityngo_memHelp_detail_edit'); ?>');
                 },
                 success: function(data) {
                     stopLoad();
                     if (!jQuery.isEmptyObject(data)) {
-                        $('#mo_comSchlGrade').bootstrapValidator('resetForm', true);
-                        $('#comSchlGrade').val(data['gradeComDes']);
-                        $('#gradeComID').val(data['gradeComID']);
-                        $('#add-comSchlGrade-modal').modal('show');
+                        $('#mo_comHelpDetail').bootstrapValidator('resetForm', true);
+                        $('#comHelpDetail').val(data['helpRequireDesc']);
+                        $('#helpRequireID').val(data['helpRequireID']);
+                        $('#helpRequireType').val(data['helpRequireType']).change();
+                        $('#add-comHelpDetail-modal').modal('show');
                     }
                 },
                 error: function() {

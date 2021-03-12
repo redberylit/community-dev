@@ -29,6 +29,7 @@ $this->lang->load('common', $primaryLanguage);
 
 $this->load->helper('community_ngo_helper');
 $schoolTypes = load_schoolTypes();
+$language = load_language();
 
 ?>
 
@@ -59,13 +60,13 @@ $schoolTypes = load_schoolTypes();
                                     <thead>
                                         <tr>
                                             <th style="width:5%;">#</th>
-                                            <th style="width:30%;"><?php echo $this->lang->line('common_description'); ?> </th>
+                                            <th style="width:25%;"><?php echo $this->lang->line('common_description'); ?> </th>
                                             <th style="width:15%;"><?php echo $this->lang->line('common_address'); ?> </th>
                                             <th style="width:10%;"><?php echo $this->lang->line('common_email'); ?> </th>
                                             <th style="width:10%;"><?php echo $this->lang->line('common_telephone'); ?> </th>
                                             <th style="width:10%;"><?php echo $this->lang->line('communityngo_SchoolType'); ?> </th>
                                             <th style="width:10%;"><?php echo $this->lang->line('common_web'); ?> </th>
-                                            <th style="width:10%;"></th>
+                                            <th style="width:15%;"></th>
                                         </tr>
                                     </thead>
 
@@ -163,6 +164,65 @@ $schoolTypes = load_schoolTypes();
             </div>
 
         </div>
+    </div>
+
+    <div class="modal fade" id="schlMedium_modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <form id="schlMedium_form" method="post" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <table border="0">
+                            <tr>
+                                <td style="padding:2px; text-align: left; width: 95%;">
+                                    <h4 class="modal-title" id="comSchlMediumTitle"><?php echo $this->lang->line('communityngo_addSchMedium'); ?></h4>
+                                </td>
+                                <td style="padding:2px; width: 5%;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="ResetSchlMediumMod();" id="closeAtt">
+                                        <span aria-hidden="true">&times;</span></button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row-fluid">
+                            <div class="form-group span4">
+                                <input type="hidden" name="schoolComIDs" id="schoolComIDs">
+                                <input type="hidden" name="schMediumID" id="schMediumID">
+
+                                <label for="schlComMedium" class="control-label"><?php echo $this->lang->line('communityngo_medium'); ?>:</label>
+                                <select class="form-control input-sm select2" id="schlComMedium" name="schlComMedium" style="width:50%; margin-bottom: 0px;" data-placeholder="<?php echo $this->lang->line('communityngo_medium'); ?>">
+                                    <option value=""></option>
+                                    <?php
+                                    if (!empty($language)) {
+                                        foreach ($language as $val) {
+                                    ?>
+                                            <option value="<?php echo $val['languageID'] ?>"><?php echo $val['description'] ?></option>
+                                    <?php
+
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="row-fluid">
+                            <div class="form-group" style="text-align:right;">
+                                <button type="submit" value="submit" class="btn btn-primary btn-sm UA_Submit_btn"><i class="fa fa-chevron-circle-right"></i></button>
+                            </div>
+                        </div>
+
+
+                        <div id="schlMediumDatasDiv"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="ResetSchlMediumMod();" id="closeAttd"><?php echo $this->lang->line('common_cancel'); ?>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
     </div>
 
     <script>
@@ -265,7 +325,7 @@ $schoolTypes = load_schoolTypes();
                         "targets": 1
                     },
                     {
-                        "width": "2%",
+                        "width": "3%",
                         "targets": 2
                     },
                     {
@@ -285,7 +345,7 @@ $schoolTypes = load_schoolTypes();
                         "targets": 6
                     },
                     {
-                        "width": "1%",
+                        "width": "2%",
                         "targets": 7
                     },
                 ],
@@ -329,7 +389,6 @@ $schoolTypes = load_schoolTypes();
                 }
             });
         }
-
 
         function submitcommSchool() {
             var data = $('#mo_comSchool').serializeArray();
@@ -398,5 +457,166 @@ $schoolTypes = load_schoolTypes();
                 }
             });
 
+        }
+
+        function get_schoolMedium(schoolComID) {
+
+            document.getElementById('schoolComIDs').value = schoolComID;
+
+            $.ajax({
+                type: 'POST',
+                url: "CommunityNgo/get_schoolMediumsData",
+                data: {
+                    'schoolComID': schoolComID
+                },
+                success: function(data) {
+                    $('#schlMedium_modal').modal('show');
+                    $('#schlMediumDatasDiv').html(data);
+
+                }
+            });
+
+        }
+
+
+        function edit_schlMedium(x) {
+            var eID = x.id;
+            var numberPattern = /\d+/g;
+            var e = eID.match(numberPattern);
+            document.getElementById('schMediumID').value = e;
+
+            $.ajax({
+                type: 'POST',
+                url: "CommunityNgo/edit_schlMedium",
+                data: {
+                    'id': e
+                },
+                dataType: 'json', // what type of data do we expect back from the server
+                encode: true,
+
+                success: function(data) {
+
+                    $('#schlComMedium').val(data.schlComMedium).change();
+
+                }
+            });
+        }
+
+
+        function delete_schlMedium(d) {
+            var id = d.id;
+            var num = /\d+/g;
+            var delat = id.match(num);
+
+            var schoolComIDs = document.getElementById('schoolComIDs').value;
+            $.ajax({
+                type: 'POST',
+                url: "CommunityNgo/delete_schlMedium",
+                data: {
+                    'delid': delat
+                },
+
+                success: function(data) {
+                    $('#schlMedium_form').bootstrapValidator("resetForm", true);
+
+                    $('#schMediumID').val("");
+                    if ((data) == 'Deleted') {
+                        myAlert('s', 'Deleted Successfully');
+                    }
+                    if ((data) == 'exitInMemJob') {
+                        myAlert('e', 'Can not delete! School already exists in member job.');
+                    }
+                    get_schoolMedium(schoolComIDs);
+                }
+            });
+        }
+
+
+        $(document).ready(function() {
+
+            $('#schlMedium_form')
+                .bootstrapValidator({
+                    framework: 'bootstrap',
+                    fields: {
+                        schlComMedium: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Medium is required'
+                                }
+                            }
+                        }
+                    }
+                })
+                .on('success.form.bv', function(e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('bootstrapValidator');
+                    var data = $form.serializeArray();
+
+                    var that = $(this),
+                        url = that.attr('action'),
+                        type = that.attr('method'),
+                        data = {};
+                    that.find('[name]').each(function(index, value) {
+                        var that = $(this),
+                            name = that.attr('name'),
+                            value = that.val();
+
+                        data[name] = value;
+                    });
+                    var data = new window.FormData($('#schlMedium_form')[0]);
+                    e.preventDefault();
+                    $.ajax({
+                        url: "CommunityNgo/post_schlMedium",
+                        xhr: function() {
+                            return $.ajaxSettings.xhr();
+                        },
+                        type: "POST",
+                        data: data,
+                        beforeSend: function() {
+                            startLoad();
+                        },
+                        success: function(data) {
+                            stopLoad();
+
+                            var schoolComID = document.getElementById('schoolComIDs').value
+
+                            get_schoolMedium(schoolComID);
+
+                            $('#schMediumID').val("");
+                            $('#schlComMedium').val('').change();
+
+                            $('#schlMedium_form').bootstrapValidator("resetForm", true);
+
+                            if ((data) == 'inserted') {
+                                myAlert('s', 'inserted Successfully');
+                            }
+                            if ((data) == 'Updated') {
+                                myAlert('s', 'Updated Successfully');
+                            }
+                            if ((data) == 'available') {
+                                myAlert('e', 'The medium already available !');
+                            }
+                            if ((data) == 'exitInMemsJob') {
+                                myAlert('e', 'Can not delete! School medium already exists in member job.');
+                            }
+                        },
+                        error: function() {
+                            myAlert('e', 'Failed to process your request !');
+
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                });
+        });
+
+        function ResetSchlMediumMod() {
+
+            $('#schlComMedium').val('').change();
+
+            $('#schlMedium_form').bootstrapValidator("resetForm", true);
+            document.getElementById('schlMedium_form').reset();
         }
     </script>
