@@ -320,6 +320,8 @@ $date_format_policy = date_format_policy();
                     <!--Vehicle Details-->
                     <li class="comHelpType"><a onclick="configCom_masterPage('comHelpType')" href="#"> <i class="fa fa-chevron-right pull-right"></i><?php echo $this->lang->line('communityngo_memHelp_details'); ?> </a></li>
                     <!--Help Type-->
+                    <li class="comDisease"><a onclick="configCom_masterPage('comDisease')" href="#"> <i class="fa fa-chevron-right pull-right"></i><?php echo $this->lang->line('communityngo_Disease'); ?> </a></li>
+                    <!--Disease-->
                     <li class="comLanguage"><a onclick="configCom_masterPage('comLanguage')" href="#"> <i class="fa fa-chevron-right pull-right"></i><?php echo $this->lang->line('communityngo_Language'); ?> </a></li>
                     <!--Language-->
                 </ul>
@@ -380,6 +382,11 @@ $date_format_policy = date_format_policy();
                                                     <a onclick="configCom_masterPage('comHelpType')" href="#"><i class="fa fa-list" aria-hidden="true"></i>
                                                         <?php echo $this->lang->line('communityngo_memHelp_details'); ?> </a>
                                                     <!--Help Type-->
+                                                </div>
+                                                <div class="system-settings-item">
+                                                    <a onclick="configCom_masterPage('comDisease')" href="#"><i class="fa fa-medkit" aria-hidden="true"></i>
+                                                        <?php echo $this->lang->line('communityngo_Disease'); ?> </a>
+                                                    <!--Disease-->
                                                 </div>
                                                 <div class="system-settings-item">
                                                     <a onclick="configCom_masterPage('comLanguage')" href="#"><i class="fa fa-language" aria-hidden="true"></i>

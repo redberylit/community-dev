@@ -113,6 +113,8 @@ $lang['communityngo_isConverted'] = '<lable style="font-size: 11px;float: left;"
 $lang['communityngo_ConvertedYear'] = 'ஆண்டு'; //Year
 $lang['communityngo_ConvertedPlace'] = 'இடம்'; //Place
 $lang['communityngo_Disease'] = 'நோய்';
+$lang['communityngo_Disease_add'] = 'நோய் சேர்க்கவும்';
+$lang['communityngo_Disease_edit'] = 'மாற்று | நோய்';
 $lang['communityngo_CPermanent_sickness'] = 'நிரந்தர / நாள்பட்ட நோய்'; //Permanent Sickness
 $lang['communityngo_properties_details'] = 'சொத்து விபரங்கள்'; //Properties Details
 $lang['communityngo_property_details'] = 'சொத்து விபரம்'; //Property Details

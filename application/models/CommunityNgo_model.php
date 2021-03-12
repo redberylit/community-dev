@@ -10076,6 +10076,80 @@ WHERE dds.DocDesID
     }
     // end of help Details
 
+    //Dieseas
+    function save_communityDisease()
+    {
+        $this->db->trans_start();
+        $sickAutoID = $this->input->post('sickAutoID');
+        $sickDescription = $this->input->post('comDisease');
+
+        $data['sickDescription'] = $sickDescription;
+
+        if (!empty($sickAutoID)) {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_permanent_sickness WHERE sickAutoID != {$sickAutoID} AND sickDescription ='" . $sickDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+                $this->db->where('sickAutoID', $sickAutoID);
+                $this->db->update('srp_erp_ngo_com_permanent_sickness', $data);
+                $this->db->trans_complete();
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Disease Update Failed.');
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Disease Updated Successfully.');
+                }
+            } else {
+                return array('e', 'Disease is already available !');
+            }
+        } else {
+
+            $chkExitMas = $this->db->query("SELECT * FROM srp_erp_ngo_com_permanent_sickness WHERE sickDescription ='" . $sickDescription . "' ");
+            $rowExitMas = $chkExitMas->row();
+
+            if (empty($rowExitMas)) {
+
+                $this->db->insert('srp_erp_ngo_com_permanent_sickness', $data);
+                if ($this->db->trans_status() === FALSE) {
+                    $this->db->trans_rollback();
+                    return array('e', 'Disease save failed ' . $this->db->_error_message());
+                } else {
+                    $this->db->trans_commit();
+                    return array('s', 'Disease saved successfully.');
+                }
+            } else {
+
+                return array('e', 'Disease is already available !');
+            }
+        }
+    }
+
+    function editCommDisease()
+    {
+
+        $EDITid = $this->input->post('sickAutoID');
+        $data = $this->db->query("SELECT * FROM `srp_erp_ngo_com_permanent_sickness` WHERE sickAutoID = '{$EDITid}'")->row_array();
+        return $data;
+    }
+
+    function deleteCommDieseas()
+    {
+
+        $sickAutoID = $this->input->post('sickAutoID');
+
+        $isExist = $this->db->query("SELECT memPSicknessID FROM srp_erp_ngo_com_memberpersickness WHERE sickAutoID = '$sickAutoID' ")->row('memPSicknessID');
+
+        if (empty($isExist)) {
+            $this->db->delete('srp_erp_ngo_com_permanent_sickness', array('sickAutoID' => trim($sickAutoID)));
+            return 'haveDeleted';
+        } else {
+            return 'alreadyExist';
+        }
+    }
+    // end of Dieseas
+
     /* end of community system masters */
 
     /* end of Mowfi */

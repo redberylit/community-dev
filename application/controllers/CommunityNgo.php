@@ -8340,6 +8340,9 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
             case 'comHelpType':
                 $url = 'system/communityNgo/ngo_mo_comHelpDetialsMaster';
                 break;
+            case 'comDisease':
+                $url = 'system/communityNgo/ngo_mo_comDiseasesMaster';
+                break;
             case 'comLanguage':
                 $url = 'system/communityNgo/ngo_mo_comLanguagesMaster';
                 break;
@@ -8644,6 +8647,39 @@ dcd.collectionAutoId,dcd.commitmentAutoID,dcd.projectID")->result_array();
         echo json_encode($this->CommunityNgo_model->deleteCommHelpDetail());
     }
     // end of help Details
+
+    //Dieseas
+    function save_comDisease()
+    {
+        $this->form_validation->set_rules('comDisease', 'Disease', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            echo json_encode(array('e', validation_errors()));
+        } else {
+            echo json_encode($this->CommunityNgo_model->save_communityDisease());
+        }
+    }
+
+    function fetch_comDisease()
+    {
+
+        $this->datatables->select("sickAutoID,sickDescription");
+        $this->datatables->from('srp_erp_ngo_com_permanent_sickness');
+
+        $this->datatables->add_column('edit', '<span class="pull-right"><a href="#" onclick="editcomDisease($1)"><span title="Edit" rel="tooltip" class="fa fa-pencil"></span></a> |&nbsp;&nbsp;<a onclick="deletecomDisease($1)"><span title="Delete" rel="tooltip" class="glyphicon glyphicon-trash" style="color:rgb(209, 91, 71);"></span></a>', 'sickAutoID');
+        echo $this->datatables->generate();
+    }
+
+    function edit_comDisease()
+    {
+        echo json_encode($this->CommunityNgo_model->editCommDisease());
+    }
+
+    function delete_comDisease()
+    {
+        echo json_encode($this->CommunityNgo_model->deleteCommDieseas());
+    }
+    // end of Dieseas
 
     /* end of community system masters */
 }
