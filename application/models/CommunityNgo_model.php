@@ -14,6 +14,9 @@ class CommunityNgo_model extends ERP_Model
     //Area Master Details
     function new_sub_division()
     {
+
+        $community_owngroup_url = $this->config->item('community_verify_url') . '/create_own_group';
+
         $divisionTypeCode = trim($this->input->post('divisionTypeCode'));
         $divisionNo = trim($this->input->post('divisionNo'));
         $stateID = trim($this->input->post('hd_sub_division_stateID'));
@@ -77,6 +80,16 @@ class CommunityNgo_model extends ERP_Model
             $this->db->insert('srp_erp_statemaster', $data);
             if ($this->db->affected_rows() > 0) {
                 return array('s', 'Sub Division is created successfully.');
+
+                if($divisionTypeCode == "MH"){
+
+                    $mahallahDescription = $shortCode.' | '.$description;
+                    $bearer_token = $_SESSION['bearer_token'];
+
+                    com_ownGroupWithApi($community_owngroup_url,$description,$mahallahDescription,$bearer_token);
+
+                }
+
             } else {
                 return array('e', 'Error in Sub Division Creating');
             }

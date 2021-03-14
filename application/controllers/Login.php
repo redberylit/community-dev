@@ -173,6 +173,10 @@ class Login extends CI_Controller
             $resultDb2 = $this->db->get("user")->row_array();
             $result = "";
 
+            $community_login_url = $this->config->item('community_verify_url') . '/login';
+
+            $this->com_loginWithCommunityApi($community_login_url);
+
             if ($resultDb2) {
                 //echo '<pre>';print_r($resultDb2); echo '</pre>'; die();
                 if ($resultDb2['isGroupUser'] == 1) {
@@ -389,6 +393,31 @@ class Login extends CI_Controller
             }
         }
     }
+
+     function com_loginWithCommunityApi($community_login_url)
+	{
+        $url = $community_login_url;
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        
+        $headers = array(
+           "Accept: application/json",
+           "Authorization: Bearer {token}",
+        );
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        //for debug only!
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        
+        $resp = curl_exec($curl);
+        curl_close($curl);
+
+        $this->session->set_userdata("bearer_token", trim($resp));
+
+       // var_dump($resp);
+	}
 
 
     function forgetPasswordSubmit()
