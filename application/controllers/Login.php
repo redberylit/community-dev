@@ -1,9 +1,9 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
-    Private $main;
+    private $main;
 
 
     public function index($employee_code = NULL, $message = NULL, $type = 'e', $isGroupUser = 0)
@@ -21,7 +21,6 @@ class Login extends CI_Controller
                 } else {
 
                     $this->no_permission();
-
                 }
             }
         } else {
@@ -51,7 +50,6 @@ class Login extends CI_Controller
         } else {
             $this->no_permission_pin($id);
         }
-
     }
 
     function no_permission()
@@ -101,7 +99,7 @@ class Login extends CI_Controller
             header('Location:' . site_url('gears'));
             exit;
         } else {
-                $this->load->view('login_page', $data);
+            $this->load->view('login_page', $data);
         }
     }
 
@@ -175,7 +173,26 @@ class Login extends CI_Controller
 
             $community_login_url = $this->config->item('community_verify_url') . '/login';
 
-            $this->com_loginWithCommunityApi($community_login_url);
+            $loginApi = $this->com_loginWithCommunityApi($community_login_url);
+            $body = $loginApi["curl_body"];
+            switch ($loginApi["status_code"]) {
+                case 200:
+                    // success
+                   // print_r($body);
+                    $accessToken= $body->auth->access_token;
+
+                    $this->session->set_userdata("bearer_token", $accessToken);
+                    break;
+                case 422:
+                    // failed
+                    // handle errors
+                    //print_r($body);
+                    break;
+                
+                default:
+                  //  echo 'Something went wrong';
+                    break;
+            }
 
             if ($resultDb2) {
                 //echo '<pre>';print_r($resultDb2); echo '</pre>'; die();
@@ -202,7 +219,6 @@ class Login extends CI_Controller
                     } else {
                         $this->index(FALSE, $result['message']);
                     }
-
                 } else {
                     $config['hostname'] = trim($this->encryption->decrypt($resultDb2["host"]));
                     $config['username'] = trim($this->encryption->decrypt($resultDb2["db_username"]));
@@ -324,15 +340,12 @@ class Login extends CI_Controller
                         $data['extra'] = 'You are not authorize to use this product.';
                         $this->load->view('login_page_2', $data);
                     }
-
                 } else {
                     $data['title'] = 'Login';
                     $data['type'] = 'e';
                     $data['extra'] = $result['message'];
                     $this->load->view('login_page_2', $data);
                 }
-
-
             } else {
                 $this->db->select('*');
                 $this->db->where("UserName", $login_data['userN']);
@@ -374,51 +387,62 @@ class Login extends CI_Controller
                             $data['extra'] = 'You are not authorize to use this product.';
                             $this->load->view('login_page_2', $data);
                         }
-
                     } else {
                         $data['title'] = 'Login';
                         $data['type'] = 'e';
                         $data['extra'] = $result['message'];
                         $this->load->view('login_page_2', $data);
                     }
-
-
                 } else {
                     $data['title'] = 'Login';
                     $data['type'] = 'e';
                     $data['extra'] = 'Wrong user name or password. Please  try again.';
                     $this->load->view('login_page_2', $data);
                 }
-
             }
         }
     }
 
-     function com_loginWithCommunityApi($community_login_url)
-	{
+    function com_loginWithCommunityApi($community_login_url)
+    {
+
         $url = $community_login_url;
-
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        
-        $headers = array(
-           "Accept: application/json",
-           "Authorization: Bearer {token}",
+        $data = array(
+            "grant_type" => "password",
+            "client_id" => "1",
+            "client_secret" => "yDuQO9D691yX6ILe1ICSgM3ZrdyxlXbgg7j4R81y",
+            "username" => "admin@mail.com",
+            "password" => "12345678",
+            "scope" => ""
         );
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        //for debug only!
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        
-        $resp = curl_exec($curl);
-        curl_close($curl);
 
-        $this->session->set_userdata("bearer_token", trim($resp));
+        $headers = array(
+            'Content-Type: application/json',
+            'Accept: application/json'
+        );
 
-       // var_dump($resp);
-	}
 
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+        $result = curl_exec($ch);
+
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	    curl_close ( $ch );
+	    $res = array(
+	    	"status_code" => $httpcode,
+	    	"curl_body" => json_decode($result)
+	    );
+
+        return $res;
+    }
 
     function forgetPasswordSubmit()
     {
@@ -623,6 +647,5 @@ class Login extends CI_Controller
         $data['title'] = 'Login';
         $data['extra'] = NULL;
         $this->load->view('site_under_construction', $data);
-
     }
 }
